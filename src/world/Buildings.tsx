@@ -1,10 +1,11 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { RigidBody } from "@react-three/rapier";
 import { shared } from "../shared";
 import type { Building } from "../slice";
+import { makeFacadeMaps } from "./textures";
 
 const WINDOW_GLOW = new THREE.Color("#ffcf8a");
 
@@ -23,13 +24,22 @@ const HERO = new Set([
 const PALETTE = ["#8a5a48", "#b8b0a0", "#7c7e88", "#a8987e", "#6e4a3e", "#9aa0a6", "#c2bcae"];
 const HERO_COLOR = "#caa24a";
 
-function footprintGeometry(b: Building): THREE.BufferGeometry {
+function footprintGeometry(b: Building, detailed: boolean): THREE.BufferGeometry {
   const shape = new THREE.Shape();
   b.footprint.forEach(([e, n], i) => (i === 0 ? shape.moveTo(e, n) : shape.lineTo(e, n)));
   const g = new THREE.ExtrudeGeometry(shape, { depth: b.height, bevelEnabled: false });
   g.rotateX(-Math.PI / 2); // extrude up: x=east, y=up, z=-north
-  g.deleteAttribute("uv");
   g.computeVertexNormals();
+  if (detailed) {
+    const p = g.getAttribute("position"), n = g.getAttribute("normal");
+    const uv = new Float32Array(p.count * 2);
+    for (let i = 0; i < p.count; i++) {
+      const cap = Math.abs(n.getY(i)) > 0.5;
+      uv[i * 2] = cap ? 0.04 : (Math.abs(n.getX(i)) > Math.abs(n.getZ(i)) ? p.getZ(i) : p.getX(i)) / 3.2;
+      uv[i * 2 + 1] = cap ? 0.04 : p.getY(i) / 3.2;
+    }
+    g.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+  } else g.deleteAttribute("uv");
   return g;
 }
 
@@ -50,19 +60,23 @@ export function Buildings({
   buildings,
   center = [0, 0],
   colliderRadius = COLLIDER_RADIUS,
+  detailed = false,
 }: {
   buildings: Building[];
   center?: [number, number];
   /** Build 002: override for districts wider than the default radius. */
   colliderRadius?: number;
+  /** PBR facade opt-in for surveyed GIS districts only. */
+  detailed?: boolean;
 }) {
+  const maps = useMemo(() => detailed ? makeFacadeMaps() : null, [detailed]);
   const { near, chunks } = useMemo(() => {
     const near: { geom: THREE.BufferGeometry; color: string }[] = [];
     const cells = new Map<string, THREE.BufferGeometry[]>();
     buildings.forEach((b, i) => {
       const [cx, cy] = centroid(b);
       const d = Math.hypot(cx - center[0], cy - center[1]);
-      const geom = footprintGeometry(b);
+      const geom = footprintGeometry(b, detailed);
       if (d <= colliderRadius) {
         near.push({ geom, color: colorFor(b, i) });
       } else {
@@ -78,13 +92,18 @@ export function Buildings({
     const chunks: Chunk[] = [];
     for (const [key, list] of cells) {
       const merged = mergeGeometries(list, false);
+      list.forEach(g => g.dispose());
       if (!merged) continue;
       const [gx, gy] = key.split(",").map(Number);
       // chunk centre in world coords (x=east, z=-north)
       chunks.push({ geom: merged, cx: (gx + 0.5) * CELL, cz: -(gy + 0.5) * CELL });
     }
     return { near, chunks };
-  }, [buildings, center, colliderRadius]);
+  }, [buildings, center, colliderRadius, detailed]);
+  useEffect(() => () => {
+    near.forEach(b => b.geom.dispose());
+    chunks.forEach(chunk => chunk.geom.dispose());
+  }, [near, chunks]);
 
   // Per-frame: lit-window night glow + distance-cull far chunks (frustum culling
   // of each chunk is automatic since they're separate objects).
@@ -110,14 +129,14 @@ export function Buildings({
       {near.map(({ geom, color }, i) => (
         <RigidBody key={i} type="fixed" colliders="hull">
           <mesh geometry={geom} castShadow receiveShadow>
-            <meshStandardMaterial color={color} emissive={WINDOW_GLOW} emissiveIntensity={0} roughness={0.85} flatShading />
+            <meshStandardMaterial color={color} map={maps?.albedo ?? undefined} roughnessMap={maps?.roughness ?? undefined} emissiveMap={maps?.emissive ?? undefined} emissive={WINDOW_GLOW} emissiveIntensity={0} roughness={detailed ? 1 : 0.85} flatShading />
           </mesh>
         </RigidBody>
       ))}
       {/* far buildings: per-cell merged meshes, no shadow casting (cheap) */}
       {chunks.map((c, i) => (
         <mesh key={i} ref={(el) => (chunkRefs.current[i] = el)} geometry={c.geom} receiveShadow>
-          <meshStandardMaterial vertexColors emissive={WINDOW_GLOW} emissiveIntensity={0} roughness={0.85} flatShading />
+          <meshStandardMaterial vertexColors map={maps?.albedo ?? undefined} roughnessMap={maps?.roughness ?? undefined} emissiveMap={maps?.emissive ?? undefined} emissive={WINDOW_GLOW} emissiveIntensity={0} roughness={detailed ? 1 : 0.85} flatShading />
         </mesh>
       ))}
     </group>
