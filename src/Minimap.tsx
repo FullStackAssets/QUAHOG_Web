@@ -3,6 +3,7 @@ import { useGame } from "./store";
 import { useMission } from "./mission";
 import { shared } from "./shared";
 import { CIVIC } from "./places";
+import { buildRoadGraph, findRoadRoute, type PointXZ } from "./navigation/roadRoute";
 import { useEconomy, BUSINESSES } from "./economy";
 
 // Player-centered radar (§21): draws nearby roads, the objective, and a heading
@@ -37,6 +38,11 @@ export function Minimap() {
         segs.push(r.points[i][0], -r.points[i][1], r.points[i + 1][0], -r.points[i + 1][1], major);
       }
     }
+    const graph = buildRoadGraph(slice.roads);
+    let route: PointXZ[] | null = null;
+    let routedStep = "";
+    let routedFrom: PointXZ | null = null;
+    let routedAt = 0;
     const water = slice.water ?? [];
     const parks = slice.parks ?? [];
     const barrier = slice.barrier ?? [];
@@ -105,6 +111,38 @@ export function Minimap() {
         ctx.stroke();
       }
 
+      // Connected road route, computed only on mission change or substantial travel.
+      // A missing path stays missing: never draw a straight line through a building.
+      const mission = useMission.getState();
+      const step = mission.done ? null : mission.steps[mission.step];
+      const target = step?.target;
+      if (target) {
+        const key = String(mission.mi) + ":" + String(mission.step);
+        const now = performance.now();
+        const moved = routedFrom ? Math.hypot(px - routedFrom[0], pz - routedFrom[1]) : Infinity;
+        if (routedStep !== key || (moved > 25 && now - routedAt > 1200)) {
+          route = findRoadRoute(graph, [px, pz], [target[0], target[2]]);
+          routedStep = key;
+          routedFrom = [px, pz];
+          routedAt = now;
+        }
+        if (route && route.length >= 2) {
+          ctx.strokeStyle = "#ffcf4a";
+          ctx.lineWidth = 3.5;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+          ctx.beginPath();
+          route.forEach(([x, z], i) => {
+            const sx = R + (x - px) * PPM, sy = R + (z - pz) * PPM;
+            if (i === 0) ctx.moveTo(sx, sy);
+            else ctx.lineTo(sx, sy);
+          });
+          ctx.stroke();
+        }
+      } else {
+        route = null; routedStep = ""; routedFrom = null;
+      }
+
       // hurricane barrier (stone dike)
       ctx.strokeStyle = "#9a978c";
       ctx.lineWidth = 2.5;
@@ -150,8 +188,6 @@ export function Minimap() {
       }
 
       // objective marker
-      const ms = useMission.getState();
-      const step = ms.done ? null : ms.steps[ms.step];
       if (step?.target) {
         let ox = (step.target[0] - px) * PPM;
         let oy = (step.target[2] - pz) * PPM;
