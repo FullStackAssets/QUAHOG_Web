@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { CuboidCollider, RigidBody } from "@react-three/rapier";
 import { Vehicle, VEHICLE_TYPES, type VehicleType } from "../earth/Vehicles";
 import type { Road } from "../slice";
 
@@ -52,9 +53,13 @@ export function ParkedCars({ roads, center }: { roads: Road[]; center: [number, 
   return (
     <group>
       {cars.map((c, i) => (
-        <group key={i} position={[c.x, 0, c.z]} rotation-y={c.rot}>
+        <RigidBody key={i} type="fixed" colliders={false}
+          position={[c.x, 0, c.z]} rotation={[0, c.rot, 0]}>
+          {/* Static parked cars need an actual collision shape, not merely a mesh.
+              The generous vertical span catches curb-mounted player cars. */}
+          <CuboidCollider args={[1.1, 1.1, 2.25]} position={[0, 1.1, 0]} />
           <Vehicle type={c.type} color={c.color} />
-        </group>
+        </RigidBody>
       ))}
     </group>
   );
