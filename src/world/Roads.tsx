@@ -1,7 +1,7 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
-import { makeAsphaltTexture, makeCobbleTexture, makeNoiseNormal, makeGroundTexture } from "./textures";
+import { makeAsphaltTexture, makeAsphaltRoughness, makeCobbleTexture, makeNoiseNormal, makeGroundTexture } from "./textures";
 import { useGame } from "../store";
 import type { Road } from "../slice";
 import { junctionEndpoints, trimmedCenterlines } from "./markingGeometry";
@@ -137,6 +137,7 @@ function buildSidewalks(roads: Road[], top: number, inner: number, width: number
 export function Roads({ roads }: { roads: Road[] }) {
   const surfaceTex = useMemo(() => makeAsphaltTexture(false), []);
   const highwayTex = useMemo(() => makeAsphaltTexture(true), []);
+  const roughnessTex = useMemo(() => makeAsphaltRoughness(), []);
   const cobbleTex = useMemo(() => {
     const t = makeCobbleTexture();
     t.repeat.set(1, 0.5); // bigger cobbles along length
@@ -181,6 +182,13 @@ export function Roads({ roads }: { roads: Road[] }) {
       highway: buildRibbon(c.hw, 0.08, 0, 0, 0.72),
     }));
   }, [roads]);
+  useEffect(() => () => {
+    for (const chunk of chunks) {
+      for (const part of ["apron", "sidewalk", "cobble", "service", "surface", "centerline", "highway"] as const) {
+        chunk[part]?.dispose();
+      }
+    }
+  }, [chunks]);
 
   // distance-cull cells + wet-road sheen (rain) via traversal
   const root = useRef<THREE.Group>(null);
@@ -197,7 +205,7 @@ export function Roads({ roads }: { roads: Road[] }) {
       lastWet.current = wet;
       root.current?.traverse((o) => {
         const m = (o as THREE.Mesh).material as THREE.MeshStandardMaterial | undefined;
-        if (m?.isMeshStandardMaterial) { m.roughness = (m.userData.base ?? 0.9) - wet * 0.55; m.metalness = wet * 0.5; }
+        if (m?.isMeshStandardMaterial) { m.roughness = Math.max(0.20, (m.userData.base ?? 0.9) - wet * 0.36); m.metalness = 0; }
       });
     }
   });
@@ -229,7 +237,7 @@ export function Roads({ roads }: { roads: Road[] }) {
           )}
           {c.surface && (
             <mesh geometry={c.surface} receiveShadow>
-              <meshStandardMaterial map={surfaceTex} normalMap={nrm} normalScale={ns} color="#5a5c66" roughness={0.9} userData={{ base: 0.9 }} polygonOffset polygonOffsetFactor={-1} polygonOffsetUnits={-1} />
+              <meshStandardMaterial map={surfaceTex} roughnessMap={roughnessTex} normalMap={nrm} normalScale={ns} color="#5a5c66" roughness={0.9} userData={{ base: 0.9 }} polygonOffset polygonOffsetFactor={-1} polygonOffsetUnits={-1} />
             </mesh>
           )}
           {c.centerline && (
@@ -239,7 +247,7 @@ export function Roads({ roads }: { roads: Road[] }) {
           )}
           {c.highway && (
             <mesh geometry={c.highway} receiveShadow>
-              <meshStandardMaterial map={highwayTex} normalMap={nrm} normalScale={ns} color="#6a6c76" roughness={0.82} userData={{ base: 0.82 }} polygonOffset polygonOffsetFactor={-2} polygonOffsetUnits={-2} />
+              <meshStandardMaterial map={highwayTex} roughnessMap={roughnessTex} normalMap={nrm} normalScale={ns} color="#6a6c76" roughness={0.82} userData={{ base: 0.82 }} polygonOffset polygonOffsetFactor={-2} polygonOffsetUnits={-2} />
             </mesh>
           )}
         </group>
