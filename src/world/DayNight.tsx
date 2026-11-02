@@ -32,7 +32,8 @@ const storm = new THREE.Color("#5a6470"); // rain grade
 const fogGrey = new THREE.Color("#aeb6bd"); // dense coastal fog
 
 export function DayNight() {
-  const { scene } = useThree();
+  const { scene, camera } = useThree();
+  const skyAnchor = useRef<THREE.Group>(null);
   const sun = useRef<THREE.DirectionalLight>(null);
   const hemi = useRef<THREE.HemisphereLight>(null);
   const skyThrottle = useRef(0);
@@ -58,6 +59,10 @@ export function DayNight() {
   }, [scene]);
 
   useFrame((_, dt) => {
+    // Drei's atmosphere and star dome are finite meshes. The city is much
+    // larger than their default radius, so anchor them to the active camera.
+    // Otherwise driving ~800m can expose the edge of the dome against the sky.
+    if (skyAnchor.current) skyAnchor.current.position.copy(camera.position);
     if (useGame.getState().paused) return; // freeze time in the pause menu
     // integrate on shared.hour (the canonical clock) so a safehouse sleep can
     // skip it; rolling past midnight advances the day counter.
@@ -116,8 +121,10 @@ export function DayNight() {
 
   return (
     <>
-      <Sky sunPosition={sunPos} turbidity={5} rayleigh={2.2} mieCoefficient={0.005} />
-      <Stars radius={400} depth={60} count={2800} factor={6} fade speed={0.3} />
+      <group ref={skyAnchor}>
+        <Sky sunPosition={sunPos} turbidity={5} rayleigh={2.2} mieCoefficient={0.005} />
+        <Stars radius={400} depth={60} count={2800} factor={6} fade speed={0.3} />
+      </group>
       <sprite ref={glow} scale={[180, 180, 1]}>
         <spriteMaterial map={glowTex} transparent depthWrite={false} opacity={0.8} blending={THREE.AdditiveBlending} />
       </sprite>
