@@ -5,6 +5,7 @@ import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js
 import { RigidBody } from "@react-three/rapier";
 import { shared } from "../shared";
 import { Buildings } from "./Buildings";
+import { ArchitecturalDetails } from "./ArchitecturalDetails";
 import { ensureGisReplacements, withoutReplaced } from "./gisDistrict";
 import { makeFacadeMaps, makeNoiseNormal } from "./textures";
 import type { Building } from "../slice";
@@ -143,11 +144,15 @@ function tileGeometry(buildings: Building[]): THREE.BufferGeometry | null {
       if (p) geoms.push(p);
     }
   });
-  return geoms.length ? mergeGeometries(geoms, false) : null;
+  if (!geoms.length) return null;
+  try { return mergeGeometries(geoms, false); }
+  finally { geoms.forEach(g => g.dispose()); }
 }
 
 function Tile({ buildings, colliders }: { buildings: Building[]; colliders: boolean }) {
+  const quality = useGame(s => s.quality);
   const geom = useMemo(() => tileGeometry(buildings), [buildings]);
+  useEffect(() => () => { geom?.dispose(); }, [geom]);
   const maps = useMemo(() => makeFacadeMaps(), []);
   const nrm = useMemo(() => makeNoiseNormal(), []);
   const nrmScale = useMemo(() => new THREE.Vector2(0.35, 0.35), []);
@@ -162,10 +167,10 @@ function Tile({ buildings, colliders }: { buildings: Building[]; colliders: bool
       let x = 0, n = 0; for (const p of b.footprint) { x += p[0]; n += p[1]; }
       const k = b.footprint.length;
       out.push([x / k, b.height, -(n / k)]);
-      if (out.length > 90) break;
+      if (out.length >= [12, 36, 90][quality]) break;
     }
     return out;
-  }, [buildings]);
+  }, [buildings, quality]);
   const roofRef = useRef<THREE.InstancedMesh>(null);
   useLayoutEffect(() => {
     const m = roofRef.current;
@@ -188,7 +193,8 @@ function Tile({ buildings, colliders }: { buildings: Building[]; colliders: bool
   return (
     <group>
       {colliders ? <RigidBody type="fixed" colliders="trimesh">{mesh}</RigidBody> : mesh}
-      <instancedMesh ref={roofRef} args={[undefined, undefined, Math.max(1, roofs.length)]} castShadow>
+      {colliders && <ArchitecturalDetails buildings={buildings} />}
+      <instancedMesh ref={roofRef} args={[undefined, undefined, Math.max(1, roofs.length)]} castShadow={quality === 2}>
         <boxGeometry args={[1.8, 1, 1.8]} />
         <meshStandardMaterial color="#55585e" roughness={0.9} />
       </instancedMesh>
