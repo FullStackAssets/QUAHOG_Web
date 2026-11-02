@@ -6,7 +6,7 @@ import type { Road } from "../slice";
 // jitter / perpendicular offset / orientation. Keeps the placement math in one
 // place so spacing, the highway whitelist, and the radius cull stay in sync.
 
-export interface RoadSample { x: number; z: number; dx: number; dz: number }
+export interface RoadSample { x: number; z: number; dx: number; dz: number; width: number }
 
 const DEFAULT_HIGHWAYS = ["primary", "secondary", "tertiary", "residential", "unclassified"];
 
@@ -34,7 +34,7 @@ export function sampleRoadEdges(
         const t = d / len;
         const x = x1 + (x2 - x1) * t, z = z1 + (z2 - z1) * t;
         if (Math.hypot(x - center[0], z - center[1]) > radius) continue;
-        out.push({ x, z, dx, dz });
+        out.push({ x, z, dx, dz, width: r.width });
         if (out.length >= max) return out;
       }
     }
