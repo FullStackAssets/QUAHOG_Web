@@ -63,7 +63,7 @@ export function UtilityPoles({ roads, center }: { roads: Road[]; center: [number
 
   return (
     <group>
-      <instancedMesh ref={ref} args={[undefined, undefined, Math.max(1, poles.length)]} castShadow>
+      <instancedMesh name="quahog-camera-poles" ref={ref} args={[undefined, undefined, Math.max(1, poles.length)]} castShadow>
         <cylinderGeometry args={[0.14, 0.18, 7, 6]} />
         <meshStandardMaterial color="#5a4632" roughness={0.95} />
       </instancedMesh>
