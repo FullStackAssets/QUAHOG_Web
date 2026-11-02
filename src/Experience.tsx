@@ -152,6 +152,8 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
         {slice && <ParkedCars roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
         {/* Heroes use RigidBody colliders → must live inside <Physics> */}
         <Heroes />
+        {/* FollowCamera needs Rapier's collider query world. */}
+        <FollowCamera />
       </Physics>
 
       {/* Area polys sit BELOW the road apron (0.04) so roads/sidewalks always
@@ -215,7 +217,6 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
       <Rain />
       <Ambient weather="clear" />
 
-      <FollowCamera />
       <FxGate />
       <ShadowGate />
     </>
