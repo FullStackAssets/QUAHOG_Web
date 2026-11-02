@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGame } from "./store";
 import { useMission } from "./mission";
 import { shared } from "./shared";
@@ -16,6 +16,10 @@ const PPM = R / RANGE; // pixels per metre
 export function Minimap() {
   const slice = useGame((s) => s.slice);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [touch, setTouch] = useState(false);
+  useEffect(() => {
+    setTouch(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
 
   useEffect(() => {
     if (!slice) return;
@@ -48,6 +52,11 @@ export function Minimap() {
       ctx.beginPath();
       ctx.arc(R, R, R - 1, 0, Math.PI * 2);
       ctx.clip();
+      // Heading-up map: actor forward points to the top of the radar.
+      // World +z is screen-down, and yaw=0 faces +z.
+      ctx.translate(R, R);
+      ctx.rotate(Math.PI + heading);
+      ctx.translate(-R, -R);
 
       // backdrop
       ctx.fillStyle = "#0b0f1a";
@@ -144,10 +153,15 @@ export function Minimap() {
       const ms = useMission.getState();
       const step = ms.done ? null : ms.steps[ms.step];
       if (step?.target) {
-        const ox = R + (step.target[0] - px) * PPM;
-        const oy = R + (step.target[2] - pz) * PPM;
-        const cx = Math.max(8, Math.min(SIZE - 8, ox));
-        const cy = Math.max(8, Math.min(SIZE - 8, oy));
+        let ox = (step.target[0] - px) * PPM;
+        let oy = (step.target[2] - pz) * PPM;
+        const length = Math.hypot(ox, oy);
+        if (length > R - 9) {
+          const k = (R - 9) / length;
+          ox *= k; oy *= k;
+        }
+        const cx = R + ox;
+        const cy = R + oy;
         ctx.fillStyle = "#ffcf4a";
         ctx.beginPath();
         ctx.arc(cx, cy, 4, 0, Math.PI * 2);
@@ -172,7 +186,7 @@ export function Minimap() {
       // player heading arrow (always centered)
       ctx.save();
       ctx.translate(R, R);
-      ctx.rotate(-heading); // world heading → screen (north up)
+      // The map rotates beneath the centered player so forward stays up.
       ctx.fillStyle = "#ff4fa3";
       ctx.beginPath();
       ctx.moveTo(0, -7);
@@ -197,7 +211,11 @@ export function Minimap() {
   }, [slice]);
 
   return (
-    <div style={{ position: "absolute", left: 16, bottom: 16, width: SIZE, height: SIZE }}>
+    <div aria-label="Heading-up minimap with active objective" style={{
+      position: "absolute", left: 16,
+      bottom: touch ? "calc(env(safe-area-inset-bottom, 0px) + 178px)" : 16,
+      width: SIZE, height: SIZE, pointerEvents: "none",
+    }}>
       <canvas ref={canvasRef} width={SIZE} height={SIZE} style={{ width: SIZE, height: SIZE, borderRadius: "50%" }} />
     </div>
   );
