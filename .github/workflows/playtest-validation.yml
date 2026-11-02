@@ -1,8 +1,10 @@
 name: QUAHOG Playtest Validation
 
 on:
+  push:
+    branches: [feat/photorealism-mobile-phase1]
   pull_request:
-    branches: [main]
+    branches: [main, fix/2026-11-02-playtest-navigation-qa]
   workflow_dispatch:
 
 permissions:
