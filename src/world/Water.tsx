@@ -1,4 +1,5 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import { useGame } from "../store";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { makeWaterNormal } from "./textures";
@@ -21,6 +22,7 @@ function inRing(e: number, n: number, ring: [number, number][]): boolean {
 }
 
 export function Water({ polys, holes = [] }: { polys: [number, number][][]; holes?: [number, number][][] }) {
+  const quality = useGame(s => s.quality);
   const normalMap = useMemo(() => {
     const t = makeWaterNormal();
     t.repeat.set(60, 60);
@@ -68,13 +70,16 @@ export function Water({ polys, holes = [] }: { polys: [number, number][][]; hole
     }
     merged.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
     merged.computeVertexNormals();
+    geoms.forEach(g => g.dispose());
     return merged;
   }, [polys, holes]);
 
   // cache base vertex positions so we can ripple them each frame (§6 waves)
-  const base = useMemo(() => (geometry ? (geometry.attributes.position.array as Float32Array).slice() : null), [geometry]);
+  const base = useMemo(() => (quality === 2 && geometry ? (geometry.attributes.position.array as Float32Array).slice() : null), [geometry, quality]);
+  useEffect(() => () => { geometry?.dispose(); }, [geometry]);
+  const waveClock = useRef(0);
 
-  const matRef = useRef<THREE.MeshStandardMaterial>(null);
+  const matRef = useRef<THREE.MeshPhysicalMaterial>(null);
   const meshRef = useRef<THREE.Mesh>(null);
   // Gerstner-style swell: sum a few directional waves for choppy, believable
   // motion; recompute normals so the IBL reflection rolls with the surface.
@@ -99,7 +104,9 @@ export function Water({ polys, holes = [] }: { polys: [number, number][][]; hole
     }
     // animate the swell only on modest meshes — at region scale (Buzzards Bay)
     // the vertex count is huge, so keep that water static for performance.
-    if (base && meshRef.current && base.length < 45000) {
+    waveClock.current += dt;
+    if (quality === 2 && waveClock.current >= 0.05 && base && meshRef.current && base.length < 45000) {
+      waveClock.current = 0;
       const t = state.clock.elapsedTime;
       const g = meshRef.current.geometry;
       const pos = g.attributes.position as THREE.BufferAttribute;
@@ -115,18 +122,20 @@ export function Water({ polys, holes = [] }: { polys: [number, number][][]; hole
   if (!geometry) return null;
   return (
     <mesh ref={meshRef} geometry={geometry} position={[0, WATER_Y, 0]} receiveShadow>
-      <meshStandardMaterial
+      <meshPhysicalMaterial
         ref={matRef}
-        color="#1d566b"
-        roughness={0.14}
-        metalness={0.6}
-        envMapIntensity={1.35}
+        color="#235568"
+        roughness={0.18}
+        metalness={0}
+        ior={1.333}
+        clearcoat={quality === 2 ? 0.28 : 0.12}
+        clearcoatRoughness={0.16}
+        envMapIntensity={1.05}
         normalMap={normalMap}
         normalScale={new THREE.Vector2(0.5, 0.5)}
-        transparent
-        // semi-transparent so the real aerial harbour tone reads through while
-        // the 3D surface still carries the wave reflections + specular glints
-        opacity={0.8}
+        transparent={quality === 2}
+        // Opaque on phone Low/Medium to avoid a city-scale transparent pass.
+        opacity={quality === 2 ? 0.94 : 1}
       />
     </mesh>
   );
