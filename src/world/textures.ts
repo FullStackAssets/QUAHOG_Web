@@ -77,44 +77,92 @@ export function makeZebra(): THREE.Texture {
 // Façade maps (§ Phase 1): one tileable cell ≈ one floor (~3.2 m). `albedo` is
 // white wall + dark glass window (multiplies the per-building base colour);
 // `emissive` is black wall + warm lit window (glows at night). Shared singletons.
-let _facade: { albedo: THREE.Texture; emissive: THREE.Texture } | null = null;
+let _facade: { albedo: THREE.Texture; emissive: THREE.Texture; roughness: THREE.Texture } | null = null;
+/**
+ * One tile maps to one architectural bay. This is a lightweight offline PBR
+ * fallback, not a replacement for surveyed building photography or scanned
+ * textures. All three maps share UVs and are cached across streamed tiles.
+ */
 export function makeFacadeMaps() {
   if (_facade) return _facade;
-  const S = 128;
-  const [ca, a] = canvas(S);   // albedo
-  const [ce, e] = canvas(S);   // emissive
-  // wall
-  a.fillStyle = "#ffffff"; a.fillRect(0, 0, S, S);          // white → keep base colour
-  e.fillStyle = "#000000"; e.fillRect(0, 0, S, S);          // black → wall doesn't glow
-  // window opening, centred, taller than wide (typical sash window)
-  const mx = 30, my = 20, w = S - mx * 2, h = S - my * 2;
-  // --- albedo ---
-  // light frame/casing around the opening
-  a.fillStyle = "#d7d4cc"; a.fillRect(mx - 4, my - 4, w + 8, h + 8);
-  // glass with a vertical sky-reflection gradient (dark at top → lighter low)
-  const gg = a.createLinearGradient(0, my, 0, my + h);
-  gg.addColorStop(0, "#1c252f"); gg.addColorStop(0.55, "#2c3947"); gg.addColorStop(1, "#3a4856");
-  a.fillStyle = gg; a.fillRect(mx, my, w, h);
-  // a soft diagonal glare streak across the panes
-  a.save(); a.beginPath(); a.rect(mx, my, w, h); a.clip();
-  a.strokeStyle = "rgba(210,225,235,0.18)"; a.lineWidth = 7;
-  a.beginPath(); a.moveTo(mx - 6, my + h * 0.7); a.lineTo(mx + w * 0.7, my - 6); a.stroke();
-  a.restore();
-  // muntins: 2 vertical × 3 horizontal panes, plus the meeting rail a touch thicker
-  a.fillStyle = "#cfccc4";
-  a.fillRect(mx + w / 2 - 1.5, my, 3, h);                     // vertical mullion
-  for (const fy of [my + h / 3, my + (2 * h) / 3]) a.fillRect(mx, fy - 1.5, w, 3);
-  a.fillStyle = "#bfbcb4"; a.fillRect(mx, my + h / 2 - 2, w, 4); // meeting rail
-  // sill shadow under the opening
-  a.fillStyle = "rgba(0,0,0,0.18)"; a.fillRect(mx - 4, my + h + 4, w + 8, 4);
-  // --- emissive (lit at night) ---
-  e.fillStyle = "#ffcf8a"; e.fillRect(mx, my, w, h);
-  e.fillStyle = "#000000";
-  e.fillRect(mx + w / 2 - 1.5, my, 3, h);
-  for (const fy of [my + h / 3, my + h / 2, my + (2 * h) / 3]) e.fillRect(mx, fy - 1.5, w, 3);
-  const albedo = asColor(new THREE.Texture(ca)); albedo.wrapS = albedo.wrapT = THREE.RepeatWrapping; albedo.needsUpdate = true;
-  const emissive = asColor(new THREE.Texture(ce)); emissive.wrapS = emissive.wrapT = THREE.RepeatWrapping; emissive.needsUpdate = true;
-  _facade = { albedo, emissive };
+  const S = 256;
+  const [ca, a] = canvas(S);
+  const [ce, e] = canvas(S);
+  const [cr, rough] = canvas(S);
+  a.fillStyle = "#f4f2ed"; a.fillRect(0, 0, S, S);
+  e.fillStyle = "#000000"; e.fillRect(0, 0, S, S);
+  rough.fillStyle = "#e3e3e3"; rough.fillRect(0, 0, S, S);
+
+  // Deterministic masonry courses: the vertex colour still provides local
+  // brick/clapboard variation. Do not use random() in reusable texture assets.
+  const bw = 64, bh = 16;
+  for (let row = 0; row < S / bh; row++) {
+    const y = row * bh, offset = row % 2 === 0 ? 0 : bw / 2;
+    a.fillStyle = "rgba(62,52,43,0.19)"; a.fillRect(0, y, S, 2);
+    rough.fillStyle = "#f1f1f1"; rough.fillRect(0, y, S, 2);
+    for (let x = -bw + offset; x < S; x += bw) {
+      const tone = (row * 13 + Math.floor(x / 8) * 7) & 3;
+      a.fillStyle = ["rgba(43,25,18,0.07)", "rgba(255,255,255,0.04)",
+        "rgba(35,28,27,0.05)", "rgba(255,255,255,0.08)"][tone];
+      a.fillRect(x + 2, y + 2, bw - 4, bh - 4);
+      a.fillStyle = "rgba(61,54,47,0.14)"; a.fillRect(x, y, 2, bh);
+      rough.fillStyle = "#eeeeee"; rough.fillRect(x, y, 2, bh);
+    }
+  }
+  const mx = 73, my = 39, w = 110, h = 165;
+  // Inset opening, masonry reveal, glass and multi-layer wooden sash.
+  a.fillStyle = "#686862"; a.fillRect(mx - 11, my - 10, w + 22, h + 22);
+  a.fillStyle = "#d5d1c7"; a.fillRect(mx - 7, my - 7, w + 14, h + 14);
+  rough.fillStyle = "#b7b7b7"; rough.fillRect(mx - 7, my - 7, w + 14, h + 14);
+  const glass = a.createLinearGradient(0, my, 0, my + h);
+  glass.addColorStop(0, "#344f61");
+  glass.addColorStop(0.54, "#223747");
+  glass.addColorStop(1, "#363e40");
+  a.fillStyle = glass; a.fillRect(mx, my, w, h);
+  rough.fillStyle = "#484848"; rough.fillRect(mx, my, w, h);
+  // A broad sky reflection remains subtle; exaggerated streaks read as plastic.
+  const glare = a.createLinearGradient(mx, my, mx + w, my + h);
+  glare.addColorStop(0, "rgba(222,238,245,0.27)");
+  glare.addColorStop(0.30, "rgba(217,233,242,0.01)");
+  glare.addColorStop(0.56, "rgba(230,241,244,0.13)");
+  glare.addColorStop(1, "rgba(222,238,245,0.01)");
+  a.fillStyle = glare; a.fillRect(mx, my, w, h);
+  // Uneven blinds and a deep sill provide scale cues without extra draws.
+  a.fillStyle = "rgba(224,208,188,0.19)";
+  a.fillRect(mx + 7, my + h * 0.62, w - 14, 10);
+  a.fillStyle = "#d0ccc0";
+  a.fillRect(mx + w / 2 - 3, my, 6, h);
+  a.fillRect(mx, my + h / 2 - 4, w, 8);
+  rough.fillStyle = "#b8b8b8";
+  rough.fillRect(mx + w / 2 - 3, my, 6, h);
+  rough.fillRect(mx, my + h / 2 - 4, w, 8);
+  a.fillStyle = "#aaa79d"; a.fillRect(mx - 13, my + h + 7, w + 26, 8);
+  a.fillStyle = "rgba(22,20,18,0.18)"; a.fillRect(mx - 10, my + h + 15, w + 20, 4);
+  // Stone window reveals are rougher than glazing.
+  rough.fillStyle = "#cecece"; rough.fillRect(mx - 13, my + h + 7, w + 26, 8);
+  for (let i = 0; i < 7; i++) {
+    a.fillStyle = "rgba(31,30,26,0.047)";
+    a.fillRect(mx - 8 + i * 18, my + h + 17, 2, 16 + (i * 9) % 20);
+  }
+
+  // Warm interior illumination is controlled by the existing time-of-day
+  // emissive multiplier; masonry and window frames never emit.
+  const light = e.createLinearGradient(mx, my, mx, my + h);
+  light.addColorStop(0, "#4d382a");
+  light.addColorStop(0.53, "#b78a53");
+  light.addColorStop(1, "#3c2c22");
+  e.fillStyle = light; e.fillRect(mx + 1, my + 1, w - 2, h - 2);
+  e.fillStyle = "#000";
+  e.fillRect(mx + w / 2 - 3, my, 6, h);
+  e.fillRect(mx, my + h / 2 - 4, w, 8);
+
+  const albedo = asColor(new THREE.CanvasTexture(ca));
+  const emissive = asColor(new THREE.CanvasTexture(ce));
+  const roughness = asData(new THREE.CanvasTexture(cr));
+  for (const map of [albedo, emissive, roughness]) {
+    map.wrapS = map.wrapT = THREE.RepeatWrapping;
+  }
+  _facade = { albedo, emissive, roughness };
   return _facade;
 }
 
