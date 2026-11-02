@@ -15,7 +15,7 @@ describe("road-connected mission guidance", () => {
     const route = findRoadRoute(graph, [0, 0], [20, -20]);
     expect(route).not.toBeNull();
     expect(route).toContainEqual([20, 0]);
-    expect(route?.at(-1)).toEqual([20, -20]);
+    expect(route?.slice(-1)[0]).toEqual([20, -20]);
   });
 
   it("does not invent a straight route across disconnected streets", () => {
