@@ -43,7 +43,7 @@ export function StreetExtras({ roads, center }: { roads: Road[]; center: [number
     for (const s of samples) {
       const nx = -s.dz, nz = s.dx;          // left normal of travel
       const side = (n & 1) ? 1 : -1;
-      const off = 5.2;                       // curbside offset from centerline
+      const off = Math.max(5.2, s.width / 2 + 1.4); // keep props outside the traffic lane
       const x = s.x + nx * off * side, z = s.z + nz * off * side;
       const rot = Math.atan2(nx * side, nz * side) + (((n * 0.618) % 1) - 0.5) * 0.25;
       const kind = n % 7;
@@ -53,7 +53,7 @@ export function StreetExtras({ roads, center }: { roads: Road[]; center: [number
       else if (kind === 3) papers.push({ x, z, rot });
       else if (kind === 4) cans.push({ x, z, rot });
       else if (kind === 5) bollards.push({ x, z, rot });
-      else cones.push({ x: x - nx * side * 3.4, z: z - nz * side * 3.4, rot }); // nudge into gutter
+      else cones.push({ x: x + nx * side * 0.5, z: z + nz * side * 0.5, rot }); // curb shoulder, never in active lane
       n++;
     }
     return { stops, meters, cans, cones, booths, papers, bollards };
