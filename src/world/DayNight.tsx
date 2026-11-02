@@ -33,6 +33,10 @@ const fogGrey = new THREE.Color("#aeb6bd"); // dense coastal fog
 
 export function DayNight() {
   const { scene, camera } = useThree();
+  const quality = useGame(s => s.quality);
+  // Shadow coverage follows the active actor; a 500 m wide atlas caused
+  // detached, low-resolution contact shadows on roads and parked vehicles.
+  const shadowExtent = [85, 120, 155][quality];
   const skyAnchor = useRef<THREE.Group>(null);
   const sun = useRef<THREE.DirectionalLight>(null);
   const hemi = useRef<THREE.HemisphereLight>(null);
@@ -136,15 +140,15 @@ export function DayNight() {
         intensity={2.0}
         color="#fff2dc"
         castShadow
-        shadow-mapSize={[2048, 2048]}
+        shadow-mapSize={quality === 2 ? [2048, 2048] : [1024, 1024]}
         shadow-camera-near={1}
         shadow-camera-far={600}
-        shadow-camera-left={-250}
-        shadow-camera-right={250}
-        shadow-camera-top={250}
-        shadow-camera-bottom={-250}
-        shadow-bias={-0.0002}
-        shadow-normalBias={0.6}
+        shadow-camera-left={-shadowExtent}
+        shadow-camera-right={shadowExtent}
+        shadow-camera-top={shadowExtent}
+        shadow-camera-bottom={-shadowExtent}
+        shadow-bias={-0.00012}
+        shadow-normalBias={0.035}
       />
       <Lighthouse position={[40, 0, 240]} />
     </>
