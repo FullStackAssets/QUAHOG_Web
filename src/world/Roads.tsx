@@ -4,6 +4,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { makeAsphaltTexture, makeCobbleTexture, makeNoiseNormal, makeGroundTexture } from "./textures";
 import { useGame } from "../store";
 import type { Road } from "../slice";
+import { junctionEndpoints, trimmedCenterlines } from "./markingGeometry";
 
 const CELL = 1000;       // road chunk size (m)
 const DRAW_DIST = 1500;  // hide road chunks beyond this from the camera
@@ -148,6 +149,7 @@ export function Roads({ roads }: { roads: Road[] }) {
   // chunk roads into a spatial grid so off-screen/distant cells are culled
   const chunks = useMemo(() => {
     const land = roads.filter((r) => !r.bridge); // bridges handled by <Bridges/>
+    const junctions = junctionEndpoints(land);
     const cells = new Map<string, { cb: Road[]; sf: Road[]; hw: Road[]; sv: Road[]; cx: number; cz: number }>();
     for (const r of land) {
       const mid = r.points[Math.floor(r.points.length / 2)] ?? r.points[0];
@@ -172,7 +174,7 @@ export function Roads({ roads }: { roads: Road[] }) {
       surface: buildRibbon(c.sf, 0.06, 0),
       // painted centre line down arterials (>=8m: secondary/tertiary) so streets
       // read as real roads, not bare asphalt. Thin ribbon along the centerline.
-      centerline: buildRibbon(c.sf.filter((r) => r.width >= 8), 0.066, 0, 0, 0.025),
+      centerline: buildRibbon(trimmedCenterlines(c.sf, junctions), 0.066, 0, 0, 0.025),
       // trim highway carriageway width so close divided carriageways (the two
       // directions of I-195) read as separate roads with a median gap instead of
       // one squished/converging blob; the concrete apron keeps the shoulders.
