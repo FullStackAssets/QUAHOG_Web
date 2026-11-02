@@ -32,18 +32,29 @@ export function Effects() {
     }
   });
 
+  // EffectComposer accepts concrete React elements, not conditional booleans.
+  // Separate compositions also ensure heavy high-quality passes are not
+  // instantiated on mobile Low or Medium.
+  if (cinematic) {
+    return (
+      <EffectComposer multisampling={0}>
+        <N8AO halfRes aoRadius={1.7} distanceFalloff={1.0} intensity={1.45} />
+        <Bloom intensity={0.28} luminanceThreshold={1.0} luminanceSmoothing={0.18} mipmapBlur />
+        <ChromaticAberration offset={new THREE.Vector2(0.00025, 0.00025)} radialModulation modulationOffset={0.4} />
+        <HueSaturation ref={hs} hue={0} saturation={0} />
+        <BrightnessContrast ref={bc} brightness={0} contrast={0.06} />
+        <Noise premultiply blendFunction={BlendFunction.OVERLAY} opacity={0.045} />
+        <Vignette eskil={false} offset={0.32} darkness={0.32} />
+        <SMAA />
+      </EffectComposer>
+    );
+  }
   return (
     <EffectComposer multisampling={0}>
-      {/* ambient occlusion — contact darkening where buildings/props meet the
-          ground and in recesses; the biggest single "grounding"/realism cue.
-          halfRes keeps it cheap enough for the streamed city. */}
-      {cinematic && <N8AO halfRes aoRadius={1.7} distanceFalloff={1.0} intensity={1.45} />}
-      <Bloom intensity={cinematic ? 0.28 : 0.18} luminanceThreshold={1.0} luminanceSmoothing={0.18} mipmapBlur />
-      {cinematic && <ChromaticAberration offset={new THREE.Vector2(0.00025, 0.00025)} radialModulation modulationOffset={0.4} />}
+      <Bloom intensity={0.18} luminanceThreshold={1.0} luminanceSmoothing={0.18} mipmapBlur />
       <HueSaturation ref={hs} hue={0} saturation={0} />
       <BrightnessContrast ref={bc} brightness={0} contrast={0.06} />
-      {cinematic && <Noise premultiply blendFunction={BlendFunction.OVERLAY} opacity={0.045} />}
-      <Vignette eskil={false} offset={0.32} darkness={cinematic ? 0.32 : 0.22} />
+      <Vignette eskil={false} offset={0.32} darkness={0.22} />
       <SMAA />
     </EffectComposer>
   );
