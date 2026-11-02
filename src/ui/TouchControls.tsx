@@ -22,7 +22,7 @@ const BTNS: { k: string; label: string; action: string; color: string; hold?: bo
   { k: "f", label: "HIT", action: "KeyF", color: "#b5742a" },
   { k: "brake", label: "BRAKE", action: "Space", hold: true, color: "#45506a" },
   { k: "sprint", label: "RUN", action: "ShiftLeft", hold: true, color: "#c79a2e", big: true },
-  { k: "v", label: "VIEW", action: "KeyV", color: "#3a4060" },
+  { k: "v", label: "CAM", action: "KeyV", color: "#3a4060" },
   { k: "horn", label: "HORN", action: "KeyH", color: "#3a4a6a" },
   { k: "map", label: "MAP", action: "KeyM", color: "#3a4a6a" },
   { k: "menu", label: "MENU", action: "KeyP", color: "#3a3f4e", defHidden: true },
