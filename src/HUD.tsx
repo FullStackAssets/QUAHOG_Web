@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGame } from "./store";
 import { useStats } from "./game";
 import { useMission } from "./mission";
@@ -46,6 +46,11 @@ export function HUD({ sliceName }: { sliceName: string }) {
   const [sub, setSub] = useState<{ name: string; text: string } | null>(null);
   const [mph, setMph] = useState(0);
   const [compass, setCompass] = useState("N");
+  // Track distance increases against the active mission rather than a placed waypoint.
+  const [wrongWay, setWrongWay] = useState(false);
+  const trend = useRef<{ key: string; previous: number | null; started: number; increase: number; warned: boolean }>({
+    key: "", previous: null, started: 0, increase: 0, warned: false,
+  });
   useEffect(() => {
     const id = setInterval(() => {
       const h = Math.floor(shared.hour);
@@ -64,9 +69,38 @@ export function HUD({ sliceName }: { sliceName: string }) {
       const ms = useMission.getState();
       const step = ms.done ? null : ms.steps[ms.step];
       if (step?.target && t) {
-        setDist(Math.round(Math.hypot(t.x - step.target[0], t.z - step.target[2])));
+        const distance = Math.hypot(t.x - step.target[0], t.z - step.target[2]);
+        setDist(Math.round(distance));
         setBearing(Math.atan2(step.target[0] - t.x, step.target[2] - t.z) - shared.camYaw);
-      } else setDist(null);
+        const key = `${ms.mi}:${ms.step}`;
+        const tr = trend.current;
+        const driving = useGame.getState().mode === "car" && distance > (step.radius ?? 10) + 10;
+        if (tr.key !== key || !driving) {
+          tr.key = key; tr.previous = null; tr.started = 0; tr.increase = 0; tr.warned = false;
+          setWrongWay(false);
+        } else if (tr.previous !== null) {
+          const diff = distance - tr.previous;
+          if (diff > 0.7) {
+            if (!tr.started) tr.started = performance.now();
+            tr.increase += diff;
+            if (!tr.warned && tr.increase >= 20 && performance.now() - tr.started >= 4500) {
+              tr.warned = true;
+              setWrongWay(true);
+            }
+          } else if (diff < -1) {
+            tr.started = 0; tr.increase = 0;
+            if (tr.warned) { tr.warned = false; setWrongWay(false); }
+          }
+        }
+        tr.previous = distance;
+      } else {
+        setDist(null);
+        trend.current.previous = null;
+        trend.current.started = 0;
+        trend.current.increase = 0;
+        trend.current.warned = false;
+        setWrongWay(false);
+      }
       // player-placed waypoint (§21)
       const w = useGame.getState().waypoint;
       if (w && t) {
@@ -210,6 +244,26 @@ export function HUD({ sliceName }: { sliceName: string }) {
         }}>
           <span style={{ display: "inline-block", transform: `rotate(${wp.bearing}rad)`, fontSize: 16, lineHeight: 1 }}>▲</span>
           <span style={{ fontSize: 12, marginLeft: 6 }}>📍 {wp.dist} m</span>
+        </div>
+      )}
+
+      {/* Keep primary mission direction visible above the thumb controls. */}
+      {!missionDone && dist !== null && (
+        <div aria-label="Active mission direction" style={{
+          position: "absolute", top: "calc(env(safe-area-inset-top, 0px) + 68px)",
+          left: "50%", transform: "translateX(-50%)",
+          padding: "6px 12px", maxWidth: "72vw", minWidth: 150,
+          borderRadius: 10, textAlign: "center", background: "rgba(9,15,25,.84)",
+          border: `1px solid ${wrongWay ? "#ff695e" : "#e6bd59"}`,
+          boxShadow: "0 2px 14px rgba(0,0,0,.35)",
+        }}>
+          <div style={{ fontSize: 11, letterSpacing: 1, color: "#ffcf4a", fontWeight: 800 }}>
+            OBJECTIVE · {dist} m
+          </div>
+          <div style={{ display: "inline-block", fontSize: 26, lineHeight: 1.1,
+            transform: `rotate(${bearing}rad)`, color: "#ffcf4a" }}>▲</div>
+          {wrongWay && <div role="status" style={{ fontSize: 12, fontWeight: 900,
+            color: "#ff8b7c" }}>WRONG WAY · TURN BACK</div>}
         </div>
       )}
 
