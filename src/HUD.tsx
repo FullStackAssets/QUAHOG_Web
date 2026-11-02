@@ -45,6 +45,11 @@ export function HUD({ sliceName }: { sliceName: string }) {
   const [wp, setWp] = useState<{ dist: number; bearing: number } | null>(null);
   const [sub, setSub] = useState<{ name: string; text: string } | null>(null);
   const [mph, setMph] = useState(0);
+  const [directionLabel, setDirectionLabel] = useState<"D" | "R" | "N">("N");
+  const [touch, setTouch] = useState(false);
+  useEffect(() => {
+    setTouch(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
   const [compass, setCompass] = useState("N");
   // Track distance increases against the active mission rather than a placed waypoint.
   const [wrongWay, setWrongWay] = useState(false);
@@ -59,6 +64,8 @@ export function HUD({ sliceName }: { sliceName: string }) {
       setDay(shared.day);
       setStamina(shared.stamina);
       setMph(Math.round(Math.abs(shared.carSpeed) * 2.237)); // m/s → mph
+      // Direction indication, not an automatic-transmission model.
+      setDirectionLabel(shared.carSpeed > 0.4 ? "D" : shared.carSpeed < -0.4 ? "R" : "N");
       // compass from the active heading (world north = -z)
       const hd = useGame.getState().mode === "car" ? shared.carYaw : shared.heading;
       const bearing = (Math.atan2(Math.sin(hd), -Math.cos(hd)) * 180 / Math.PI + 360) % 360;
@@ -180,9 +187,11 @@ export function HUD({ sliceName }: { sliceName: string }) {
       {/* status panel (top-right under the radio is fine; use top-center-right) */}
       <div
         style={{
-          position: "absolute", top: 14, right: 240,
+          position: "absolute", top: touch ? "calc(env(safe-area-inset-top, 0px) + 8px)" : 14,
+          right: touch ? 8 : 240,
           background: "rgba(12,15,26,.7)", border: "1px solid #3a2a5e",
-          borderRadius: 8, padding: "8px 12px", textAlign: "right", minWidth: 150,
+          borderRadius: 8, padding: touch ? "5px 8px" : "8px 12px",
+          textAlign: "right", minWidth: touch ? 112 : 150,
         }}
       >
         <div style={{ color: "#7CFC00", fontWeight: 700, fontSize: 15 }}>${Math.floor(cash).toLocaleString()}</div>
@@ -207,7 +216,7 @@ export function HUD({ sliceName }: { sliceName: string }) {
         )}
       </div>
 
-      <div
+      {!touch && <div
         style={{
           position: "absolute",
           top: 14,
@@ -236,12 +245,13 @@ export function HUD({ sliceName }: { sliceName: string }) {
           <br />
           mode: <b style={{ color: "#22d3ee" }}>{mode === "car" ? "DRIVING" : "ON FOOT"}</b>
         </div>
-      </div>
+      </div>}
 
       {/* player waypoint guide (§21) — top-center */}
       {wp && (
         <div style={{
-          position: "absolute", top: 14, left: "50%", transform: "translateX(-50%)",
+          position: "absolute", top: touch ? "calc(env(safe-area-inset-top, 0px) + 226px)" : 14,
+          left: "50%", transform: "translateX(-50%)",
           background: "rgba(12,15,26,.72)", border: "1px solid #3a2a5e", borderRadius: 8,
           padding: "5px 12px", textAlign: "center", color: "#ff7ad9",
         }}>
@@ -284,9 +294,12 @@ export function HUD({ sliceName }: { sliceName: string }) {
       {/* mission objective */}
       <div
         style={{
-          position: "absolute", bottom: 16, left: "50%", transform: "translateX(-50%)",
+          position: "absolute",
+          top: touch ? "calc(env(safe-area-inset-top, 0px) + 146px)" : undefined,
+          bottom: touch ? undefined : 16, left: "50%", transform: "translateX(-50%)",
           background: "rgba(12,15,26,.72)", border: "1px solid #3a2a5e", borderRadius: 8,
-          padding: "8px 16px", textAlign: "center", maxWidth: 520,
+          padding: touch ? "6px 10px" : "8px 16px",
+          textAlign: "center", maxWidth: touch ? "88vw" : 520,
         }}
       >
         <div style={{ fontSize: 10, letterSpacing: 1, color: "#ffcf4a", opacity: 0.9 }}>
@@ -349,6 +362,9 @@ export function HUD({ sliceName }: { sliceName: string }) {
         }}>
           <span style={{ fontSize: 26, fontWeight: 800, color: "#22d3ee", fontFamily: "'Courier New', monospace" }}>{mph}</span>
           <span style={{ fontSize: 11, opacity: 0.7, marginLeft: 4 }}>MPH</span>
+          <span style={{ display: "block", fontSize: 10, opacity: 0.85 }}>
+            DIRECTION {directionLabel === "D" ? "FORWARD" : directionLabel === "R" ? "REVERSE" : "STOPPED"}
+          </span>
         </div>
       )}
 
