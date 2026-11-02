@@ -13,7 +13,6 @@ import { Landmarks } from "./world/Landmarks";
 import { StreetLife } from "./world/StreetLife";
 import { SeamensBethel } from "./world/SeamensBethel";
 import { Props } from "./world/Props";
-import { Awnings } from "./world/Awnings";
 import { Crosswalks } from "./world/Crosswalks";
 import { UtilityPoles } from "./world/UtilityPoles";
 import { Decals } from "./world/Decals";
@@ -149,6 +148,8 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
               ))}
           </>
         )}
+        {/* Parked car geometry must share the player's Rapier physics world. */}
+        {slice && <ParkedCars roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
         {/* Heroes use RigidBody colliders → must live inside <Physics> */}
         <Heroes />
       </Physics>
@@ -180,14 +181,14 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
       <Gulls />
       <CullByDistance center={CORE} radius={820}>
       {slice && <Props roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
-      {slice && <Awnings roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
+      {/* Road-derived awnings were observed floating without facade anchors.
+          Keep disabled until a building-facade placement validator exists. */}
       {slice && <Crosswalks roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
       {slice && <UtilityPoles roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
       {slice && <Decals roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
       {slice && <Graffiti roads={slice.roads} buildings={slice.buildings} center={[CORE[0], -CORE[1]]} />}
       {slice && <StreetSigns roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
       {slice && <TrafficLights roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
-      {slice && <ParkedCars roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
       {slice && <StreetExtras roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
       {slice && <RoadFixtures roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
       {slice && <Foliage roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
