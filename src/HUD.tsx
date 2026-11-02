@@ -90,6 +90,9 @@ export function HUD({ sliceName }: { sliceName: string }) {
           } else if (diff < -1) {
             tr.started = 0; tr.increase = 0;
             if (tr.warned) { tr.warned = false; setWrongWay(false); }
+          } else if (!tr.warned) {
+            // A pause or sideways turn must not count as continuous wrong-way driving.
+            tr.started = 0; tr.increase = 0;
           }
         }
         tr.previous = distance;
