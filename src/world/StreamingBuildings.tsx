@@ -4,6 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { RigidBody } from "@react-three/rapier";
 import { shared } from "../shared";
+import { useGame } from "../store";
 import { Buildings } from "./Buildings";
 import { ArchitecturalDetails } from "./ArchitecturalDetails";
 import { ensureGisReplacements, withoutReplaced } from "./gisDistrict";
