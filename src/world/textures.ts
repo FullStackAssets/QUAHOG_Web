@@ -341,6 +341,34 @@ export function makeAsphaltTexture(withLanes: boolean): THREE.Texture {
   return asColor(t);
 }
 
+// Deterministic dielectric surface roughness for coastal asphalt. Grayscale
+// values stay in linear space: aggregate remains matte, worn tire tracks are
+// slightly smoother. Wetness is applied by Roads to the base roughness factor.
+let _asphaltRoughness: THREE.Texture | null = null;
+export function makeAsphaltRoughness(): THREE.Texture {
+  if (_asphaltRoughness) return _asphaltRoughness;
+  const S = 128;
+  const [c, ctx] = canvas(S);
+  ctx.fillStyle = "#e5e5e5";
+  ctx.fillRect(0, 0, S, S);
+  for (let y = 0; y < S; y += 2) {
+    for (let x = 0; x < S; x += 2) {
+      const h = ((Math.imul(x + 17, 374761393) ^ Math.imul(y + 23, 668265263)) >>> 0);
+      const value = 197 + (h % 47);
+      ctx.fillStyle = "rgb(" + value + "," + value + "," + value + ")";
+      ctx.fillRect(x, y, 2, 2);
+    }
+  }
+  // Subtle, repeated tire polishing rather than a mirror-like road surface.
+  ctx.fillStyle = "rgba(110,110,110,0.13)";
+  ctx.fillRect(32, 0, 9, S);
+  ctx.fillRect(91, 0, 9, S);
+  const texture = asData(new THREE.CanvasTexture(c));
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  _asphaltRoughness = texture;
+  return texture;
+}
+
 /** Bumpy normal-ish map for the water surface (scrolled for shimmer). */
 export function makeWaterNormal(): THREE.Texture {
   const [c, ctx] = canvas(128);
