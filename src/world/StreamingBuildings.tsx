@@ -157,7 +157,7 @@ function Tile({ buildings, colliders }: { buildings: Building[]; colliders: bool
   const nrm = useMemo(() => makeNoiseNormal(), []);
   const nrmScale = useMemo(() => new THREE.Vector2(0.35, 0.35), []);
   const mat = useRef<THREE.MeshStandardMaterial>(null);
-  useFrame(() => { if (mat.current) mat.current.emissiveIntensity = (1 - shared.dayT) * 1.0; });
+  useFrame(() => { if (mat.current) mat.current.emissiveIntensity = (1 - shared.dayT) * 0.65; });
 
   // rooftop clutter (water tanks / AC units) on mid-rise buildings for skyline depth
   const roofs = useMemo(() => {
@@ -185,8 +185,9 @@ function Tile({ buildings, colliders }: { buildings: Building[]; colliders: bool
     <mesh geometry={geom} castShadow={colliders} receiveShadow>
       <meshStandardMaterial
         ref={mat} vertexColors map={maps.albedo} emissiveMap={maps.emissive}
+        roughnessMap={maps.roughness}
         normalMap={nrm} normalScale={nrmScale}
-        emissive={WINDOW_GLOW} emissiveIntensity={0} roughness={0.82} metalness={0.04}
+        emissive={WINDOW_GLOW} emissiveIntensity={0} roughness={1.0} metalness={0.04}
       />
     </mesh>
   );
