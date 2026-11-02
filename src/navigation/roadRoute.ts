@@ -13,6 +13,9 @@ const DRIVABLE = new Set([
 ]);
 
 const distance = (a: PointXZ, b: PointXZ) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+// OSM north=0 maps to JavaScript -0 after sign inversion. Normalize the
+// coordinate once so snapshots, equality checks and exported paths are stable.
+const worldPoint = (p: [number, number]): PointXZ => [p[0], p[1] === 0 ? 0 : -p[1]];
 
 export function buildRoadGraph(roads: Road[]): RoadGraph {
   const points: PointXZ[] = [];
@@ -32,9 +35,9 @@ export function buildRoadGraph(roads: Road[]): RoadGraph {
   };
   for (const road of roads) {
     if (!DRIVABLE.has(road.highway) || road.points.length < 2) continue;
-    let prev = nodeId([road.points[0][0], -road.points[0][1]]);
+    let prev = nodeId(worldPoint(road.points[0]));
     for (let i = 1; i < road.points.length; i++) {
-      const cur = nodeId([road.points[i][0], -road.points[i][1]]);
+      const cur = nodeId(worldPoint(road.points[i]));
       const metres = distance(points[prev], points[cur]);
       if (cur !== prev && metres > 0.01) {
         edges[prev].push({ to: cur, metres });
@@ -99,7 +102,10 @@ export function findRoadRoute(graph: RoadGraph, from: PointXZ, to: PointXZ): Poi
       let id = goal;
       while (id !== -1) { path.push(graph.points[id]); id = prev[id]; }
       path.push(from);
-      return path.reverse();
+      const ordered = path.reverse();
+      // Suppress repeated start/end vertices when the objective is already
+      // exactly on a graph node. Adjacent points must be visibly distinct.
+      return ordered.filter((p, i) => i === 0 || distance(p, ordered[i - 1]) > 0.01);
     }
     for (const edge of graph.edges[cur.id]) {
       const candidate = costs[cur.id] + edge.metres;
