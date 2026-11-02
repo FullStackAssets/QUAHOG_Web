@@ -63,6 +63,7 @@ import { EnvLight } from "./world/EnvLight";
 import { GameSystems } from "./world/GameSystems";
 import { MissionRunner } from "./world/MissionRunner";
 import { Effects } from "./world/Effects";
+import { RenderDiagnostics } from "./world/RenderDiagnostics";
 import { Player } from "./actors/Player";
 import { Car } from "./actors/Car";
 import { Boat } from "./actors/Boat";
@@ -219,6 +220,7 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
 
       <FxGate />
       <ShadowGate />
+      <RenderDiagnostics />
     </>
   );
 }
