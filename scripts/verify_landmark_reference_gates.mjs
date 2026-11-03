@@ -98,6 +98,11 @@ for(const rec of records) {
       assert(geom.vertex_count === fp.length,prefix+"footprint vertex count changed");
       assert(dist2(geom.first_vertex,fp[0]) < 0.001,prefix+"footprint first vertex changed");
       assert(geom.height_in_source_m === named[0].height,prefix+"tile height changed");
+      const cx = fp.reduce((s,p)=>s+p[0],0)/fp.length;
+      // Cross-city identity lock: New Bedford and Fall River must not share a
+      // same-named OSM polygon (notably the distinct Andrew Robeson houses).
+      if(rec.city === "New Bedford") assert(cx > -10000,prefix+"New Bedford record points at a Fall River polygon");
+      if(rec.city === "Fall River") assert(cx < -10000,prefix+"Fall River record points at a New Bedford polygon");
       if(geom.front_orientation_verified) {
         assert(Number.isInteger(geom.front_edge_index) && geom.front_edge_index>=0 &&
           geom.front_edge_index<fp.length,prefix+"confirmed front must use a valid edge index");
@@ -121,13 +126,15 @@ for(const rec of records) {
       prefix+"accepted landmark lacks footprint front-edge orientation check");
     assert(rec.geometry?.photo_to_polygon_match_verified === true,
       prefix+"accepted landmark lacks photo-to-footprint verification");
+    assert(rec.geometry?.height_verified === true && rec.geometry?.physical_envelope_verified === true,
+      prefix+"accepted landmark lacks measured height and physical envelope QA");
   }
   if(rec.id === "NB-05") {
     assert(rec.site_identity_documented === false && rec.geometry === null && rec.marker_name === null,
       "New Bedford Cove must remain unassigned until its parcel is identified");
   }
 }
-assert(exactNamedGeometry === 8,"expected eight repo-named geometry candidates");
+assert(exactNamedGeometry === 13,"expected thirteen repo-named geometry candidates");
 assert(markerCount === 4,"expected four exact named POI matches");
 const report={
   audit:"SouthCoast landmark photo-to-footprint gates",records:records.length,
