@@ -1,0 +1,695 @@
+{
+  "schema": "quahog.landmark-photo-footprint-qa.v1",
+  "target_repository": "FullStackAssets/QUAHOG_Web",
+  "base_branch": "main",
+  "base_commit_at_audit": "73450d2d7eed651f03db5d2fc1fa44c1425063bd",
+  "created_utc_date": "2026-11-03",
+  "source": "User-provided Fall River and New Bedford landmark research manifests, crosschecked against GitHub main branch world tiles",
+  "acceptance": "Full unoccluded straight-on entire building first; name-marker and named-OSM-polygon matches are not photo, facade or frontage acceptance.",
+  "photo_licensing": "Reference URLs only. Do not import media absent source-by-source rights review.",
+  "deploy_authorized": false,
+  "landmarks": [
+    {
+      "id": "FR-06",
+      "city": "Fall River",
+      "name": "Fall River City Hall / Government Center",
+      "address": "1 Government Center, Fall River, MA 02722",
+      "site_identity_documented": true,
+      "marker_name": "Fall River City Hall",
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-39_14.json",
+        "tile_sha_at_audit": "7766c9b7d7388f33c6729f2349b7bc08caa4609e",
+        "mesh_name": "Fall River City Hall",
+        "vertex_count": 6,
+        "first_vertex": [
+          -19490.27,
+          7204.43
+        ],
+        "height_in_source_m": 8,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
+      "references": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/File:Fall_River_Massachusetts_Government_Center_City_Hall.jpg",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Complete front including overpass void, blue-glass bays, flag wing and sides",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "FR-07",
+      "city": "Fall River",
+      "name": "Portugalia Marketplace",
+      "address": "489 Bedford St, Fall River, MA 02720",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://portugaliamarketplace.com/pages/about-us",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Real retail storefront, signage, entrance, roofline; reject loading-dock substitution",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "FR-08",
+      "city": "Fall River",
+      "name": "Plumbers' Supply Co.",
+      "address": "555 Rodman St, Fall River, MA 02721",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://www.loc8nearme.com/massachusetts/fall-river/plumbers-supply-co-fall-river/9123853/",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Actual blue facade, signage, roofline and side elevations; reject mismatched warehouse",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "FR-09",
+      "city": "Fall River",
+      "name": "Tecumseh Mill No. 1",
+      "address": "164 Hartwell St, Fall River, MA 02721",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://www.apartments.com/tecumseh-mill-apartments-fall-river-ma/bm1nj08/",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Straight-on mill; verify original windows, roofline, and tower before rebuilding a gable",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "FR-10",
+      "city": "Fall River",
+      "name": "Bank Street Armory",
+      "address": "72 Bank St, Fall River, MA 02720",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/File:Bank_Street_Armory.jpg",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Head-on armory; main arch, towers, battlements, side elevations",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "FR-11",
+      "city": "Fall River",
+      "name": "Academy Building",
+      "address": "102 South Main St, Fall River, MA 02721",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://www.theacademyapts.com/photogallery",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Whole historic facade, entrance, window pattern and roofline",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "FR-12",
+      "city": "Fall River",
+      "name": "Fall River Justice Center",
+      "address": "186 South Main St, Fall River, MA 02721",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://www.rseassociates.com/fall-river-courthouse",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Complete glazed frontage, entrance, roofline and sides",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "FR-13",
+      "city": "Fall River",
+      "name": "The Cove Restaurant & Marina",
+      "address": "392 Davol St, Fall River, MA 02720",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://www.weddingwire.com/biz/the-cove-restaurant-marina-fall-river/95ef44733b9f2d56.html",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Front-facing restaurant exterior, water-facing elevation, signage; distinct from New Bedford Cove",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "FR-14",
+      "city": "Fall River",
+      "name": "Riverview Towers",
+      "address": "301 Milliken Blvd, Fall River, MA 02721",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://www.loopnet.com/Listing/301-Milliken-Blvd-Fall-River-MA/7038845/",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Whole tower entrance, balconies and window grid; historic highway shots insufficient",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "FR-15",
+      "city": "Fall River",
+      "name": "Ships' Cove Apartments",
+      "address": "130 Canal St, Fall River, MA 02721",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://www.shipscoveapts.com/",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Building-front and waterfront-facing views, signage, complete facade",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "NB-01",
+      "city": "New Bedford",
+      "name": "New Bedford Whaling Museum — Bourne/Wood + modern entrance",
+      "address": "18 Johnny Cake Hill, New Bedford, MA 02740",
+      "site_identity_documented": true,
+      "marker_name": "New Bedford Whaling Museum",
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-1_-1.json",
+        "tile_sha_at_audit": "24fd8636b6d96403dcaf6202ce1aa7d60c1dea15",
+        "mesh_name": "New Bedford Whaling Museum",
+        "vertex_count": 20,
+        "first_vertex": [
+          -208.1,
+          -154.8
+        ],
+        "height_in_source_m": 8,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
+      "references": [
+        {
+          "url": "https://www.nps.gov/places/new-bedford-whaling-museum.htm",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Separate full facade shots of each extant component; cupola, modern wing, entrance, junctions; exclude unbuilt expansion renders",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "NB-02",
+      "city": "New Bedford",
+      "name": "Cherry Building (former Cherry & Webb)",
+      "address": "800 Purchase St, New Bedford, MA 02740",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-1_-1.json",
+        "tile_sha_at_audit": "24fd8636b6d96403dcaf6202ce1aa7d60c1dea15",
+        "mesh_name": "Cherry Building",
+        "vertex_count": 8,
+        "first_vertex": [
+          -447.38,
+          -100.91
+        ],
+        "height_in_source_m": 8,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
+      "references": [
+        {
+          "url": "https://www.newbedfordguide.com/cherry-webb/2013/12/11",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "CURRENT front facade, whole corner and upper floors; historical reference alone is unacceptable",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "NB-03",
+      "city": "New Bedford",
+      "name": "Rodman Candleworks",
+      "address": "72 North Water St, New Bedford, MA 02740",
+      "site_identity_documented": true,
+      "marker_name": "Rodman Candleworks",
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-1_0.json",
+        "tile_sha_at_audit": "7976af2da68c0a48d6a259b5912bef320aa8c35c",
+        "mesh_name": "Rodman Candleworks",
+        "vertex_count": 8,
+        "first_vertex": [
+          -176.27,
+          4.63
+        ],
+        "height_in_source_m": 8,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
+      "references": [
+        {
+          "url": "https://www.nps.gov/places/rodman-candleworks.htm",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Identifying signage photo, full current front, windows and entrance",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "NB-04",
+      "city": "New Bedford",
+      "name": "Carter's Clothing & Footwear / former bank",
+      "address": "55 William St, New Bedford, MA 02740",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-1_-1.json",
+        "tile_sha_at_audit": "24fd8636b6d96403dcaf6202ce1aa7d60c1dea15",
+        "mesh_name": "Carter's Clothing",
+        "vertex_count": 4,
+        "first_vertex": [
+          -383.29,
+          -30.99
+        ],
+        "height_in_source_m": 8,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
+      "references": [
+        {
+          "url": "https://downtownnb.org/carters-clothing-footwear/",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Full front including both upper floors, side elevations and cornice",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "NB-05",
+      "city": "New Bedford",
+      "name": "The Cove — unresolved New Bedford target",
+      "address": "Unknown, New Bedford, MA",
+      "site_identity_documented": false,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://newbedford-ma.s3.amazonaws.com/wp-content/uploads/sites/46/20191219214434/NOD_Case-04-17_Apts-on-the-Cove_Special-Permit.pdf",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "DO NOT assign a parcel or mesh until the photographed New Bedford location is identified; not Fall River Cove",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "NB-06",
+      "city": "New Bedford",
+      "name": "Andrew Robeson House",
+      "address": "32 William St, New Bedford, MA 02740",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": null,
+      "references": [
+        {
+          "url": "https://waterfrontleague.org/past-projects/",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Establish name-to-footprint parcel evidence, THEN get full current front; marker relocation history matters",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "NB-07",
+      "city": "New Bedford",
+      "name": "United States Custom House",
+      "address": "37 North Second St, New Bedford, MA 02740",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-1_-1.json",
+        "tile_sha_at_audit": "24fd8636b6d96403dcaf6202ce1aa7d60c1dea15",
+        "mesh_name": "U.S. Custom House",
+        "vertex_count": 8,
+        "first_vertex": [
+          -321.99,
+          -62.12
+        ],
+        "height_in_source_m": 8,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
+      "references": [
+        {
+          "url": "https://www.gsa.gov/real-estate/explore-historic-buildings/find-a-historic-federal-building/us-custom-house-new-bedford-ma",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Current facade close-ups, pediment, columns, stone materials; do not reintroduce historic removed cupola",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "NB-08",
+      "city": "New Bedford",
+      "name": "Double Bank / Merchants and Mechanics Banks Building",
+      "address": "60 North Water St, New Bedford, MA 02740",
+      "site_identity_documented": true,
+      "marker_name": "Double Bank Building",
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-1_-1.json",
+        "tile_sha_at_audit": "24fd8636b6d96403dcaf6202ce1aa7d60c1dea15",
+        "mesh_name": "Double Bank Building",
+        "vertex_count": 4,
+        "first_vertex": [
+          -200.92,
+          -22.46
+        ],
+        "height_in_source_m": 8,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
+      "references": [
+        {
+          "url": "https://www.nps.gov/places/double-bank.htm",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Columns, front pediment, entrances and stonework close-ups",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    },
+    {
+      "id": "NB-09",
+      "city": "New Bedford",
+      "name": "New Bedford YMCA",
+      "address": "25 South Water St, New Bedford, MA 02740",
+      "site_identity_documented": true,
+      "marker_name": null,
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-1_-1.json",
+        "tile_sha_at_audit": "24fd8636b6d96403dcaf6202ce1aa7d60c1dea15",
+        "mesh_name": "New Bedford YMCA",
+        "vertex_count": 23,
+        "first_vertex": [
+          -220.99,
+          -205.41
+        ],
+        "height_in_source_m": 8,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
+      "references": [
+        {
+          "url": "https://ymcasouthcoast.org/location/new-bedford/",
+          "role": "candidate_reference_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
+        }
+      ],
+      "photo_acceptance": {
+        "full_building_frontal": false,
+        "left_elevation": false,
+        "right_elevation": false,
+        "roofline": false,
+        "entrance_and_signage": false,
+        "material_closeup": false,
+        "street_context_both_directions": false
+      },
+      "missing_evidence": "Full present-day front, signage, windows, brick/materials and entrance close-ups",
+      "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
+      "approved_photo_ids": [],
+      "source_media_imported": false
+    }
+  ]
+}
