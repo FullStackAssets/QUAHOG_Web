@@ -639,6 +639,12 @@
           "role": "identified_exterior_photo_page",
           "license_reviewed": false,
           "full_front_accepted": false
+        },
+        {
+          "url": "https://newbedford-ma.s3.amazonaws.com/wp-content/uploads/sites/46/20200911074037/Case-2020.22%C2%AD_32-William-St.-STAFF-REPORT.pdf",
+          "role": "historic_commission_parcel_evidence",
+          "license_reviewed": false,
+          "full_front_accepted": false
         }
       ],
       "photo_acceptance": {
@@ -654,7 +660,28 @@
       "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
       "approved_photo_ids": [],
       "source_media_imported": false,
-      "name_collision_note": "Different from Fall River Andrew Robeson Jr. House at 451 Rock Street: do not cross-link the Fall River named tile polygon to this New Bedford site."
+      "name_collision_note": "Different from Fall River Andrew Robeson Jr. House at 451 Rock Street: do not cross-link the Fall River named tile polygon to this New Bedford site.",
+      "unverified_geometry_candidate": {
+        "tile": "public/tiles/b_-1_-1.json",
+        "source_tile_sha": "24fd8636b6d96403dcaf6202ce1aa7d60c1dea15",
+        "array_index_at_audit": 42,
+        "osm_name": null,
+        "footprint_vertex_count": 10,
+        "polygon_centroid_world_m": [
+          -299.961,
+          -66.969
+        ],
+        "historic_marker_world_m": [
+          -299.514,
+          -61.226
+        ],
+        "historic_marker_inside_candidate_polygon": true,
+        "marker_reference": "https://www.hmdb.org/m.asp?m=290003",
+        "official_parcel_reference": "32 William Street, Map 53 Lot 147 (2020 New Bedford Historical Commission report)",
+        "association_verified": false,
+        "front_edge_verified": false,
+        "note": "The historic marker may not be at the building center; proximity is NOT parcel, photography, ownership, OSM-id or frontend verification. Fall River has a distinct same-named historic house."
+      }
     },
     {
       "id": "NB-07",
