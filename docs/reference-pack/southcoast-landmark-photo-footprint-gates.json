@@ -29,7 +29,9 @@
         "height_in_source_m": 8,
         "front_edge_index": null,
         "front_orientation_verified": false,
-        "photo_to_polygon_match_verified": false
+        "photo_to_polygon_match_verified": false,
+        "height_verified": false,
+        "physical_envelope_verified": false
       },
       "references": [
         {
@@ -60,7 +62,23 @@
       "address": "489 Bedford St, Fall River, MA 02720",
       "site_identity_documented": true,
       "marker_name": null,
-      "geometry": null,
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-38_14.json",
+        "tile_sha_at_audit": "4349ab55eb1f72b8abcd4e9f700cf8b2e717e427",
+        "mesh_name": "Portugalia Marketplace",
+        "vertex_count": 10,
+        "first_vertex": [
+          -18848.07,
+          7092.76
+        ],
+        "height_in_source_m": 8,
+        "height_verified": false,
+        "physical_envelope_verified": false,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
       "references": [
         {
           "url": "https://portugaliamarketplace.com/pages/about-us",
@@ -120,7 +138,23 @@
       "address": "164 Hartwell St, Fall River, MA 02721",
       "site_identity_documented": true,
       "marker_name": null,
-      "geometry": null,
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-39_13.json",
+        "tile_sha_at_audit": "4a76fd0450661f84c2842369fa11d9e1ed00bb02",
+        "mesh_name": "Tecumseh Mill No.1",
+        "vertex_count": 27,
+        "first_vertex": [
+          -19292.3,
+          6784.32
+        ],
+        "height_in_source_m": 8,
+        "height_verified": false,
+        "physical_envelope_verified": false,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
       "references": [
         {
           "url": "https://www.apartments.com/tecumseh-mill-apartments-fall-river-ma/bm1nj08/",
@@ -150,7 +184,23 @@
       "address": "72 Bank St, Fall River, MA 02720",
       "site_identity_documented": true,
       "marker_name": null,
-      "geometry": null,
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-40_15.json",
+        "tile_sha_at_audit": "f3e8fc6d301ecdb7976c27d7a6a3222fd4ab9f05",
+        "mesh_name": "Bank Street Armory",
+        "vertex_count": 13,
+        "first_vertex": [
+          -19599.67,
+          7485.06
+        ],
+        "height_in_source_m": 8,
+        "height_verified": false,
+        "physical_envelope_verified": false,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
       "references": [
         {
           "url": "https://commons.wikimedia.org/wiki/File:Bank_Street_Armory.jpg",
@@ -180,7 +230,23 @@
       "address": "102 South Main St, Fall River, MA 02721",
       "site_identity_documented": true,
       "marker_name": null,
-      "geometry": null,
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-40_14.json",
+        "tile_sha_at_audit": "690bbd2d0dcd3b83a5e1ac315bd4341735dd4bcd",
+        "mesh_name": "Academy Building",
+        "vertex_count": 23,
+        "first_vertex": [
+          -19599.12,
+          7162.31
+        ],
+        "height_in_source_m": 8,
+        "height_verified": false,
+        "physical_envelope_verified": false,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
       "references": [
         {
           "url": "https://www.theacademyapts.com/photogallery",
@@ -210,7 +276,23 @@
       "address": "186 South Main St, Fall River, MA 02721",
       "site_identity_documented": true,
       "marker_name": null,
-      "geometry": null,
+      "geometry": {
+        "match": "named_polygon_candidate",
+        "tile": "public/tiles/b_-40_14.json",
+        "tile_sha_at_audit": "690bbd2d0dcd3b83a5e1ac315bd4341735dd4bcd",
+        "mesh_name": "Fall River Justice Center",
+        "vertex_count": 32,
+        "first_vertex": [
+          -19616.39,
+          7094.22
+        ],
+        "height_in_source_m": 8,
+        "height_verified": false,
+        "physical_envelope_verified": false,
+        "front_edge_index": null,
+        "front_orientation_verified": false,
+        "photo_to_polygon_match_verified": false
+      },
       "references": [
         {
           "url": "https://www.rseassociates.com/fall-river-courthouse",
@@ -343,7 +425,9 @@
         "height_in_source_m": 8,
         "front_edge_index": null,
         "front_orientation_verified": false,
-        "photo_to_polygon_match_verified": false
+        "photo_to_polygon_match_verified": false,
+        "height_verified": false,
+        "physical_envelope_verified": false
       },
       "references": [
         {
@@ -387,7 +471,9 @@
         "height_in_source_m": 8,
         "front_edge_index": null,
         "front_orientation_verified": false,
-        "photo_to_polygon_match_verified": false
+        "photo_to_polygon_match_verified": false,
+        "height_verified": false,
+        "physical_envelope_verified": false
       },
       "references": [
         {
@@ -431,7 +517,9 @@
         "height_in_source_m": 8,
         "front_edge_index": null,
         "front_orientation_verified": false,
-        "photo_to_polygon_match_verified": false
+        "photo_to_polygon_match_verified": false,
+        "height_verified": false,
+        "physical_envelope_verified": false
       },
       "references": [
         {
@@ -475,7 +563,9 @@
         "height_in_source_m": 8,
         "front_edge_index": null,
         "front_orientation_verified": false,
-        "photo_to_polygon_match_verified": false
+        "photo_to_polygon_match_verified": false,
+        "height_verified": false,
+        "physical_envelope_verified": false
       },
       "references": [
         {
@@ -543,6 +633,12 @@
           "role": "candidate_reference_page",
           "license_reviewed": false,
           "full_front_accepted": false
+        },
+        {
+          "url": "https://www.loopnet.com/Listing/30-32-William-St-New-Bedford-MA/25103607/",
+          "role": "identified_exterior_photo_page",
+          "license_reviewed": false,
+          "full_front_accepted": false
         }
       ],
       "photo_acceptance": {
@@ -557,7 +653,8 @@
       "missing_evidence": "Establish name-to-footprint parcel evidence, THEN get full current front; marker relocation history matters",
       "verification_state": "BLOCKED_PENDING_PHOTOS_AND_ORIENTATION",
       "approved_photo_ids": [],
-      "source_media_imported": false
+      "source_media_imported": false,
+      "name_collision_note": "Different from Fall River Andrew Robeson Jr. House at 451 Rock Street: do not cross-link the Fall River named tile polygon to this New Bedford site."
     },
     {
       "id": "NB-07",
@@ -579,7 +676,9 @@
         "height_in_source_m": 8,
         "front_edge_index": null,
         "front_orientation_verified": false,
-        "photo_to_polygon_match_verified": false
+        "photo_to_polygon_match_verified": false,
+        "height_verified": false,
+        "physical_envelope_verified": false
       },
       "references": [
         {
@@ -623,7 +722,9 @@
         "height_in_source_m": 8,
         "front_edge_index": null,
         "front_orientation_verified": false,
-        "photo_to_polygon_match_verified": false
+        "photo_to_polygon_match_verified": false,
+        "height_verified": false,
+        "physical_envelope_verified": false
       },
       "references": [
         {
@@ -667,7 +768,9 @@
         "height_in_source_m": 8,
         "front_edge_index": null,
         "front_orientation_verified": false,
-        "photo_to_polygon_match_verified": false
+        "photo_to_polygon_match_verified": false,
+        "height_verified": false,
+        "physical_envelope_verified": false
       },
       "references": [
         {
