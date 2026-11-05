@@ -1,0 +1,9 @@
+{
+  "reference_archive": "Narrows_Blizzard_Mobile_Merged_Source.zip",
+  "reference_archive_sha256": "94631c17c6cffb7c095e32071aa03ac97e276d97363856b692e697aaa8d562a2",
+  "protected_public_files": 1001,
+  "music_files": 26,
+  "protected_code_files": 24,
+  "all_preserved": true,
+  "mismatches": []
+}

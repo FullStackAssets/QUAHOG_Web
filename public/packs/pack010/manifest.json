@@ -1,0 +1,1011 @@
+{
+  "pack": "Pack 010: Materials, Texture Bakes & Decals (staging only)",
+  "blender": "5.2.3 LTS",
+  "compression": "Meshopt only",
+  "baseline": "2026-11-01 merged game (NOT 2026-10-19 GitHub main)",
+  "integration": "none \u2014 sandbox/staging only, no production changes",
+  "method": "procedural Principled material per template, Cycles-baked diffuse/roughness/normal + metallic-via-EMIT, G=Roughness/B=Metalness packing, image-backed rebuild before Meshopt export; 256px, 8 samples",
+  "templates": 50,
+  "assets": [
+    {
+      "slug": "historic_white_clapboard",
+      "bytes": 39452,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.4213,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.5211,
+        0.5199,
+        0.509
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.75,
+      "asset_id": "QH-A473",
+      "name": "historic_white_clapboard"
+    },
+    {
+      "slug": "weathered_gray_clapboard",
+      "bytes": 43020,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.4786,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4294,
+        0.4281,
+        0.4155
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.85,
+      "asset_id": "QH-A474",
+      "name": "weathered_gray_clapboard"
+    },
+    {
+      "slug": "coastal_cream_clapboard",
+      "bytes": 38948,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.4213,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.5158,
+        0.5027,
+        0.4629
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.75,
+      "asset_id": "QH-A475",
+      "name": "coastal_cream_clapboard"
+    },
+    {
+      "slug": "salt_stained_wood_siding",
+      "bytes": 67716,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2817,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.465,
+        0.4412,
+        0.403
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.85,
+      "asset_id": "QH-A476",
+      "name": "salt_stained_wood_siding"
+    },
+    {
+      "slug": "unpainted_red_brick",
+      "bytes": 55944,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.5073,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4298,
+        0.3354,
+        0.3106
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A477",
+      "name": "unpainted_red_brick"
+    },
+    {
+      "slug": "soot_stained_brick",
+      "bytes": 56104,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.5073,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.3659,
+        0.3245,
+        0.3033
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A478",
+      "name": "soot_stained_brick"
+    },
+    {
+      "slug": "painted_old_brick",
+      "bytes": 45388,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.4786,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4807,
+        0.4674,
+        0.4431
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.85,
+      "asset_id": "QH-A479",
+      "name": "painted_old_brick"
+    },
+    {
+      "slug": "yellow_industrial_brick",
+      "bytes": 52796,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.5073,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4692,
+        0.4423,
+        0.3657
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A480",
+      "name": "yellow_industrial_brick"
+    },
+    {
+      "slug": "mortar_joint_atlas",
+      "bytes": 40588,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.5073,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4933,
+        0.4875,
+        0.4695
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A481",
+      "name": "mortar_joint_atlas"
+    },
+    {
+      "slug": "granite_ashlar",
+      "bytes": 46652,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2813,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4067,
+        0.4067,
+        0.4067
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.85,
+      "asset_id": "QH-A482",
+      "name": "granite_ashlar"
+    },
+    {
+      "slug": "limestone_trim",
+      "bytes": 49000,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2773,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4931,
+        0.4874,
+        0.4636
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.8,
+      "asset_id": "QH-A483",
+      "name": "limestone_trim"
+    },
+    {
+      "slug": "fieldstone_foundation",
+      "bytes": 64232,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2817,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.3839,
+        0.376,
+        0.3506
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.95,
+      "asset_id": "QH-A484",
+      "name": "fieldstone_foundation"
+    },
+    {
+      "slug": "concrete_cast_slab",
+      "bytes": 41952,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2773,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4414,
+        0.4414,
+        0.4414
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A485",
+      "name": "concrete_cast_slab"
+    },
+    {
+      "slug": "parking_lot_concrete",
+      "bytes": 53556,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2804,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.3679,
+        0.3679,
+        0.3679
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.95,
+      "asset_id": "QH-A486",
+      "name": "parking_lot_concrete"
+    },
+    {
+      "slug": "asphalt_dry",
+      "bytes": 56680,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2823,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.277,
+        0.277,
+        0.277
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.95,
+      "asset_id": "QH-A487",
+      "name": "asphalt_dry"
+    },
+    {
+      "slug": "asphalt_cracked",
+      "bytes": 73252,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2823,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.2858,
+        0.28,
+        0.271
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.95,
+      "asset_id": "QH-A488",
+      "name": "asphalt_cracked"
+    },
+    {
+      "slug": "asphalt_patch_repair",
+      "bytes": 54508,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2804,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.2583,
+        0.2583,
+        0.2583
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.95,
+      "asset_id": "QH-A489",
+      "name": "asphalt_patch_repair"
+    },
+    {
+      "slug": "cobblestone_sidewalk",
+      "bytes": 51936,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.5073,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4297,
+        0.4139,
+        0.3943
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A490",
+      "name": "cobblestone_sidewalk"
+    },
+    {
+      "slug": "granite_curb",
+      "bytes": 41872,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2773,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.3919,
+        0.3919,
+        0.3919
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.85,
+      "asset_id": "QH-A491",
+      "name": "granite_curb"
+    },
+    {
+      "slug": "crossing_marking_paint",
+      "bytes": 8132,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.3926,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.5294,
+        0.525,
+        0.4897
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.7,
+      "asset_id": "QH-A492",
+      "name": "crossing_marking_paint"
+    },
+    {
+      "slug": "rusty_corrugated_metal",
+      "bytes": 64428,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2804,
+        0.225
+      ],
+      "diffuse_mean": [
+        0.2997,
+        0.2296,
+        0.1676
+      ],
+      "metallic_input": 0.4,
+      "roughness_input": 0.75,
+      "asset_id": "QH-A493",
+      "name": "rusty_corrugated_metal"
+    },
+    {
+      "slug": "galvanized_steel",
+      "bytes": 55024,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2817,
+        0.3926
+      ],
+      "diffuse_mean": [
+        0.2448,
+        0.2489,
+        0.255
+      ],
+      "metallic_input": 0.7,
+      "roughness_input": 0.55,
+      "asset_id": "QH-A494",
+      "name": "galvanized_steel"
+    },
+    {
+      "slug": "marine_painted_steel",
+      "bytes": 53260,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2813,
+        0.2823
+      ],
+      "diffuse_mean": [
+        0.153,
+        0.2187,
+        0.2678
+      ],
+      "metallic_input": 0.5,
+      "roughness_input": 0.5,
+      "asset_id": "QH-A495",
+      "name": "marine_painted_steel"
+    },
+    {
+      "slug": "rubber_fender",
+      "bytes": 54120,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2817,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.2063,
+        0.2063,
+        0.2063
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.95,
+      "asset_id": "QH-A496",
+      "name": "rubber_fender"
+    },
+    {
+      "slug": "treated_timber_pier",
+      "bytes": 60280,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2817,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.3462,
+        0.3023,
+        0.234
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A497",
+      "name": "treated_timber_pier"
+    },
+    {
+      "slug": "wet_hardwood_dock",
+      "bytes": 64568,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2817,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.3228,
+        0.277,
+        0.2147
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.45,
+      "asset_id": "QH-A498",
+      "name": "wet_hardwood_dock"
+    },
+    {
+      "slug": "commercial_glass",
+      "bytes": 8168,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.0573,
+        0.0573
+      ],
+      "diffuse_mean": [
+        0.2426,
+        0.2934,
+        0.3198
+      ],
+      "metallic_input": 0.1,
+      "roughness_input": 0.1,
+      "asset_id": "QH-A499",
+      "name": "commercial_glass"
+    },
+    {
+      "slug": "night_window_lit",
+      "bytes": 40604,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.1676,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4378,
+        0.424,
+        0.3904
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.3,
+      "asset_id": "QH-A500",
+      "name": "night_window_lit"
+    },
+    {
+      "slug": "frosted_window",
+      "bytes": 51996,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2813,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4279,
+        0.4412,
+        0.4464
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.6,
+      "asset_id": "QH-A501",
+      "name": "frosted_window"
+    },
+    {
+      "slug": "boat_fiberglass_paint",
+      "bytes": 8084,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.1963,
+        0.0573
+      ],
+      "diffuse_mean": [
+        0.4919,
+        0.4919,
+        0.4919
+      ],
+      "metallic_input": 0.1,
+      "roughness_input": 0.35,
+      "asset_id": "QH-A502",
+      "name": "boat_fiberglass_paint"
+    },
+    {
+      "slug": "boat_weathered_hull_salt",
+      "bytes": 60680,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2817,
+        0.0573
+      ],
+      "diffuse_mean": [
+        0.4286,
+        0.4286,
+        0.4209
+      ],
+      "metallic_input": 0.1,
+      "roughness_input": 0.8,
+      "asset_id": "QH-A503",
+      "name": "boat_weathered_hull_salt"
+    },
+    {
+      "slug": "car_metallic_paint",
+      "bytes": 8076,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.1412,
+        0.3375
+      ],
+      "diffuse_mean": [
+        0.322,
+        0.1213,
+        0.1213
+      ],
+      "metallic_input": 0.6,
+      "roughness_input": 0.25,
+      "asset_id": "QH-A504",
+      "name": "car_metallic_paint"
+    },
+    {
+      "slug": "wet_tire_rubber",
+      "bytes": 57236,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2804,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.178,
+        0.178,
+        0.178
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.35,
+      "asset_id": "QH-A505",
+      "name": "wet_tire_rubber"
+    },
+    {
+      "slug": "snow_compacted",
+      "bytes": 52136,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2813,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.5203,
+        0.5229,
+        0.5281
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A506",
+      "name": "snow_compacted"
+    },
+    {
+      "slug": "snow_powder",
+      "bytes": 50944,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2804,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.537,
+        0.5408,
+        0.5471
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.95,
+      "asset_id": "QH-A507",
+      "name": "snow_powder"
+    },
+    {
+      "slug": "road_slush",
+      "bytes": 69872,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2804,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.3975,
+        0.3975,
+        0.3899
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.4,
+      "asset_id": "QH-A508",
+      "name": "road_slush"
+    },
+    {
+      "slug": "ice_roughness",
+      "bytes": 53928,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2813,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4094,
+        0.4314,
+        0.4509
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.25,
+      "asset_id": "QH-A509",
+      "name": "ice_roughness"
+    },
+    {
+      "slug": "road_salt_residue",
+      "bytes": 62768,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2823,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4871,
+        0.4871,
+        0.4784
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A510",
+      "name": "road_salt_residue"
+    },
+    {
+      "slug": "rust_grime_decal",
+      "bytes": 71112,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2823,
+        0.1125
+      ],
+      "diffuse_mean": [
+        0.3125,
+        0.2411,
+        0.1729
+      ],
+      "metallic_input": 0.2,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A511",
+      "name": "rust_grime_decal"
+    },
+    {
+      "slug": "water_streak_grime",
+      "bytes": 67208,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2804,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.3348,
+        0.3348,
+        0.3253
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.85,
+      "asset_id": "QH-A512",
+      "name": "water_streak_grime"
+    },
+    {
+      "slug": "posters_weathering",
+      "bytes": 67676,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2817,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4411,
+        0.4243,
+        0.3878
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.85,
+      "asset_id": "QH-A513",
+      "name": "posters_weathering"
+    },
+    {
+      "slug": "graffiti_weathered",
+      "bytes": 67944,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2804,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.3877,
+        0.3348,
+        0.3463
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.8,
+      "asset_id": "QH-A514",
+      "name": "graffiti_weathered"
+    },
+    {
+      "slug": "puddled_asphalt_mask",
+      "bytes": 74504,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2804,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.258,
+        0.2675,
+        0.2796
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.15,
+      "asset_id": "QH-A515",
+      "name": "puddled_asphalt_mask"
+    },
+    {
+      "slug": "leaf_litter_ground",
+      "bytes": 72224,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2815,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.3572,
+        0.3152,
+        0.2062
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.95,
+      "asset_id": "QH-A516",
+      "name": "leaf_litter_ground"
+    },
+    {
+      "slug": "tire_skid_wear",
+      "bytes": 61104,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2823,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.2829,
+        0.2829,
+        0.2829
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.95,
+      "asset_id": "QH-A517",
+      "name": "tire_skid_wear"
+    },
+    {
+      "slug": "dock_moss_algae",
+      "bytes": 70100,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2823,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.2676,
+        0.3462,
+        0.2411
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A518",
+      "name": "dock_moss_algae"
+    },
+    {
+      "slug": "brick_chipped_trim",
+      "bytes": 61548,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.5073,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.4223,
+        0.3357,
+        0.311
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.9,
+      "asset_id": "QH-A519",
+      "name": "brick_chipped_trim"
+    },
+    {
+      "slug": "window_door_trim",
+      "bytes": 8096,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.3926,
+        0.0
+      ],
+      "diffuse_mean": [
+        0.536,
+        0.536,
+        0.525
+      ],
+      "metallic_input": 0.0,
+      "roughness_input": 0.7,
+      "asset_id": "QH-A520",
+      "name": "window_door_trim"
+    },
+    {
+      "slug": "grille_headlamp_atlas",
+      "bytes": 57812,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2817,
+        0.3375
+      ],
+      "diffuse_mean": [
+        0.2412,
+        0.2412,
+        0.2412
+      ],
+      "metallic_input": 0.6,
+      "roughness_input": 0.4,
+      "asset_id": "QH-A521",
+      "name": "grille_headlamp_atlas"
+    },
+    {
+      "slug": "prop_trim_sheet",
+      "bytes": 64544,
+      "triangles": 6,
+      "meshes": 1,
+      "packed_mr_mean": [
+        0.0,
+        0.2817,
+        0.0573
+      ],
+      "diffuse_mean": [
+        0.3964,
+        0.379,
+        0.3446
+      ],
+      "metallic_input": 0.1,
+      "roughness_input": 0.8,
+      "asset_id": "QH-A522",
+      "name": "prop_trim_sheet"
+    }
+  ]
+}

@@ -1,0 +1,446 @@
+{
+  "pack": "Pack 004: Hero Landmarks & Civic Sites (staging only, generic blockouts, built on Nic's 2026-11-02 override)",
+  "blender": "5.2.3 LTS",
+  "compression": "Meshopt only",
+  "baseline": "2026-11-01 merged game (NOT 2026-10-19 GitHub main)",
+  "integration": "none \u2014 sandbox/staging only, no production changes, no GIS placement",
+  "caveat": "GENERIC BLOCKOUTS ONLY: no licensed site-specific reference and no measurable exterior was supplied for any landmark, so these are NOT landmark-accurate and must never be described as the real buildings. Lizzie Borden House is a generic Victorian exterior only (no depiction of historical killings); Maplecroft is a generic large house (no story use).",
+  "textures": "flat Principled colours; no baked texture atlas in this pack",
+  "templates": 24,
+  "variant_note": "one V01 build per template; variant slots are future work, not claimed",
+  "assets": [
+    {
+      "name": "whaling_museum",
+      "file": "whaling_museum.glb",
+      "bytes": 14460,
+      "triangles": 66,
+      "meshes": 7,
+      "dimensions_m": [
+        18.6,
+        9.6,
+        12.8
+      ],
+      "materials": [
+        "body",
+        "col",
+        "roof",
+        "steps"
+      ],
+      "asset_id": "QH-A180"
+    },
+    {
+      "name": "mariners_home",
+      "file": "mariners_home.glb",
+      "bytes": 17784,
+      "triangles": 78,
+      "meshes": 9,
+      "dimensions_m": [
+        10.31,
+        9.42,
+        10.2
+      ],
+      "materials": [
+        "body",
+        "col",
+        "door",
+        "porch",
+        "roof"
+      ],
+      "asset_id": "QH-A181"
+    },
+    {
+      "name": "double_bank",
+      "file": "double_bank.glb",
+      "bytes": 27000,
+      "triangles": 102,
+      "meshes": 17,
+      "dimensions_m": [
+        14.6,
+        10.6,
+        8.6
+      ],
+      "materials": [
+        "body",
+        "roof",
+        "win"
+      ],
+      "asset_id": "QH-A182"
+    },
+    {
+      "name": "rodman_candleworks",
+      "file": "rodman_candleworks.glb",
+      "bytes": 6952,
+      "triangles": 28,
+      "meshes": 3,
+      "dimensions_m": [
+        16.0,
+        9.3,
+        16.0
+      ],
+      "materials": [
+        "body",
+        "chimney",
+        "roof"
+      ],
+      "asset_id": "QH-A183"
+    },
+    {
+      "name": "uss_massachusetts",
+      "file": "uss_massachusetts.glb",
+      "bytes": 10552,
+      "triangles": 46,
+      "meshes": 5,
+      "dimensions_m": [
+        8.34,
+        6.0,
+        55.17
+      ],
+      "materials": [
+        "hull",
+        "super",
+        "turret"
+      ],
+      "asset_id": "QH-A184"
+    },
+    {
+      "name": "lizzie_borden_house",
+      "file": "lizzie_borden_house.glb",
+      "bytes": 7240,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        9.38,
+        10.3,
+        7.4
+      ],
+      "materials": [
+        "body",
+        "door",
+        "roof"
+      ],
+      "asset_id": "QH-A185"
+    },
+    {
+      "name": "dartmouth_mall",
+      "file": "dartmouth_mall.glb",
+      "bytes": 5368,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        40.0,
+        10.0,
+        21.5
+      ],
+      "materials": [
+        "body",
+        "entrance",
+        "sign"
+      ],
+      "asset_id": "QH-A186"
+    },
+    {
+      "name": "maplecroft",
+      "file": "maplecroft.glb",
+      "bytes": 7228,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        12.19,
+        11.66,
+        9.4
+      ],
+      "materials": [
+        "body",
+        "door",
+        "roof"
+      ],
+      "asset_id": "QH-A187"
+    },
+    {
+      "name": "fishing_pier_compound",
+      "file": "fishing_pier_compound.glb",
+      "bytes": 9496,
+      "triangles": 38,
+      "meshes": 5,
+      "dimensions_m": [
+        20.0,
+        3.2,
+        16.0
+      ],
+      "materials": [
+        "pier",
+        "post",
+        "shed"
+      ],
+      "asset_id": "QH-A188"
+    },
+    {
+      "name": "wharf_terminal",
+      "file": "wharf_terminal.glb",
+      "bytes": 6536,
+      "triangles": 24,
+      "meshes": 3,
+      "dimensions_m": [
+        20.0,
+        6.0,
+        12.5
+      ],
+      "materials": [
+        "body",
+        "canopy",
+        "crane"
+      ],
+      "asset_id": "QH-A189"
+    },
+    {
+      "name": "bethel_block",
+      "file": "bethel_block.glb",
+      "bytes": 19468,
+      "triangles": 72,
+      "meshes": 12,
+      "dimensions_m": [
+        6.56,
+        8.94,
+        7.4
+      ],
+      "materials": [
+        "body",
+        "door",
+        "roof"
+      ],
+      "asset_id": "QH-A190"
+    },
+    {
+      "name": "stone_warehouse",
+      "file": "stone_warehouse.glb",
+      "bytes": 20620,
+      "triangles": 78,
+      "meshes": 13,
+      "dimensions_m": [
+        18.0,
+        9.0,
+        12.08
+      ],
+      "materials": [
+        "body",
+        "win"
+      ],
+      "asset_id": "QH-A191"
+    },
+    {
+      "name": "theater_frontage",
+      "file": "theater_frontage.glb",
+      "bytes": 5352,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        14.0,
+        14.0,
+        9.5
+      ],
+      "materials": [
+        "body",
+        "marquee",
+        "sign"
+      ],
+      "asset_id": "QH-A192"
+    },
+    {
+      "name": "city_hall",
+      "file": "city_hall.glb",
+      "bytes": 23092,
+      "triangles": 180,
+      "meshes": 9,
+      "dimensions_m": [
+        20.0,
+        16.5,
+        12.0
+      ],
+      "materials": [
+        "body",
+        "col",
+        "cupola",
+        "dome"
+      ],
+      "asset_id": "QH-A193"
+    },
+    {
+      "name": "public_library",
+      "file": "public_library.glb",
+      "bytes": 12780,
+      "triangles": 60,
+      "meshes": 6,
+      "dimensions_m": [
+        16.0,
+        8.0,
+        12.0
+      ],
+      "materials": [
+        "body",
+        "col",
+        "steps"
+      ],
+      "asset_id": "QH-A194"
+    },
+    {
+      "name": "custom_house",
+      "file": "custom_house.glb",
+      "bytes": 16828,
+      "triangles": 84,
+      "meshes": 8,
+      "dimensions_m": [
+        14.0,
+        10.5,
+        9.0
+      ],
+      "materials": [
+        "body",
+        "col",
+        "ped"
+      ],
+      "asset_id": "QH-A195"
+    },
+    {
+      "name": "fort_phoenix",
+      "file": "fort_phoenix.glb",
+      "bytes": 7952,
+      "triangles": 30,
+      "meshes": 4,
+      "dimensions_m": [
+        17.2,
+        3.4,
+        16.0
+      ],
+      "materials": [
+        "cannon",
+        "wall"
+      ],
+      "asset_id": "QH-A196"
+    },
+    {
+      "name": "hurricane_barrier",
+      "file": "hurricane_barrier.glb",
+      "bytes": 5400,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        24.0,
+        5.0,
+        4.0
+      ],
+      "materials": [
+        "barrier",
+        "control",
+        "gate"
+      ],
+      "asset_id": "QH-A197"
+    },
+    {
+      "name": "braga_bridge",
+      "file": "braga_bridge.glb",
+      "bytes": 6820,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        40.0,
+        6.5,
+        8.0
+      ],
+      "materials": [
+        "cable",
+        "deck",
+        "tower"
+      ],
+      "asset_id": "QH-A198"
+    },
+    {
+      "name": "battleship_entry",
+      "file": "battleship_entry.glb",
+      "bytes": 6920,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        14.0,
+        5.5,
+        4.1
+      ],
+      "materials": [
+        "booth",
+        "gate",
+        "sign"
+      ],
+      "asset_id": "QH-A199"
+    },
+    {
+      "name": "quequechan_mill",
+      "file": "quequechan_mill.glb",
+      "bytes": 42112,
+      "triangles": 166,
+      "meshes": 26,
+      "dimensions_m": [
+        20.0,
+        13.5,
+        24.0
+      ],
+      "materials": [
+        "body",
+        "chimney",
+        "win"
+      ],
+      "asset_id": "QH-A200"
+    },
+    {
+      "name": "gov_center",
+      "file": "gov_center.glb",
+      "bytes": 5468,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        24.0,
+        14.0,
+        18.0
+      ],
+      "materials": [
+        "body",
+        "glass",
+        "plaza"
+      ],
+      "asset_id": "QH-A201"
+    },
+    {
+      "name": "buttonwood_entrance",
+      "file": "buttonwood_entrance.glb",
+      "bytes": 6772,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        14.0,
+        3.7,
+        12.0
+      ],
+      "materials": [
+        "arch",
+        "path",
+        "post"
+      ],
+      "asset_id": "QH-A202"
+    },
+    {
+      "name": "smokestack_cluster",
+      "file": "smokestack_cluster.glb",
+      "bytes": 10308,
+      "triangles": 54,
+      "meshes": 4,
+      "dimensions_m": [
+        16.0,
+        9.4,
+        16.0
+      ],
+      "materials": [
+        "base",
+        "stack"
+      ],
+      "asset_id": "QH-A203"
+    }
+  ]
+}

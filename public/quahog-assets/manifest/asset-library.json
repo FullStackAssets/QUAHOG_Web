@@ -1,0 +1,3460 @@
+{
+  "schemaVersion": "2026-11-02-production-asset-library-v1",
+  "game": "QUAHOG_Web",
+  "releaseTrack": "production-only",
+  "modelCount": 344,
+  "packCounts": {
+    "P001": 22,
+    "P003": 61,
+    "P006": 52,
+    "P007": 43,
+    "P010": 50,
+    "P011": 81,
+    "P012": 35
+  },
+  "pngTextureSourceCount": 150,
+  "models": [
+    {
+      "path": "/quahog-assets/P001/barrel.glb",
+      "sha256": "6e109c4aeb882064e94d3adc3dc3ec2e9f05eb9bc1743c094fa638ad990a0c9d",
+      "bytes": 3564,
+      "pack": "P001",
+      "model": "barrel",
+      "meshes": 1,
+      "triangles_reported": 16,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/bench.glb",
+      "sha256": "c1b7b28a8eec5bf07459010616ac01f0be63f367c07be90e4c1598f1ea5fa944",
+      "bytes": 5600,
+      "pack": "P001",
+      "model": "bench",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/brick_mill.glb",
+      "sha256": "e74b3c5879392d9d2c93ac16918543de64c98a6ebdc7771496c77d3c1359cbcb",
+      "bytes": 179924,
+      "pack": "P001",
+      "model": "brick_mill",
+      "meshes": 115,
+      "triangles_reported": 698,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/buoy.glb",
+      "sha256": "9f3f932e9e841670b08d968c343031f70df7d9d5779a5314742238597fa67708",
+      "bytes": 6104,
+      "pack": "P001",
+      "model": "buoy",
+      "meshes": 2,
+      "triangles_reported": 24,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/cafe_umbrella.glb",
+      "sha256": "bccfbc3ff5f0e35fbe81b94f31b5f9dd55b7a1990adb0b885eb6b91be0abc4ce",
+      "bytes": 5700,
+      "pack": "P001",
+      "model": "cafe_umbrella",
+      "meshes": 2,
+      "triangles_reported": 22,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/clapboard_house.glb",
+      "sha256": "150e39b744eb97ee53d0827b50a959c29fa0cf4475f1ec0219c6ca83d9f3628e",
+      "bytes": 42300,
+      "pack": "P001",
+      "model": "clapboard_house",
+      "meshes": 27,
+      "triangles_reported": 161,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/commercial_block.glb",
+      "sha256": "16db3377f7cd002b6382c07359588b62f1f7e9abddc648cb4df864008da7d33d",
+      "bytes": 69228,
+      "pack": "P001",
+      "model": "commercial_block",
+      "meshes": 44,
+      "triangles_reported": 264,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/dumpster.glb",
+      "sha256": "5075cd32c57008b76da712070690fa5b4913f35040915950674e1a9e00f13788",
+      "bytes": 3836,
+      "pack": "P001",
+      "model": "dumpster",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/fence_segment.glb",
+      "sha256": "a13b7fb31f4f309958d69b80b7c2c24b6aeeb18a8b00294802b5fbbda1a3add5",
+      "bytes": 8192,
+      "pack": "P001",
+      "model": "fence_segment",
+      "meshes": 5,
+      "triangles_reported": 30,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/fire_hydrant.glb",
+      "sha256": "ee850fb526e2aec252e4a070b74974f299f84aeba13693844f14f77a2f929a3b",
+      "bytes": 5428,
+      "pack": "P001",
+      "model": "fire_hydrant",
+      "meshes": 2,
+      "triangles_reported": 24,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/fish_crate.glb",
+      "sha256": "6852db63d3425838bff7dac4e33904971286df5dfb039b1f6e1fda67812e2fd3",
+      "bytes": 4008,
+      "pack": "P001",
+      "model": "fish_crate",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/harbor_crane.glb",
+      "sha256": "b4e711e6244af6d75852542b642271ac9a7d11d15c7b52fa2e45bb28f8ed64f5",
+      "bytes": 5212,
+      "pack": "P001",
+      "model": "harbor_crane",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/lamppost.glb",
+      "sha256": "40783eeee3fa709c30340e27c54074bad85aa21a89a0a04c1b1438fb69226f3f",
+      "bytes": 6588,
+      "pack": "P001",
+      "model": "lamppost",
+      "meshes": 3,
+      "triangles_reported": 24,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/lobster_trap.glb",
+      "sha256": "7d47c5fd4f60a5e637234f9eee4f45c30c1dbf33f9dfeaa4a651a8ef438d9b8f",
+      "bytes": 4100,
+      "pack": "P001",
+      "model": "lobster_trap",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/mooring_post.glb",
+      "sha256": "ec4eb839da436495a95661734a857f5364c845942b04dcc3bbda52e8bdf337bb",
+      "bytes": 5408,
+      "pack": "P001",
+      "model": "mooring_post",
+      "meshes": 2,
+      "triangles_reported": 24,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/net_pile.glb",
+      "sha256": "e79da746d1111de8294af455e3abde403561c351f5ba7bf7e52a482ef919c0e2",
+      "bytes": 3912,
+      "pack": "P001",
+      "model": "net_pile",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/planter.glb",
+      "sha256": "1bb8cacd135f45d51d06cd160fc36a4a15c963ada3c58deb9766c37827b4ab30",
+      "bytes": 4000,
+      "pack": "P001",
+      "model": "planter",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/rowhouse.glb",
+      "sha256": "603dd20dbbdba7d21963278c4ca772e4931a6339a89561cea2e95ee3f433cce3",
+      "bytes": 41084,
+      "pack": "P001",
+      "model": "rowhouse",
+      "meshes": 26,
+      "triangles_reported": 155,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/seamens_bethel.glb",
+      "sha256": "531cf3a9db79cc1fe5cf3953f88e7d08cc6c3fca20ccd650d2f538b02c78a88c",
+      "bytes": 22328,
+      "pack": "P001",
+      "model": "seamens_bethel",
+      "meshes": 14,
+      "triangles_reported": 83,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/street_sign.glb",
+      "sha256": "d5a4636b62b0d6ac2cacda2d1a7756a77d0de4fb1490e8dbda9fb3bc23ecae6d",
+      "bytes": 4924,
+      "pack": "P001",
+      "model": "street_sign",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/triple_decker.glb",
+      "sha256": "8fa0c58fe4012822bc1303e1de3a52ccb6b862ffe3f40cd87292dab8ebfc9c71",
+      "bytes": 60864,
+      "pack": "P001",
+      "model": "triple_decker",
+      "meshes": 39,
+      "triangles_reported": 233,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P001/waterfront_warehouse.glb",
+      "sha256": "d788c031201493eabb6b731c26d931f56e9f26569db0c56375c3387b464e0dfc",
+      "bytes": 42212,
+      "pack": "P001",
+      "model": "waterfront_warehouse",
+      "meshes": 27,
+      "triangles_reported": 161,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/anchor_chain.glb",
+      "sha256": "891ef547abe85338a7d12e02ab2e1bfcb9aa6429895ccfec180bf99e2c3b1af6",
+      "bytes": 4812,
+      "pack": "P003",
+      "model": "anchor_chain",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/bait_tank_hoses.glb",
+      "sha256": "90c0f59eb813c5597f321de4ab23d82b60d07f453dc4f1ee17a3bc6748bb73e9",
+      "bytes": 6240,
+      "pack": "P003",
+      "model": "bait_tank_hoses",
+      "meshes": 2,
+      "triangles_reported": 26,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/boat_boom_arms.glb",
+      "sha256": "e26af0998637ca957ac4d79c89c7598709d58a7d67ad897acba5c353465aceb1",
+      "bytes": 5252,
+      "pack": "P003",
+      "model": "boat_boom_arms",
+      "meshes": 2,
+      "triangles_reported": 24,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/boat_windshield_railings.glb",
+      "sha256": "65b887a44340d2bc761f3b96eaf049681beffff5e95deaeff6399971cf3c77b0",
+      "bytes": 4000,
+      "pack": "P003",
+      "model": "boat_windshield_railings",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/breakwater_segment.glb",
+      "sha256": "8d5951ac80c2bfa14bce50d7bac39c66da060df8f1d628900b5022c4501b842b",
+      "bytes": 5124,
+      "pack": "P003",
+      "model": "breakwater_segment",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/cabin_cruiser.glb",
+      "sha256": "a339e346846941ca684b90a81354aa1e907b4d40537f0cdace6279c708d6ad02",
+      "bytes": 8920,
+      "pack": "P003",
+      "model": "cabin_cruiser",
+      "meshes": 5,
+      "triangles_reported": 30,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/cargo_container_shell.glb",
+      "sha256": "73c39d10ea403a53699b86d5e49592e0f088aa9c8648aa2a9f9833d069af51ee",
+      "bytes": 4100,
+      "pack": "P003",
+      "model": "cargo_container_shell",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/center_console_boat.glb",
+      "sha256": "5d3af0df08d108848ef76adff9fe198c606141bce8b13a2f64658a5ee8156fd8",
+      "bytes": 8880,
+      "pack": "P003",
+      "model": "center_console_boat",
+      "meshes": 5,
+      "triangles_reported": 30,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/channel_daybeacon.glb",
+      "sha256": "08669c0ca899a3fff79fafe6d86f538dcdf2771423780a5b663066640a92e8ba",
+      "bytes": 4872,
+      "pack": "P003",
+      "model": "channel_daybeacon",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/cleat_hardware.glb",
+      "sha256": "4faa0649244329e681f240bf0b46c30d87127eda783d0971e98234a4bad516bd",
+      "bytes": 3888,
+      "pack": "P003",
+      "model": "cleat_hardware",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/cold_storage_fan.glb",
+      "sha256": "399c61a255d273ec952f906336f87f1d8465ea53dda7126307eff4921c5d17bf",
+      "bytes": 5576,
+      "pack": "P003",
+      "model": "cold_storage_fan",
+      "meshes": 2,
+      "triangles_reported": 20,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/commercial_winch.glb",
+      "sha256": "9fc01004775cb0f1377a64782c064c1b53bfa03943c08d99085b2aac6bdf3519",
+      "bytes": 5812,
+      "pack": "P003",
+      "model": "commercial_winch",
+      "meshes": 2,
+      "triangles_reported": 22,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/container_corner_kit.glb",
+      "sha256": "d7d8a1dbe2e67626b91009d26a482a0ebc66e32e9039375d6c90ce78c4cb859a",
+      "bytes": 7012,
+      "pack": "P003",
+      "model": "container_corner_kit",
+      "meshes": 4,
+      "triangles_reported": 24,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/dock_cleat_variety.glb",
+      "sha256": "dc0938f0a6a3e56cba30dc47b6292379b71034725f1a150103fb3621b3b58be4",
+      "bytes": 6960,
+      "pack": "P003",
+      "model": "dock_cleat_variety",
+      "meshes": 3,
+      "triangles_reported": 26,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/dock_finger_pedestal.glb",
+      "sha256": "50a34cbb4798628f51068f3b86ab07167efa0758d85bfca414e5ddac48b30d78",
+      "bytes": 3924,
+      "pack": "P003",
+      "model": "dock_finger_pedestal",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/dock_gate.glb",
+      "sha256": "204e88fae6a468b2460b73c75de5293f53ddb692035206813638d46dd71fc294",
+      "bytes": 5436,
+      "pack": "P003",
+      "model": "dock_gate",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/dockside_skiff.glb",
+      "sha256": "f40ee8ad93c2af175d41d8b797f6664eb3fdbc9ed30b09ca1fc1f86a50f5319b",
+      "bytes": 7340,
+      "pack": "P003",
+      "model": "dockside_skiff",
+      "meshes": 4,
+      "triangles_reported": 24,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/drydock_blocks.glb",
+      "sha256": "19f18b28656babf60183d3aca79ed110038d2cfb930500c22bd1b1b07e1ea1de",
+      "bytes": 5428,
+      "pack": "P003",
+      "model": "drydock_blocks",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/drying_rack.glb",
+      "sha256": "a97624169e95cf8feef5fbd1b2f4b218ed9f82a07f5137a78e68d33208498101",
+      "bytes": 5404,
+      "pack": "P003",
+      "model": "drying_rack",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/fender_tire_stack.glb",
+      "sha256": "76003218186dcb33b1c947fb00ab971b12f426efee85201a934215884cf5f346",
+      "bytes": 8148,
+      "pack": "P003",
+      "model": "fender_tire_stack",
+      "meshes": 3,
+      "triangles_reported": 42,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/fish_auction_cart.glb",
+      "sha256": "585564539f897be482e174d36c6f908d4cbf081de4beefe41e02e17c9bc86a9b",
+      "bytes": 5180,
+      "pack": "P003",
+      "model": "fish_auction_cart",
+      "meshes": 2,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/fish_conveyor.glb",
+      "sha256": "285d43fd9ca55b33fc5f5d3b6e2cd5f1cbe189d8e8c8706477e0b06b399c019e",
+      "bytes": 5636,
+      "pack": "P003",
+      "model": "fish_conveyor",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/fish_sorting_table.glb",
+      "sha256": "1bc1e635053916b0a3a294cd25a57fcc9b91eae2823c9c3eb9b43421f9f133c4",
+      "bytes": 4020,
+      "pack": "P003",
+      "model": "fish_sorting_table",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/fishing_basket.glb",
+      "sha256": "2be68f308ee7a9dac8dc32ddea50e5c5b15b49ecb9f820369e85e777e605b991",
+      "bytes": 3904,
+      "pack": "P003",
+      "model": "fishing_basket",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/fishing_gantry_mast.glb",
+      "sha256": "cd71b88b5450cd55f2804441889fb2e016c4e20daa360fcbe755f397527c4688",
+      "bytes": 5264,
+      "pack": "P003",
+      "model": "fishing_gantry_mast",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/fixed_quay_crane.glb",
+      "sha256": "2efde175e9aa25448a82f93ac9ece613cfdcea233cd078f536d90264a49e0934",
+      "bytes": 5332,
+      "pack": "P003",
+      "model": "fixed_quay_crane",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/floating_dock.glb",
+      "sha256": "ef29d304e2151b9cb7510beebaf90aa08e89a0cfb4ec3b50428784d789f24004",
+      "bytes": 5512,
+      "pack": "P003",
+      "model": "floating_dock",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/forklift.glb",
+      "sha256": "a071a1ac761c479e7079091f1b944d00c216b0de7d2230351dec966cfbc2b8d9",
+      "bytes": 5604,
+      "pack": "P003",
+      "model": "forklift",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/gangway.glb",
+      "sha256": "29b75a31171584ecfc2317f659a6ab338dc0b2571c780a799f79abe1029e1acd",
+      "bytes": 4180,
+      "pack": "P003",
+      "model": "gangway",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/gear_locker.glb",
+      "sha256": "396011cb0c787ea02ca0664fda4974539b9467f135dc07695065f3d03ea0cc74",
+      "bytes": 4116,
+      "pack": "P003",
+      "model": "gear_locker",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/harbor_buoy_set.glb",
+      "sha256": "bd3fb5d722cf11195cfc9c583566f351f2fc6977b377ad97e5b223c35e3adf1d",
+      "bytes": 5876,
+      "pack": "P003",
+      "model": "harbor_buoy_set",
+      "meshes": 2,
+      "triangles_reported": 28,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/harbor_patrol_boat.glb",
+      "sha256": "0f63768da9df71ca2d6b187c9c0b60d7b2870ab88b73b55b93509b413f35a1e7",
+      "bytes": 11492,
+      "pack": "P003",
+      "model": "harbor_patrol_boat",
+      "meshes": 6,
+      "triangles_reported": 40,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/heavy_mooring_chain.glb",
+      "sha256": "acc773fef4547a7fdaaf8c93dcd78551c6d94e2e27c00e7d706a660aa721767e",
+      "bytes": 7176,
+      "pack": "P003",
+      "model": "heavy_mooring_chain",
+      "meshes": 3,
+      "triangles_reported": 30,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/hose_reel.glb",
+      "sha256": "e7dabeae1038dc96805fa4bde8eb17eab05b45cd134c6dac9ae9f40472eb37ac",
+      "bytes": 5704,
+      "pack": "P003",
+      "model": "hose_reel",
+      "meshes": 2,
+      "triangles_reported": 22,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/ice_bin.glb",
+      "sha256": "2ceda55ef4a77695a5a105cc7d781a10c9b314a94a0b3e91f46bf4d3763db387",
+      "bytes": 3992,
+      "pack": "P003",
+      "model": "ice_bin",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/inshore_dragger.glb",
+      "sha256": "59e3a1cf97a2234f17ed914f97a7a9a03bd61d39075e9c1fcf9e9b2729dd518b",
+      "bytes": 9684,
+      "pack": "P003",
+      "model": "inshore_dragger",
+      "meshes": 5,
+      "triangles_reported": 34,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/lifebuoy_rack.glb",
+      "sha256": "34483d2fe66357d61278e938478c169092359352c974d55544c0e82c71fa49e2",
+      "bytes": 5792,
+      "pack": "P003",
+      "model": "lifebuoy_rack",
+      "meshes": 2,
+      "triangles_reported": 22,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/lobster_workboat.glb",
+      "sha256": "b6cf9104aebbc2900db611465263d1202d29c0640f6fca303d068948877057d4",
+      "bytes": 7116,
+      "pack": "P003",
+      "model": "lobster_workboat",
+      "meshes": 4,
+      "triangles_reported": 24,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/marina_sailboat.glb",
+      "sha256": "34927ccca8667c3f26375b768feceffcd6e25fdd45a5a1d9f9ef3d9205e39200",
+      "bytes": 9708,
+      "pack": "P003",
+      "model": "marina_sailboat",
+      "meshes": 5,
+      "triangles_reported": 34,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/mobile_harbor_crane.glb",
+      "sha256": "982fe3552bc9f6f06673502ce352b3813abfd2b5d9c581873cddc95e96aa961f",
+      "bytes": 5184,
+      "pack": "P003",
+      "model": "mobile_harbor_crane",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/nav_light_set.glb",
+      "sha256": "6cbc25746d24ce0a2c6e5c736dc1719e208f0379701bdc5ecc864e8740442c09",
+      "bytes": 5844,
+      "pack": "P003",
+      "model": "nav_light_set",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/net_reel_cage.glb",
+      "sha256": "11b1ba77c8902729b8ce0d19c32bcb6e27de507eb4b9bcd7492facbe3d43bdb3",
+      "bytes": 5620,
+      "pack": "P003",
+      "model": "net_reel_cage",
+      "meshes": 2,
+      "triangles_reported": 22,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/net_tarpaulin.glb",
+      "sha256": "fb7711e0988b973d2b400594d51b30d9f922b7d45b022ceb91a655eefcb4cdde",
+      "bytes": 3920,
+      "pack": "P003",
+      "model": "net_tarpaulin",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/offshore_trawler.glb",
+      "sha256": "e8cab8b170bdfc1a18df9985803a1c98738b982b97a9aa5bbd2db076676b257d",
+      "bytes": 14076,
+      "pack": "P003",
+      "model": "offshore_trawler",
+      "meshes": 8,
+      "triangles_reported": 52,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/pallet_jack.glb",
+      "sha256": "80a6502d1e5a2e49e8068dbc0cb5aae05abb816ec0a4d62c13fef152c0db4735",
+      "bytes": 4132,
+      "pack": "P003",
+      "model": "pallet_jack",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/pier_crossbrace.glb",
+      "sha256": "44f47567904229e4164ab2d2039cc6092af914013e182d012f766e7348279363",
+      "bytes": 5292,
+      "pack": "P003",
+      "model": "pier_crossbrace",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/port_lighting_tower.glb",
+      "sha256": "148553384625a42255f0d375bf6fc81fc026128e5384da82035ad04e47b20a6d",
+      "bytes": 4856,
+      "pack": "P003",
+      "model": "port_lighting_tower",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/propeller_shaft.glb",
+      "sha256": "da0bf5b040a96aca1edbd9883e3e52dc62afe82df20904e52dec84a90ea40882",
+      "bytes": 6396,
+      "pack": "P003",
+      "model": "propeller_shaft",
+      "meshes": 3,
+      "triangles_reported": 22,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/radar_dome.glb",
+      "sha256": "20d3f1930111a7d6106e6f66ce8d34b8e9fb08051f7e57714ff46c7f66aec6de",
+      "bytes": 11956,
+      "pack": "P003",
+      "model": "radar_dome",
+      "meshes": 2,
+      "triangles_reported": 154,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/reach_stacker.glb",
+      "sha256": "cc4c9e4d9ee4f1bbfaa00d97a9f6dd7a3bdd08aede19c6aca73d1d2355f326ea",
+      "bytes": 7028,
+      "pack": "P003",
+      "model": "reach_stacker",
+      "meshes": 3,
+      "triangles_reported": 26,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/refrigerated_pallet_stack.glb",
+      "sha256": "93522d820540f5cfd50a6e5e74069ea97c29047886d9d563c40c557076e2eef9",
+      "bytes": 4044,
+      "pack": "P003",
+      "model": "refrigerated_pallet_stack",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/riprap_cluster.glb",
+      "sha256": "8ace5c4039ff444367481068a452f61ee0b72ecd7ecde6c0cce7325f5ba685a6",
+      "bytes": 5388,
+      "pack": "P003",
+      "model": "riprap_cluster",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/rope_ladder.glb",
+      "sha256": "634ff809a16e9485f81f7a801a9f4e04aa65bde2d6df5d73ad4b15370390ec0f",
+      "bytes": 7940,
+      "pack": "P003",
+      "model": "rope_ladder",
+      "meshes": 4,
+      "triangles_reported": 28,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/scallop_dragger.glb",
+      "sha256": "e5ed36068c43de5370f2094cf893ced1a305578ab761337a798652a8257f6b66",
+      "bytes": 9724,
+      "pack": "P003",
+      "model": "scallop_dragger",
+      "meshes": 5,
+      "triangles_reported": 34,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/seawall_face.glb",
+      "sha256": "b88788cb67e42aa5b31b97991815f35f6a61559ebb8c41aa3b74b1f76271998e",
+      "bytes": 3716,
+      "pack": "P003",
+      "model": "seawall_face",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/shore_power_box.glb",
+      "sha256": "d13c9b1de5e128e58aecf19bae651485c48b35bb2fc2aa51f13ed91bc3c39776",
+      "bytes": 4164,
+      "pack": "P003",
+      "model": "shore_power_box",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/slip_signage.glb",
+      "sha256": "4388ea94136608b730290e9583e1158e2a50ae3cf34e6a4833974a6d65413235",
+      "bytes": 4824,
+      "pack": "P003",
+      "model": "slip_signage",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/trap_tower.glb",
+      "sha256": "3560f06c82c7efa04c9dda7114621cb0409cd3072ad83862bdfcd9b408b21af0",
+      "bytes": 5256,
+      "pack": "P003",
+      "model": "trap_tower",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/trawl_doors.glb",
+      "sha256": "aa31605234f826e8eb25f2f16d1bf56f9b0002380bc2110bc4b486db018382ab",
+      "bytes": 3880,
+      "pack": "P003",
+      "model": "trawl_doors",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/utility_launch.glb",
+      "sha256": "a93eb6b634a223ed75e3e41f226ec412a486cf78c2f15a1bbec9b094f5a2d5b4",
+      "bytes": 7156,
+      "pack": "P003",
+      "model": "utility_launch",
+      "meshes": 4,
+      "triangles_reported": 24,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P003/wheelhouse_console.glb",
+      "sha256": "05b1966ffc90f0ff3926cd6af20c9c8f03ffa3d883d3bd599d95e88b8f7d6538",
+      "bytes": 4072,
+      "pack": "P003",
+      "model": "wheelhouse_console",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": null
+    },
+    {
+      "path": "/quahog-assets/P006/ambulance_van.glb",
+      "sha256": "a369b7de314ba5fdd98edc0502bc57d3aee68b5dc34f0c020f4bbd5349c9a8f3",
+      "bytes": 26716,
+      "pack": "P006",
+      "model": "ambulance_van",
+      "meshes": 11,
+      "triangles_reported": 130,
+      "asset_id": "QH-A329"
+    },
+    {
+      "path": "/quahog-assets/P006/bicycle.glb",
+      "sha256": "517f3f5e70b4a2bbdbcbdc4e2bdbeae3c2adb35523ff0782496564636e13b0bd",
+      "bytes": 8528,
+      "pack": "P006",
+      "model": "bicycle",
+      "meshes": 3,
+      "triangles_reported": 38,
+      "asset_id": "QH-A339"
+    },
+    {
+      "path": "/quahog-assets/P006/box_truck.glb",
+      "sha256": "d641b4f2f717828357c9de65125d793f37cc27ce2ca15965dc41de783e37de9b",
+      "bytes": 25248,
+      "pack": "P006",
+      "model": "box_truck",
+      "meshes": 10,
+      "triangles_reported": 124,
+      "asset_id": "QH-A321"
+    },
+    {
+      "path": "/quahog-assets/P006/bumper_kit.glb",
+      "sha256": "b2d0a46d4eb5e30aadd74df44121fd83e9d0627c89e5f3f23c96fbcd2d601108",
+      "bytes": 3836,
+      "pack": "P006",
+      "model": "bumper_kit",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A350"
+    },
+    {
+      "path": "/quahog-assets/P006/container_trailer.glb",
+      "sha256": "1a3dc8d19544fba3f2101d0282bfb2fab2f7d651e726d17156292d558276ac90",
+      "bytes": 25440,
+      "pack": "P006",
+      "model": "container_trailer",
+      "meshes": 10,
+      "triangles_reported": 124,
+      "asset_id": "QH-A325"
+    },
+    {
+      "path": "/quahog-assets/P006/crossover_suv.glb",
+      "sha256": "eb04d1ce63a9c9afeec26b9286246b3ee98e9b4e052a701d0d6c1bcbb54fffe4",
+      "bytes": 33484,
+      "pack": "P006",
+      "model": "crossover_suv",
+      "meshes": 15,
+      "triangles_reported": 154,
+      "asset_id": "QH-A314"
+    },
+    {
+      "path": "/quahog-assets/P006/dashboard.glb",
+      "sha256": "ed438032730472bda5aba5d736b191b9f18622da56b775deeb97b1969e721c71",
+      "bytes": 4136,
+      "pack": "P006",
+      "model": "dashboard",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A352"
+    },
+    {
+      "path": "/quahog-assets/P006/delivery_bike.glb",
+      "sha256": "40c16af340168456de61814cadaa351bcd1b2b42453ee314ae3db68c6f3e16eb",
+      "bytes": 8564,
+      "pack": "P006",
+      "model": "delivery_bike",
+      "meshes": 3,
+      "triangles_reported": 38,
+      "asset_id": "QH-A337"
+    },
+    {
+      "path": "/quahog-assets/P006/delivery_van.glb",
+      "sha256": "6632636f19dff3f2e436f207b57e22d0e2c742d528b8b47e697e13dd8b1ced48",
+      "bytes": 25380,
+      "pack": "P006",
+      "model": "delivery_van",
+      "meshes": 10,
+      "triangles_reported": 124,
+      "asset_id": "QH-A319"
+    },
+    {
+      "path": "/quahog-assets/P006/dent_hood_swap.glb",
+      "sha256": "f7af623f067876ee048d04fff3f6e866e4defd239033c7341709140e7e303a5b",
+      "bytes": 8628,
+      "pack": "P006",
+      "model": "dent_hood_swap",
+      "meshes": 2,
+      "triangles_reported": 102,
+      "asset_id": "QH-A359"
+    },
+    {
+      "path": "/quahog-assets/P006/door_hinge_static.glb",
+      "sha256": "1d5c33106b669d088459a051296ca36e23893fd56269979e8572f1a25c8c4b49",
+      "bytes": 6408,
+      "pack": "P006",
+      "model": "door_hinge_static",
+      "meshes": 3,
+      "triangles_reported": 22,
+      "asset_id": "QH-A355"
+    },
+    {
+      "path": "/quahog-assets/P006/door_panel_kit.glb",
+      "sha256": "4a881bfbe831ef4c77a8f012f54f6ffd3b115041684b2275b923fabdf58e8af2",
+      "bytes": 4108,
+      "pack": "P006",
+      "model": "door_panel_kit",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A351"
+    },
+    {
+      "path": "/quahog-assets/P006/dump_truck.glb",
+      "sha256": "56274a5ffe9ffa3e6aa6a4edbea3450cfc7de74912a0d2d8d21972ee45a93dcf",
+      "bytes": 27000,
+      "pack": "P006",
+      "model": "dump_truck",
+      "meshes": 11,
+      "triangles_reported": 130,
+      "asset_id": "QH-A322"
+    },
+    {
+      "path": "/quahog-assets/P006/economy_sedan.glb",
+      "sha256": "947cecc69eb7f6f3eb1b46fd06c03689a9cbbf0ab48405dc196c193817ea3669",
+      "bytes": 33472,
+      "pack": "P006",
+      "model": "economy_sedan",
+      "meshes": 15,
+      "triangles_reported": 154,
+      "asset_id": "QH-A309"
+    },
+    {
+      "path": "/quahog-assets/P006/family_suv.glb",
+      "sha256": "25665b572131c870f1c7589ff9911e1faf013d58501375baffb4063fc15c4a55",
+      "bytes": 33488,
+      "pack": "P006",
+      "model": "family_suv",
+      "meshes": 15,
+      "triangles_reported": 154,
+      "asset_id": "QH-A315"
+    },
+    {
+      "path": "/quahog-assets/P006/fire_engine.glb",
+      "sha256": "fc8fabe09629dc1b3384259f19b614dbdd85419c1862031361f7eff47242c782",
+      "bytes": 26884,
+      "pack": "P006",
+      "model": "fire_engine",
+      "meshes": 11,
+      "triangles_reported": 130,
+      "asset_id": "QH-A330"
+    },
+    {
+      "path": "/quahog-assets/P006/flatbed_truck.glb",
+      "sha256": "99fcd4520ceb2c0baf37209a973b0f98afbd64e6320d52da830697efc8cb8ecb",
+      "bytes": 27056,
+      "pack": "P006",
+      "model": "flatbed_truck",
+      "meshes": 11,
+      "triangles_reported": 130,
+      "asset_id": "QH-A323"
+    },
+    {
+      "path": "/quahog-assets/P006/full_sedan.glb",
+      "sha256": "8cb6d29d81c58852c135936aad94540dbadd80821424c9c18cc75b56b3dd7815",
+      "bytes": 33228,
+      "pack": "P006",
+      "model": "full_sedan",
+      "meshes": 15,
+      "triangles_reported": 154,
+      "asset_id": "QH-A311"
+    },
+    {
+      "path": "/quahog-assets/P006/glass_kit.glb",
+      "sha256": "7e1e4f759478c6cf15c17b7056d90ca996163b6b71c781c8a16e04be6cb3d2f0",
+      "bytes": 5392,
+      "pack": "P006",
+      "model": "glass_kit",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A346"
+    },
+    {
+      "path": "/quahog-assets/P006/grille_kit.glb",
+      "sha256": "32199e077ae18ec35c9baa611d5b32712e5eafe480f25b0340509efc7c94f77a",
+      "bytes": 5512,
+      "pack": "P006",
+      "model": "grille_kit",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A348"
+    },
+    {
+      "path": "/quahog-assets/P006/hatchback_hero.glb",
+      "sha256": "6e13d8dbb2f0a17a2d739beda22246e42211ea92678f3038ea3e48c29404be59",
+      "bytes": 33500,
+      "pack": "P006",
+      "model": "hatchback_hero",
+      "meshes": 15,
+      "triangles_reported": 154,
+      "asset_id": "QH-A308"
+    },
+    {
+      "path": "/quahog-assets/P006/headlamp_module.glb",
+      "sha256": "e1028edf78043a0c59803cb7c9721ddbd64aa33167d0bc57805577f7d97da327",
+      "bytes": 4084,
+      "pack": "P006",
+      "model": "headlamp_module",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A343"
+    },
+    {
+      "path": "/quahog-assets/P006/indicator_set.glb",
+      "sha256": "89835bc4e2f628f63510b5b2e00237d901a85454c2de3e9aeaef9195838c6ed4",
+      "bytes": 3936,
+      "pack": "P006",
+      "model": "indicator_set",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A345"
+    },
+    {
+      "path": "/quahog-assets/P006/mid_sedan.glb",
+      "sha256": "ed891042e9d49a319cfc1e19f350b80bcba8ef1f691664ab1c18fd306d9c3141",
+      "bytes": 33464,
+      "pack": "P006",
+      "model": "mid_sedan",
+      "meshes": 15,
+      "triangles_reported": 154,
+      "asset_id": "QH-A310"
+    },
+    {
+      "path": "/quahog-assets/P006/mirror_kit.glb",
+      "sha256": "e7cef2c14b5a35603d810931e6775f0e364d246fb9bec44c31265d0a97e48d6b",
+      "bytes": 7128,
+      "pack": "P006",
+      "model": "mirror_kit",
+      "meshes": 4,
+      "triangles_reported": 24,
+      "asset_id": "QH-A347"
+    },
+    {
+      "path": "/quahog-assets/P006/motorcycle.glb",
+      "sha256": "bf104454cc3802e0f675694194f9f403a3d08ee6149ca49e351bb55c443dcb37",
+      "bytes": 10112,
+      "pack": "P006",
+      "model": "motorcycle",
+      "meshes": 4,
+      "triangles_reported": 44,
+      "asset_id": "QH-A338"
+    },
+    {
+      "path": "/quahog-assets/P006/offroad_suv.glb",
+      "sha256": "0153732d458a425511212789be2b70d1a791171d10faab0afa43c2c2d8e12ea3",
+      "bytes": 33528,
+      "pack": "P006",
+      "model": "offroad_suv",
+      "meshes": 15,
+      "triangles_reported": 154,
+      "asset_id": "QH-A316"
+    },
+    {
+      "path": "/quahog-assets/P006/patrol_cruiser.glb",
+      "sha256": "2d74b244ad0272a3d4da59215be4c1fc9cf81a54d63885fd27e486c88678db65",
+      "bytes": 38308,
+      "pack": "P006",
+      "model": "patrol_cruiser",
+      "meshes": 18,
+      "triangles_reported": 172,
+      "asset_id": "QH-A327"
+    },
+    {
+      "path": "/quahog-assets/P006/pickup_crew.glb",
+      "sha256": "66dc35495bea54f0736dc31caa48d730e3ea235605b0880b041391525095399d",
+      "bytes": 27092,
+      "pack": "P006",
+      "model": "pickup_crew",
+      "meshes": 11,
+      "triangles_reported": 130,
+      "asset_id": "QH-A317"
+    },
+    {
+      "path": "/quahog-assets/P006/pickup_workbody.glb",
+      "sha256": "bf71bdce07fc3530a3185d3d8346f08bd6c838d6bb153fa25bc9fc242b26d301",
+      "bytes": 25476,
+      "pack": "P006",
+      "model": "pickup_workbody",
+      "meshes": 10,
+      "triangles_reported": 124,
+      "asset_id": "QH-A318"
+    },
+    {
+      "path": "/quahog-assets/P006/plate_holder.glb",
+      "sha256": "25142865a7bd7a3b4cb02ebf9ae25473a516090dea43c3f969f3b2ff9c5f630e",
+      "bytes": 4092,
+      "pack": "P006",
+      "model": "plate_holder",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A349"
+    },
+    {
+      "path": "/quahog-assets/P006/plow_blade.glb",
+      "sha256": "21f69584ffbb6ec3f43fb33377cedc6b6aa1fb53d1ebebd88a5577dbc318062f",
+      "bytes": 4132,
+      "pack": "P006",
+      "model": "plow_blade",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A357"
+    },
+    {
+      "path": "/quahog-assets/P006/roof_rack.glb",
+      "sha256": "09cef73ec898a56cfb1b347a6c3d02fe0f59dde224c255407b95a0f9592971b1",
+      "bytes": 6824,
+      "pack": "P006",
+      "model": "roof_rack",
+      "meshes": 4,
+      "triangles_reported": 24,
+      "asset_id": "QH-A356"
+    },
+    {
+      "path": "/quahog-assets/P006/salt_spreader_truck.glb",
+      "sha256": "5bf27770f3920d266889adb566905d07c15ccb75d253e43a65d6db87929b8d51",
+      "bytes": 26796,
+      "pack": "P006",
+      "model": "salt_spreader_truck",
+      "meshes": 11,
+      "triangles_reported": 130,
+      "asset_id": "QH-A332"
+    },
+    {
+      "path": "/quahog-assets/P006/seating_row.glb",
+      "sha256": "11089f6058849f6fee18d24d5ab4cd3a0e8681cc07ac2d003c2c705c1dc2aa5f",
+      "bytes": 3836,
+      "pack": "P006",
+      "model": "seating_row",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A354"
+    },
+    {
+      "path": "/quahog-assets/P006/semi_tractor.glb",
+      "sha256": "f42142cd8058c521fc4550238a9b8f6d74ab1e9b144cd328ac0af9b790afe999",
+      "bytes": 25376,
+      "pack": "P006",
+      "model": "semi_tractor",
+      "meshes": 10,
+      "triangles_reported": 124,
+      "asset_id": "QH-A324"
+    },
+    {
+      "path": "/quahog-assets/P006/shuttle_bus.glb",
+      "sha256": "15e9fe990ebeb07d9a77b5948dbb4d1e491dcde0526c4849963a869032ab835f",
+      "bytes": 25356,
+      "pack": "P006",
+      "model": "shuttle_bus",
+      "meshes": 10,
+      "triangles_reported": 124,
+      "asset_id": "QH-A336"
+    },
+    {
+      "path": "/quahog-assets/P006/siren_lightbar.glb",
+      "sha256": "d4852d4e4167714ed404d920ad3df46e1d49a86ea13a1de38457b4278364aedc",
+      "bytes": 5708,
+      "pack": "P006",
+      "model": "siren_lightbar",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A358"
+    },
+    {
+      "path": "/quahog-assets/P006/snow_plow_truck.glb",
+      "sha256": "974e883030d705e5b66c1c21a34807e39adae3eed55cd791b2ae3f7428b5c25e",
+      "bytes": 26912,
+      "pack": "P006",
+      "model": "snow_plow_truck",
+      "meshes": 11,
+      "triangles_reported": 130,
+      "asset_id": "QH-A331"
+    },
+    {
+      "path": "/quahog-assets/P006/sports_convertible.glb",
+      "sha256": "3095e0bb2748b96d9966e2082f5a148f5538fe27cd413293250ba9818aa3cde1",
+      "bytes": 35180,
+      "pack": "P006",
+      "model": "sports_convertible",
+      "meshes": 16,
+      "triangles_reported": 160,
+      "asset_id": "QH-A313"
+    },
+    {
+      "path": "/quahog-assets/P006/sports_coupe.glb",
+      "sha256": "21c1b11d4d8805909a2aeafcbb43862c23ba4c41f3a054e8590ad676c91ecaec",
+      "bytes": 33480,
+      "pack": "P006",
+      "model": "sports_coupe",
+      "meshes": 15,
+      "triangles_reported": 154,
+      "asset_id": "QH-A312"
+    },
+    {
+      "path": "/quahog-assets/P006/steering_wheel_static.glb",
+      "sha256": "8d0237fcd58f19a611d2da439b1e68ffd4852b9ae10cacd6d661acc1773522fb",
+      "bytes": 7608,
+      "pack": "P006",
+      "model": "steering_wheel_static",
+      "meshes": 3,
+      "triangles_reported": 30,
+      "asset_id": "QH-A353"
+    },
+    {
+      "path": "/quahog-assets/P006/step_van.glb",
+      "sha256": "8a6d92b4d58e02895c088bea3f1810dc3c3d444917a7ca315368bde9fb7d61e0",
+      "bytes": 25304,
+      "pack": "P006",
+      "model": "step_van",
+      "meshes": 10,
+      "triangles_reported": 124,
+      "asset_id": "QH-A320"
+    },
+    {
+      "path": "/quahog-assets/P006/street_sweeper.glb",
+      "sha256": "84e6af1224b1fef5890e69de64b4abc926d28e08c870be01fc75134eddff5a5e",
+      "bytes": 27704,
+      "pack": "P006",
+      "model": "street_sweeper",
+      "meshes": 11,
+      "triangles_reported": 136,
+      "asset_id": "QH-A333"
+    },
+    {
+      "path": "/quahog-assets/P006/taillamp_strip.glb",
+      "sha256": "aee9c68cdba231db470e367550a5077cac93881b9f013856ed04dc08dbfff01b",
+      "bytes": 4028,
+      "pack": "P006",
+      "model": "taillamp_strip",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A344"
+    },
+    {
+      "path": "/quahog-assets/P006/taxi_sedan.glb",
+      "sha256": "940e367ff45014c167cfd5c6f88a6016da00555da42b6ea31267ba3a2a1f1d1e",
+      "bytes": 34944,
+      "pack": "P006",
+      "model": "taxi_sedan",
+      "meshes": 16,
+      "triangles_reported": 160,
+      "asset_id": "QH-A334"
+    },
+    {
+      "path": "/quahog-assets/P006/tow_truck.glb",
+      "sha256": "11759df3c6224f1851f6a7058bba22d3cee6a69719c90c4fc7712200b926a679",
+      "bytes": 26912,
+      "pack": "P006",
+      "model": "tow_truck",
+      "meshes": 11,
+      "triangles_reported": 130,
+      "asset_id": "QH-A326"
+    },
+    {
+      "path": "/quahog-assets/P006/transit_bus.glb",
+      "sha256": "11bf0f093ebd562907777224768505ac162460e5533de8841b300177acb7671d",
+      "bytes": 25328,
+      "pack": "P006",
+      "model": "transit_bus",
+      "meshes": 10,
+      "triangles_reported": 124,
+      "asset_id": "QH-A335"
+    },
+    {
+      "path": "/quahog-assets/P006/unmarked_sedan.glb",
+      "sha256": "856958ec7cd922a01ca79446da042af78221b89dbeda0ab072f2033f98b9eda2",
+      "bytes": 33480,
+      "pack": "P006",
+      "model": "unmarked_sedan",
+      "meshes": 15,
+      "triangles_reported": 154,
+      "asset_id": "QH-A328"
+    },
+    {
+      "path": "/quahog-assets/P006/wheel_sedan_set.glb",
+      "sha256": "50d6f94273fa6787856f16fba15ba88695b9e501c63e8fa30a2aff821360e732",
+      "bytes": 21528,
+      "pack": "P006",
+      "model": "wheel_sedan_set",
+      "meshes": 8,
+      "triangles_reported": 112,
+      "asset_id": "QH-A340"
+    },
+    {
+      "path": "/quahog-assets/P006/wheel_suv_set.glb",
+      "sha256": "d7eb72bc55a126712e60aec2e2c1843010c9b10626136ca17903097bab6b4e19",
+      "bytes": 21512,
+      "pack": "P006",
+      "model": "wheel_suv_set",
+      "meshes": 8,
+      "triangles_reported": 112,
+      "asset_id": "QH-A341"
+    },
+    {
+      "path": "/quahog-assets/P006/wheel_truck_set.glb",
+      "sha256": "d2301130b2be1bc5d67c86f7122fde6ce94435ec60e17b6543cd73fb66547ef4",
+      "bytes": 21864,
+      "pack": "P006",
+      "model": "wheel_truck_set",
+      "meshes": 8,
+      "triangles_reported": 112,
+      "asset_id": "QH-A342"
+    },
+    {
+      "path": "/quahog-assets/P007/awning_snow_lip.glb",
+      "sha256": "a333ed419a1c86d5696d81a827c9bc9cc17ecf0f46aec291491f30bc8552f0b2",
+      "bytes": 8496,
+      "pack": "P007",
+      "model": "awning_snow_lip",
+      "meshes": 2,
+      "triangles_reported": 102,
+      "asset_id": "QH-A368"
+    },
+    {
+      "path": "/quahog-assets/P007/black_ice_edge.glb",
+      "sha256": "4c587a038dbf55cd312647b43d26b2032e5432566e83f19081ba513d923f3130",
+      "bytes": 4012,
+      "pack": "P007",
+      "model": "black_ice_edge",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A373"
+    },
+    {
+      "path": "/quahog-assets/P007/damaged_sign.glb",
+      "sha256": "22d0b948adc437aab5c153e3a662fd5ce268a97e11938e4cee5944ada9490845",
+      "bytes": 5044,
+      "pack": "P007",
+      "model": "damaged_sign",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A386"
+    },
+    {
+      "path": "/quahog-assets/P007/dead_shrub.glb",
+      "sha256": "5b1d5016a0d7bc290404787c39b7e4b2f21941ea9197f2760104bcf731896726",
+      "bytes": 8944,
+      "pack": "P007",
+      "model": "dead_shrub",
+      "meshes": 2,
+      "triangles_reported": 103,
+      "asset_id": "QH-A402"
+    },
+    {
+      "path": "/quahog-assets/P007/detour_barricade.glb",
+      "sha256": "76d21768547ac8cf576d74fdf21cd89923c356b5806000428012776448f7c866",
+      "bytes": 3936,
+      "pack": "P007",
+      "model": "detour_barricade",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A384"
+    },
+    {
+      "path": "/quahog-assets/P007/doorstep_snow.glb",
+      "sha256": "2cb178f1781c392cb1904292cca45397087525307b0c62dc96507f6263d4b38e",
+      "bytes": 8716,
+      "pack": "P007",
+      "model": "doorstep_snow",
+      "meshes": 2,
+      "triangles_reported": 102,
+      "asset_id": "QH-A365"
+    },
+    {
+      "path": "/quahog-assets/P007/downed_trunk.glb",
+      "sha256": "584c8e2cb5d2823cae458c28c8fda4ea2efd92a3db689168ac3c3bd3b1591b8c",
+      "bytes": 5340,
+      "pack": "P007",
+      "model": "downed_trunk",
+      "meshes": 2,
+      "triangles_reported": 20,
+      "asset_id": "QH-A387"
+    },
+    {
+      "path": "/quahog-assets/P007/downspout_drip.glb",
+      "sha256": "14458b5b24343cd2303a41d25253274e3e79209506494a2b6d095beb454060d7",
+      "bytes": 5844,
+      "pack": "P007",
+      "model": "downspout_drip",
+      "meshes": 2,
+      "triangles_reported": 22,
+      "asset_id": "QH-A396"
+    },
+    {
+      "path": "/quahog-assets/P007/fallen_powerline.glb",
+      "sha256": "f3177cf9cc03ee0766a5257d6c9c494841f8449491df8ceaefd64f9f15ecabfa",
+      "bytes": 5196,
+      "pack": "P007",
+      "model": "fallen_powerline",
+      "meshes": 2,
+      "triangles_reported": 17,
+      "asset_id": "QH-A388"
+    },
+    {
+      "path": "/quahog-assets/P007/foggy_glass.glb",
+      "sha256": "bda129979e7b365d5322494a3c9f72700ec877632c78806d6558fbc274c5dbfe",
+      "bytes": 4084,
+      "pack": "P007",
+      "model": "foggy_glass",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A399"
+    },
+    {
+      "path": "/quahog-assets/P007/frosted_window.glb",
+      "sha256": "b13dbb7f0e49db6426927e59c45ba1a564277021d77bf47dd5a79d8bd6b93c00",
+      "bytes": 4092,
+      "pack": "P007",
+      "model": "frosted_window",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A400"
+    },
+    {
+      "path": "/quahog-assets/P007/frozen_dock_rope.glb",
+      "sha256": "162951414c17e68561589e9129d20a16ec4c90f1fe41f97d9f927cdede9adef6",
+      "bytes": 9140,
+      "pack": "P007",
+      "model": "frozen_dock_rope",
+      "meshes": 2,
+      "triangles_reported": 104,
+      "asset_id": "QH-A376"
+    },
+    {
+      "path": "/quahog-assets/P007/frozen_fender_buoy.glb",
+      "sha256": "b9e3c6d3bf0083241e277b38ce977478c610034275fb5f1b10cb2d99c8c306eb",
+      "bytes": 9760,
+      "pack": "P007",
+      "model": "frozen_fender_buoy",
+      "meshes": 2,
+      "triangles_reported": 110,
+      "asset_id": "QH-A377"
+    },
+    {
+      "path": "/quahog-assets/P007/gutter_splash.glb",
+      "sha256": "41564f0899b18fed9c9031bc55b018f04106f14096c926a44b497a51eb64deb9",
+      "bytes": 9108,
+      "pack": "P007",
+      "model": "gutter_splash",
+      "meshes": 2,
+      "triangles_reported": 106,
+      "asset_id": "QH-A393"
+    },
+    {
+      "path": "/quahog-assets/P007/ice_sheet_broken.glb",
+      "sha256": "2aa9959862b0ea9ec1f07e0aca0a8dd71c0455848340cf8848d269ac66ac7b6c",
+      "bytes": 3980,
+      "pack": "P007",
+      "model": "ice_sheet_broken",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A372"
+    },
+    {
+      "path": "/quahog-assets/P007/icicle_gutter_cluster.glb",
+      "sha256": "44ddbb4026fc6b68336c9bed7f06291f6121c06067ccad86f95a91dd1c7307f1",
+      "bytes": 11568,
+      "pack": "P007",
+      "model": "icicle_gutter_cluster",
+      "meshes": 5,
+      "triangles_reported": 54,
+      "asset_id": "QH-A375"
+    },
+    {
+      "path": "/quahog-assets/P007/icicle_roof_cluster.glb",
+      "sha256": "ad6b4e026b65a42060c60958d86372c59ff7aca6f83b956c4abfb228393b590e",
+      "bytes": 11744,
+      "pack": "P007",
+      "model": "icicle_roof_cluster",
+      "meshes": 5,
+      "triangles_reported": 60,
+      "asset_id": "QH-A374"
+    },
+    {
+      "path": "/quahog-assets/P007/knocked_bin.glb",
+      "sha256": "86661711e659c9218dc0b9c4308ffc2892a1c3a165cd30bc73b6392fe2abab85",
+      "bytes": 9820,
+      "pack": "P007",
+      "model": "knocked_bin",
+      "meshes": 2,
+      "triangles_reported": 110,
+      "asset_id": "QH-A397"
+    },
+    {
+      "path": "/quahog-assets/P007/leaf_litter_piles.glb",
+      "sha256": "1c72cb58b5a48faaabbc07769cf13e6ccc58d70d0b0df0b9ca3231f2e30cafe6",
+      "bytes": 12764,
+      "pack": "P007",
+      "model": "leaf_litter_piles",
+      "meshes": 2,
+      "triangles_reported": 192,
+      "asset_id": "QH-A401"
+    },
+    {
+      "path": "/quahog-assets/P007/plowed_berm.glb",
+      "sha256": "f0fe084b4fc917d781134f5f42d414eb0999116617557520f08faa257505e3d4",
+      "bytes": 8260,
+      "pack": "P007",
+      "model": "plowed_berm",
+      "meshes": 2,
+      "triangles_reported": 102,
+      "asset_id": "QH-A363"
+    },
+    {
+      "path": "/quahog-assets/P007/roof_snow_flat.glb",
+      "sha256": "32cddede631a39781e6fac469acc14cc3c891f3192c2849c7300f08e0f7f987b",
+      "bytes": 9852,
+      "pack": "P007",
+      "model": "roof_snow_flat",
+      "meshes": 3,
+      "triangles_reported": 108,
+      "asset_id": "QH-A367"
+    },
+    {
+      "path": "/quahog-assets/P007/roof_snow_pitched.glb",
+      "sha256": "b2ba10e9c265c8b91f4e378e93126e9cbcf41b82220d4657eac7402a7306aa38",
+      "bytes": 10140,
+      "pack": "P007",
+      "model": "roof_snow_pitched",
+      "meshes": 3,
+      "triangles_reported": 108,
+      "asset_id": "QH-A366"
+    },
+    {
+      "path": "/quahog-assets/P007/salt_bucket_spreader.glb",
+      "sha256": "272bcf29b7ae6380903651d5b87049ddf005d10040bf9099ab2fd2900c92bcef",
+      "bytes": 5408,
+      "pack": "P007",
+      "model": "salt_bucket_spreader",
+      "meshes": 2,
+      "triangles_reported": 20,
+      "asset_id": "QH-A382"
+    },
+    {
+      "path": "/quahog-assets/P007/shingle_debris.glb",
+      "sha256": "538c19b694909cfc2d52fc6fd4ee7741e0454991baf4c15919db1f064532e81d",
+      "bytes": 10300,
+      "pack": "P007",
+      "model": "shingle_debris",
+      "meshes": 3,
+      "triangles_reported": 108,
+      "asset_id": "QH-A389"
+    },
+    {
+      "path": "/quahog-assets/P007/sidewalk_snow_pile.glb",
+      "sha256": "c233adef8fc6bc73940dc7761ec7f7045b8aeca95a7adf5665c75c02ad91f136",
+      "bytes": 17836,
+      "pack": "P007",
+      "model": "sidewalk_snow_pile",
+      "meshes": 3,
+      "triangles_reported": 288,
+      "asset_id": "QH-A364"
+    },
+    {
+      "path": "/quahog-assets/P007/slush_pile.glb",
+      "sha256": "6da4e0d265dec6d2d67f233027e4dbc24209c857a4967e3b1558b614c55b9885",
+      "bytes": 12816,
+      "pack": "P007",
+      "model": "slush_pile",
+      "meshes": 2,
+      "triangles_reported": 192,
+      "asset_id": "QH-A391"
+    },
+    {
+      "path": "/quahog-assets/P007/snow_blower.glb",
+      "sha256": "4769e727868d21f4c94b8036b71e27adb9b2d5dbf4af7bfec9c62bcd780ea759",
+      "bytes": 9860,
+      "pack": "P007",
+      "model": "snow_blower",
+      "meshes": 4,
+      "triangles_reported": 40,
+      "asset_id": "QH-A381"
+    },
+    {
+      "path": "/quahog-assets/P007/snow_emergency_sign.glb",
+      "sha256": "c335dcbc282b038dfff3668fcd1754743ec9d8a1f6177f9588ff683635bbcdd8",
+      "bytes": 4868,
+      "pack": "P007",
+      "model": "snow_emergency_sign",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A390"
+    },
+    {
+      "path": "/quahog-assets/P007/snow_fence_bundle.glb",
+      "sha256": "073573df9756976281c6134edc0271c65574966024e6a76a02befd6ea6ad368c",
+      "bytes": 8516,
+      "pack": "P007",
+      "model": "snow_fence_bundle",
+      "meshes": 2,
+      "triangles_reported": 102,
+      "asset_id": "QH-A379"
+    },
+    {
+      "path": "/quahog-assets/P007/snow_fence_railing.glb",
+      "sha256": "9ee82c0bb0b9bbc7724363f42da126ab1b1c881b03aedf04302fd459343f7334",
+      "bytes": 13084,
+      "pack": "P007",
+      "model": "snow_fence_railing",
+      "meshes": 4,
+      "triangles_reported": 122,
+      "asset_id": "QH-A369"
+    },
+    {
+      "path": "/quahog-assets/P007/snow_roadblock.glb",
+      "sha256": "69a8892e720165585c5c74133a53c33bff46ed61b77b3c4e8abdd8dbb6ac080e",
+      "bytes": 11776,
+      "pack": "P007",
+      "model": "snow_roadblock",
+      "meshes": 4,
+      "triangles_reported": 114,
+      "asset_id": "QH-A383"
+    },
+    {
+      "path": "/quahog-assets/P007/snow_shovel.glb",
+      "sha256": "0938dc92f333be97d97c45355d47ed06b6062581663a500eb4709510ef982ce9",
+      "bytes": 4900,
+      "pack": "P007",
+      "model": "snow_shovel",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A380"
+    },
+    {
+      "path": "/quahog-assets/P007/snow_traffic_cone.glb",
+      "sha256": "a943c4a852d568d9387f9b4c528f5ceeb8fc37f268a41e2ee245f59bad097d74",
+      "bytes": 11524,
+      "pack": "P007",
+      "model": "snow_traffic_cone",
+      "meshes": 3,
+      "triangles_reported": 114,
+      "asset_id": "QH-A385"
+    },
+    {
+      "path": "/quahog-assets/P007/snowbank_high.glb",
+      "sha256": "61ade2b4b55e2ff6b08cc9e8645aa90826990f2b5b7b9a273490679ffda736d1",
+      "bytes": 18636,
+      "pack": "P007",
+      "model": "snowbank_high",
+      "meshes": 3,
+      "triangles_reported": 288,
+      "asset_id": "QH-A362"
+    },
+    {
+      "path": "/quahog-assets/P007/snowbank_medium.glb",
+      "sha256": "1bc8556d04739f63550472590f7686f15dd4328aeeac664b4789de091923add4",
+      "bytes": 17752,
+      "pack": "P007",
+      "model": "snowbank_medium",
+      "meshes": 3,
+      "triangles_reported": 288,
+      "asset_id": "QH-A361"
+    },
+    {
+      "path": "/quahog-assets/P007/snowbank_small.glb",
+      "sha256": "b4c8db73bd3ecfb8f1ebb635dfd783f88b765755a24932fa9d06acac91ec23df",
+      "bytes": 18772,
+      "pack": "P007",
+      "model": "snowbank_small",
+      "meshes": 3,
+      "triangles_reported": 288,
+      "asset_id": "QH-A360"
+    },
+    {
+      "path": "/quahog-assets/P007/snowmobile.glb",
+      "sha256": "fab1dac78c975eb3a8e90b7f87d89c57c16e0b10c288bb54fd0bea536bdba914",
+      "bytes": 6428,
+      "pack": "P007",
+      "model": "snowmobile",
+      "meshes": 3,
+      "triangles_reported": 20,
+      "asset_id": "QH-A392"
+    },
+    {
+      "path": "/quahog-assets/P007/snowpack_car.glb",
+      "sha256": "2c5329e82d2834d290fdb40caa3ed11edec47ae46839b21a23bf2040f46709c9",
+      "bytes": 9840,
+      "pack": "P007",
+      "model": "snowpack_car",
+      "meshes": 3,
+      "triangles_reported": 108,
+      "asset_id": "QH-A370"
+    },
+    {
+      "path": "/quahog-assets/P007/waterlogged_cardboard.glb",
+      "sha256": "858d2c0ef9d421ed6bda680e17edb72340a2066739d3f39a2d9e8a68a1a08d29",
+      "bytes": 4036,
+      "pack": "P007",
+      "model": "waterlogged_cardboard",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A398"
+    },
+    {
+      "path": "/quahog-assets/P007/wet_hull_streak.glb",
+      "sha256": "6128563656c8c9058d81bcb3c56205ec1e3eef10022afc51e823d49d1f3adfb6",
+      "bytes": 3956,
+      "pack": "P007",
+      "model": "wet_hull_streak",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A394"
+    },
+    {
+      "path": "/quahog-assets/P007/windbent_tarp.glb",
+      "sha256": "a6bfacf08dda45c6b875078430f2bef52bdfba51aca046866757cef4fd6ebc07",
+      "bytes": 4088,
+      "pack": "P007",
+      "model": "windbent_tarp",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A395"
+    },
+    {
+      "path": "/quahog-assets/P007/windblown_branch.glb",
+      "sha256": "76d55d2766a25bcc4f12e5850eb8ce03c2872933cc78497bcb2eff1b428edabb",
+      "bytes": 5208,
+      "pack": "P007",
+      "model": "windblown_branch",
+      "meshes": 2,
+      "triangles_reported": 18,
+      "asset_id": "QH-A378"
+    },
+    {
+      "path": "/quahog-assets/P007/windblown_ridge.glb",
+      "sha256": "0ac96966781381c687826f5791d65e265539edfca918b4ecb0a33e5eaa7dc9cc",
+      "bytes": 12544,
+      "pack": "P007",
+      "model": "windblown_ridge",
+      "meshes": 2,
+      "triangles_reported": 192,
+      "asset_id": "QH-A371"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_cracked.glb",
+      "sha256": "7d0db360a9a067b1bb4619dc0c2676a956004f2da2be8ca3f0f2657fc370ea4b",
+      "bytes": 73252,
+      "pack": "P010",
+      "model": "asphalt_cracked",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A488"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_dry.glb",
+      "sha256": "9cae33bf343c7b3579ca935e6d438609da20bc03543af7fef3c1cd3e11857fa3",
+      "bytes": 56680,
+      "pack": "P010",
+      "model": "asphalt_dry",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A487"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_patch_repair.glb",
+      "sha256": "7bfc43760ccc62aca622705e4f4399d46d62ca1874d5b1971e21ff483116f420",
+      "bytes": 54508,
+      "pack": "P010",
+      "model": "asphalt_patch_repair",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A489"
+    },
+    {
+      "path": "/quahog-assets/P010/boat_fiberglass_paint.glb",
+      "sha256": "44e665785b81b9fa0a0d1a524b45699336ae4edfde0e8b3bd9568f331a88b70b",
+      "bytes": 8084,
+      "pack": "P010",
+      "model": "boat_fiberglass_paint",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A502"
+    },
+    {
+      "path": "/quahog-assets/P010/boat_weathered_hull_salt.glb",
+      "sha256": "1754d79578cd5bac66b763a170f66539832568ed64a66d21c6a54ea9c8da495b",
+      "bytes": 60680,
+      "pack": "P010",
+      "model": "boat_weathered_hull_salt",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A503"
+    },
+    {
+      "path": "/quahog-assets/P010/brick_chipped_trim.glb",
+      "sha256": "85ce62aa103e142ab64032ec5aa2a9d613ed8609abb7c83abcb71002e9f2f113",
+      "bytes": 61548,
+      "pack": "P010",
+      "model": "brick_chipped_trim",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A519"
+    },
+    {
+      "path": "/quahog-assets/P010/car_metallic_paint.glb",
+      "sha256": "646fec764cbbf9a6d4e363299283067b0c7e8aa735d252272794b3c55e66478a",
+      "bytes": 8076,
+      "pack": "P010",
+      "model": "car_metallic_paint",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A504"
+    },
+    {
+      "path": "/quahog-assets/P010/coastal_cream_clapboard.glb",
+      "sha256": "c237df1f921e4220c3b7f045e2c3d66859ab0e05d439abf1157e2a13dcc3a5c0",
+      "bytes": 38948,
+      "pack": "P010",
+      "model": "coastal_cream_clapboard",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A475"
+    },
+    {
+      "path": "/quahog-assets/P010/cobblestone_sidewalk.glb",
+      "sha256": "8b317c33147dced02979165d1d9f08c5aa9e04a9173b077b28a7bf5afb512516",
+      "bytes": 51936,
+      "pack": "P010",
+      "model": "cobblestone_sidewalk",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A490"
+    },
+    {
+      "path": "/quahog-assets/P010/commercial_glass.glb",
+      "sha256": "0a2c93b1956d641aa4e842617b93e88680da4ce54642f9c9ae9ee5e04e396a17",
+      "bytes": 8168,
+      "pack": "P010",
+      "model": "commercial_glass",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A499"
+    },
+    {
+      "path": "/quahog-assets/P010/concrete_cast_slab.glb",
+      "sha256": "cea7602e1d4258f25f9d10ad9ce4c87179c190ed9daa60df6c8afbe497026719",
+      "bytes": 41952,
+      "pack": "P010",
+      "model": "concrete_cast_slab",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A485"
+    },
+    {
+      "path": "/quahog-assets/P010/crossing_marking_paint.glb",
+      "sha256": "40be17ce5c7cb25dcbee0abe0317efe7eeabf145e4bc306e5d5f5a5d74663565",
+      "bytes": 8132,
+      "pack": "P010",
+      "model": "crossing_marking_paint",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A492"
+    },
+    {
+      "path": "/quahog-assets/P010/dock_moss_algae.glb",
+      "sha256": "efa86fd550b014bd6e5d22d2550f7afc550723e5e1050d476cadbaf4b835e7b0",
+      "bytes": 70100,
+      "pack": "P010",
+      "model": "dock_moss_algae",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A518"
+    },
+    {
+      "path": "/quahog-assets/P010/fieldstone_foundation.glb",
+      "sha256": "37b89e1ca4ca4b3ed2701729909db43bf84478d60e1ce0477acdbe61a4bb0814",
+      "bytes": 64232,
+      "pack": "P010",
+      "model": "fieldstone_foundation",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A484"
+    },
+    {
+      "path": "/quahog-assets/P010/frosted_window.glb",
+      "sha256": "79c4c910fe639cad90bdc93a264a2549933d91d841cc7a84559c88a2f0a00438",
+      "bytes": 51996,
+      "pack": "P010",
+      "model": "frosted_window",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A501"
+    },
+    {
+      "path": "/quahog-assets/P010/galvanized_steel.glb",
+      "sha256": "f89d43de8168af4a9c7ab78fe97ba3618e5d31b25725afab25c7c5e5d9a410dd",
+      "bytes": 55024,
+      "pack": "P010",
+      "model": "galvanized_steel",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A494"
+    },
+    {
+      "path": "/quahog-assets/P010/graffiti_weathered.glb",
+      "sha256": "5a4902653c2002d6a980499cfdfa747f60b6be49461f432d684ffb92a75984cd",
+      "bytes": 67944,
+      "pack": "P010",
+      "model": "graffiti_weathered",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A514"
+    },
+    {
+      "path": "/quahog-assets/P010/granite_ashlar.glb",
+      "sha256": "9c5214cb577bef229372184f44bf3b80d5713bfe9cf3ab4e034d155509198164",
+      "bytes": 46652,
+      "pack": "P010",
+      "model": "granite_ashlar",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A482"
+    },
+    {
+      "path": "/quahog-assets/P010/granite_curb.glb",
+      "sha256": "614e224bd8935212690c7abde4f1cf6095630a62a1c1434af26c042442b33abc",
+      "bytes": 41872,
+      "pack": "P010",
+      "model": "granite_curb",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A491"
+    },
+    {
+      "path": "/quahog-assets/P010/grille_headlamp_atlas.glb",
+      "sha256": "8eb87494b67d820237c539f66a05679a5153b6df5b759c88abd34181bc19f5d2",
+      "bytes": 57812,
+      "pack": "P010",
+      "model": "grille_headlamp_atlas",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A521"
+    },
+    {
+      "path": "/quahog-assets/P010/historic_white_clapboard.glb",
+      "sha256": "7516ed299f3f9aef7b239fe14f84986e40d053d1982785f8cf96afb729c4d9b0",
+      "bytes": 39452,
+      "pack": "P010",
+      "model": "historic_white_clapboard",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A473"
+    },
+    {
+      "path": "/quahog-assets/P010/ice_roughness.glb",
+      "sha256": "35d59a5e2fe6b14498a4665130c8df79f003452a7d84d517459bfc3f8ee0038d",
+      "bytes": 53928,
+      "pack": "P010",
+      "model": "ice_roughness",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A509"
+    },
+    {
+      "path": "/quahog-assets/P010/leaf_litter_ground.glb",
+      "sha256": "2da7afded9d1fb46cad3b2fb8704df7c4a96f8d050111e06c53e3f273bd4f40d",
+      "bytes": 72224,
+      "pack": "P010",
+      "model": "leaf_litter_ground",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A516"
+    },
+    {
+      "path": "/quahog-assets/P010/limestone_trim.glb",
+      "sha256": "d5ce1b8002df6a5b29f8a28e9d2305e24d34a0a918b6f69321f6654c7e4fb352",
+      "bytes": 49000,
+      "pack": "P010",
+      "model": "limestone_trim",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A483"
+    },
+    {
+      "path": "/quahog-assets/P010/marine_painted_steel.glb",
+      "sha256": "46978dd66fd38737e2ac7ec2b044e38799e46ef501ad4ace1ae29d88870349cc",
+      "bytes": 53260,
+      "pack": "P010",
+      "model": "marine_painted_steel",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A495"
+    },
+    {
+      "path": "/quahog-assets/P010/mortar_joint_atlas.glb",
+      "sha256": "96240b1289c51e1e0e565fd8b093bd9eab184162743717e7d5cbdaa6db2dfe83",
+      "bytes": 40588,
+      "pack": "P010",
+      "model": "mortar_joint_atlas",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A481"
+    },
+    {
+      "path": "/quahog-assets/P010/night_window_lit.glb",
+      "sha256": "eb26981654f8698b678a4b12a39bce9643a14f6d8363b523cf494d3b7d7b6565",
+      "bytes": 40604,
+      "pack": "P010",
+      "model": "night_window_lit",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A500"
+    },
+    {
+      "path": "/quahog-assets/P010/painted_old_brick.glb",
+      "sha256": "3974d203ccfe9041f860329d5ae24f6e7aee7713d3e7dfa2ebe6043e3425dece",
+      "bytes": 45388,
+      "pack": "P010",
+      "model": "painted_old_brick",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A479"
+    },
+    {
+      "path": "/quahog-assets/P010/parking_lot_concrete.glb",
+      "sha256": "a6525a611b389fc5f063da1651766d04b975e2c3ec0614d1f624e5fd6997401c",
+      "bytes": 53556,
+      "pack": "P010",
+      "model": "parking_lot_concrete",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A486"
+    },
+    {
+      "path": "/quahog-assets/P010/posters_weathering.glb",
+      "sha256": "8bee51a212c8d69eabb05bbeac09d7f1dbe1f30948818457bc5cab1fafce4641",
+      "bytes": 67676,
+      "pack": "P010",
+      "model": "posters_weathering",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A513"
+    },
+    {
+      "path": "/quahog-assets/P010/prop_trim_sheet.glb",
+      "sha256": "d004deaf666d50ed0e58664940ac7622d979048c7b44c0e0ef98cef768b3e463",
+      "bytes": 64544,
+      "pack": "P010",
+      "model": "prop_trim_sheet",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A522"
+    },
+    {
+      "path": "/quahog-assets/P010/puddled_asphalt_mask.glb",
+      "sha256": "08015c2c097837ab6fc855b1b3e88364b0400c7adf091aeef07360ab7877abb1",
+      "bytes": 74504,
+      "pack": "P010",
+      "model": "puddled_asphalt_mask",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A515"
+    },
+    {
+      "path": "/quahog-assets/P010/road_salt_residue.glb",
+      "sha256": "f6e12d23a05f77e9f948d3414e2c3baca5ac3493a3d572bbf5f7b4260a9e04f2",
+      "bytes": 62768,
+      "pack": "P010",
+      "model": "road_salt_residue",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A510"
+    },
+    {
+      "path": "/quahog-assets/P010/road_slush.glb",
+      "sha256": "2d081a94f1bb6e81af797090d0f7f98a882e4bba6528eb05f0208d308c19a42c",
+      "bytes": 69872,
+      "pack": "P010",
+      "model": "road_slush",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A508"
+    },
+    {
+      "path": "/quahog-assets/P010/rubber_fender.glb",
+      "sha256": "7889375a21277dc1ca0a5446d7448d504f2cb59405c9e1a418000f67a760ca5d",
+      "bytes": 54120,
+      "pack": "P010",
+      "model": "rubber_fender",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A496"
+    },
+    {
+      "path": "/quahog-assets/P010/rust_grime_decal.glb",
+      "sha256": "aaf2594088552f1e63c8b84326066153ae44707caae74a4da9dfdfd828a531b4",
+      "bytes": 71112,
+      "pack": "P010",
+      "model": "rust_grime_decal",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A511"
+    },
+    {
+      "path": "/quahog-assets/P010/rusty_corrugated_metal.glb",
+      "sha256": "d9a7a58378e85dba9d9014cf7e7a819612189a3abd30df981220f6544a722c7b",
+      "bytes": 64428,
+      "pack": "P010",
+      "model": "rusty_corrugated_metal",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A493"
+    },
+    {
+      "path": "/quahog-assets/P010/salt_stained_wood_siding.glb",
+      "sha256": "68a4d803959431ad259bd1b07497a987621bafc58b36b198f2a160138ec35fe5",
+      "bytes": 67716,
+      "pack": "P010",
+      "model": "salt_stained_wood_siding",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A476"
+    },
+    {
+      "path": "/quahog-assets/P010/snow_compacted.glb",
+      "sha256": "f4145231980d8274d109376b304f2e0fc7da25660badda2e8c70843862133927",
+      "bytes": 52136,
+      "pack": "P010",
+      "model": "snow_compacted",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A506"
+    },
+    {
+      "path": "/quahog-assets/P010/snow_powder.glb",
+      "sha256": "b1e553b472e9bfa335f58f8b100a728f0bf4060e8594b9451def5219e298d698",
+      "bytes": 50944,
+      "pack": "P010",
+      "model": "snow_powder",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A507"
+    },
+    {
+      "path": "/quahog-assets/P010/soot_stained_brick.glb",
+      "sha256": "e69e795d937c6c5c94c4e95dbb2627916eff6a4bf3449417c4f1ac70263e78aa",
+      "bytes": 56104,
+      "pack": "P010",
+      "model": "soot_stained_brick",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A478"
+    },
+    {
+      "path": "/quahog-assets/P010/tire_skid_wear.glb",
+      "sha256": "7d777fa9dd4e1fa627bd13469f88c0e6f1258725779ed44b7c5bdfe86e7b9699",
+      "bytes": 61104,
+      "pack": "P010",
+      "model": "tire_skid_wear",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A517"
+    },
+    {
+      "path": "/quahog-assets/P010/treated_timber_pier.glb",
+      "sha256": "5f3b10cf2991895a9a7ab9d611cf55dc9f2eaf4a294c2e54ddf21a6358db30e7",
+      "bytes": 60280,
+      "pack": "P010",
+      "model": "treated_timber_pier",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A497"
+    },
+    {
+      "path": "/quahog-assets/P010/unpainted_red_brick.glb",
+      "sha256": "7b0986609cbf108602741888d11d277b8deae346221605ec14867c4b67a37693",
+      "bytes": 55944,
+      "pack": "P010",
+      "model": "unpainted_red_brick",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A477"
+    },
+    {
+      "path": "/quahog-assets/P010/water_streak_grime.glb",
+      "sha256": "18cc5f2f1fd6bb6fbf0f7e33f8a767c60902595ff3073c2e8b086391bc2af110",
+      "bytes": 67208,
+      "pack": "P010",
+      "model": "water_streak_grime",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A512"
+    },
+    {
+      "path": "/quahog-assets/P010/weathered_gray_clapboard.glb",
+      "sha256": "4544ed02037aee9be2c81accc8bb4e3bd15b9433a3764c53f8575a13bd8963bd",
+      "bytes": 43020,
+      "pack": "P010",
+      "model": "weathered_gray_clapboard",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A474"
+    },
+    {
+      "path": "/quahog-assets/P010/wet_hardwood_dock.glb",
+      "sha256": "31c0ff6b427fd5c91f1197b23b6868a68377f3718e0a46bef64dbecec5c2079d",
+      "bytes": 64568,
+      "pack": "P010",
+      "model": "wet_hardwood_dock",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A498"
+    },
+    {
+      "path": "/quahog-assets/P010/wet_tire_rubber.glb",
+      "sha256": "42aeb1e889256ca09f706c460214e70c40de95c33eb757433ca66c84baadb753",
+      "bytes": 57236,
+      "pack": "P010",
+      "model": "wet_tire_rubber",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A505"
+    },
+    {
+      "path": "/quahog-assets/P010/window_door_trim.glb",
+      "sha256": "6e50f036be84c1640a808eac8a73fca7debc44df5f098da24c14eca6be72ec93",
+      "bytes": 8096,
+      "pack": "P010",
+      "model": "window_door_trim",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A520"
+    },
+    {
+      "path": "/quahog-assets/P010/yellow_industrial_brick.glb",
+      "sha256": "21d60c76b32525ea001b76e05e9dd7c81671c7a619accd573b96eea318e12c78",
+      "bytes": 52796,
+      "pack": "P010",
+      "model": "yellow_industrial_brick",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A480"
+    },
+    {
+      "path": "/quahog-assets/P011/aframe_sign.glb",
+      "sha256": "9da44bdb88078785031b015faa9c78116d43b18bacd2e47b752b265176a0fc63",
+      "bytes": 3820,
+      "pack": "P011",
+      "model": "aframe_sign",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A574"
+    },
+    {
+      "path": "/quahog-assets/P011/alley_security_light.glb",
+      "sha256": "47d51997f80c4eae628d5f9dcfb4c6e5d8d4edc79788dad0cfe44f96b34dcbec",
+      "bytes": 4880,
+      "pack": "P011",
+      "model": "alley_security_light",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A557"
+    },
+    {
+      "path": "/quahog-assets/P011/arrow_board.glb",
+      "sha256": "d60c2db576fbbef88ba720425ce4c6ddfba6bc89e0a3db786be429c7f6472d29",
+      "bytes": 5716,
+      "pack": "P011",
+      "model": "arrow_board",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A573"
+    },
+    {
+      "path": "/quahog-assets/P011/bare_maple.glb",
+      "sha256": "1282276738fb56d7f683f27df40f3f552c917863f9622232b6734fa99983c195",
+      "bytes": 8864,
+      "pack": "P011",
+      "model": "bare_maple",
+      "meshes": 4,
+      "triangles_reported": 34,
+      "asset_id": "QH-A584"
+    },
+    {
+      "path": "/quahog-assets/P011/bare_oak.glb",
+      "sha256": "89933602746dd2201f03f99a77079196dc725e5b3cc4b3e7e5891136c0aa8602",
+      "bytes": 8856,
+      "pack": "P011",
+      "model": "bare_oak",
+      "meshes": 4,
+      "triangles_reported": 34,
+      "asset_id": "QH-A585"
+    },
+    {
+      "path": "/quahog-assets/P011/bench_metal_wood.glb",
+      "sha256": "14c8c6daaf6b81787b50de704809b6b6e6f5473b4a1f56587d903155a9a86071",
+      "bytes": 6972,
+      "pack": "P011",
+      "model": "bench_metal_wood",
+      "meshes": 4,
+      "triangles_reported": 24,
+      "asset_id": "QH-A544"
+    },
+    {
+      "path": "/quahog-assets/P011/bike_lane_separator.glb",
+      "sha256": "d96bb77be94e021705b86a8dbd3a2aef9e2246372edc67247a30fe579f0ebccf",
+      "bytes": 4936,
+      "pack": "P011",
+      "model": "bike_lane_separator",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A558"
+    },
+    {
+      "path": "/quahog-assets/P011/bike_rack.glb",
+      "sha256": "b61c61b640d1d225147f6edaadba5cca9eecad5ec9980a6f9ff3fd3392b761ce",
+      "bytes": 4960,
+      "pack": "P011",
+      "model": "bike_rack",
+      "meshes": 2,
+      "triangles_reported": 20,
+      "asset_id": "QH-A538"
+    },
+    {
+      "path": "/quahog-assets/P011/bollard_removable.glb",
+      "sha256": "3c4c29ddd0c4280c20cff3a89522effeefd3c8805b61465d3ccb60d878682d60",
+      "bytes": 3072,
+      "pack": "P011",
+      "model": "bollard_removable",
+      "meshes": 1,
+      "triangles_reported": 12,
+      "asset_id": "QH-A533"
+    },
+    {
+      "path": "/quahog-assets/P011/boxwood_hedge.glb",
+      "sha256": "fb8e99f5cf41202539c5511489099f53bff596edfdc72e5b5522c26787b06bf2",
+      "bytes": 2316,
+      "pack": "P011",
+      "model": "boxwood_hedge",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A591"
+    },
+    {
+      "path": "/quahog-assets/P011/bus_shelter.glb",
+      "sha256": "f7e446d0f2b69ff04eb1acdb6c824d397d29307e276c75cc3e327b571751356c",
+      "bytes": 5784,
+      "pack": "P011",
+      "model": "bus_shelter",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A536"
+    },
+    {
+      "path": "/quahog-assets/P011/bus_stop_sign.glb",
+      "sha256": "3ed05a5d18d9c22f2562a669fc07367fd9047932d88866ecda9993c58ad6183d",
+      "bytes": 4856,
+      "pack": "P011",
+      "model": "bus_stop_sign",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A537"
+    },
+    {
+      "path": "/quahog-assets/P011/chain_link_fence.glb",
+      "sha256": "dac2e73a81292f281554539eaeae24a54bdd3550816c9e616fe710bbe7f559cb",
+      "bytes": 6868,
+      "pack": "P011",
+      "model": "chain_link_fence",
+      "meshes": 3,
+      "triangles_reported": 26,
+      "asset_id": "QH-A565"
+    },
+    {
+      "path": "/quahog-assets/P011/coastal_pine.glb",
+      "sha256": "c8c33c214de9c745dd99bed713d20f140bfe087d7097434f5032990e3089fc22",
+      "bytes": 9900,
+      "pack": "P011",
+      "model": "coastal_pine",
+      "meshes": 4,
+      "triangles_reported": 46,
+      "asset_id": "QH-A582"
+    },
+    {
+      "path": "/quahog-assets/P011/construction_fencing.glb",
+      "sha256": "194ee4c5b3932a8f97ca04cabc186d63969ce9c505083b2bdb0f46ee6e96bcd5",
+      "bytes": 3960,
+      "pack": "P011",
+      "model": "construction_fencing",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A572"
+    },
+    {
+      "path": "/quahog-assets/P011/curb_ramp.glb",
+      "sha256": "21362c4bb4bfeeab8377b03e253eb4b0aab27a9c6ce9c3d0d0c6a4a055de49dc",
+      "bytes": 1916,
+      "pack": "P011",
+      "model": "curb_ramp",
+      "meshes": 1,
+      "triangles_reported": 5,
+      "asset_id": "QH-A576"
+    },
+    {
+      "path": "/quahog-assets/P011/detour_sign.glb",
+      "sha256": "57b387cc7d378014adb9da0f240e6a4699e68ae691ab9b7d9ce01cd3bbaba714",
+      "bytes": 4812,
+      "pack": "P011",
+      "model": "detour_sign",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A532"
+    },
+    {
+      "path": "/quahog-assets/P011/dumpster_enclosure.glb",
+      "sha256": "f6bf26cffeb93e4eb0bc9c57464bf5332a2bdd948dd8bbeaf0322b168423f432",
+      "bytes": 7076,
+      "pack": "P011",
+      "model": "dumpster_enclosure",
+      "meshes": 4,
+      "triangles_reported": 24,
+      "asset_id": "QH-A569"
+    },
+    {
+      "path": "/quahog-assets/P011/dune_grass.glb",
+      "sha256": "dd9bf52b9b39b62c7d85ce4427c26944e6aa31d077ba32c6fe3fff5545e154cc",
+      "bytes": 6236,
+      "pack": "P011",
+      "model": "dune_grass",
+      "meshes": 3,
+      "triangles_reported": 21,
+      "asset_id": "QH-A593"
+    },
+    {
+      "path": "/quahog-assets/P011/ev_charger_shell.glb",
+      "sha256": "4900edbe30ae8719a8f636ecf1dbd6fbe56d4a4abc55975950b4bf66440fcd0b",
+      "bytes": 4092,
+      "pack": "P011",
+      "model": "ev_charger_shell",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A540"
+    },
+    {
+      "path": "/quahog-assets/P011/fire_dept_connection.glb",
+      "sha256": "bb1c339f0f234850e843598566b10942b49646b6f0a68e86d52e192c41d4dc5a",
+      "bytes": 4776,
+      "pack": "P011",
+      "model": "fire_dept_connection",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A547"
+    },
+    {
+      "path": "/quahog-assets/P011/fire_hydrant.glb",
+      "sha256": "980a9af59bcdaeae0ef2c69446ff8832c359d6fdc07200902a7807f09bff7da3",
+      "bytes": 9404,
+      "pack": "P011",
+      "model": "fire_hydrant",
+      "meshes": 2,
+      "triangles_reported": 108,
+      "asset_id": "QH-A546"
+    },
+    {
+      "path": "/quahog-assets/P011/guardrail_segment.glb",
+      "sha256": "406284bfbf21d7977f3d879490c744c196ff446c6531c204e53ff303e9a3c983",
+      "bytes": 6760,
+      "pack": "P011",
+      "model": "guardrail_segment",
+      "meshes": 3,
+      "triangles_reported": 26,
+      "asset_id": "QH-A535"
+    },
+    {
+      "path": "/quahog-assets/P011/gully_grate.glb",
+      "sha256": "8fb76d110b951a6995396348531d262f4d068d25ba477362c09647796da0266c",
+      "bytes": 5420,
+      "pack": "P011",
+      "model": "gully_grate",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A560"
+    },
+    {
+      "path": "/quahog-assets/P011/harbor_reeds.glb",
+      "sha256": "2e89fdaa10877e8fb4a0a72e8d4f6f2ff21121325b1d64fe376618ed8629ea43",
+      "bytes": 6440,
+      "pack": "P011",
+      "model": "harbor_reeds",
+      "meshes": 3,
+      "triangles_reported": 24,
+      "asset_id": "QH-A596"
+    },
+    {
+      "path": "/quahog-assets/P011/hedge_wall.glb",
+      "sha256": "ed7269b035183300f09fa8aa0d758c482d8a006f803537ef7d0d13ddaf43af63",
+      "bytes": 2300,
+      "pack": "P011",
+      "model": "hedge_wall",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A589"
+    },
+    {
+      "path": "/quahog-assets/P011/historic_pedestrian_lamp.glb",
+      "sha256": "d67d53c9fc147115881976f16f21526e47e92ac3056766a7a98008b8839d74b1",
+      "bytes": 9080,
+      "pack": "P011",
+      "model": "historic_pedestrian_lamp",
+      "meshes": 2,
+      "triangles_reported": 106,
+      "asset_id": "QH-A555"
+    },
+    {
+      "path": "/quahog-assets/P011/hydrangea_bush.glb",
+      "sha256": "51397bf624a78379236990c138c9c396d146ee004b162d7616c1345019baa046",
+      "bytes": 19020,
+      "pack": "P011",
+      "model": "hydrangea_bush",
+      "meshes": 3,
+      "triangles_reported": 288,
+      "asset_id": "QH-A590"
+    },
+    {
+      "path": "/quahog-assets/P011/ivy_patch.glb",
+      "sha256": "3b0cdddca776c017fad649ad8b34e8258b50e26626cd986342ef5669e56debfe",
+      "bytes": 14684,
+      "pack": "P011",
+      "model": "ivy_patch",
+      "meshes": 3,
+      "triangles_reported": 198,
+      "asset_id": "QH-A597"
+    },
+    {
+      "path": "/quahog-assets/P011/jersey_barrier.glb",
+      "sha256": "7a7514e72ceb036886f59d6bc9599eff04bd21d992e2f7dcd3b0b74e72ff05f0",
+      "bytes": 1972,
+      "pack": "P011",
+      "model": "jersey_barrier",
+      "meshes": 1,
+      "triangles_reported": 5,
+      "asset_id": "QH-A534"
+    },
+    {
+      "path": "/quahog-assets/P011/leaf_pile.glb",
+      "sha256": "781255ebaec8f69b5b88ab9266694cd5ef603ea856856c52ce1372a7d5f83ccd",
+      "bytes": 6620,
+      "pack": "P011",
+      "model": "leaf_pile",
+      "meshes": 1,
+      "triangles_reported": 96,
+      "asset_id": "QH-A599"
+    },
+    {
+      "path": "/quahog-assets/P011/linden_street.glb",
+      "sha256": "98664498c4207d19232954915eb9fefa1b0ccc388ed0c9905210c198e79c4af1",
+      "bytes": 19596,
+      "pack": "P011",
+      "model": "linden_street",
+      "meshes": 4,
+      "triangles_reported": 298,
+      "asset_id": "QH-A581"
+    },
+    {
+      "path": "/quahog-assets/P011/mural_panel.glb",
+      "sha256": "7d3070d29da8a6c44eb86bc5d09b32911c172978b5df8f98350c36fc89d6b578",
+      "bytes": 4040,
+      "pack": "P011",
+      "model": "mural_panel",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A570"
+    },
+    {
+      "path": "/quahog-assets/P011/no_parking_sign.glb",
+      "sha256": "edaf8b9b806c813b98b183703e0984caaee44c2cbc64656da1336f78ad49a431",
+      "bytes": 4808,
+      "pack": "P011",
+      "model": "no_parking_sign",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A531"
+    },
+    {
+      "path": "/quahog-assets/P011/notice_board.glb",
+      "sha256": "383d919732a0c61d7b0ff35e8022a06c41bf6d9b14bf51010e0ee41b945ab826",
+      "bytes": 6708,
+      "pack": "P011",
+      "model": "notice_board",
+      "meshes": 3,
+      "triangles_reported": 26,
+      "asset_id": "QH-A571"
+    },
+    {
+      "path": "/quahog-assets/P011/one_way_sign.glb",
+      "sha256": "7e28fe56776f88caecadaceda179f63f547f10a8364facce825c011c147c2fd6",
+      "bytes": 4856,
+      "pack": "P011",
+      "model": "one_way_sign",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A530"
+    },
+    {
+      "path": "/quahog-assets/P011/overhead_cable_bundle.glb",
+      "sha256": "721b395b619daa3c30ea40aa804cb210c57cd123ce3f1e8d1441222bb2c1fdbe",
+      "bytes": 4544,
+      "pack": "P011",
+      "model": "overhead_cable_bundle",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A553"
+    },
+    {
+      "path": "/quahog-assets/P011/parking_meter.glb",
+      "sha256": "6cad965692e59980d1016b68243be5a0c2ce6905fce73406ed9d55c3066d55a0",
+      "bytes": 4880,
+      "pack": "P011",
+      "model": "parking_meter",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A539"
+    },
+    {
+      "path": "/quahog-assets/P011/ped_crossing_signal.glb",
+      "sha256": "0753109e830aba25b69a3fbb5c617f2f5eaedc7128c6f7c73ab38ce0fdefc19a",
+      "bytes": 6504,
+      "pack": "P011",
+      "model": "ped_crossing_signal",
+      "meshes": 3,
+      "triangles_reported": 22,
+      "asset_id": "QH-A525"
+    },
+    {
+      "path": "/quahog-assets/P011/planted_flowers.glb",
+      "sha256": "4c2e54ceaf8f9be1485d58152ce2c6072e37246a5cf279581df3108fd986f3db",
+      "bytes": 20036,
+      "pack": "P011",
+      "model": "planted_flowers",
+      "meshes": 4,
+      "triangles_reported": 294,
+      "asset_id": "QH-A598"
+    },
+    {
+      "path": "/quahog-assets/P011/postal_letterbox.glb",
+      "sha256": "de343e91bbb2996806662d8e766ebdcb671728977d70f55b8529c62b4b16ef23",
+      "bytes": 4068,
+      "pack": "P011",
+      "model": "postal_letterbox",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A543"
+    },
+    {
+      "path": "/quahog-assets/P011/recycling_receptacle.glb",
+      "sha256": "b2d7e17fd410d36a8f95f654d69f44d06e33315c8a503257f30f7c648aa8fbb0",
+      "bytes": 3336,
+      "pack": "P011",
+      "model": "recycling_receptacle",
+      "meshes": 1,
+      "triangles_reported": 14,
+      "asset_id": "QH-A542"
+    },
+    {
+      "path": "/quahog-assets/P011/red_oak.glb",
+      "sha256": "efd8f53bb705d1cb95932218e9435654fdeb806b82af80320791a229fe046760",
+      "bytes": 20572,
+      "pack": "P011",
+      "model": "red_oak",
+      "meshes": 4,
+      "triangles_reported": 298,
+      "asset_id": "QH-A580"
+    },
+    {
+      "path": "/quahog-assets/P011/restaurant_barrier.glb",
+      "sha256": "2eef17b837980a69e88ecfba98f13769a9c03b24b1e4a9100ce30d58030e753b",
+      "bytes": 8660,
+      "pack": "P011",
+      "model": "restaurant_barrier",
+      "meshes": 4,
+      "triangles_reported": 32,
+      "asset_id": "QH-A575"
+    },
+    {
+      "path": "/quahog-assets/P011/retaining_fence.glb",
+      "sha256": "e4f7bec60f70ca78cec1698c73c1c6b95db3b06b91f3a182ead8037738fd3bae",
+      "bytes": 3952,
+      "pack": "P011",
+      "model": "retaining_fence",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A564"
+    },
+    {
+      "path": "/quahog-assets/P011/rock_cluster.glb",
+      "sha256": "fbb89cb12c3d3452f90917c1316e4e9e844c2a9c027834a990dc59183735b5dc",
+      "bytes": 5344,
+      "pack": "P011",
+      "model": "rock_cluster",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A603"
+    },
+    {
+      "path": "/quahog-assets/P011/salt_storage_bin.glb",
+      "sha256": "9edf7e3bfce83a4954ffdc3b160cd0218f848a24456f531814757493c80fd8b7",
+      "bytes": 3992,
+      "pack": "P011",
+      "model": "salt_storage_bin",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A562"
+    },
+    {
+      "path": "/quahog-assets/P011/sapling_cage.glb",
+      "sha256": "93ccbb8eabc7665a65e69476437b0bdcac20d29e06ece72b7469527fda453c95",
+      "bytes": 24812,
+      "pack": "P011",
+      "model": "sapling_cage",
+      "meshes": 6,
+      "triangles_reported": 314,
+      "asset_id": "QH-A586"
+    },
+    {
+      "path": "/quahog-assets/P011/service_pedestal.glb",
+      "sha256": "06fb56745cbadef8b37acdc9a2b5db46498a993c41b3c85feab123c07eaadfc7",
+      "bytes": 2376,
+      "pack": "P011",
+      "model": "service_pedestal",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A578"
+    },
+    {
+      "path": "/quahog-assets/P011/sidewalk_bollard_low.glb",
+      "sha256": "ed095410637fabad2c68a03524c1889d5e633de429a8303a9e487bfb9281eedd",
+      "bytes": 3212,
+      "pack": "P011",
+      "model": "sidewalk_bollard_low",
+      "meshes": 1,
+      "triangles_reported": 12,
+      "asset_id": "QH-A563"
+    },
+    {
+      "path": "/quahog-assets/P011/sidewalk_drain_channel.glb",
+      "sha256": "105071115700801513c641464c31b45a3bc87cb52aac24dea44c37f38d738012",
+      "bytes": 4064,
+      "pack": "P011",
+      "model": "sidewalk_drain_channel",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A561"
+    },
+    {
+      "path": "/quahog-assets/P011/sidewalk_planter.glb",
+      "sha256": "e323f783e7c16f6ce82833f6ee381f84c92b40b338a3646fd5d26300ee76801d",
+      "bytes": 8644,
+      "pack": "P011",
+      "model": "sidewalk_planter",
+      "meshes": 2,
+      "triangles_reported": 102,
+      "asset_id": "QH-A577"
+    },
+    {
+      "path": "/quahog-assets/P011/snow_shrub.glb",
+      "sha256": "e04dff931b5df88e59ca2be1a7dac6d2dab777e365bbf9470055a52234277f25",
+      "bytes": 12820,
+      "pack": "P011",
+      "model": "snow_shrub",
+      "meshes": 2,
+      "triangles_reported": 192,
+      "asset_id": "QH-A601"
+    },
+    {
+      "path": "/quahog-assets/P011/speed_limit_sign.glb",
+      "sha256": "ff3b33565e151cf6aa14c601a2e7954b2f14166ae84d43eeadf929205cc17fd0",
+      "bytes": 4852,
+      "pack": "P011",
+      "model": "speed_limit_sign",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A528"
+    },
+    {
+      "path": "/quahog-assets/P011/spruce.glb",
+      "sha256": "e6c17323ab3731e9ae0fa13d7177815c2874b4a06c86c52ba35e0835dcfd5731",
+      "bytes": 9912,
+      "pack": "P011",
+      "model": "spruce",
+      "meshes": 4,
+      "triangles_reported": 46,
+      "asset_id": "QH-A583"
+    },
+    {
+      "path": "/quahog-assets/P011/stop_sign.glb",
+      "sha256": "5ab5263ad4fefa1f68164b3f1acde474f05a9d6a410d80556b4ad4b35766e1e7",
+      "bytes": 5108,
+      "pack": "P011",
+      "model": "stop_sign",
+      "meshes": 2,
+      "triangles_reported": 20,
+      "asset_id": "QH-A526"
+    },
+    {
+      "path": "/quahog-assets/P011/storm_drain_inlet.glb",
+      "sha256": "d884e2995b2d678f96a39c5edc392e7fd1df011628e19293a4fc386890d9948b",
+      "bytes": 4084,
+      "pack": "P011",
+      "model": "storm_drain_inlet",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A559"
+    },
+    {
+      "path": "/quahog-assets/P011/street_name_brackets.glb",
+      "sha256": "f7494ee9bd95f20cdfbe5b4308d43edc6b636303e3c49a76ce5e03e2ce13444f",
+      "bytes": 6420,
+      "pack": "P011",
+      "model": "street_name_brackets",
+      "meshes": 3,
+      "triangles_reported": 22,
+      "asset_id": "QH-A529"
+    },
+    {
+      "path": "/quahog-assets/P011/streetlight_cobrahead.glb",
+      "sha256": "9d47c514ee6f578b1f68f96a687ff6111f0a8cb020e1030aa20e5d2ef81ccf09",
+      "bytes": 6384,
+      "pack": "P011",
+      "model": "streetlight_cobrahead",
+      "meshes": 3,
+      "triangles_reported": 22,
+      "asset_id": "QH-A554"
+    },
+    {
+      "path": "/quahog-assets/P011/stump_cluster.glb",
+      "sha256": "94f2e980b147009cbac003de549097170befd33b6bdaf942bd739b6ca5f431d5",
+      "bytes": 5572,
+      "pack": "P011",
+      "model": "stump_cluster",
+      "meshes": 2,
+      "triangles_reported": 22,
+      "asset_id": "QH-A602"
+    },
+    {
+      "path": "/quahog-assets/P011/suburban_deciduous.glb",
+      "sha256": "2df80b7141564129b0697bf75a581c7075a78fd4ea91d2deed1ece76a4c2133d",
+      "bytes": 19692,
+      "pack": "P011",
+      "model": "suburban_deciduous",
+      "meshes": 4,
+      "triangles_reported": 298,
+      "asset_id": "QH-A587"
+    },
+    {
+      "path": "/quahog-assets/P011/sugar_maple.glb",
+      "sha256": "f3de2408e317090aa6b950bc987893086a2be14fdc58da399a4aebef8903f1a8",
+      "bytes": 20596,
+      "pack": "P011",
+      "model": "sugar_maple",
+      "meshes": 4,
+      "triangles_reported": 298,
+      "asset_id": "QH-A579"
+    },
+    {
+      "path": "/quahog-assets/P011/telecom_cabinet.glb",
+      "sha256": "4952ad88572b240dc510d676f9e6acc30d3df4a2bc390e67756a0c3d4ef15041",
+      "bytes": 2412,
+      "pack": "P011",
+      "model": "telecom_cabinet",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A551"
+    },
+    {
+      "path": "/quahog-assets/P011/timber_yard_fence.glb",
+      "sha256": "cd71a3cad9c5afe7458fe8ea50855ccdeb8068982be87f4882a6e899c2c982c9",
+      "bytes": 6904,
+      "pack": "P011",
+      "model": "timber_yard_fence",
+      "meshes": 4,
+      "triangles_reported": 24,
+      "asset_id": "QH-A567"
+    },
+    {
+      "path": "/quahog-assets/P011/traffic_light_head.glb",
+      "sha256": "5124b736b68557ad11b4d1a14f3180665b74a92b0a350302b67c0da8dfa9901c",
+      "bytes": 10048,
+      "pack": "P011",
+      "model": "traffic_light_head",
+      "meshes": 5,
+      "triangles_reported": 34,
+      "asset_id": "QH-A524"
+    },
+    {
+      "path": "/quahog-assets/P011/traffic_signal_pole.glb",
+      "sha256": "0a5338ea5025b09617d9a2cfd8a8efc6760d208051b0c0fe140885e3b196dee6",
+      "bytes": 6328,
+      "pack": "P011",
+      "model": "traffic_signal_pole",
+      "meshes": 3,
+      "triangles_reported": 22,
+      "asset_id": "QH-A523"
+    },
+    {
+      "path": "/quahog-assets/P011/transformer_cabinet.glb",
+      "sha256": "616a3c20963e5a4fde177b38e1d87b761286f305ae31ac85d0ad8408e236e18f",
+      "bytes": 2388,
+      "pack": "P011",
+      "model": "transformer_cabinet",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A548"
+    },
+    {
+      "path": "/quahog-assets/P011/trash_receptacle.glb",
+      "sha256": "1a7a21e972e5e014b1f11bb8fe7493670bf7266ee57a63cd9cd745c6211a5d75",
+      "bytes": 3336,
+      "pack": "P011",
+      "model": "trash_receptacle",
+      "meshes": 1,
+      "triangles_reported": 14,
+      "asset_id": "QH-A541"
+    },
+    {
+      "path": "/quahog-assets/P011/twig_scatter.glb",
+      "sha256": "361c979bcab0b0671c1086445530b9d21030fb9d9d6d1657c62d85b663823ef8",
+      "bytes": 4628,
+      "pack": "P011",
+      "model": "twig_scatter",
+      "meshes": 2,
+      "triangles_reported": 14,
+      "asset_id": "QH-A600"
+    },
+    {
+      "path": "/quahog-assets/P011/utility_control_cabinet.glb",
+      "sha256": "c1baaa63a198d045e56fee44e0b6beb379b02cfa3e45b4a3de1a9275bed17c3c",
+      "bytes": 2428,
+      "pack": "P011",
+      "model": "utility_control_cabinet",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A549"
+    },
+    {
+      "path": "/quahog-assets/P011/utility_pole_crossarm.glb",
+      "sha256": "0c0b1d531d7584972fee5d0d7c580588affcdd5cc2c0a80e2590da2635e90247",
+      "bytes": 4648,
+      "pack": "P011",
+      "model": "utility_pole_crossarm",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A552"
+    },
+    {
+      "path": "/quahog-assets/P011/vacant_lot_shrubs.glb",
+      "sha256": "3020a449e217aac4fd8ac4ceec8825b1a2dfc9dd7ef5fb5fe46afe12f0bcc17e",
+      "bytes": 12748,
+      "pack": "P011",
+      "model": "vacant_lot_shrubs",
+      "meshes": 2,
+      "triangles_reported": 192,
+      "asset_id": "QH-A592"
+    },
+    {
+      "path": "/quahog-assets/P011/verge_grass.glb",
+      "sha256": "4e534a41cd2ba80c588a36d326ba8f39a84773a3a929cdd88bdb2b6b9cf8ad95",
+      "bytes": 8676,
+      "pack": "P011",
+      "model": "verge_grass",
+      "meshes": 2,
+      "triangles_reported": 103,
+      "asset_id": "QH-A594"
+    },
+    {
+      "path": "/quahog-assets/P011/vinyl_panel_fence.glb",
+      "sha256": "aad769385026e5d541cdff78a2a5f968434227deddd39572c151b9e3e27811f4",
+      "bytes": 2372,
+      "pack": "P011",
+      "model": "vinyl_panel_fence",
+      "meshes": 1,
+      "triangles_reported": 6,
+      "asset_id": "QH-A568"
+    },
+    {
+      "path": "/quahog-assets/P011/warehouse_floodlight.glb",
+      "sha256": "cee4b6d6b75fade36d596b042b5579b652e4e398ea1c5ea22ca5da610cd8ff70",
+      "bytes": 4036,
+      "pack": "P011",
+      "model": "warehouse_floodlight",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A556"
+    },
+    {
+      "path": "/quahog-assets/P011/water_valve_cover.glb",
+      "sha256": "fa85038c571d871fc7a5a5fad5b6dbc43d650cfce08594d5431465de549807dc",
+      "bytes": 3484,
+      "pack": "P011",
+      "model": "water_valve_cover",
+      "meshes": 1,
+      "triangles_reported": 14,
+      "asset_id": "QH-A550"
+    },
+    {
+      "path": "/quahog-assets/P011/wayfinding_kiosk.glb",
+      "sha256": "2eea0f77e879e323cf86a5e1463b5a6681deb0fc201f1e16fed4527251fb3bd3",
+      "bytes": 4076,
+      "pack": "P011",
+      "model": "wayfinding_kiosk",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A545"
+    },
+    {
+      "path": "/quahog-assets/P011/weed_tufts.glb",
+      "sha256": "89881bf74208a6683e47d07532896e080f352a0ce05d0813015496d6838a5bec",
+      "bytes": 4428,
+      "pack": "P011",
+      "model": "weed_tufts",
+      "meshes": 2,
+      "triangles_reported": 14,
+      "asset_id": "QH-A595"
+    },
+    {
+      "path": "/quahog-assets/P011/windswept_scrub.glb",
+      "sha256": "7ff8f7a3eb7e969e27d84ae5c361b0e4bacb7e87af254e4a039e19b077a8c107",
+      "bytes": 8968,
+      "pack": "P011",
+      "model": "windswept_scrub",
+      "meshes": 2,
+      "triangles_reported": 106,
+      "asset_id": "QH-A588"
+    },
+    {
+      "path": "/quahog-assets/P011/wrought_iron_fence.glb",
+      "sha256": "19f531e5a083e52a9a739da6c5ef6ffb070462439fc71a00ecfd275bdc45fc64",
+      "bytes": 10012,
+      "pack": "P011",
+      "model": "wrought_iron_fence",
+      "meshes": 5,
+      "triangles_reported": 38,
+      "asset_id": "QH-A566"
+    },
+    {
+      "path": "/quahog-assets/P011/yield_sign.glb",
+      "sha256": "03c239b61dff8f04110602fbc4ed30f41a5e35c526b87230981c3ec1557db705",
+      "bytes": 4840,
+      "pack": "P011",
+      "model": "yield_sign",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A527"
+    },
+    {
+      "path": "/quahog-assets/P012/backpack_mission.glb",
+      "sha256": "3951ff4905d3f20f7e4606af55b1b5a5e8e2559e464f8eeac8ea967bb32b7448",
+      "bytes": 4048,
+      "pack": "P012",
+      "model": "backpack_mission",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A608"
+    },
+    {
+      "path": "/quahog-assets/P012/brochure_rack.glb",
+      "sha256": "d08680ad8409735d7d02495fb80b501da0c2816a946724202899bd52f415f5dd",
+      "bytes": 5580,
+      "pack": "P012",
+      "model": "brochure_rack",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A630"
+    },
+    {
+      "path": "/quahog-assets/P012/closure_gate.glb",
+      "sha256": "b758a170c048eb7f8cc5e48a22b5699e00f592f1d1155354619df2d0460117e9",
+      "bytes": 5496,
+      "pack": "P012",
+      "model": "closure_gate",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A616"
+    },
+    {
+      "path": "/quahog-assets/P012/crime_barricade.glb",
+      "sha256": "d799afa69ef60728ed4cde7ff4cddea44b5c8bf8734cffd85e614db9bcabd356",
+      "bytes": 5592,
+      "pack": "P012",
+      "model": "crime_barricade",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A635"
+    },
+    {
+      "path": "/quahog-assets/P012/destination_plaque.glb",
+      "sha256": "7e50813d36ab5b1e9b16f8f58633c2f5192b8e5d375477f1de22b0642984a31f",
+      "bytes": 4856,
+      "pack": "P012",
+      "model": "destination_plaque",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A621"
+    },
+    {
+      "path": "/quahog-assets/P012/emergency_heater.glb",
+      "sha256": "7ca550ffdcf3f03bbb1f6edaa18ccbbec98b5a343ee8ebb08d9133a3f9256bb6",
+      "bytes": 4040,
+      "pack": "P012",
+      "model": "emergency_heater",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A620"
+    },
+    {
+      "path": "/quahog-assets/P012/evidence_folder_stack.glb",
+      "sha256": "ac07a1b84bd321f0ace368db4a4eec504bac02d1fa2616c794fcaad029640732",
+      "bytes": 5540,
+      "pack": "P012",
+      "model": "evidence_folder_stack",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A605"
+    },
+    {
+      "path": "/quahog-assets/P012/evidence_locker_door.glb",
+      "sha256": "c0066e384a7ffa0811315f42dd4268a613e9392fd65ce21e70d2bc061893f6a2",
+      "bytes": 4144,
+      "pack": "P012",
+      "model": "evidence_locker_door",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A623"
+    },
+    {
+      "path": "/quahog-assets/P012/evidence_marker.glb",
+      "sha256": "f5afe591b49808494ddf2e3a407aa0bd2f57d7687d8027ef646cf227188535a4",
+      "bytes": 4124,
+      "pack": "P012",
+      "model": "evidence_marker",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A634"
+    },
+    {
+      "path": "/quahog-assets/P012/fish_trolley.glb",
+      "sha256": "4cf0063c55b9fd7a1d2db42721a746cd1c6c0ecd0d52c051fb7f62d9e35cedd4",
+      "bytes": 9276,
+      "pack": "P012",
+      "model": "fish_trolley",
+      "meshes": 4,
+      "triangles_reported": 36,
+      "asset_id": "QH-A632"
+    },
+    {
+      "path": "/quahog-assets/P012/fuel_canister.glb",
+      "sha256": "4db9cd699d7116bd6c5f9942a1a7324cf219914ba5cbf91c9f2f44f79c19906f",
+      "bytes": 4072,
+      "pack": "P012",
+      "model": "fuel_canister",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A619"
+    },
+    {
+      "path": "/quahog-assets/P012/gallery_frame.glb",
+      "sha256": "2a8844aaae5a21da3625c832d70dbade83cdb29d15758dd0df17ce28030dfa14",
+      "bytes": 4068,
+      "pack": "P012",
+      "model": "gallery_frame",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A624"
+    },
+    {
+      "path": "/quahog-assets/P012/genealogy_frame_blank.glb",
+      "sha256": "da7fa3eaf5f6a60421769cde633ccb3e0f5ffadd7f91f4d86f55215c45acef0f",
+      "bytes": 4064,
+      "pack": "P012",
+      "model": "genealogy_frame_blank",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A627"
+    },
+    {
+      "path": "/quahog-assets/P012/generator_portable.glb",
+      "sha256": "06f9accf2b8120592b9af1529cd4dfb291c15f27a6be0603f6a11f8c67a257a3",
+      "bytes": 6688,
+      "pack": "P012",
+      "model": "generator_portable",
+      "meshes": 3,
+      "triangles_reported": 22,
+      "asset_id": "QH-A618"
+    },
+    {
+      "path": "/quahog-assets/P012/handoff_bag.glb",
+      "sha256": "80a5f0fc8aaec76592b023880521849cbf225d3c921f40a28beeb4ca7f979d93",
+      "bytes": 4036,
+      "pack": "P012",
+      "model": "handoff_bag",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A622"
+    },
+    {
+      "path": "/quahog-assets/P012/harbor_tool_crate.glb",
+      "sha256": "649738279317d64532c4c71ff7ad73afca697c6c677239c7c1f802178b749aba",
+      "bytes": 4048,
+      "pack": "P012",
+      "model": "harbor_tool_crate",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A614"
+    },
+    {
+      "path": "/quahog-assets/P012/key_keyring.glb",
+      "sha256": "cc493ed52ab784799b1e0e222cd7b18d0d4619182a4604c1c77730001b97ce31",
+      "bytes": 5424,
+      "pack": "P012",
+      "model": "key_keyring",
+      "meshes": 2,
+      "triangles_reported": 20,
+      "asset_id": "QH-A606"
+    },
+    {
+      "path": "/quahog-assets/P012/laptop_prop.glb",
+      "sha256": "067af4639e938845efa46c9d4ff72df6816d4a4ffb6adcc399805feeca0141e4",
+      "bytes": 3872,
+      "pack": "P012",
+      "model": "laptop_prop",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A611"
+    },
+    {
+      "path": "/quahog-assets/P012/locked_container.glb",
+      "sha256": "0f13582e62a1e34d7b580fdf32b9122b5b7db68930218f22d9086127ee321aaa",
+      "bytes": 4144,
+      "pack": "P012",
+      "model": "locked_container",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A609"
+    },
+    {
+      "path": "/quahog-assets/P012/maplecroft_gate_plaque.glb",
+      "sha256": "36e79a66296b9753932bd29dbfddc71dca2c5e086d4448cc940721b06389c351",
+      "bytes": 4092,
+      "pack": "P012",
+      "model": "maplecroft_gate_plaque",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A628"
+    },
+    {
+      "path": "/quahog-assets/P012/monitor_keyboard.glb",
+      "sha256": "b0829565f974d16bf198c64b6ff41a75b31e4eae1275f7df137f2909263ddb42",
+      "bytes": 5868,
+      "pack": "P012",
+      "model": "monitor_keyboard",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A612"
+    },
+    {
+      "path": "/quahog-assets/P012/office_safe.glb",
+      "sha256": "505742f4b4cf97de5d5c06d089b3e9a47a7c7e81ab32e8eb1368142c3482506b",
+      "bytes": 4112,
+      "pack": "P012",
+      "model": "office_safe",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A610"
+    },
+    {
+      "path": "/quahog-assets/P012/phone_handheld.glb",
+      "sha256": "102cea88fb3237c9c0a4c089e071ce79e448adac932dc89261e41d2e1b0dd1bc",
+      "bytes": 4272,
+      "pack": "P012",
+      "model": "phone_handheld",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A607"
+    },
+    {
+      "path": "/quahog-assets/P012/photo_frame_blank.glb",
+      "sha256": "068d3bd7cd31532889335d72691737301b95b57b7679b88745ab926e051aa819",
+      "bytes": 4092,
+      "pack": "P012",
+      "model": "photo_frame_blank",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A625"
+    },
+    {
+      "path": "/quahog-assets/P012/pickup_parcel.glb",
+      "sha256": "b9b65b07ec999f5bfedea49ae17ecb85075688c3a11ff8dd649231228f40d613",
+      "bytes": 4100,
+      "pack": "P012",
+      "model": "pickup_parcel",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A604"
+    },
+    {
+      "path": "/quahog-assets/P012/plow_marker_stake.glb",
+      "sha256": "520c5f8dec38b2eed8bce11b3df154372a672369b734f24b5e91e5a7265af0eb",
+      "bytes": 4888,
+      "pack": "P012",
+      "model": "plow_marker_stake",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A617"
+    },
+    {
+      "path": "/quahog-assets/P012/radio_unit.glb",
+      "sha256": "978d0d2d938be3fe8144d597da4f7de017cd5ea8f357c2bf357da577be2d36c7",
+      "bytes": 4824,
+      "pack": "P012",
+      "model": "radio_unit",
+      "meshes": 2,
+      "triangles_reported": 14,
+      "asset_id": "QH-A613"
+    },
+    {
+      "path": "/quahog-assets/P012/relief_supply_box.glb",
+      "sha256": "14451d9a2c85972fc0d3a56d7c0e1d9efadc7e978341454eb2d1d43cb3985a7f",
+      "bytes": 4040,
+      "pack": "P012",
+      "model": "relief_supply_box",
+      "meshes": 2,
+      "triangles_reported": 12,
+      "asset_id": "QH-A637"
+    },
+    {
+      "path": "/quahog-assets/P012/repair_toolkit.glb",
+      "sha256": "25ab77e6d376bf908466e03843560279c8b42d47493fa0ae368eca4ed95e65ff",
+      "bytes": 5572,
+      "pack": "P012",
+      "model": "repair_toolkit",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A638"
+    },
+    {
+      "path": "/quahog-assets/P012/safehouse_sign.glb",
+      "sha256": "aac2b501feae4ae0a07994e2d36d23ea7f83783b3258a223bc90d838693a0502",
+      "bytes": 4960,
+      "pack": "P012",
+      "model": "safehouse_sign",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A629"
+    },
+    {
+      "path": "/quahog-assets/P012/searchlight_tripod.glb",
+      "sha256": "1bfc5fce1bcb64d0ce14fc3188fa30197f8cd14deff0b3c06a9f625e9885f3a3",
+      "bytes": 8552,
+      "pack": "P012",
+      "model": "searchlight_tripod",
+      "meshes": 4,
+      "triangles_reported": 32,
+      "asset_id": "QH-A636"
+    },
+    {
+      "path": "/quahog-assets/P012/snow_shovel_mission.glb",
+      "sha256": "3a3e7b8cc4dd1fea53ad3a1e9150911fe2928124977e474ee3675abb3d163de6",
+      "bytes": 4920,
+      "pack": "P012",
+      "model": "snow_shovel_mission",
+      "meshes": 2,
+      "triangles_reported": 16,
+      "asset_id": "QH-A615"
+    },
+    {
+      "path": "/quahog-assets/P012/ticket_booth.glb",
+      "sha256": "5f97c7fc0683fcd5686ddc8a1b634af9060118658e07931ea43ed14fc59f7900",
+      "bytes": 5816,
+      "pack": "P012",
+      "model": "ticket_booth",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A631"
+    },
+    {
+      "path": "/quahog-assets/P012/timeline_stand.glb",
+      "sha256": "1fec741622001897ff594428e638735f627c743c4265f1066204cb1e230a3cce",
+      "bytes": 5644,
+      "pack": "P012",
+      "model": "timeline_stand",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A626"
+    },
+    {
+      "path": "/quahog-assets/P012/winch_control_box.glb",
+      "sha256": "ff3eafaebf94129537a3f0da2f7eaa781c70415b36f6dbf8be46270f3182e27e",
+      "bytes": 5772,
+      "pack": "P012",
+      "model": "winch_control_box",
+      "meshes": 3,
+      "triangles_reported": 18,
+      "asset_id": "QH-A633"
+    }
+  ],
+  "licenseStatus": "Asset ownership and music rights must be verified before public distribution",
+  "note": "P012 models packaged for production; interactive use must be wired to approved mission logic; not live mission triggers."
+}

@@ -1,0 +1,1047 @@
+{
+  "pack": "Pack 003: Working Waterfront & Maritime (staging only)",
+  "blender": "5.2.3 LTS",
+  "compression": "Meshopt only",
+  "baseline": "2026-11-01 merged game (NOT 2026-10-19 GitHub main)",
+  "integration": "none \u2014 sandbox/staging only, no production changes, no collider/terrain/interior changes",
+  "textures": "flat Principled colours; no baked texture atlas in this pack (P010 is the atlas pack, queued)",
+  "templates": 61,
+  "variant_note": "one V01 build per template; variant slots are future work, not claimed",
+  "assets": [
+    {
+      "kind": "vessel",
+      "name": "offshore_trawler",
+      "file": "offshore_trawler.glb",
+      "bytes": 14076,
+      "triangles": 52,
+      "meshes": 8,
+      "dimensions_m": [
+        22.24,
+        8.49,
+        6.6
+      ],
+      "materials": [
+        "cabin",
+        "deck",
+        "hull",
+        "mast"
+      ]
+    },
+    {
+      "kind": "vessel",
+      "name": "inshore_dragger",
+      "file": "inshore_dragger.glb",
+      "bytes": 9684,
+      "triangles": 34,
+      "meshes": 5,
+      "dimensions_m": [
+        18.82,
+        7.64,
+        6.4
+      ],
+      "materials": [
+        "cabin",
+        "deck",
+        "hull",
+        "mast"
+      ]
+    },
+    {
+      "kind": "vessel",
+      "name": "lobster_workboat",
+      "file": "lobster_workboat.glb",
+      "bytes": 7116,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        11.55,
+        5.09,
+        2.3
+      ],
+      "materials": [
+        "deck",
+        "hull",
+        "wood"
+      ]
+    },
+    {
+      "kind": "vessel",
+      "name": "scallop_dragger",
+      "file": "scallop_dragger.glb",
+      "bytes": 9724,
+      "triangles": 34,
+      "meshes": 5,
+      "dimensions_m": [
+        20.24,
+        8.49,
+        6.6
+      ],
+      "materials": [
+        "cabin",
+        "deck",
+        "hull",
+        "mast"
+      ]
+    },
+    {
+      "kind": "vessel",
+      "name": "harbor_patrol_boat",
+      "file": "harbor_patrol_boat.glb",
+      "bytes": 11492,
+      "triangles": 40,
+      "meshes": 6,
+      "dimensions_m": [
+        14.97,
+        5.94,
+        6.2
+      ],
+      "materials": [
+        "cabin",
+        "deck",
+        "hull",
+        "light",
+        "mast"
+      ]
+    },
+    {
+      "kind": "vessel",
+      "name": "utility_launch",
+      "file": "utility_launch.glb",
+      "bytes": 7156,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        10.38,
+        4.75,
+        2.1
+      ],
+      "materials": [
+        "cabin",
+        "deck",
+        "hull"
+      ]
+    },
+    {
+      "kind": "vessel",
+      "name": "dockside_skiff",
+      "file": "dockside_skiff.glb",
+      "bytes": 7340,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        6.93,
+        3.05,
+        1.5
+      ],
+      "materials": [
+        "deck",
+        "hull",
+        "motor"
+      ]
+    },
+    {
+      "kind": "vessel",
+      "name": "center_console_boat",
+      "file": "center_console_boat.glb",
+      "bytes": 8880,
+      "triangles": 30,
+      "meshes": 5,
+      "dimensions_m": [
+        9.52,
+        4.24,
+        2.1
+      ],
+      "materials": [
+        "cabin",
+        "deck",
+        "hull",
+        "motor"
+      ]
+    },
+    {
+      "kind": "vessel",
+      "name": "cabin_cruiser",
+      "file": "cabin_cruiser.glb",
+      "bytes": 8920,
+      "triangles": 30,
+      "meshes": 5,
+      "dimensions_m": [
+        12.72,
+        5.43,
+        3.1
+      ],
+      "materials": [
+        "cabin",
+        "deck",
+        "glass",
+        "hull"
+      ]
+    },
+    {
+      "kind": "vessel",
+      "name": "marina_sailboat",
+      "file": "marina_sailboat.glb",
+      "bytes": 9708,
+      "triangles": 34,
+      "meshes": 5,
+      "dimensions_m": [
+        11.38,
+        4.75,
+        10.0
+      ],
+      "materials": [
+        "deck",
+        "hull",
+        "mast",
+        "sail"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "wheelhouse_console",
+      "file": "wheelhouse_console.glb",
+      "bytes": 4072,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.8,
+        1.0,
+        1.7
+      ],
+      "materials": [
+        "cabin",
+        "glass"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "boat_boom_arms",
+      "file": "boat_boom_arms.glb",
+      "bytes": 5252,
+      "triangles": 24,
+      "meshes": 2,
+      "dimensions_m": [
+        3.0,
+        3.0,
+        0.24
+      ],
+      "materials": [
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "radar_dome",
+      "file": "radar_dome.glb",
+      "bytes": 11956,
+      "triangles": 154,
+      "meshes": 2,
+      "dimensions_m": [
+        0.88,
+        0.9,
+        1.35
+      ],
+      "materials": [
+        "cabin",
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "fishing_gantry_mast",
+      "file": "fishing_gantry_mast.glb",
+      "bytes": 5264,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        2.3,
+        0.3,
+        3.15
+      ],
+      "materials": [
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "anchor_chain",
+      "file": "anchor_chain.glb",
+      "bytes": 4812,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        1.25,
+        0.3,
+        1.6
+      ],
+      "materials": [
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "commercial_winch",
+      "file": "commercial_winch.glb",
+      "bytes": 5812,
+      "triangles": 22,
+      "meshes": 2,
+      "dimensions_m": [
+        1.8,
+        1.2,
+        1.19
+      ],
+      "materials": [
+        "mast",
+        "winch"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "net_reel_cage",
+      "file": "net_reel_cage.glb",
+      "bytes": 5620,
+      "triangles": 22,
+      "meshes": 2,
+      "dimensions_m": [
+        1.4,
+        1.4,
+        1.19
+      ],
+      "materials": [
+        "mast",
+        "wood"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "trawl_doors",
+      "file": "trawl_doors.glb",
+      "bytes": 3880,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.2,
+        0.16,
+        2.4
+      ],
+      "materials": [
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "propeller_shaft",
+      "file": "propeller_shaft.glb",
+      "bytes": 6396,
+      "triangles": 22,
+      "meshes": 3,
+      "dimensions_m": [
+        1.65,
+        1.0,
+        1.0
+      ],
+      "materials": [
+        "mast",
+        "prop"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "lifebuoy_rack",
+      "file": "lifebuoy_rack.glb",
+      "bytes": 5792,
+      "triangles": 22,
+      "meshes": 2,
+      "dimensions_m": [
+        1.6,
+        0.35,
+        1.6
+      ],
+      "materials": [
+        "buoy",
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "nav_light_set",
+      "file": "nav_light_set.glb",
+      "bytes": 5844,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.2,
+        0.4,
+        0.95
+      ],
+      "materials": [
+        "green",
+        "red",
+        "white"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "boat_windshield_railings",
+      "file": "boat_windshield_railings.glb",
+      "bytes": 4000,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        0.1,
+        1.0
+      ],
+      "materials": [
+        "glass",
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "harbor_buoy_set",
+      "file": "harbor_buoy_set.glb",
+      "bytes": 5876,
+      "triangles": 28,
+      "meshes": 2,
+      "dimensions_m": [
+        1.55,
+        0.6,
+        0.8
+      ],
+      "materials": [
+        "buoy"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "channel_daybeacon",
+      "file": "channel_daybeacon.glb",
+      "bytes": 4872,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.8,
+        0.8,
+        3.5
+      ],
+      "materials": [
+        "beacon",
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "rope_ladder",
+      "file": "rope_ladder.glb",
+      "bytes": 7940,
+      "triangles": 28,
+      "meshes": 4,
+      "dimensions_m": [
+        1.2,
+        0.1,
+        2.0
+      ],
+      "materials": [
+        "rope",
+        "wood"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "gangway",
+      "file": "gangway.glb",
+      "bytes": 4180,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        3.73,
+        2.02,
+        0.55
+      ],
+      "materials": [
+        "mast",
+        "wood"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "dock_cleat_variety",
+      "file": "dock_cleat_variety.glb",
+      "bytes": 6960,
+      "triangles": 26,
+      "meshes": 3,
+      "dimensions_m": [
+        1.0,
+        0.4,
+        0.55
+      ],
+      "materials": [
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "pier_crossbrace",
+      "file": "pier_crossbrace.glb",
+      "bytes": 5292,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        2.4,
+        1.52,
+        2.0
+      ],
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "floating_dock",
+      "file": "floating_dock.glb",
+      "bytes": 5512,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        4.0,
+        2.0,
+        0.7
+      ],
+      "materials": [
+        "float",
+        "wood"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "dock_finger_pedestal",
+      "file": "dock_finger_pedestal.glb",
+      "bytes": 3924,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        3.0,
+        1.0,
+        1.3
+      ],
+      "materials": [
+        "ped",
+        "wood"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "dock_gate",
+      "file": "dock_gate.glb",
+      "bytes": 5436,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        3.2,
+        0.24,
+        1.6
+      ],
+      "materials": [
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "drydock_blocks",
+      "file": "drydock_blocks.glb",
+      "bytes": 5428,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        2.6,
+        1.2,
+        0.8
+      ],
+      "materials": [
+        "concrete"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "mobile_harbor_crane",
+      "file": "mobile_harbor_crane.glb",
+      "bytes": 5184,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        4.2,
+        2.0,
+        3.85
+      ],
+      "materials": [
+        "crane"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "fixed_quay_crane",
+      "file": "fixed_quay_crane.glb",
+      "bytes": 5332,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        4.5,
+        2.0,
+        5.3
+      ],
+      "materials": [
+        "concrete",
+        "crane"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "reach_stacker",
+      "file": "reach_stacker.glb",
+      "bytes": 7028,
+      "triangles": 26,
+      "meshes": 3,
+      "dimensions_m": [
+        4.2,
+        1.6,
+        2.05
+      ],
+      "materials": [
+        "stack",
+        "tire"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "forklift",
+      "file": "forklift.glb",
+      "bytes": 5604,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        2.6,
+        1.2,
+        2.4
+      ],
+      "materials": [
+        "fork",
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "fish_conveyor",
+      "file": "fish_conveyor.glb",
+      "bytes": 5636,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        4.12,
+        1.77,
+        0.95
+      ],
+      "materials": [
+        "conv",
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "fish_sorting_table",
+      "file": "fish_sorting_table.glb",
+      "bytes": 4020,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.4,
+        1.2,
+        1.0
+      ],
+      "materials": [
+        "mast",
+        "steel"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "fish_auction_cart",
+      "file": "fish_auction_cart.glb",
+      "bytes": 5180,
+      "triangles": 18,
+      "meshes": 2,
+      "dimensions_m": [
+        1.8,
+        1.2,
+        1.0
+      ],
+      "materials": [
+        "steel",
+        "tire"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "cold_storage_fan",
+      "file": "cold_storage_fan.glb",
+      "bytes": 5576,
+      "triangles": 20,
+      "meshes": 2,
+      "dimensions_m": [
+        1.6,
+        0.45,
+        1.6
+      ],
+      "materials": [
+        "fan",
+        "steel"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "refrigerated_pallet_stack",
+      "file": "refrigerated_pallet_stack.glb",
+      "bytes": 4044,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        1.6,
+        1.25
+      ],
+      "materials": [
+        "cold",
+        "wood"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "cargo_container_shell",
+      "file": "cargo_container_shell.glb",
+      "bytes": 4100,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        6.1,
+        2.4,
+        2.4
+      ],
+      "materials": [
+        "cont",
+        "contdoor"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "container_corner_kit",
+      "file": "container_corner_kit.glb",
+      "bytes": 7012,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        3.4,
+        1.6,
+        2.4
+      ],
+      "materials": [
+        "cont"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "pallet_jack",
+      "file": "pallet_jack.glb",
+      "bytes": 4132,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.9,
+        0.8,
+        0.6
+      ],
+      "materials": [
+        "jack",
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "port_lighting_tower",
+      "file": "port_lighting_tower.glb",
+      "bytes": 4856,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        1.6,
+        0.6,
+        6.4
+      ],
+      "materials": [
+        "light",
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "seawall_face",
+      "file": "seawall_face.glb",
+      "bytes": 3716,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        6.0,
+        1.2,
+        2.15
+      ],
+      "materials": [
+        "concrete"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "breakwater_segment",
+      "file": "breakwater_segment.glb",
+      "bytes": 5124,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        6.0,
+        3.0,
+        2.1
+      ],
+      "materials": [
+        "rock"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "riprap_cluster",
+      "file": "riprap_cluster.glb",
+      "bytes": 5388,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        2.0,
+        1.4,
+        0.8
+      ],
+      "materials": [
+        "rock"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "fender_tire_stack",
+      "file": "fender_tire_stack.glb",
+      "bytes": 8148,
+      "triangles": 42,
+      "meshes": 3,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        1.5
+      ],
+      "materials": [
+        "tire"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "heavy_mooring_chain",
+      "file": "heavy_mooring_chain.glb",
+      "bytes": 7176,
+      "triangles": 30,
+      "meshes": 3,
+      "dimensions_m": [
+        1.4,
+        0.4,
+        0.6
+      ],
+      "materials": [
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "cleat_hardware",
+      "file": "cleat_hardware.glb",
+      "bytes": 3888,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.0,
+        0.36,
+        0.4
+      ],
+      "materials": [
+        "mast"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "fishing_basket",
+      "file": "fishing_basket.glb",
+      "bytes": 3904,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.3,
+        0.9,
+        0.67
+      ],
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "trap_tower",
+      "file": "trap_tower.glb",
+      "bytes": 5256,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.4,
+        1.0,
+        1.3
+      ],
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "bait_tank_hoses",
+      "file": "bait_tank_hoses.glb",
+      "bytes": 6240,
+      "triangles": 26,
+      "meshes": 2,
+      "dimensions_m": [
+        1.17,
+        1.0,
+        1.6
+      ],
+      "materials": [
+        "hose",
+        "tank"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "gear_locker",
+      "file": "gear_locker.glb",
+      "bytes": 4116,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.6,
+        1.0,
+        1.8
+      ],
+      "materials": [
+        "locker",
+        "lockerdoor"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "ice_bin",
+      "file": "ice_bin.glb",
+      "bytes": 3992,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.8,
+        1.2,
+        1.07
+      ],
+      "materials": [
+        "ice",
+        "icewhite"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "net_tarpaulin",
+      "file": "net_tarpaulin.glb",
+      "bytes": 3920,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.4,
+        1.6,
+        0.55
+      ],
+      "materials": [
+        "tarp"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "shore_power_box",
+      "file": "shore_power_box.glb",
+      "bytes": 4164,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.8,
+        0.6,
+        1.2
+      ],
+      "materials": [
+        "power",
+        "powerdoor"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "hose_reel",
+      "file": "hose_reel.glb",
+      "bytes": 5704,
+      "triangles": 22,
+      "meshes": 2,
+      "dimensions_m": [
+        1.0,
+        0.6,
+        0.9
+      ],
+      "materials": [
+        "mast",
+        "reel"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "drying_rack",
+      "file": "drying_rack.glb",
+      "bytes": 5404,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        3.2,
+        0.16,
+        1.6
+      ],
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "slip_signage",
+      "file": "slip_signage.glb",
+      "bytes": 4824,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        1.4,
+        0.1,
+        2.6
+      ],
+      "materials": [
+        "mast",
+        "sign"
+      ]
+    }
+  ]
+}

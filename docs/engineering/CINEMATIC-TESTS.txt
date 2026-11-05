@@ -1,0 +1,122 @@
+TAP version 13
+# (node:1185) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: frontage points outside a GIS building
+ok 1 - frontage points outside a GIS building
+  ---
+  duration_ms: 1.113185
+  type: 'test'
+  ...
+# Subtest: reject degenerate buildings
+ok 2 - reject degenerate buildings
+  ---
+  duration_ms: 0.122401
+  type: 'test'
+  ...
+# Subtest: details are deterministic across calls
+ok 3 - details are deterministic across calls
+  ---
+  duration_ms: 1.082691
+  type: 'test'
+  ...
+# Subtest: detail identities do not depend on tile ordering
+ok 4 - detail identities do not depend on tile ordering
+  ---
+  duration_ms: 1.580776
+  type: 'test'
+  ...
+# Subtest: details are capped in dense city tiles
+ok 5 - details are capped in dense city tiles
+  ---
+  duration_ms: 0.868975
+  type: 'test'
+  ...
+# Subtest: avoid hand-modelled hero landmarks
+ok 6 - avoid hand-modelled hero landmarks
+  ---
+  duration_ms: 0.110544
+  type: 'test'
+  ...
+# Subtest: all transforms are finite and world-aligned
+ok 7 - all transforms are finite and world-aligned
+  ---
+  duration_ms: 0.640717
+  type: 'test'
+  ...
+# Subtest: ornament varies by building type
+ok 8 - ornament varies by building type
+  ---
+  duration_ms: 0.489644
+  type: 'test'
+  ...
+# Subtest: low-detail cap is strict for dense urban tiles
+ok 9 - low-detail cap is strict for dense urban tiles
+  ---
+  duration_ms: 2.267101
+  type: 'test'
+  ...
+# Subtest: detail generation does not mutate source geometry
+ok 10 - detail generation does not mutate source geometry
+  ---
+  duration_ms: 0.356447
+  type: 'test'
+  ...
+# Subtest: invalid GIS coordinates cannot create nonfinite decoration transforms
+ok 11 - invalid GIS coordinates cannot create nonfinite decoration transforms
+  ---
+  duration_ms: 0.192284
+  type: 'test'
+  ...
+# (node:1186) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: storm is a February 2026 event
+ok 12 - storm is a February 2026 event
+  ---
+  duration_ms: 0.950695
+  type: 'test'
+  ...
+# Subtest: only active blizzard mission locks weather
+ok 13 - only active blizzard mission locks weather
+  ---
+  duration_ms: 0.14929
+  type: 'test'
+  ...
+# Subtest: snow slows cars without changing normal road speed
+ok 14 - snow slows cars without changing normal road speed
+  ---
+  duration_ms: 0.243019
+  type: 'test'
+  ...
+# Subtest: snow flakes are quality-scaled for mobile
+ok 15 - snow flakes are quality-scaled for mobile
+  ---
+  duration_ms: 0.178253
+  type: 'test'
+  ...
+# Subtest: story replaces hurricane without removing other missions
+ok 16 - story replaces hurricane without removing other missions
+  ---
+  duration_ms: 0.681918
+  type: 'test'
+  ...
+# Subtest: snow is wired to rendering, ground and roads
+ok 17 - snow is wired to rendering, ground and roads
+  ---
+  duration_ms: 0.643931
+  type: 'test'
+  ...
+# Subtest: storm gates changes and restores previous weather
+ok 18 - storm gates changes and restores previous weather
+  ---
+  duration_ms: 0.262969
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 126.081127

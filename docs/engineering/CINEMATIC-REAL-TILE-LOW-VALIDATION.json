@@ -1,0 +1,84 @@
+{
+  "profile": "Low; roof fixtures limited to 10; architectural visible pieces limited to 12",
+  "tiles": 954,
+  "missingTiles": 0,
+  "totalRawBuildingRecords": 68482,
+  "maxDecorPerTile": 12,
+  "maxRooftopsPerTile": 10,
+  "maxGenerationTimeMs": 3.13,
+  "typicalDenseTileExamples": [
+    {
+      "key": "-13_0",
+      "buildings": 140,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-13_2",
+      "buildings": 133,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-15_0",
+      "buildings": 157,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-1_-2",
+      "buildings": 151,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-1_-3",
+      "buildings": 263,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-1_-4",
+      "buildings": 486,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-1_-5",
+      "buildings": 338,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-1_4",
+      "buildings": 151,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-27_3",
+      "buildings": 128,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-2_-1",
+      "buildings": 202,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-2_-2",
+      "buildings": 295,
+      "details": 12,
+      "roofs": 10
+    },
+    {
+      "key": "-2_-3",
+      "buildings": 585,
+      "details": 12,
+      "roofs": 10
+    }
+  ],
+  "note": "Synchronous Node data-generation measurements only; not device render FPS or memory benchmark"
+}

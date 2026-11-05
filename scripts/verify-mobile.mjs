@@ -1,0 +1,32 @@
+import{createRequire}from'node:module';import{mkdirSync,writeFileSync}from'node:fs';import assert from'node:assert/strict';
+const require=createRequire(import.meta.url);let chromium;try{({chromium}=require('playwright'))}catch{({chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright'))}const{createServer}=await import('vite');
+const server=await createServer({root:new URL('../',import.meta.url).pathname,server:{host:'127.0.0.1',port:5291,strictPort:true}});await server.listen();
+const browser=await chromium.launch({executablePath:process.env.BROWSER_EXECUTABLE_PATH,headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+mkdirSync('mobile-evidence',{recursive:true});const report={environment:'Chromium Linux SwiftShader, mobile touch emulation; not iPhone Safari',errors:[],checks:[]};
+try{
+const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:3});await context.route('**/api/**',r=>r.abort());await context.route('https://services.arcgisonline.com/**',r=>r.abort());
+const p=await context.newPage();p.on('pageerror',e=>report.errors.push(e.message));await p.goto('http://127.0.0.1:5291/');
+await p.waitForFunction(()=>!!window.__narrowsReviewState?.get().slice,{timeout:90000});
+let state=await p.evaluate(()=>{const g=window.__narrowsReviewState.get();return{quality:g.quality,shadows:g.shadows,fx:g.fxOn,radio:g.radioOpen}});assert.equal(state.quality,0);assert.equal(state.shadows,false);assert.equal(state.fx,false);report.checks.push({mobileDefaults:state});
+await p.evaluate(()=>window.__narrowsReviewState.set({started:true}));await p.getByRole('group',{name:'Movement joystick'}).waitFor();
+const cdp=await context.newCDPSession(p);
+const stickBox=await p.getByRole('group',{name:'Movement joystick'}).boundingBox();const run=await p.locator('[data-touch-control="sprint"]').boundingBox();
+const finger0={x:stickBox.x+stickBox.width/2+25,y:stickBox.y+stickBox.height/2,id:0};const finger1={x:run.x+run.width/2,y:run.y+run.height/2,id:1};
+await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[finger0]});await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[finger0,finger1]});
+let input=await p.evaluate(()=>window.__narrowsReviewState.input());assert.ok(input.x>.2);assert.equal(input.sprint,true);report.checks.push({simultaneousMoveAndSprint:input});
+await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});input=await p.evaluate(()=>window.__narrowsReviewState.input());assert.equal(input.x,0);assert.equal(input.sprint,false);report.checks.push({releaseBothPointers:input});
+const bounds=async(label)=>{await p.waitForTimeout(250);const rects=await p.locator('.hud-menu,.hud-actions button,[data-touch-control],.hud-map').evaluateAll(es=>es.map(e=>({id:e.getAttribute('aria-label')||e.textContent,r:e.getBoundingClientRect().toJSON()})));const v=p.viewportSize();const overflow=rects.filter(e=>e.r.x<0||e.r.y<0||e.r.right>v.width+1||e.r.bottom>v.height+1);assert.deepEqual(overflow,[]);report.checks.push({layout:label,viewport:v,overflow});};
+await bounds('portrait');await p.screenshot({path:'mobile-evidence/portrait.png'});
+await p.getByRole('button',{name:'Expand HUD'}).tap();assert.equal(await p.getByRole('button',{name:'Use compact HUD'}).count(),1);await p.getByRole('button',{name:'Use compact HUD'}).tap();
+await p.setViewportSize({width:844,height:390});await p.waitForTimeout(750);await bounds('landscape-after-rotation');await p.screenshot({path:'mobile-evidence/landscape.png'});
+await p.getByRole('button',{name:'Open game menu'}).tap();const dialog=p.getByRole('dialog',{name:'Game settings'});await dialog.waitFor();const scroll=await dialog.evaluate(e=>({height:e.clientHeight,scrollHeight:e.scrollHeight,viewport:innerHeight}));assert.ok(scroll.height<scroll.viewport);await p.getByRole('button',{name:/Quit to title/}).scrollIntoViewIfNeeded();await p.screenshot({path:'mobile-evidence/settings-landscape.png'});await p.getByRole('button',{name:/Resume/}).scrollIntoViewIfNeeded();await p.getByRole('button',{name:/Resume/}).tap();report.checks.push({scrollableSettings:scroll});
+await p.getByRole('button',{name:'Map',exact:true}).tap();await p.getByRole('button',{name:'Place waypoint'}).tap();
+await p.locator('canvas').last().tap({position:{x:420,y:180}});
+const wp=await p.evaluate(()=>window.__narrowsReviewState.get().waypoint);assert.ok(wp&&Number.isFinite(wp.x)&&Number.isFinite(wp.z));report.checks.push({touchWaypoint:wp});
+await p.getByRole('button',{name:/Seamen's Bethel/}).tap();await p.waitForTimeout(250);
+const spawn=await p.evaluate(()=>window.__narrowsReviewState.actor());assert.ok(spawn.x> -261);assert.ok(Math.abs(spawn.z-106)<1);report.checks.push({safeBethelTravel:spawn});
+await p.evaluate(()=>window.__narrowsReviewState.set({mode:'car'}));await p.locator('[data-touch-control="brake"]').waitFor();assert.equal(await p.locator('[data-touch-control="sprint"]').count(),0);report.checks.push({drivingControls:true});await p.evaluate(()=>window.__narrowsReviewState.set({mode:'foot'}));
+await p.evaluate(()=>{Object.defineProperty(document,'hidden',{value:true,configurable:true});document.dispatchEvent(new Event('visibilitychange'));});const before=await p.evaluate(()=>window.__narrowsReviewState.time());await p.waitForTimeout(600);const after=await p.evaluate(()=>window.__narrowsReviewState.time());assert.equal(before,after);await p.evaluate(()=>{Object.defineProperty(document,'hidden',{value:false,configurable:true});document.dispatchEvent(new Event('visibilitychange'));});report.checks.push({backgroundClockStopped:true});
+const manifest=await p.evaluate(async()=>await(await fetch('./manifest.webmanifest')).json());assert.equal(manifest.display,'standalone');for(const i of manifest.icons){const status=await p.evaluate(async s=>(await fetch(s)).status,i.src);assert.equal(status,200)}report.checks.push({homeScreenAssets:true});
+report.render=await p.evaluate(()=>window.__narrowsPerf);await context.close();assert.deepEqual(report.errors,[]);
+}catch(e){report.failure=e.stack;console.log(e.stack);process.exitCode=1}finally{writeFileSync('mobile-evidence/checks.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));await browser.close();await server.close()}

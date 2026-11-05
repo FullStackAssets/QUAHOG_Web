@@ -1,0 +1,62 @@
+BLIZZARD 2026 TEST RECORD
+
+TAP version 13
+# (node:2584) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: storm is a February 2026 event
+ok 1 - storm is a February 2026 event
+  ---
+  duration_ms: 0.760276
+  type: 'test'
+  ...
+# Subtest: only active blizzard mission locks weather
+ok 2 - only active blizzard mission locks weather
+  ---
+  duration_ms: 0.148764
+  type: 'test'
+  ...
+# Subtest: snow slows cars without changing normal road speed
+ok 3 - snow slows cars without changing normal road speed
+  ---
+  duration_ms: 0.227793
+  type: 'test'
+  ...
+# Subtest: snow flakes are quality-scaled for mobile
+ok 4 - snow flakes are quality-scaled for mobile
+  ---
+  duration_ms: 0.110907
+  type: 'test'
+  ...
+# Subtest: story replaces hurricane without removing other missions
+ok 5 - story replaces hurricane without removing other missions
+  ---
+  duration_ms: 0.500154
+  type: 'test'
+  ...
+# Subtest: snow is wired to rendering, ground and roads
+ok 6 - snow is wired to rendering, ground and roads
+  ---
+  duration_ms: 0.576969
+  type: 'test'
+  ...
+# Subtest: storm gates changes and restores previous weather
+ok 7 - storm gates changes and restores previous weather
+  ---
+  duration_ms: 0.210818
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 123.413836
+
+Parse check:
+{"parsed":13,"errors":[]}
+
+
+Full build and full Vitest suite were not run: npm registry unavailable.

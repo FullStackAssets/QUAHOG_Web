@@ -1,0 +1,992 @@
+{
+  "pack": "Pack 008: Interiors (staging only, built on Nic's 2026-11-02 override of the rebase hold)",
+  "blender": "5.2.3 LTS",
+  "compression": "Meshopt only",
+  "baseline": "2026-11-01 merged game (NOT 2026-10-19 GitHub main)",
+  "integration": "none \u2014 sandbox/staging only, no production changes, no scene-loading changes",
+  "caveat": "STANDALONE shells: NOT reconciled against any rebased Sprint 1 shop footprint (rebase has not landed). Do not place/integrate until it does.",
+  "textures": "flat Principled colours; no baked texture atlas in this pack",
+  "templates": 55,
+  "variant_note": "one V01 build per template; variant slots are future work, not claimed",
+  "assets": [
+    {
+      "name": "storefront_small",
+      "file": "storefront_small.glb",
+      "bytes": 10028,
+      "triangles": 36,
+      "meshes": 6,
+      "dimensions_m": [
+        5.16,
+        3.0,
+        4.08
+      ],
+      "materials": [
+        "counter",
+        "floor",
+        "shelf",
+        "wall"
+      ],
+      "asset_id": "QH-A403"
+    },
+    {
+      "name": "storefront_medium",
+      "file": "storefront_medium.glb",
+      "bytes": 11648,
+      "triangles": 42,
+      "meshes": 7,
+      "dimensions_m": [
+        8.16,
+        3.2,
+        6.08
+      ],
+      "materials": [
+        "counter",
+        "floor",
+        "rack",
+        "wall"
+      ],
+      "asset_id": "QH-A404"
+    },
+    {
+      "name": "dining_room",
+      "file": "dining_room.glb",
+      "bytes": 34484,
+      "triangles": 132,
+      "meshes": 22,
+      "dimensions_m": [
+        8.16,
+        3.0,
+        6.08
+      ],
+      "materials": [
+        "chair",
+        "floor",
+        "leg",
+        "table",
+        "wall"
+      ],
+      "asset_id": "QH-A405"
+    },
+    {
+      "name": "commercial_kitchen",
+      "file": "commercial_kitchen.glb",
+      "bytes": 11228,
+      "triangles": 42,
+      "meshes": 7,
+      "dimensions_m": [
+        7.16,
+        3.0,
+        5.2
+      ],
+      "materials": [
+        "floor",
+        "steel",
+        "wall"
+      ],
+      "asset_id": "QH-A406"
+    },
+    {
+      "name": "warehouse_bay",
+      "file": "warehouse_bay.glb",
+      "bytes": 11392,
+      "triangles": 42,
+      "meshes": 7,
+      "dimensions_m": [
+        10.16,
+        4.0,
+        8.1
+      ],
+      "materials": [
+        "floor",
+        "pallet",
+        "rack",
+        "wall"
+      ],
+      "asset_id": "QH-A407"
+    },
+    {
+      "name": "warehouse_mezzanine",
+      "file": "warehouse_mezzanine.glb",
+      "bytes": 10020,
+      "triangles": 36,
+      "meshes": 6,
+      "dimensions_m": [
+        10.16,
+        4.5,
+        8.08
+      ],
+      "materials": [
+        "deck",
+        "floor",
+        "rail",
+        "wall"
+      ],
+      "asset_id": "QH-A408"
+    },
+    {
+      "name": "fish_plant_floor",
+      "file": "fish_plant_floor.glb",
+      "bytes": 10056,
+      "triangles": 36,
+      "meshes": 6,
+      "dimensions_m": [
+        9.16,
+        3.5,
+        7.08
+      ],
+      "materials": [
+        "conv",
+        "floor",
+        "tank",
+        "wall"
+      ],
+      "asset_id": "QH-A409"
+    },
+    {
+      "name": "apartment_living",
+      "file": "apartment_living.glb",
+      "bytes": 18244,
+      "triangles": 66,
+      "meshes": 11,
+      "dimensions_m": [
+        6.16,
+        2.8,
+        5.08
+      ],
+      "materials": [
+        "arm",
+        "floor",
+        "leg",
+        "sofa",
+        "table",
+        "wall"
+      ],
+      "asset_id": "QH-A410"
+    },
+    {
+      "name": "apartment_stairwell",
+      "file": "apartment_stairwell.glb",
+      "bytes": 13076,
+      "triangles": 48,
+      "meshes": 8,
+      "dimensions_m": [
+        3.16,
+        3.0,
+        5.08
+      ],
+      "materials": [
+        "floor",
+        "rail",
+        "step",
+        "wall"
+      ],
+      "asset_id": "QH-A411"
+    },
+    {
+      "name": "office_reception",
+      "file": "office_reception.glb",
+      "bytes": 11712,
+      "triangles": 42,
+      "meshes": 7,
+      "dimensions_m": [
+        6.16,
+        3.0,
+        5.08
+      ],
+      "materials": [
+        "chair",
+        "desk",
+        "floor",
+        "wall"
+      ],
+      "asset_id": "QH-A412"
+    },
+    {
+      "name": "lobby_counter",
+      "file": "lobby_counter.glb",
+      "bytes": 10120,
+      "triangles": 36,
+      "meshes": 6,
+      "dimensions_m": [
+        8.16,
+        3.2,
+        6.08
+      ],
+      "materials": [
+        "counter",
+        "floor",
+        "sign",
+        "wall"
+      ],
+      "asset_id": "QH-A413"
+    },
+    {
+      "name": "safehouse_interior",
+      "file": "safehouse_interior.glb",
+      "bytes": 16548,
+      "triangles": 60,
+      "meshes": 10,
+      "dimensions_m": [
+        5.16,
+        2.8,
+        4.1
+      ],
+      "materials": [
+        "bed",
+        "floor",
+        "leg",
+        "table",
+        "wall"
+      ],
+      "asset_id": "QH-A414"
+    },
+    {
+      "name": "gallery_interior",
+      "file": "gallery_interior.glb",
+      "bytes": 11344,
+      "triangles": 42,
+      "meshes": 7,
+      "dimensions_m": [
+        9.16,
+        3.5,
+        6.08
+      ],
+      "materials": [
+        "floor",
+        "frame",
+        "plinth",
+        "wall"
+      ],
+      "asset_id": "QH-A415"
+    },
+    {
+      "name": "museum_exhibit_room",
+      "file": "museum_exhibit_room.glb",
+      "bytes": 11464,
+      "triangles": 42,
+      "meshes": 7,
+      "dimensions_m": [
+        9.16,
+        3.5,
+        6.08
+      ],
+      "materials": [
+        "case",
+        "floor",
+        "label",
+        "wall"
+      ],
+      "asset_id": "QH-A416"
+    },
+    {
+      "name": "maintenance_shop",
+      "file": "maintenance_shop.glb",
+      "bytes": 9980,
+      "triangles": 36,
+      "meshes": 6,
+      "dimensions_m": [
+        8.16,
+        3.0,
+        6.1
+      ],
+      "materials": [
+        "bench",
+        "floor",
+        "toolwall",
+        "wall"
+      ],
+      "asset_id": "QH-A417"
+    },
+    {
+      "name": "auto_garage",
+      "file": "auto_garage.glb",
+      "bytes": 9976,
+      "triangles": 36,
+      "meshes": 6,
+      "dimensions_m": [
+        9.16,
+        3.5,
+        7.08
+      ],
+      "materials": [
+        "car",
+        "floor",
+        "lift",
+        "wall"
+      ],
+      "asset_id": "QH-A418"
+    },
+    {
+      "name": "police_lobby",
+      "file": "police_lobby.glb",
+      "bytes": 10084,
+      "triangles": 36,
+      "meshes": 6,
+      "dimensions_m": [
+        7.16,
+        3.0,
+        5.08
+      ],
+      "materials": [
+        "counter",
+        "flag",
+        "floor",
+        "wall"
+      ],
+      "asset_id": "QH-A419"
+    },
+    {
+      "name": "medical_reception",
+      "file": "medical_reception.glb",
+      "bytes": 14596,
+      "triangles": 54,
+      "meshes": 9,
+      "dimensions_m": [
+        7.16,
+        3.0,
+        5.08
+      ],
+      "materials": [
+        "chair",
+        "desk",
+        "floor",
+        "wall"
+      ],
+      "asset_id": "QH-A420"
+    },
+    {
+      "name": "doorway_kit",
+      "file": "doorway_kit.glb",
+      "bytes": 5268,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.2,
+        2.15,
+        0.3
+      ],
+      "materials": [
+        "frame"
+      ],
+      "asset_id": "QH-A421"
+    },
+    {
+      "name": "doorframe_clearance",
+      "file": "doorframe_clearance.glb",
+      "bytes": 6884,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        1.2,
+        2.15,
+        0.3
+      ],
+      "materials": [
+        "clear",
+        "frame"
+      ],
+      "asset_id": "QH-A422"
+    },
+    {
+      "name": "cafe_table_chair",
+      "file": "cafe_table_chair.glb",
+      "bytes": 14952,
+      "triangles": 54,
+      "meshes": 9,
+      "dimensions_m": [
+        1.84,
+        1.05,
+        1.32
+      ],
+      "materials": [
+        "chair",
+        "leg",
+        "table"
+      ],
+      "asset_id": "QH-A423"
+    },
+    {
+      "name": "booth_seating",
+      "file": "booth_seating.glb",
+      "bytes": 5508,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.6,
+        0.9,
+        1.7
+      ],
+      "materials": [
+        "booth",
+        "table"
+      ],
+      "asset_id": "QH-A424"
+    },
+    {
+      "name": "bar_counter_shelves",
+      "file": "bar_counter_shelves.glb",
+      "bytes": 5508,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        3.6,
+        2.05,
+        1.15
+      ],
+      "materials": [
+        "counter",
+        "shelf"
+      ],
+      "asset_id": "QH-A425"
+    },
+    {
+      "name": "menu_board_stand",
+      "file": "menu_board_stand.glb",
+      "bytes": 4088,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.6,
+        2.2,
+        0.8
+      ],
+      "materials": [
+        "board",
+        "stand"
+      ],
+      "asset_id": "QH-A426"
+    },
+    {
+      "name": "food_prep_counter",
+      "file": "food_prep_counter.glb",
+      "bytes": 4016,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        3.0,
+        1.04,
+        1.2
+      ],
+      "materials": [
+        "board",
+        "counter"
+      ],
+      "asset_id": "QH-A427"
+    },
+    {
+      "name": "range_hood",
+      "file": "range_hood.glb",
+      "bytes": 4008,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.8,
+        2.2,
+        1.4
+      ],
+      "materials": [
+        "hood",
+        "range"
+      ],
+      "asset_id": "QH-A428"
+    },
+    {
+      "name": "sink_kit",
+      "file": "sink_kit.glb",
+      "bytes": 6660,
+      "triangles": 22,
+      "meshes": 3,
+      "dimensions_m": [
+        1.8,
+        1.13,
+        1.0
+      ],
+      "materials": [
+        "basin",
+        "cab",
+        "faucet"
+      ],
+      "asset_id": "QH-A429"
+    },
+    {
+      "name": "refrigeration_case",
+      "file": "refrigeration_case.glb",
+      "bytes": 4144,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.4,
+        1.8,
+        1.2
+      ],
+      "materials": [
+        "case",
+        "glass"
+      ],
+      "asset_id": "QH-A430"
+    },
+    {
+      "name": "retail_gondola",
+      "file": "retail_gondola.glb",
+      "bytes": 7220,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        2.4,
+        1.6,
+        1.0
+      ],
+      "materials": [
+        "base",
+        "shelf",
+        "up"
+      ],
+      "asset_id": "QH-A431"
+    },
+    {
+      "name": "checkout_counter",
+      "file": "checkout_counter.glb",
+      "bytes": 4000,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.9,
+        1.0,
+        1.0
+      ],
+      "materials": [
+        "belt",
+        "counter"
+      ],
+      "asset_id": "QH-A432"
+    },
+    {
+      "name": "pos_kiosk",
+      "file": "pos_kiosk.glb",
+      "bytes": 4116,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.8,
+        1.4,
+        0.6
+      ],
+      "materials": [
+        "kiosk",
+        "screen"
+      ],
+      "asset_id": "QH-A433"
+    },
+    {
+      "name": "warehouse_rack",
+      "file": "warehouse_rack.glb",
+      "bytes": 6836,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        3.2,
+        2.0,
+        1.0
+      ],
+      "materials": [
+        "rack",
+        "shelf"
+      ],
+      "asset_id": "QH-A434"
+    },
+    {
+      "name": "forklift_dock",
+      "file": "forklift_dock.glb",
+      "bytes": 4124,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        1.5,
+        1.6
+      ],
+      "materials": [
+        "charger",
+        "dock"
+      ],
+      "asset_id": "QH-A435"
+    },
+    {
+      "name": "storage_lockers",
+      "file": "storage_lockers.glb",
+      "bytes": 5652,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.6,
+        1.8,
+        1.2
+      ],
+      "materials": [
+        "locker",
+        "shelf"
+      ],
+      "asset_id": "QH-A436"
+    },
+    {
+      "name": "pallet_inventory",
+      "file": "pallet_inventory.glb",
+      "bytes": 5464,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.6,
+        0.85,
+        1.6
+      ],
+      "materials": [
+        "box",
+        "pallet"
+      ],
+      "asset_id": "QH-A437"
+    },
+    {
+      "name": "sofa_chair",
+      "file": "sofa_chair.glb",
+      "bytes": 3824,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        1.15,
+        0.9
+      ],
+      "materials": [
+        "sofa"
+      ],
+      "asset_id": "QH-A438"
+    },
+    {
+      "name": "bed_nightstand",
+      "file": "bed_nightstand.glb",
+      "bytes": 5792,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        2.5,
+        0.62,
+        3.2
+      ],
+      "materials": [
+        "bed",
+        "pillow",
+        "stand"
+      ],
+      "asset_id": "QH-A439"
+    },
+    {
+      "name": "apartment_appliances",
+      "file": "apartment_appliances.glb",
+      "bytes": 4032,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        1.8,
+        1.0
+      ],
+      "materials": [
+        "fridge",
+        "stove"
+      ],
+      "asset_id": "QH-A440"
+    },
+    {
+      "name": "bathroom_fixtures",
+      "file": "bathroom_fixtures.glb",
+      "bytes": 5864,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        2.5,
+        0.7,
+        2.8
+      ],
+      "materials": [
+        "sink",
+        "toilet",
+        "tub"
+      ],
+      "asset_id": "QH-A441"
+    },
+    {
+      "name": "office_desk_chair",
+      "file": "office_desk_chair.glb",
+      "bytes": 5560,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.6,
+        1.05,
+        1.34
+      ],
+      "materials": [
+        "chair",
+        "desk"
+      ],
+      "asset_id": "QH-A442"
+    },
+    {
+      "name": "filing_archive",
+      "file": "filing_archive.glb",
+      "bytes": 5608,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.7,
+        1.4,
+        0.8
+      ],
+      "materials": [
+        "box",
+        "cab"
+      ],
+      "asset_id": "QH-A443"
+    },
+    {
+      "name": "museum_case",
+      "file": "museum_case.glb",
+      "bytes": 3992,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        1.7,
+        1.0
+      ],
+      "materials": [
+        "base",
+        "glass"
+      ],
+      "asset_id": "QH-A444"
+    },
+    {
+      "name": "gallery_plinth_frame",
+      "file": "gallery_plinth_frame.glb",
+      "bytes": 3916,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.4,
+        1.9,
+        1.0
+      ],
+      "materials": [
+        "frame",
+        "plinth"
+      ],
+      "asset_id": "QH-A445"
+    },
+    {
+      "name": "electrical_panel",
+      "file": "electrical_panel.glb",
+      "bytes": 4076,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.0,
+        1.6,
+        0.16
+      ],
+      "materials": [
+        "breaker",
+        "panel"
+      ],
+      "asset_id": "QH-A446"
+    },
+    {
+      "name": "light_fixture_set",
+      "file": "light_fixture_set.glb",
+      "bytes": 9524,
+      "triangles": 40,
+      "meshes": 4,
+      "dimensions_m": [
+        1.4,
+        0.8,
+        0.3
+      ],
+      "materials": [
+        "rod",
+        "shade"
+      ],
+      "asset_id": "QH-A447"
+    },
+    {
+      "name": "door_panels_hinges",
+      "file": "door_panels_hinges.glb",
+      "bytes": 5560,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.95,
+        2.0,
+        0.11
+      ],
+      "materials": [
+        "door",
+        "hinge"
+      ],
+      "asset_id": "QH-A448"
+    },
+    {
+      "name": "blinds_curtains",
+      "file": "blinds_curtains.glb",
+      "bytes": 5636,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.6,
+        1.8,
+        0.14
+      ],
+      "materials": [
+        "blind",
+        "curtain"
+      ],
+      "asset_id": "QH-A449"
+    },
+    {
+      "name": "security_camera",
+      "file": "security_camera.glb",
+      "bytes": 5316,
+      "triangles": 18,
+      "meshes": 2,
+      "dimensions_m": [
+        0.3,
+        0.45,
+        0.43
+      ],
+      "materials": [
+        "cam",
+        "mount"
+      ],
+      "asset_id": "QH-A450"
+    },
+    {
+      "name": "extinguisher_station",
+      "file": "extinguisher_station.glb",
+      "bytes": 5232,
+      "triangles": 18,
+      "meshes": 2,
+      "dimensions_m": [
+        0.8,
+        1.2,
+        0.7
+      ],
+      "materials": [
+        "cab",
+        "ext"
+      ],
+      "asset_id": "QH-A451"
+    },
+    {
+      "name": "janitor_cart",
+      "file": "janitor_cart.glb",
+      "bytes": 5824,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.0,
+        1.2,
+        0.6
+      ],
+      "materials": [
+        "bucket",
+        "cart",
+        "mop"
+      ],
+      "asset_id": "QH-A452"
+    },
+    {
+      "name": "mirror_vanity",
+      "file": "mirror_vanity.glb",
+      "bytes": 4120,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.6,
+        1.7,
+        0.8
+      ],
+      "materials": [
+        "mirror",
+        "vanity"
+      ],
+      "asset_id": "QH-A453"
+    },
+    {
+      "name": "bulletin_board",
+      "file": "bulletin_board.glb",
+      "bytes": 7132,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        2.0,
+        1.4,
+        0.08
+      ],
+      "materials": [
+        "board",
+        "note"
+      ],
+      "asset_id": "QH-A454"
+    },
+    {
+      "name": "desk_items",
+      "file": "desk_items.glb",
+      "bytes": 6896,
+      "triangles": 24,
+      "meshes": 3,
+      "dimensions_m": [
+        1.8,
+        0.9,
+        1.0
+      ],
+      "materials": [
+        "desk",
+        "mug",
+        "paper"
+      ],
+      "asset_id": "QH-A455"
+    },
+    {
+      "name": "rubbish_bin",
+      "file": "rubbish_bin.glb",
+      "bytes": 3436,
+      "triangles": 14,
+      "meshes": 1,
+      "dimensions_m": [
+        0.5,
+        0.5,
+        0.7
+      ],
+      "materials": [
+        "bin"
+      ],
+      "asset_id": "QH-A456"
+    },
+    {
+      "name": "handrail_landing",
+      "file": "handrail_landing.glb",
+      "bytes": 7280,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        3.0,
+        0.95,
+        1.2
+      ],
+      "materials": [
+        "landing",
+        "post",
+        "rail"
+      ],
+      "asset_id": "QH-A457"
+    }
+  ]
+}

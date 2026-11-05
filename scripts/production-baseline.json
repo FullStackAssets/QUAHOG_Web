@@ -1,0 +1,51 @@
+{
+  "approvedR3": {
+    "scripts/production-baseline.json": "f1a0b2dd58eb061f29d43ecc87b3e529539e207042cf2f12117ca7ca0639454d",
+    "scripts/production-preflight.mjs": "c88fc1a42bd44555bed1a5f39e6dc34d6bf91f3dd5854accc0038361cf049d73",
+    "src/world/ProductionGLB.tsx": "54eb8c3075134415401e41cd48da1229d021de170e19e88496000daca00e6e1c",
+    "src/world/Water.tsx": "1210d1ec5d8104562925296ac01106f3b46a67f87bda20df445879db94308658"
+  },
+  "baselineArchiveName": "QUAHOG_Muse_Production_344GLB_Release_2026-11-02.zip",
+  "baselineArchiveSHA256": "79b1c92b7ab0baedb7cc1d2ff59f57c0b9128e8623d69b8220578cf715df8c11",
+  "expectedAdded": [
+    "docs/engineering/PRODUCTION-INTENSIVE-2026-11-02.md",
+    "scripts/production-baseline.json",
+    "scripts/production-preflight.mjs",
+    "scripts/production-smoke.mjs",
+    "scripts/tests/production-preflight.test.mjs",
+    "scripts/tests/production-runtime-policy.test.mjs",
+    "src/world/AssetRuntimePolicy.ts",
+    "src/world/shorelinePlacement.ts"
+  ],
+  "expectedModified": {
+    "package.json": {
+      "afterSHA256": "b01c6c7a6ec814e54e7201c0110f62292c7edc7d3275e32e102b740bad63ccbf",
+      "beforeSHA256": "96308474debb2ee28ac19ee41b529b4c90423fa622dd0644c693cc2bcefcc110"
+    },
+    "scripts/tests/production-assets.test.mjs": {
+      "afterSHA256": "6b4fcb1d1a88a372bb5b5d21c8a4b7c9290cc4c973c305a44d06ff1a0cfd35dc",
+      "beforeSHA256": "30421f966623a75043c489fecd7fb519381b66b166d5b866f9d7b30d1b93afc7"
+    },
+    "src/ui/DebugStats.tsx": {
+      "afterSHA256": "506870e405a96a5ae543b4b80a94c06d724a33c91e56caf424bad793af88600d",
+      "beforeSHA256": "9bbeee12b53a6aad38767a987cb0eef971efd258763738a3e35cdbf8c244afaf"
+    },
+    "src/world/HarborProps.tsx": {
+      "afterSHA256": "24c4cbc0e7452f9d21d6fe6ebf0eef78bd17db0985410f41928523683de680ce",
+      "beforeSHA256": "6faca1c75fb4955252f64427ac86d31ef09260ad3dc0c1f0801d27891369ca27"
+    },
+    "src/world/ProductionGLB.tsx": {
+      "afterSHA256": "08efad1dbf7b22857760955d1ea37dc774282406298645e2a5c22f9cace98a77",
+      "beforeSHA256": "0cc9ba8bcb1476a7acbac71740f6c5982607f7c67a264936675da81b53145577"
+    },
+    "src/world/Props.tsx": {
+      "afterSHA256": "b3db2d9fd56ea24c9a112e884614312176530b96cbe45365e68112077d236f4b",
+      "beforeSHA256": "6974cef077af51bcb05fdb227dc3e8516672466b172a32714b7da34e0198c685"
+    },
+    "src/world/Snowbanks.tsx": {
+      "afterSHA256": "3e2c604a222b7c9d7ff618273c6757f2c46a2af4ec15286dc078f6189a5f79b9",
+      "beforeSHA256": "2ae2fa797415b06881dbeee2ed1845852efe7a66cb0a0af5bc94b0272f896da7"
+    }
+  },
+  "schemaVersion": 1
+}

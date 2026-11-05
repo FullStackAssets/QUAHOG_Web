@@ -1,0 +1,2 @@
+.hud-density{min-width:44px;min-height:44px}
+@media(pointer:coarse){.hud[data-compact="true"] .hud-secondary{display:none}.hud[data-compact="true"] .hud-clock{margin-bottom:3px}.hud[data-compact="false"] .hud-status{max-height:150px;overflow:auto}}

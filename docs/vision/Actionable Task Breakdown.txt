@@ -1,0 +1,419 @@
+ACTIONABLE TASK BREAKDOWN
+
+How to Read This List
+
+Recognition Key — every task carries these markers:
+
+Marker Meaning
+🔴 CRITICAL Blocks other work. Do first. Cannot ship without.
+🟠 CORE Defines the game. Non-negotiable.
+🟡 ENHANCE Makes it better. Cut if needed.
+🟢 STRETCH Polish. Cut first.
+⚡ QUICK WIN High impact, low effort. Do early.
+🔗 BLOCKED BY Depends on another task.
+📦 DELIVERABLE Produces a concrete artifact.
+👤 OWNER Team responsible.
+⏱ EFFORT Rough time estimate.
+
+Phases:
+
+· P0 — Pre-Production (months 0–6): Prove the vision.
+· P1 — Foundation (months 6–18): Build the engine and core systems.
+· P2 — Production (months 18–42): Build the world and content.
+· P3 — Alpha (months 42–48): All features in, content complete.
+· P4 — Beta (months 48–54): Polish, optimize, fix.
+· P5 — Launch (months 54–60): Ship and support.
+
+---
+
+THE CRITICAL PATH — 10 TASKS THAT BLOCK EVERYTHING
+
+If any of these slip, the whole project slips. Track these daily.
+
+□ 🔴 📦 P0 · 2w · Creative Director — Write the Minimum Viable World document: the smallest version of this game that still delivers interiors + pedestrian/traffic AI + police escalation + vehicle damage/handling + dynamic weather/lighting. Get it signed off. This document governs every cut decision.
+□ 🔴 📦 P0 · 4w · Tech Director — Build the simulation clock + environment simulator skeleton. Everything reads from this. Nothing else starts until it exists.
+□ 🔴 📦 P0 · 6w · Engine Team — Build the ECS + job system + spatial partitioning. Every NPC, vehicle, and prop runs on this.
+□ 🔴 📦 P0 · 4w · Engine + Narrative — Build the event log + persistence layer. Without this, no consequence persists.
+□ 🟠 📦 P0 · 8w · Engine + World — Prototype the five core systems end-to-end in one small sandbox: one interior, one pedestrian AI loop, one police chase, one damaged vehicle, one weather cycle. Prove they feel good together before scaling.
+□ 🔴 📦 P0 · 3w · QA + UX — Stand up the accessibility framework. Retrofitting is 10x harder than building it in.
+□ 🔴 📦 P0 · 2w · Production — Define the definition of done for every system. No feature is "done" without: functional, tested, accessible, performant, documented.
+□ 🔴 📦 P0 · 2w · Tech Director — Build the build + playtest pipeline. Every team must be ≤2 weeks from a playable build.
+□ 🔴 📦 P0 · 4w · Tools Team — Ship v0.1 of the world editor (placement of props, NPCs, vehicles, missions). Content creation cannot scale without tools.
+□ 🔴 📦 P0 · Ongoing · Production — Maintain the risk register and cut list from day one. Review weekly.
+
+---
+
+CATEGORY 1 — FOUNDATION & ENGINE
+
+The machinery everything runs on.
+
+□ 🔴 📦 P0 — Build the simulation clock (60x real-time default, locally variable, persistent across sessions).
+□ 🔴 📦 P0 — Build the environment simulator (coarse grid: temperature, moisture, wind, light, fire, water level).
+□ 🔴 📦 P0 — Build the ECS (entities = NPCs, vehicles, props; components = position, velocity, AI state, schedule, inventory, health, etc.).
+□ 🔴 📦 P0 — Build the job system (fixed-timestep simulation at 30Hz, scheduled across cores with dependencies).
+□ 🔴 📦 P0 — Build the spatial partitioning (hierarchical grid for "who is near the player / in this cell / sharing a schedule node").
+□ 🟠 📦 P0 — Build the four-stage culling + LOD pipeline (frustum → occlusion → distance LOD → shader LOD, tunable per platform).
+□ 🟠 📦 P1 — Build the render graph (every frame is a DAG of passes; automatic resource aliasing and barriers).
+□ 🟠 📦 P1 — Build the material pipeline (node editor, shader cache with warm-up, fallback material for every asset).
+□ 🟠 📦 P1 — Build the lighting pipeline (baked lightmaps + dynamic probe interpolation, forward+ pass, SSGI + probes, volumetric fog, god rays).
+□ 🟠 📦 P1 — Build the post-processing chain (bloom, tone mapping, grading, TAA, motion blur, DOF, chromatic aberration, grain, vignette) with per-effect quality sliders.
+□ 🟠 📦 P1 — Build the temporal upscaler (internal resolution → display; MetalFX or equivalent).
+□ 🟠 📦 P1 — Build the streaming stack (asset registry, predictive streamer, priority queue with preemption, virtual texturing, geometry streaming).
+□ 🟠 📦 P1 — Build the persistence stack (versioned saves, world-state snapshot, append-only event log, cloud sync, checksummed saves).
+□ 🟡 📦 P2 — Build the hierarchical navmesh with dynamic updates (doors, debris) for pedestrian, vehicle, and special navigation.
+□ 🟡 📦 P2 — Build the AI decision layer (behavior tree for moment-to-moment; utility system for high-level; schedule system for long-term; all reading the same world state).
+
+Recognition cue: If Foundation is not green by end of P1, nothing else can ship. This category is the spine.
+
+---
+
+CATEGORY 2 — ENVIRONMENT & WEATHER
+
+The world has mood.
+
+□ 🟠 📦 P0 — Prototype dynamic time-of-day (24-hour cycle, 1440 evaluation points, no visible stepping).
+□ 🟠 📦 P1 — Build the cascaded lightmap system with dynamic TOD interpolation (8–12 baked states per architectural zone, blended in real time).
+□ 🟠 📦 P1 — Build the SSR system (temporal accumulation + ray-marched fallbacks, Fresnel-correct intensity, roughness-aware mips).
+□ 🟠 📦 P1 — Build irradiance probe grids per interior cell (flickering fluorescents, neon wash, corner falloff).
+□ 🟠 📦 P1 — Build volumetric fog + god rays (ray-marched fog with temporal reprojection, per-light god-ray scattering, height fog, participating media for headlights).
+□ 🟠 📦 P1 — Build the wetness system (accumulation, runoff, puddle formation by geometry, anisotropic reflections, water beading on car paint, drying by wind/sun/exposure).
+□ 🟠 📦 P1 — Build the HDR + ACES tone mapping pipeline with per-district LUTs and per-TOD grading variation.
+□ 🟠 📦 P1 — Build the dynamic weather state machine (clear → overcast → rain → storm → clearing; snow; fog; heat wave) feeding all other systems.
+□ 🟡 📦 P2 — Build volumetric clouds (parallax, light scattering, moving ground shadows).
+□ 🟡 📦 P2 — Build seasonal variation (daylight hours, foliage state, decoration) if shipped.
+□ 🟡 📦 P2 — Build the fire propagation system (fuel, wind, adjacency, smoke, light emission, spread to buildings/vehicles).
+□ 🟡 📦 P2 — Build the water simulation (Fourier waves, foam, rain ripples, underwater rendering, wakes, river flow, tides).
+□ 🟡 📦 P2 — Build interior lighting as gameplay (dark interiors need light sources; light switches; windows provide TOD-correct light).
+
+Recognition cue: Weather is not decoration — it's a system input. If the weather system doesn't write to the road-grip, AI, economy, and fire systems, it's not done.
+
+---
+
+CATEGORY 3 — INTERIORS & WORLD BUILDING
+
+The world extends inward.
+
+□ 🟠 📦 P0 — Prototype one full interior (architectural shell, lighting, acoustic reverb, enterable door, NPC navigation inside).
+□ 🟠 📦 P1 — Build the interior template generator (convenience store, bar, apartment, office, warehouse — each with variations and hand-authored hero props).
+□ 🟠 📦 P1 — Build the interior/exterior lighting bleed (warm interior light spills through windows; silhouettes visible inside).
+□ 🟠 📦 P1 — Build interior destruction (windows break, furniture topples, walls take bullet holes, fires spread).
+□ 🟠 📦 P1 — Build verticality (elevator/stairwell systems, basement/rooftop access, multi-floor navigation).
+□ 🟠 📦 P1 — Build the street dressing generator (power lines with catenary physics, hydrants, mailboxes, trash, signage layers, awnings, rooftop clutter, construction sites).
+□ 🟠 📦 P1 — Build the vegetation system (wind per species, LOD chain leaf→card, seasonal state, grass instancing, ivy growth, marsh ecosystem, damage states, fire propagation).
+□ 🟠 📦 P1 — Build the persistence system for destruction (broken props stay broken; debris persists; bullet decals by material; tire tracks; footprints; burn marks; structural damage; vehicle deformation).
+□ 🟡 📦 P2 — Build the world-memory cleanup simulation (blood dries, debris swept by NPCs, broken things repaired over time — with plausible in-world justification).
+□ 🟡 📦 P2 — Hand-author the hero interiors (the ~10% of interiors that matter: mission locations, safehouses, key businesses).
+□ 🟡 📦 P2 — Populate the street-dressing hand-authored layer over the generator (micro-stories in props: memorials, lost toys, couches on curbs).
+
+Recognition cue: Interiors are a P0 prototype, not a P2 "nice to have." They change the game's shape.
+
+---
+
+CATEGORY 4 — NPC & AI SYSTEMS
+
+The world moves without you.
+
+□ 🟠 📦 P0 — Prototype one pedestrian with a full daily schedule (wake, commute, work, lunch, errands, socialize, home, sleep — weekdays vs weekends, weather-dependent).
+□ 🟠 📦 P0 — Prototype one traffic AI loop (obey lights, stop signs, lane discipline, honking, crashes, pull over for police).
+□ 🟠 📦 P0 — Prototype one police escalation (tier 1: single patrol car → tier 5: full mobilization with helicopter, roadblocks, SWAT).
+□ 🟠 📦 P1 — Build the four-fidelity entity simulator (full / medium / low / frozen) with continuity across levels.
+□ 🟠 📦 P1 — Build the relationship graph (family, friend, coworker, rival, stranger — weighted edges that update on events).
+□ 🟠 📦 P1 — Build the reputation graph (per-NPC opinion of player; propagation through relationship graph).
+□ 🟠 📦 P1 — Build the information graph (crimes, secrets, rumors propagate at relationship-strength × salience rate).
+□ 🟠 📦 P1 — Build the faction graph (police, gangs, businesses, civic groups — with their own relationships and reputations).
+□ 🟠 📦 P1 — Build pedestrian reaction system (fear, anger, curiosity, indifference — based on player actions + NPC personality; witness behavior: flee / call police / intervene / film).
+□ 🟠 📦 P1 — Build traffic law obedience (speed limits, stop signs, lights, lane markings, right-of-way, intersection behavior, congestion simulation, road rage, accident behavior, detours).
+□ 🟠 📦 P1 — Build police evidence system (witness statements, camera footage, physical evidence — wanted level only triggers if witnessed).
+□ 🟠 📦 P1 — Build police search patterns (grid, spiral, containment — based on last known location).
+□ 🟠 📦 P1 — Build police tactical behavior (flanking, cover, suppression, breach-and-clear, negotiation, water/air pursuit, K-9, undercover, corruption).
+□ 🟡 📦 P2 — Build event spawner (probability × context: robbery, chase, accident, medical, crime, social, natural, construction, emergency response; event chains).
+□ 🟡 📦 P2 — Build the economy simulator (commodity graph, production/consumption, price discovery, player impact, emergent economic events).
+□ 🟡 📦 P2 — Build the NPC memory system (NPCs remember player actions, reference them months later; rumors propagate).
+□ 🟡 📦 P2 — Build crowd dynamics (panic spreads; stampedes form; crowds flow around obstacles).
+
+Recognition cue: If you can stand still in this game and watch a story happen without touching the controller, Category 4 is done.
+
+---
+
+CATEGORY 5 — CHARACTERS & ANIMATION
+
+People, not polygons.
+
+□ 🟠 📦 P0 — Prototype one hero character at target fidelity (200+ blend shapes, subsurface scattering, eye tracking, performance-captured animation, lip-sync).
+□ 🟠 📦 P0 — Prototype motion matching (idle → walk → jog → run → sprint with no pops; procedural foot IK on slopes/stairs).
+□ 🟠 📦 P1 — Build the modular clothing system (base / mid / outer layers; cloth physics; fabric variety).
+□ 🟠 📦 P1 — Build the character creator / NPC generator (body types, skin tones, hair, gender expression, age — no cosmetics locked by gender; pronoun system with correct NPC referencing).
+□ 🟠 📦 P1 — Build the full-body IK interaction system (hands reach for handles, ledges, pickups; feet plant correctly).
+□ 🟠 📦 P1 — Build the contextual animation system (sit, lean, climb, vault, swim, drive — entry/loop/exit for each).
+□ 🟠 📦 P1 — Build physical reactions (stumble, regain balance, brace, recoil; fatigue simulation; injured limps; exhausted breathing).
+□ 🟠 📦 P1 — Build the crowd animation variety (thousands of variants with procedural variation; no two NPCs walk the same).
+□ 🟡 📦 P2 — Build district-based fashion + time-based + weather-based variation (poor district practical, wealthy designer; business attire work hours, casual evening; coats in rain).
+□ 🟡 📦 P2 — Build cutscene camera direction (over-shoulder with rack focus, slow push-ins, handheld for action, Dutch angles, aerial establishing, match cuts).
+□ 🟡 📦 P2 — Build seamless gameplay↔cutscene transitions (no cuts; camera moves in and out).
+
+Recognition cue: If close-up faces make you wince, Category 5 isn't done.
+
+---
+
+CATEGORY 6 — VEHICLES
+
+Weight, paint, and consequence.
+
+□ 🟠 📦 P0 — Prototype one vehicle with full handling (weight transfer, suspension, tire slip angles, drivetrain, transmission, brake fade, damage affecting handling).
+□ 🟠 📦 P0 — Prototype one vehicle with full damage (dents, cracked glass, smoking, panel deformation persisting).
+□ 🟠 📦 P1 — Build the multi-layer paint shader (base / metallic flake / clearcoat; pearlescent and color-shift; matte and satin; orange peel; dirt accumulation with flow patterns; wash and wax states; rust and patina).
+□ 🟠 📦 P1 — Build the full lighting system (headlights with real cones, high vs low beams, adaptive cornering, brake intensity variation, turn signals, reverse, emergency light bars, interior lighting, neon underglow, damage states).
+□ 🟠 📦 P1 — Build vehicle interiors (full dash modeling, working gauges, steering wheel + shifter + pedal animation, visible driver/passengers, interior materials with wear, functional visors/mirrors/windows, openable doors/trunks/hoods).
+□ 🟠 📦 P1 — Build the vehicle handling profiles per class (compact, sedan, sports, muscle, SUV, truck, motorcycle, boat, aircraft, bicycle, special).
+□ 🟠 📦 P1 — Build the surface interaction system (asphalt / concrete / dirt / grass / sand / snow / ice / water — each with distinct grip).
+□ 🟠 📦 P1 — Build the weather-driving interaction (wet grip –30–50%; snow and ice near-frictionless; puddles hydroplane; mud slows; tire type matters).
+□ 🟠 📦 P1 — Build the vehicle customization system (paint, wheels, body kits, performance upgrades, armor — all affecting appearance AND performance).
+□ 🟡 📦 P2 — Populate the vehicle variety database (distinct silhouette per model, livery systems, sound profiles, rarity distribution, vehicle history / used-car stories).
+□ 🟡 📦 P2 — Build the motorcycle physics (countersteering, wheelies, stoppies) and boat physics (buoyancy, planing, wake) and aircraft physics (lift, drag, stall).
+
+Recognition cue: If driving from A to B is boring, the game is boring. Category 6 is the moment-to-moment feel.
+
+---
+
+CATEGORY 7 — COMBAT & INTERACTION
+
+What the player can do.
+
+□ 🟠 📦 P0 — Prototype the cover system (snap to cover, blind fire, peek-and-aim, roll between covers, cover destruction).
+□ 🟠 📦 P0 — Prototype one weapon with full feel (recoil, sound, handling, aim, reload, damage model by hit location).
+□ 🟠 📦 P1 — Build the weapon variety system (pistols, SMGs, rifles, shotguns, explosives — each with distinct handling; weapon customization: sights, grips, barrels, magazines, cosmetics).
+□ 🟠 📦 P1 — Build the melee system (punch, kick, grapple, throw — combo chains and finishers).
+□ 🟠 📦 P1 — Build the wound system (injuries affect movement, aim, health regen; headshots kill; limb shots disable).
+□ 🟠 📦 P1 — Build the suppression system (heavy fire pins enemies; they keep their heads down).
+□ 🟠 📦 P1 — Build the enemy AI tactics (flanking, cover use, grenades, suppression, retreat, reinforcement calls).
+□ 🟠 📦 P1 — Build the universal interaction system (one context button: open doors, pick up items, use objects, talk to NPCs).
+□ 🟠 📦 P1 — Build the witness-based wanted system (crime matters only if seen by people, cameras, or police; evidence persists; disguises; hideouts; bribery; identities; heat decay based on evidence).
+□ 🟡 📦 P2 — Build the stealth combat layer (takedowns, silent kills, body hiding, noise management).
+□ 🟡 📦 P2 — Build the body carrying and hiding (move bodies, hide in trunks, dump in water) and hostage systems (grab NPCs, use as shields, negotiate).
+□ 🟡 📦 P2 — Build the vehicle combat (drive-by shooting, vehicle ramming, car bombs) and environmental combat (explosive barrels, falling objects, fire spread — the environment is a weapon).
+□ 🟡 📦 P2 — Build the phone system (full smartphone UI: home screen, apps, contacts with relationship states, messaging with history, camera, social media, map/GPS, browser, dating apps, banking, music, settings).
+
+Recognition cue: If combat isn't fun in a parking lot with no stakes, no amount of mission design will save it.
+
+---
+
+CATEGORY 8 — ECONOMY & SOCIETY
+
+Numbers that mean things.
+
+□ 🟠 📦 P1 — Build the commodity graph (weapons, drugs, food, fuel, vehicles, property — supply and demand nodes).
+□ 🟠 📦 P1 — Build production and consumption (businesses produce; NPCs and player consume; rates vary by time, weather, disruption).
+□ 🟠 📦 P1 — Build price discovery (supply/demand equilibrium with friction: stickiness, negotiation, black-market premium).
+□ 🟠 📦 P1 — Build player impact on prices (buy out a shop's stock → prices rise; flood market with stolen goods → prices crash).
+□ 🟠 📦 P1 — Build emergent economic events (recessions, booms, shortages, strikes — all emergent, never scripted).
+□ 🟡 📦 P2 — Build shop hours and employee NPCs (workers, security, managers with schedules and behaviors).
+□ 🟡 📦 P2 — Build property ownership (buy businesses, earn income, manage operations; property values by location, crime, amenities).
+□ 🟡 📦 P2 — Build the black market (fences, drug dealers, arms dealers — with their own economies).
+□ 🟢 📦 P3 — Build the stock market (optional; public companies the player can invest in) if scope allows.
+□ 🟢 📦 P3 — Build wages and employment (NPCs earn and spend; feeds the economy) if scope allows.
+
+Recognition cue: If robbing a shop doesn't affect anything a week later, Category 8 isn't done.
+
+---
+
+CATEGORY 9 — NARRATIVE & MISSIONS
+
+The story the player tells.
+
+□ 🟠 📦 P0 — Write the narrative philosophy document (the game is about a place, not a protagonist; player is a resident; no chosen one; grounded tone; multiple endings that are "the neighborhood became X" not win/lose).
+□ 🟠 📦 P0 — Build the narrative editor v0.1 (flowchart view for dialogue, mission flows, story branches).
+□ 🟠 📦 P1 — Build the story detector (scans world state for interesting configurations: rivalries, resource shortages, unresolved crimes).
+□ 🟠 📦 P1 — Build the story proposer (proposes missions/events/encounters to the mission director based on detected stories).
+□ 🟠 📦 P1 — Build the story escalator (ignored stories escalate: debt → foreclosure → crime → police incident; player can intervene at any stage).
+□ 🟠 📦 P1 — Build the story archiver (concluded stories referenced in future dialogue).
+□ 🟠 📦 P1 — Build the mission structure system (setup, complication, resolution — authored missions with world-state-adaptive parameters).
+□ 🟠 📦 P1 — Build the dialogue system (authored lines selected by narrative simulator; NPCs reference past events, world state, player reputation).
+□ 🟠 📦 P1 — Build the branching mission system (stealth / aggressive / social / technical approaches; consequences persist; mission failure continues the story differently; time-pressure missions; preparation phases; witness consequences; replayability).
+□ 🟡 📦 P2 — Build the companion / dual-protagonist system (switchable characters with distinct abilities and contacts; full companion AI; relationship system; heist planning with crew selection; crew development; betrayal and loyalty; companion commands; companion dialogue).
+□ 🟡 📦 P2 — Build the side activity suite (racing circuits, bounty hunting, smuggling, property management, collectibles with lore, assassination contracts, vigilante, business ventures, mini-games with skill progression, challenge modes, treasure hunting, photography challenges).
+□ 🟡 📦 P2 — Build the random encounter and ambient storytelling system (procedural encounters by location/time/world state; overheard conversations; environmental storytelling; recurring characters with multi-encounter arcs; world events player can influence; secrets/easter eggs; dynamic graffiti; news reports).
+□ 🟡 📦 P2 — Write the main story (30 hours, multiple endings driven by cumulative choices + world state).
+□ 🟡 📦 P2 — Author side content (~60 hours: missions, activities, collectibles, encounters).
+
+Recognition cue: If players aren't telling stories about moments that happened outside missions, the narrative simulator isn't working.
+
+---
+
+CATEGORY 10 — AUDIO
+
+The world has a voice.
+
+□ 🟠 📦 P0 — Build the 3D positional audio framework (HRTF binaural, distance attenuation, occlusion, reverb zones, Doppler).
+□ 🟠 📦 P1 — Build the adaptive music system (stem-based, layered, tempo-matching for chases, intensity-matching for combat, breathing for exploration).
+□ 🟠 📦 P1 — Build the per-interior acoustic profile (tiled bathroom echoes; carpeted office absorbs; warehouse booms).
+□ 🟠 📦 P1 — Build dialogue and lip-sync pipeline (performance capture, phoneme-accurate lip-sync, facial animation during dialogue, emotional range).
+□ 🟠 📦 P1 — Build the radio system (multiple stations with DJs, ads, news that reacts to story events; player playlists).
+□ 🟠 📦 P1 — Build the crowd voice system (hundreds of actors for pedestrian barks and conversations; contextual lines; accent/dialect variety).
+□ 🟡 📦 P2 — Build the weather audio (rain, wind, thunder — positioned and dynamic).
+□ 🟡 📦 P2 — Build the material-based impact sounds (different surfaces, different sounds) and footstep variation (surface × shoe × speed).
+□ 🟡 📦 P2 — Record full voice acting for all main characters and main-story dialogue.
+□ 🟡 📦 P2 — Compose mission-specific music with narrative-reactive stems.
+
+Recognition cue: If the player turns the music off and the world still feels alive, the soundscape is working.
+
+---
+
+CATEGORY 11 — UI, UX & ACCESSIBILITY
+
+Everyone can play.
+
+□ 🔴 📦 P0 — Stand up the accessibility framework (every accessibility option tested by a player with the relevant disability — this is the bar, not "we have some options").
+□ 🔴 📦 P0 — Build the full colorblind support (redesigned palettes for deuteranopia, protanopia, tritanopia that preserve all gameplay-critical color distinctions).
+□ 🟠 📦 P1 — Build the subtitle and caption system (full subtitles with speaker ID, direction indicators, non-speech audio captions).
+□ 🟠 📦 P1 — Build the HUD scaling and repositioning system (every element independent).
+□ 🟠 📦 P1 — Build the high-contrast mode (increases contrast of gameplay-critical elements without destroying art direction).
+□ 🟠 📦 P1 — Build the motion-sickness options (FOV slider, camera shake intensity, motion blur toggle, head bob toggle, vignette toggle, chromatic aberration toggle, "comfort mode" preset).
+□ 🟠 📦 P1 — Build the photosensitivity options (flash intensity reduction, strobe frequency cap, "reduce flashing" mode → fades).
+□ 🟠 📦 P1 — Build screen-reader support (full menu navigation + key HUD elements + optional audio description for cutscenes).
+□ 🟠 📦 P1 — Build the audio accessibility suite (mono audio, frequency compression, dialogue boost, visual cues for audio events, configurable haptics).
+□ 🟠 📦 P1 — Build the motor accessibility suite (full remapping, controller support, aim assist, auto-drive, auto-aim, QTE skipping, simplified combat, story mode, hold↔toggle, timing leniency, one-handed modes).
+□ 🟠 📦 P1 — Build the cognitive accessibility suite (tutorial replay, expanded objective clarity, quest recap, simplified navigation, granular difficulty sliders per system).
+□ 🟡 📦 P2 — Build the phone UI as the primary diegetic menu system (contacts, messages, photos, apps, mission delivery).
+□ 🟡 📦 P2 — Build the map, GPS, and waypoint system (with optional breadcrumb and "point me to objective" voice command).
+□ 🟡 📦 P2 — Localize into major languages with culturally-appropriate adaptation (not just translation), reviewed by cultural consultants.
+
+Recognition cue: If any gameplay-critical mechanic is not completable by a player with any single disability using only the options provided, Category 11 is not done.
+
+---
+
+CATEGORY 12 — EFFECTS & CAMERA
+
+The movie camera in the player's hands.
+
+□ 🟠 📦 P1 — Build the GPU particle system (millions of particles; collision; volumetric rendering; particle lighting).
+□ 🟠 📦 P1 — Build the particle libraries (dust, smoke types, fire simulation, explosions, water, snow, blood, sparks).
+□ 🟠 📦 P1 — Build the screen-space effects (motion blur with per-object vectors, DOF with bokeh, lens dirt, chromatic aberration, grain, vignette, radial blur, impact distortion, grading shifts).
+□ 🟠 📦 P1 — Build the cinematic camera system (chase cam with speed-based FOV, dynamic lag, crash shake, slow-motion triggers, dynamic combat cam, vehicle camera modes, first-person mode).
+□ 🟠 📦 P1 — Build the photo mode (free cam, FOV, DOF, filters, poses, time of day, weather — full photography suite).
+□ 🟡 📦 P2 — Build the replay system (record and replay gameplay with cinematic camera angles).
+
+Recognition cue: If a screenshot from the game doesn't look like a still from a movie, Category 12 isn't done.
+
+---
+
+CATEGORY 13 — QA & TESTING
+
+The difference between shipping and shipping a working game.
+
+□ 🔴 📦 P0 — Build the unit test framework (every system's components tested).
+□ 🔴 📦 P0 — Build the integration test framework (every pair of systems tested for their interaction).
+□ 🔴 📦 P0 — Build the simulation test harness (run the world headlessly for N in-game days; inspect for stuck NPCs, hyperinflated economies, never-spawning police).
+□ 🟠 📦 P1 — Build the property-based testing system ("no NPC inside a wall"; "no negative prices"; "no police without a crime" — checked continuously).
+□ 🟠 📦 P1 — Build the emergence test system (world runs headlessly with injected player behaviors; resulting stories inspected for variety and plausibility).
+□ 🟠 📦 P1 — Build the regression corpus (every emergent bug found is recorded as a reproducible scenario; added to the suite).
+□ 🟠 📦 P1 — Embed a human emergence-review team (dedicated players looking for emergent weirdness, with a mandate to report anything that breaks the illusion).
+□ 🟠 📦 P1 — Build the performance regression detection (per platform, per quality level, automated).
+□ 🟠 📦 P1 — Build the soak test suite (24+ hour continuous runs to detect memory leaks, save corruption, simulation drift).
+□ 🟠 📦 P1 — Build the chaos test suite (random inputs, random save/load, random network conditions).
+□ 🟡 📦 P2 — Build the accessibility test program (every option tested by a player with the relevant disability).
+□ 🟡 📦 P2 — Build the localization test program (layout, font support, cultural appropriateness per language).
+□ 🟡 📦 P2 — Establish the bug triage protocol (Sev 1–5 with fixed ship criteria: no Sev 1 or Sev 2 at ship).
+□ 🟡 📦 P2 — Establish the "would a player notice?" heuristic for emergent weirdness (develop team judgment about what matters).
+
+Recognition cue: If a Sev 1 bug exists at launch, Category 13 failed. This category is a gate, not a phase.
+
+---
+
+CATEGORY 14 — LIVE OPERATIONS & POST-LAUNCH
+
+What happens after ship.
+
+□ 🟠 📦 P1 — Build the telemetry system (every playtest and every launch build instrumented; team can see where players get stuck, what they ignore, what they love).
+□ 🟠 📦 P1 — Build the simulation-health dashboard (flags drift before it's visible to players).
+□ 🟡 📦 P2 — Plan the post-launch content cadence (Month 1–3: fixes; Month 3–6: first expansion; Month 6–12: seasonal events; Year 2+: major expansions).
+□ 🟡 📦 P2 — Plan the live world (simulation continues between sessions at reduced fidelity; NPCs age, businesses open/close, districts gentrify/decay; global events; player-driven events).
+□ 🟢 📦 P3 — Decide and document the modding story (official tools released? stable mod API? distribution platform? curated mods? modding philosophy).
+□ 🟢 📦 P3 — Document the monetization philosophy (no pay-to-win; cosmetic-only microtransactions if any; no loot boxes; substantial expansions; complete base game; no dark patterns).
+□ 🟡 📦 P2 — Build the player support pipeline (bug reports, save recovery, account issues).
+
+Recognition cue: If the game is dead 6 months after launch, Category 14 failed.
+
+---
+
+CATEGORY 15 — PRODUCTION & TEAM
+
+How the thing actually gets built.
+
+□ 🔴 📦 P0 — Hire the core team (creative director, tech director, production director, narrative director, art director, audio director, QA director).
+□ 🔴 📦 P0 — Build the build + playtest pipeline (every team ≤2 weeks from a playable build).
+□ 🔴 📦 P0 — Maintain the risk register and cut list from day one (reviewed weekly).
+□ 🔴 📦 P0 — Define the definition of done for every system (functional, tested, accessible, performant, documented).
+□ 🟠 📦 P1 — Hire the functional teams (engine, simulation, world, animation, vehicle, audio, narrative, QA, tools, live ops — target ~150–250 people at peak).
+□ 🟠 📦 P1 — Adopt the organizational principle (small empowered teams with clear ownership; every team owns a system end-to-end; every team has direct playtest access and telemetry; no team >2 weeks from a playable build).
+□ 🟠 📦 P1 — Adopt the anti-crunch policy (schedule assumes 40-hour weeks; "crunch is a failure of planning"; mandatory time off after milestones).
+□ 🟠 📦 P1 — Adopt the technical debt policy ("boy scout rule"; regular refactoring sprints; no new features on broken foundations).
+□ 🟠 📦 P1 — Adopt the QA-first policy (QA planned from day one, embedded in teams, not siloed).
+□ 🟡 📦 P2 — Build the content ratio discipline (40% systems, 30% content, 15% tools, 10% QA/polish, 5% contingency — protected by production).
+□ 🟡 📦 P2 — Build the content scale reality check (city generated + hand-authored over ~10%; interiors from templates; NPCs from archetypes; missions fully authored).
+
+Recognition cue: If the team is crunching, Category 15 has failed — and every other category will follow.
+
+---
+
+THE FIRST 90 DAYS — A CONCRETE ORDER
+
+The exact sequence for the first three months.
+
+Weeks 1–2:
+
+□ 🔴 Write the Minimum Viable World document.
+□ 🔴 Hire/confirm the core team.
+□ 🔴 Stand up the build + playtest pipeline.
+
+Weeks 3–6:
+
+□ 🔴 Build the simulation clock.
+□ 🔴 Build the environment simulator skeleton.
+□ 🔴 Build the ECS + job system + spatial partitioning.
+□ 🔴 Stand up the accessibility framework.
+
+Weeks 7–10:
+
+□ 🔴 Build the event log + persistence layer.
+□ 🟠 Prototype one interior (shell, lighting, enterable, NPC nav).
+□ 🟠 Prototype one pedestrian with a full daily schedule.
+□ 🟠 Prototype one traffic AI loop.
+□ 🟠 Prototype one police escalation (tier 1 → tier 5).
+
+Weeks 11–12:
+
+□ 🟠 Prototype one vehicle with full handling + damage.
+□ 🟠 Prototype one weather cycle feeding all systems.
+□ 🔴 Integrate the five prototypes into one sandbox and play it. Does it feel like the vision? If not, iterate before scaling.
+□ 🔴 Define the definition of done for every system.
+□ 🔴 Ship v0.1 of the world editor.
+□ 🔴 Establish the risk register and cut list.
+
+End of Day 90 — Go/No-Go Gate:
+
+· Can a player walk into an interior, see a pedestrian go about their day, watch a police chase, drive a damaged car, and experience a weather change — all in one continuous session?
+· If yes → green-light P1 (Foundation).
+· If no → the vision is not yet proven. Do not scale until it is.
+
+---
+
+RECOGNITION CHEAT SHEET — READ THIS BEFORE STANDUP
+
+If you're wondering... Look here
+"What do I work on today?" The Critical Path — top item not checked.
+"Is this feature done?" Category 15: definition of done.
+"Should we cut this?" Category 15: cut list + Minimum Viable World.
+"Why is the game broken?" Category 13: which test suite caught it?
+"Why does it feel lifeless?" Category 4 (NPC/traffic AI) or Category 2 (weather/lighting) — these two carry the "alive" feeling.
+"Why does it feel like a stage?" Category 3 (interiors) or Category 1 (persistence) — consequence isn't persisting.
+"Why does it feel scripted?" Category 9 (narrative simulator) — emergent stories aren't being surfaced.
+"Why does it feel hostile?" Category 4 (neutral simulation principle) — the director is punishing, not simulating.
+"Why does it feel pointless?" Category 9 (player-driven goals) — opportunities aren't surfacing.
+"Why is it slow?" Category 1 (streaming + LOD) or Category 2 (rendering) — performance budget.
+"Why does it crash?" Category 13 (soak + chaos tests) — memory or save corruption.
+"Why can't X player play it?" Category 11 (accessibility) — the bar was not met.
+"Why is the team burning out?" Category 15 (anti-crunch policy) — planning failure, fix the plan.
+
+---
+
+This is the working document. Print it, pin it, check boxes, update weekly. The vision document is the why; this document is the what and the when.

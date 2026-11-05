@@ -1,0 +1,736 @@
+{
+  "pack": "Pack 007: Blizzard, Seasons & Weather Assets (staging only)",
+  "blender": "5.2.3 LTS",
+  "compression": "Meshopt only",
+  "baseline": "2026-11-01 merged game (NOT 2026-10-19 GitHub main)",
+  "integration": "none \u2014 sandbox/staging only, no production changes, no weather-logic changes",
+  "textures": "flat Principled colours; no baked texture atlas in this pack",
+  "templates": 43,
+  "variant_note": "one V01 build per template; variant slots are future work, not claimed",
+  "assets": [
+    {
+      "name": "snowbank_small",
+      "file": "snowbank_small.glb",
+      "bytes": 18772,
+      "triangles": 288,
+      "meshes": 3,
+      "dimensions_m": [
+        2.0,
+        1.0,
+        0.5
+      ],
+      "materials": [
+        "snow"
+      ],
+      "asset_id": "QH-A360"
+    },
+    {
+      "name": "snowbank_medium",
+      "file": "snowbank_medium.glb",
+      "bytes": 17752,
+      "triangles": 288,
+      "meshes": 3,
+      "dimensions_m": [
+        3.0,
+        1.5,
+        0.9
+      ],
+      "materials": [
+        "snow"
+      ],
+      "asset_id": "QH-A361"
+    },
+    {
+      "name": "snowbank_high",
+      "file": "snowbank_high.glb",
+      "bytes": 18636,
+      "triangles": 288,
+      "meshes": 3,
+      "dimensions_m": [
+        3.5,
+        1.8,
+        1.5
+      ],
+      "materials": [
+        "snow"
+      ],
+      "asset_id": "QH-A362"
+    },
+    {
+      "name": "plowed_berm",
+      "file": "plowed_berm.glb",
+      "bytes": 8260,
+      "triangles": 102,
+      "meshes": 2,
+      "dimensions_m": [
+        5.0,
+        1.2,
+        1.45
+      ],
+      "materials": [
+        "snow"
+      ],
+      "asset_id": "QH-A363"
+    },
+    {
+      "name": "sidewalk_snow_pile",
+      "file": "sidewalk_snow_pile.glb",
+      "bytes": 17836,
+      "triangles": 288,
+      "meshes": 3,
+      "dimensions_m": [
+        1.5,
+        1.5,
+        0.8
+      ],
+      "materials": [
+        "snow"
+      ],
+      "asset_id": "QH-A364"
+    },
+    {
+      "name": "doorstep_snow",
+      "file": "doorstep_snow.glb",
+      "bytes": 8716,
+      "triangles": 102,
+      "meshes": 2,
+      "dimensions_m": [
+        1.6,
+        0.8,
+        0.55
+      ],
+      "materials": [
+        "concrete",
+        "snow"
+      ],
+      "asset_id": "QH-A365"
+    },
+    {
+      "name": "roof_snow_pitched",
+      "file": "roof_snow_pitched.glb",
+      "bytes": 10140,
+      "triangles": 108,
+      "meshes": 3,
+      "dimensions_m": [
+        2.82,
+        1.98,
+        0.83
+      ],
+      "materials": [
+        "shingle",
+        "snow"
+      ],
+      "asset_id": "QH-A366"
+    },
+    {
+      "name": "roof_snow_flat",
+      "file": "roof_snow_flat.glb",
+      "bytes": 9852,
+      "triangles": 108,
+      "meshes": 3,
+      "dimensions_m": [
+        3.0,
+        2.0,
+        0.8
+      ],
+      "materials": [
+        "roof",
+        "snow"
+      ],
+      "asset_id": "QH-A367"
+    },
+    {
+      "name": "awning_snow_lip",
+      "file": "awning_snow_lip.glb",
+      "bytes": 8496,
+      "triangles": 102,
+      "meshes": 2,
+      "dimensions_m": [
+        2.19,
+        1.46,
+        0.46
+      ],
+      "materials": [
+        "awning",
+        "snow"
+      ],
+      "asset_id": "QH-A368"
+    },
+    {
+      "name": "snow_fence_railing",
+      "file": "snow_fence_railing.glb",
+      "bytes": 13084,
+      "triangles": 122,
+      "meshes": 4,
+      "dimensions_m": [
+        3.0,
+        0.24,
+        1.02
+      ],
+      "materials": [
+        "rail",
+        "snow",
+        "steel"
+      ],
+      "asset_id": "QH-A369"
+    },
+    {
+      "name": "snowpack_car",
+      "file": "snowpack_car.glb",
+      "bytes": 9840,
+      "triangles": 108,
+      "meshes": 3,
+      "dimensions_m": [
+        4.0,
+        1.8,
+        1.9
+      ],
+      "materials": [
+        "car",
+        "snow"
+      ],
+      "asset_id": "QH-A370"
+    },
+    {
+      "name": "windblown_ridge",
+      "file": "windblown_ridge.glb",
+      "bytes": 12544,
+      "triangles": 192,
+      "meshes": 2,
+      "dimensions_m": [
+        3.5,
+        1.2,
+        0.6
+      ],
+      "materials": [
+        "snow"
+      ],
+      "asset_id": "QH-A371"
+    },
+    {
+      "name": "ice_sheet_broken",
+      "file": "ice_sheet_broken.glb",
+      "bytes": 3980,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        1.5,
+        0.15
+      ],
+      "materials": [
+        "ice",
+        "ice2"
+      ],
+      "asset_id": "QH-A372"
+    },
+    {
+      "name": "black_ice_edge",
+      "file": "black_ice_edge.glb",
+      "bytes": 4012,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        3.0,
+        2.0,
+        0.13
+      ],
+      "materials": [
+        "asphalt",
+        "ice"
+      ],
+      "asset_id": "QH-A373"
+    },
+    {
+      "name": "icicle_roof_cluster",
+      "file": "icicle_roof_cluster.glb",
+      "bytes": 11744,
+      "triangles": 60,
+      "meshes": 5,
+      "dimensions_m": [
+        1.71,
+        0.12,
+        1.0
+      ],
+      "materials": [
+        "ice"
+      ],
+      "asset_id": "QH-A374"
+    },
+    {
+      "name": "icicle_gutter_cluster",
+      "file": "icicle_gutter_cluster.glb",
+      "bytes": 11568,
+      "triangles": 54,
+      "meshes": 5,
+      "dimensions_m": [
+        2.4,
+        0.16,
+        1.18
+      ],
+      "materials": [
+        "gutter",
+        "ice"
+      ],
+      "asset_id": "QH-A375"
+    },
+    {
+      "name": "frozen_dock_rope",
+      "file": "frozen_dock_rope.glb",
+      "bytes": 9140,
+      "triangles": 104,
+      "meshes": 2,
+      "dimensions_m": [
+        0.54,
+        0.34,
+        1.01
+      ],
+      "materials": [
+        "ice",
+        "rope"
+      ],
+      "asset_id": "QH-A376"
+    },
+    {
+      "name": "frozen_fender_buoy",
+      "file": "frozen_fender_buoy.glb",
+      "bytes": 9760,
+      "triangles": 110,
+      "meshes": 2,
+      "dimensions_m": [
+        0.6,
+        0.6,
+        0.97
+      ],
+      "materials": [
+        "buoy",
+        "ice"
+      ],
+      "asset_id": "QH-A377"
+    },
+    {
+      "name": "windblown_branch",
+      "file": "windblown_branch.glb",
+      "bytes": 5208,
+      "triangles": 18,
+      "meshes": 2,
+      "dimensions_m": [
+        2.34,
+        0.86,
+        0.75
+      ],
+      "materials": [
+        "bark"
+      ],
+      "asset_id": "QH-A378"
+    },
+    {
+      "name": "snow_fence_bundle",
+      "file": "snow_fence_bundle.glb",
+      "bytes": 8516,
+      "triangles": 102,
+      "meshes": 2,
+      "dimensions_m": [
+        3.0,
+        0.3,
+        1.4
+      ],
+      "materials": [
+        "fence",
+        "snow"
+      ],
+      "asset_id": "QH-A379"
+    },
+    {
+      "name": "snow_shovel",
+      "file": "snow_shovel.glb",
+      "bytes": 4900,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.5,
+        0.52,
+        1.36
+      ],
+      "materials": [
+        "shovel",
+        "wood"
+      ],
+      "asset_id": "QH-A380"
+    },
+    {
+      "name": "snow_blower",
+      "file": "snow_blower.glb",
+      "bytes": 9860,
+      "triangles": 40,
+      "meshes": 4,
+      "dimensions_m": [
+        1.0,
+        0.8,
+        1.2
+      ],
+      "materials": [
+        "blower",
+        "tire"
+      ],
+      "asset_id": "QH-A381"
+    },
+    {
+      "name": "salt_bucket_spreader",
+      "file": "salt_bucket_spreader.glb",
+      "bytes": 5408,
+      "triangles": 20,
+      "meshes": 2,
+      "dimensions_m": [
+        1.25,
+        0.6,
+        0.6
+      ],
+      "materials": [
+        "bucket",
+        "spreader"
+      ],
+      "asset_id": "QH-A382"
+    },
+    {
+      "name": "snow_roadblock",
+      "file": "snow_roadblock.glb",
+      "bytes": 11776,
+      "triangles": 114,
+      "meshes": 4,
+      "dimensions_m": [
+        3.0,
+        0.6,
+        1.2
+      ],
+      "materials": [
+        "barrier",
+        "leg",
+        "snow"
+      ],
+      "asset_id": "QH-A383"
+    },
+    {
+      "name": "detour_barricade",
+      "file": "detour_barricade.glb",
+      "bytes": 3936,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        0.8,
+        1.5
+      ],
+      "materials": [
+        "board",
+        "stand"
+      ],
+      "asset_id": "QH-A384"
+    },
+    {
+      "name": "snow_traffic_cone",
+      "file": "snow_traffic_cone.glb",
+      "bytes": 11524,
+      "triangles": 114,
+      "meshes": 3,
+      "dimensions_m": [
+        0.5,
+        0.5,
+        0.8
+      ],
+      "materials": [
+        "base",
+        "cone",
+        "snow"
+      ],
+      "asset_id": "QH-A385"
+    },
+    {
+      "name": "damaged_sign",
+      "file": "damaged_sign.glb",
+      "bytes": 5044,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.69,
+        0.33,
+        2.75
+      ],
+      "materials": [
+        "sign",
+        "steel"
+      ],
+      "asset_id": "QH-A386"
+    },
+    {
+      "name": "downed_trunk",
+      "file": "downed_trunk.glb",
+      "bytes": 5340,
+      "triangles": 20,
+      "meshes": 2,
+      "dimensions_m": [
+        3.0,
+        0.51,
+        1.21
+      ],
+      "materials": [
+        "bark"
+      ],
+      "asset_id": "QH-A387"
+    },
+    {
+      "name": "fallen_powerline",
+      "file": "fallen_powerline.glb",
+      "bytes": 5196,
+      "triangles": 17,
+      "meshes": 2,
+      "dimensions_m": [
+        0.92,
+        0.19,
+        4.5
+      ],
+      "materials": [
+        "cable",
+        "wood"
+      ],
+      "asset_id": "QH-A388"
+    },
+    {
+      "name": "shingle_debris",
+      "file": "shingle_debris.glb",
+      "bytes": 10300,
+      "triangles": 108,
+      "meshes": 3,
+      "dimensions_m": [
+        1.25,
+        0.66,
+        0.18
+      ],
+      "materials": [
+        "shingle",
+        "snow"
+      ],
+      "asset_id": "QH-A389"
+    },
+    {
+      "name": "snow_emergency_sign",
+      "file": "snow_emergency_sign.glb",
+      "bytes": 4868,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        1.2,
+        0.12,
+        3.0
+      ],
+      "materials": [
+        "sign",
+        "steel"
+      ],
+      "asset_id": "QH-A390"
+    },
+    {
+      "name": "slush_pile",
+      "file": "slush_pile.glb",
+      "bytes": 12816,
+      "triangles": 192,
+      "meshes": 2,
+      "dimensions_m": [
+        1.8,
+        1.4,
+        0.7
+      ],
+      "materials": [
+        "slush",
+        "snow"
+      ],
+      "asset_id": "QH-A391"
+    },
+    {
+      "name": "snowmobile",
+      "file": "snowmobile.glb",
+      "bytes": 6428,
+      "triangles": 20,
+      "meshes": 3,
+      "dimensions_m": [
+        2.4,
+        1.3,
+        1.15
+      ],
+      "materials": [
+        "glass",
+        "ski",
+        "sled"
+      ],
+      "asset_id": "QH-A392"
+    },
+    {
+      "name": "gutter_splash",
+      "file": "gutter_splash.glb",
+      "bytes": 9108,
+      "triangles": 106,
+      "meshes": 2,
+      "dimensions_m": [
+        0.5,
+        0.5,
+        2.0
+      ],
+      "materials": [
+        "gutter",
+        "water"
+      ],
+      "asset_id": "QH-A393"
+    },
+    {
+      "name": "wet_hull_streak",
+      "file": "wet_hull_streak.glb",
+      "bytes": 3956,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        3.0,
+        1.2,
+        1.0
+      ],
+      "materials": [
+        "hull",
+        "streak"
+      ],
+      "asset_id": "QH-A394"
+    },
+    {
+      "name": "windbent_tarp",
+      "file": "windbent_tarp.glb",
+      "bytes": 4088,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.32,
+        0.8,
+        1.6
+      ],
+      "materials": [
+        "frame",
+        "tarp"
+      ],
+      "asset_id": "QH-A395"
+    },
+    {
+      "name": "downspout_drip",
+      "file": "downspout_drip.glb",
+      "bytes": 5844,
+      "triangles": 22,
+      "meshes": 2,
+      "dimensions_m": [
+        0.2,
+        0.1,
+        2.4
+      ],
+      "materials": [
+        "gutter",
+        "water"
+      ],
+      "asset_id": "QH-A396"
+    },
+    {
+      "name": "knocked_bin",
+      "file": "knocked_bin.glb",
+      "bytes": 9820,
+      "triangles": 110,
+      "meshes": 2,
+      "dimensions_m": [
+        1.05,
+        0.7,
+        0.6
+      ],
+      "materials": [
+        "bin",
+        "spill"
+      ],
+      "asset_id": "QH-A397"
+    },
+    {
+      "name": "waterlogged_cardboard",
+      "file": "waterlogged_cardboard.glb",
+      "bytes": 4036,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.34,
+        1.02,
+        0.14
+      ],
+      "materials": [
+        "card"
+      ],
+      "asset_id": "QH-A398"
+    },
+    {
+      "name": "foggy_glass",
+      "file": "foggy_glass.glb",
+      "bytes": 4084,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.6,
+        0.09,
+        1.6
+      ],
+      "materials": [
+        "fog",
+        "glass"
+      ],
+      "asset_id": "QH-A399"
+    },
+    {
+      "name": "frosted_window",
+      "file": "frosted_window.glb",
+      "bytes": 4092,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.8,
+        0.16,
+        1.8
+      ],
+      "materials": [
+        "frame",
+        "frost"
+      ],
+      "asset_id": "QH-A400"
+    },
+    {
+      "name": "leaf_litter_piles",
+      "file": "leaf_litter_piles.glb",
+      "bytes": 12764,
+      "triangles": 192,
+      "meshes": 2,
+      "dimensions_m": [
+        1.8,
+        0.85,
+        0.3
+      ],
+      "materials": [
+        "leaves"
+      ],
+      "asset_id": "QH-A401"
+    },
+    {
+      "name": "dead_shrub",
+      "file": "dead_shrub.glb",
+      "bytes": 8944,
+      "triangles": 103,
+      "meshes": 2,
+      "dimensions_m": [
+        1.2,
+        1.0,
+        1.1
+      ],
+      "materials": [
+        "dead",
+        "twig"
+      ],
+      "asset_id": "QH-A402"
+    }
+  ]
+}

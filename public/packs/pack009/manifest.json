@@ -1,0 +1,272 @@
+{
+  "pack": "Pack 009: Terrain & Elevation (staging only, built on Nic's 2026-11-02 override of the migration hold)",
+  "blender": "5.2.3 LTS",
+  "compression": "Meshopt only",
+  "baseline": "2026-11-01 merged game (NOT 2026-10-19 GitHub main)",
+  "integration": "none \u2014 sandbox/staging only, no production changes, no grounding/collider/road changes",
+  "caveat": "VISUAL MESHES ONLY: no DEM, transform, or grounding/collider/road migration has been done. NEVER place under live roads, colliders, CarGrounding, or fast-travel until a migration plan is approved.",
+  "textures": "flat Principled colours; no baked texture atlas in this pack",
+  "templates": 15,
+  "variant_note": "one V01 build per template; variant slots are future work, not claimed",
+  "assets": [
+    {
+      "name": "johnny_cake_hill",
+      "file": "johnny_cake_hill.glb",
+      "bytes": 11820,
+      "triangles": 152,
+      "meshes": 3,
+      "dimensions_m": [
+        20.16,
+        10.62,
+        12.0
+      ],
+      "materials": [
+        "base",
+        "crest",
+        "slope"
+      ],
+      "asset_id": "QH-A458"
+    },
+    {
+      "name": "waterfront_bank",
+      "file": "waterfront_bank.glb",
+      "bytes": 5476,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        16.0,
+        5.51,
+        6.5
+      ],
+      "materials": [
+        "bank",
+        "slope",
+        "water"
+      ],
+      "asset_id": "QH-A459"
+    },
+    {
+      "name": "quequechan_slope",
+      "file": "quequechan_slope.glb",
+      "bytes": 11756,
+      "triangles": 152,
+      "meshes": 3,
+      "dimensions_m": [
+        17.09,
+        11.12,
+        10.0
+      ],
+      "materials": [
+        "base",
+        "crest",
+        "slope"
+      ],
+      "asset_id": "QH-A460"
+    },
+    {
+      "name": "fort_phoenix_embankment",
+      "file": "fort_phoenix_embankment.glb",
+      "bytes": 5420,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        20.0,
+        5.93,
+        8.0
+      ],
+      "materials": [
+        "base",
+        "embank",
+        "wall"
+      ],
+      "asset_id": "QH-A461"
+    },
+    {
+      "name": "dartmouth_plain_tile",
+      "file": "dartmouth_plain_tile.glb",
+      "bytes": 19088,
+      "triangles": 286,
+      "meshes": 3,
+      "dimensions_m": [
+        16.0,
+        0.6,
+        16.0
+      ],
+      "materials": [
+        "grass",
+        "plain"
+      ],
+      "asset_id": "QH-A462"
+    },
+    {
+      "name": "buttonwood_mounds",
+      "file": "buttonwood_mounds.glb",
+      "bytes": 25064,
+      "triangles": 420,
+      "meshes": 3,
+      "dimensions_m": [
+        9.86,
+        1.6,
+        7.3
+      ],
+      "materials": [
+        "grass"
+      ],
+      "asset_id": "QH-A463"
+    },
+    {
+      "name": "seawall_transition",
+      "file": "seawall_transition.glb",
+      "bytes": 5612,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        12.0,
+        2.49,
+        4.4
+      ],
+      "materials": [
+        "grade",
+        "wall",
+        "water"
+      ],
+      "asset_id": "QH-A464"
+    },
+    {
+      "name": "ledge_outcrop",
+      "file": "ledge_outcrop.glb",
+      "bytes": 18980,
+      "triangles": 286,
+      "meshes": 3,
+      "dimensions_m": [
+        5.0,
+        1.9,
+        3.0
+      ],
+      "materials": [
+        "rock"
+      ],
+      "asset_id": "QH-A465"
+    },
+    {
+      "name": "erosion_break",
+      "file": "erosion_break.glb",
+      "bytes": 21108,
+      "triangles": 292,
+      "meshes": 4,
+      "dimensions_m": [
+        10.0,
+        1.1,
+        4.6
+      ],
+      "materials": [
+        "rock",
+        "shore",
+        "water"
+      ],
+      "asset_id": "QH-A466"
+    },
+    {
+      "name": "dune_ridge",
+      "file": "dune_ridge.glb",
+      "bytes": 19068,
+      "triangles": 286,
+      "meshes": 3,
+      "dimensions_m": [
+        9.36,
+        2.0,
+        3.0
+      ],
+      "materials": [
+        "grass",
+        "sand"
+      ],
+      "asset_id": "QH-A467"
+    },
+    {
+      "name": "parking_ramp_strip",
+      "file": "parking_ramp_strip.glb",
+      "bytes": 3732,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        9.02,
+        2.57,
+        3.0
+      ],
+      "materials": [
+        "asphalt"
+      ],
+      "asset_id": "QH-A468"
+    },
+    {
+      "name": "bridge_embankment",
+      "file": "bridge_embankment.glb",
+      "bytes": 3912,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        10.18,
+        4.41,
+        6.0
+      ],
+      "materials": [
+        "deck",
+        "embank"
+      ],
+      "asset_id": "QH-A469"
+    },
+    {
+      "name": "retaining_edge",
+      "file": "retaining_edge.glb",
+      "bytes": 5456,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        8.0,
+        1.8,
+        2.0
+      ],
+      "materials": [
+        "granite",
+        "terrace"
+      ],
+      "asset_id": "QH-A470"
+    },
+    {
+      "name": "cliff_stair",
+      "file": "cliff_stair.glb",
+      "bytes": 7136,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        2.4,
+        1.6,
+        3.1
+      ],
+      "materials": [
+        "cliff",
+        "step"
+      ],
+      "asset_id": "QH-A471"
+    },
+    {
+      "name": "camber_transition",
+      "file": "camber_transition.glb",
+      "bytes": 5676,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        6.0,
+        0.9,
+        4.1
+      ],
+      "materials": [
+        "curb",
+        "road",
+        "walk"
+      ],
+      "asset_id": "QH-A472"
+    }
+  ]
+}

@@ -1,0 +1,611 @@
+{
+  "pack": "Pack 012: Story, Missions & Interactables (staging only)",
+  "blender": "5.2.3 LTS",
+  "compression": "Meshopt only",
+  "baseline": "2026-11-01 merged game (NOT 2026-10-19 GitHub main)",
+  "integration": "none \u2014 sandbox/staging only, no production changes, no mission-logic changes",
+  "content_guards": "photo/genealogy frames built blank; Maplecroft gate generic, story-hub use still needs approval; crime barricade generic",
+  "textures": "flat Principled colours; no baked texture atlas in this pack",
+  "templates": 35,
+  "variant_note": "one V01 build per template; variant slots are future work, not claimed",
+  "assets": [
+    {
+      "name": "pickup_parcel",
+      "file": "pickup_parcel.glb",
+      "bytes": 4100,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.6,
+        0.33,
+        0.4
+      ],
+      "materials": [
+        "card",
+        "tape"
+      ],
+      "asset_id": "QH-A604"
+    },
+    {
+      "name": "evidence_folder_stack",
+      "file": "evidence_folder_stack.glb",
+      "bytes": 5540,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.72,
+        0.17,
+        0.51
+      ],
+      "materials": [
+        "folder",
+        "paper"
+      ],
+      "asset_id": "QH-A605"
+    },
+    {
+      "name": "key_keyring",
+      "file": "key_keyring.glb",
+      "bytes": 5424,
+      "triangles": 20,
+      "meshes": 2,
+      "dimensions_m": [
+        0.16,
+        0.24,
+        0.16
+      ],
+      "materials": [
+        "metal"
+      ],
+      "asset_id": "QH-A606"
+    },
+    {
+      "name": "phone_handheld",
+      "file": "phone_handheld.glb",
+      "bytes": 4272,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.16,
+        0.3,
+        0.1
+      ],
+      "materials": [
+        "phone",
+        "screen"
+      ],
+      "asset_id": "QH-A607"
+    },
+    {
+      "name": "backpack_mission",
+      "file": "backpack_mission.glb",
+      "bytes": 4048,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.5,
+        0.7,
+        0.3
+      ],
+      "materials": [
+        "flap",
+        "pack"
+      ],
+      "asset_id": "QH-A608"
+    },
+    {
+      "name": "locked_container",
+      "file": "locked_container.glb",
+      "bytes": 4144,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.8,
+        0.6,
+        0.64
+      ],
+      "materials": [
+        "box",
+        "lock"
+      ],
+      "asset_id": "QH-A609"
+    },
+    {
+      "name": "office_safe",
+      "file": "office_safe.glb",
+      "bytes": 4112,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.9,
+        1.0,
+        0.79
+      ],
+      "materials": [
+        "dial",
+        "safe"
+      ],
+      "asset_id": "QH-A610"
+    },
+    {
+      "name": "laptop_prop",
+      "file": "laptop_prop.glb",
+      "bytes": 3872,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.7,
+        0.49,
+        0.59
+      ],
+      "materials": [
+        "laptop"
+      ],
+      "asset_id": "QH-A611"
+    },
+    {
+      "name": "monitor_keyboard",
+      "file": "monitor_keyboard.glb",
+      "bytes": 5868,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.8,
+        0.7,
+        0.55
+      ],
+      "materials": [
+        "keyboard",
+        "monitor",
+        "stand"
+      ],
+      "asset_id": "QH-A612"
+    },
+    {
+      "name": "radio_unit",
+      "file": "radio_unit.glb",
+      "bytes": 4824,
+      "triangles": 14,
+      "meshes": 2,
+      "dimensions_m": [
+        0.3,
+        0.51,
+        0.4
+      ],
+      "materials": [
+        "antenna",
+        "radio"
+      ],
+      "asset_id": "QH-A613"
+    },
+    {
+      "name": "harbor_tool_crate",
+      "file": "harbor_tool_crate.glb",
+      "bytes": 4048,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.8,
+        0.5,
+        0.63
+      ],
+      "materials": [
+        "crate",
+        "slat"
+      ],
+      "asset_id": "QH-A614"
+    },
+    {
+      "name": "snow_shovel_mission",
+      "file": "snow_shovel_mission.glb",
+      "bytes": 4920,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.5,
+        0.83,
+        1.13
+      ],
+      "materials": [
+        "shovel",
+        "wood"
+      ],
+      "asset_id": "QH-A615"
+    },
+    {
+      "name": "closure_gate",
+      "file": "closure_gate.glb",
+      "bytes": 5496,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        2.4,
+        1.0,
+        0.6
+      ],
+      "materials": [
+        "gate",
+        "leg"
+      ],
+      "asset_id": "QH-A616"
+    },
+    {
+      "name": "plow_marker_stake",
+      "file": "plow_marker_stake.glb",
+      "bytes": 4888,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.24,
+        0.56,
+        1.0
+      ],
+      "materials": [
+        "flag",
+        "stake"
+      ],
+      "asset_id": "QH-A617"
+    },
+    {
+      "name": "generator_portable",
+      "file": "generator_portable.glb",
+      "bytes": 6688,
+      "triangles": 22,
+      "meshes": 3,
+      "dimensions_m": [
+        0.8,
+        0.74,
+        0.6
+      ],
+      "materials": [
+        "exhaust",
+        "gen",
+        "top"
+      ],
+      "asset_id": "QH-A618"
+    },
+    {
+      "name": "fuel_canister",
+      "file": "fuel_canister.glb",
+      "bytes": 4072,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.4,
+        0.57,
+        0.3
+      ],
+      "materials": [
+        "can",
+        "cap"
+      ],
+      "asset_id": "QH-A619"
+    },
+    {
+      "name": "emergency_heater",
+      "file": "emergency_heater.glb",
+      "bytes": 4040,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.6,
+        0.7,
+        0.53
+      ],
+      "materials": [
+        "grille",
+        "heater"
+      ],
+      "asset_id": "QH-A620"
+    },
+    {
+      "name": "destination_plaque",
+      "file": "destination_plaque.glb",
+      "bytes": 4856,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        1.0,
+        0.9,
+        1.0
+      ],
+      "materials": [
+        "plaque",
+        "post"
+      ],
+      "asset_id": "QH-A621"
+    },
+    {
+      "name": "handoff_bag",
+      "file": "handoff_bag.glb",
+      "bytes": 4036,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.7,
+        0.54,
+        0.4
+      ],
+      "materials": [
+        "bag",
+        "handle"
+      ],
+      "asset_id": "QH-A622"
+    },
+    {
+      "name": "evidence_locker_door",
+      "file": "evidence_locker_door.glb",
+      "bytes": 4144,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.2,
+        1.8,
+        0.12
+      ],
+      "materials": [
+        "door",
+        "vent"
+      ],
+      "asset_id": "QH-A623"
+    },
+    {
+      "name": "gallery_frame",
+      "file": "gallery_frame.glb",
+      "bytes": 4068,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.4,
+        1.0,
+        0.1
+      ],
+      "materials": [
+        "canvas",
+        "frame"
+      ],
+      "asset_id": "QH-A624"
+    },
+    {
+      "name": "photo_frame_blank",
+      "file": "photo_frame_blank.glb",
+      "bytes": 4092,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.0,
+        0.8,
+        0.1
+      ],
+      "materials": [
+        "blank",
+        "frame"
+      ],
+      "asset_id": "QH-A625"
+    },
+    {
+      "name": "timeline_stand",
+      "file": "timeline_stand.glb",
+      "bytes": 5644,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.8,
+        1.3,
+        0.23
+      ],
+      "materials": [
+        "leg",
+        "panel"
+      ],
+      "asset_id": "QH-A626"
+    },
+    {
+      "name": "genealogy_frame_blank",
+      "file": "genealogy_frame_blank.glb",
+      "bytes": 4064,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.4,
+        1.0,
+        0.1
+      ],
+      "materials": [
+        "blank",
+        "frame"
+      ],
+      "asset_id": "QH-A627"
+    },
+    {
+      "name": "maplecroft_gate_plaque",
+      "file": "maplecroft_gate_plaque.glb",
+      "bytes": 4092,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        1.2,
+        0.13
+      ],
+      "materials": [
+        "gate",
+        "plaque"
+      ],
+      "asset_id": "QH-A628"
+    },
+    {
+      "name": "safehouse_sign",
+      "file": "safehouse_sign.glb",
+      "bytes": 4960,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        1.2,
+        0.69,
+        0.8
+      ],
+      "materials": [
+        "post",
+        "sign"
+      ],
+      "asset_id": "QH-A629"
+    },
+    {
+      "name": "brochure_rack",
+      "file": "brochure_rack.glb",
+      "bytes": 5580,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.8,
+        1.0,
+        0.4
+      ],
+      "materials": [
+        "rack",
+        "slot"
+      ],
+      "asset_id": "QH-A630"
+    },
+    {
+      "name": "ticket_booth",
+      "file": "ticket_booth.glb",
+      "bytes": 5816,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.6,
+        1.8,
+        1.2
+      ],
+      "materials": [
+        "booth",
+        "counter",
+        "glass"
+      ],
+      "asset_id": "QH-A631"
+    },
+    {
+      "name": "fish_trolley",
+      "file": "fish_trolley.glb",
+      "bytes": 9276,
+      "triangles": 36,
+      "meshes": 4,
+      "dimensions_m": [
+        1.0,
+        0.75,
+        1.6
+      ],
+      "materials": [
+        "deck",
+        "handle",
+        "wheel"
+      ],
+      "asset_id": "QH-A632"
+    },
+    {
+      "name": "winch_control_box",
+      "file": "winch_control_box.glb",
+      "bytes": 5772,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.8,
+        1.2,
+        0.5
+      ],
+      "materials": [
+        "box",
+        "btn",
+        "btn2"
+      ],
+      "asset_id": "QH-A633"
+    },
+    {
+      "name": "evidence_marker",
+      "file": "evidence_marker.glb",
+      "bytes": 4124,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.6,
+        0.5,
+        0.2
+      ],
+      "materials": [
+        "base",
+        "marker"
+      ],
+      "asset_id": "QH-A634"
+    },
+    {
+      "name": "crime_barricade",
+      "file": "crime_barricade.glb",
+      "bytes": 5592,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        3.0,
+        0.88,
+        0.1
+      ],
+      "materials": [
+        "post",
+        "tape"
+      ],
+      "asset_id": "QH-A635"
+    },
+    {
+      "name": "searchlight_tripod",
+      "file": "searchlight_tripod.glb",
+      "bytes": 8552,
+      "triangles": 32,
+      "meshes": 4,
+      "dimensions_m": [
+        0.48,
+        1.34,
+        0.53
+      ],
+      "materials": [
+        "leg",
+        "light"
+      ],
+      "asset_id": "QH-A636"
+    },
+    {
+      "name": "relief_supply_box",
+      "file": "relief_supply_box.glb",
+      "bytes": 4040,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.9,
+        0.56,
+        0.7
+      ],
+      "materials": [
+        "box",
+        "lid"
+      ],
+      "asset_id": "QH-A637"
+    },
+    {
+      "name": "repair_toolkit",
+      "file": "repair_toolkit.glb",
+      "bytes": 5572,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.8,
+        0.26,
+        0.5
+      ],
+      "materials": [
+        "case",
+        "tool"
+      ],
+      "asset_id": "QH-A638"
+    }
+  ]
+}

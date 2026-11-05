@@ -1,0 +1,758 @@
+{
+  "schemaVersion": 1,
+  "pack": "P010",
+  "role": "texture-source-not-model",
+  "imageCount": 150,
+  "images": [
+    {
+      "path": "/quahog-assets/P010/asphalt_cracked_diffuse.png",
+      "bytes": 33301,
+      "sha256": "689ad32970f1fa788b07cecd3d1e23ae841e9faf7e409013fbf116f1f0440b66"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_cracked_metallic_roughness.png",
+      "bytes": 35559,
+      "sha256": "a550fea15a2f54151c7a8dda50f5dad833bfec2307e89d028a0124409683b8b0"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_cracked_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_dry_diffuse.png",
+      "bytes": 16751,
+      "sha256": "df3b8cb01fc2867926397b1cbadaaaf270a5501cb3e4c99152b125e35db069b9"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_dry_metallic_roughness.png",
+      "bytes": 35559,
+      "sha256": "a550fea15a2f54151c7a8dda50f5dad833bfec2307e89d028a0124409683b8b0"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_dry_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_patch_repair_diffuse.png",
+      "bytes": 15821,
+      "sha256": "ec97daeeba0a4cb24a833a8779576a630563b981263116fecdf0217c101a612a"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_patch_repair_metallic_roughness.png",
+      "bytes": 34272,
+      "sha256": "6011fe241110629f8473e8d9a7d16e2ea201f2beb314cb04e16decdf1e444805"
+    },
+    {
+      "path": "/quahog-assets/P010/asphalt_patch_repair_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/boat_fiberglass_paint_diffuse.png",
+      "bytes": 1836,
+      "sha256": "b63c88c8f51720bbc3a0bda730253e5bd2deea25d917102aa9ec633a9eb825d2"
+    },
+    {
+      "path": "/quahog-assets/P010/boat_fiberglass_paint_metallic_roughness.png",
+      "bytes": 1832,
+      "sha256": "5f77fa2a82353c2b7e0c5b7591bb30a38a9768493e5536616c6249c444cdc383"
+    },
+    {
+      "path": "/quahog-assets/P010/boat_fiberglass_paint_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/boat_weathered_hull_salt_diffuse.png",
+      "bytes": 23483,
+      "sha256": "5c1132fd7d5ba80211dbf10d90a17eb754f3183a4613ab8ac4001baf750c0e00"
+    },
+    {
+      "path": "/quahog-assets/P010/boat_weathered_hull_salt_metallic_roughness.png",
+      "bytes": 32761,
+      "sha256": "8db9868df36446e5c7cf50d878117ea0e0de0825a8abf982f7b212f77622baf9"
+    },
+    {
+      "path": "/quahog-assets/P010/boat_weathered_hull_salt_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/brick_chipped_trim_diffuse.png",
+      "bytes": 55225,
+      "sha256": "c48d680f45238997c41af3c78e27d79ed8b8211b017ac41aba5f59c036af0bce"
+    },
+    {
+      "path": "/quahog-assets/P010/brick_chipped_trim_metallic_roughness.png",
+      "bytes": 1914,
+      "sha256": "0927ac4b6ff54cfa930b21ffbc33e70bc759b43e9bfac8f49894cf9c19191bae"
+    },
+    {
+      "path": "/quahog-assets/P010/brick_chipped_trim_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/car_metallic_paint_diffuse.png",
+      "bytes": 1837,
+      "sha256": "d8acca64fe71ca9aa36a9359b9173d5f82421c4d924d10d874b9a6a9a6471bb9"
+    },
+    {
+      "path": "/quahog-assets/P010/car_metallic_paint_metallic_roughness.png",
+      "bytes": 1833,
+      "sha256": "5841deed71efee1104775c1b5ea0c51c7f480c25c28e5a54863ad6ad1efe160e"
+    },
+    {
+      "path": "/quahog-assets/P010/car_metallic_paint_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/coastal_cream_clapboard_diffuse.png",
+      "bytes": 32697,
+      "sha256": "fcdf22432a88aa60405080157fbfbd7db083e2a5daa046345c5d664ce2893d53"
+    },
+    {
+      "path": "/quahog-assets/P010/coastal_cream_clapboard_metallic_roughness.png",
+      "bytes": 1819,
+      "sha256": "3794a07c70e95e0e7e8a0332c2d11b26f5b1651b1589e230c06471c25e200ffb"
+    },
+    {
+      "path": "/quahog-assets/P010/coastal_cream_clapboard_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/cobblestone_sidewalk_diffuse.png",
+      "bytes": 45608,
+      "sha256": "fd2b32bdeb78389182957b3903c1cdafeabb7c7633089f627c4ba62516f54e17"
+    },
+    {
+      "path": "/quahog-assets/P010/cobblestone_sidewalk_metallic_roughness.png",
+      "bytes": 1914,
+      "sha256": "0927ac4b6ff54cfa930b21ffbc33e70bc759b43e9bfac8f49894cf9c19191bae"
+    },
+    {
+      "path": "/quahog-assets/P010/cobblestone_sidewalk_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/commercial_glass_diffuse.png",
+      "bytes": 1843,
+      "sha256": "e12c2e6da908bbc20054d070259df0beca130301c0b060a5b15760397a3df0c1"
+    },
+    {
+      "path": "/quahog-assets/P010/commercial_glass_metallic_roughness.png",
+      "bytes": 1867,
+      "sha256": "16e468b30d2c7c91253e9955bb3fbd7cb1c5f6e34e3194574592d044fff8323e"
+    },
+    {
+      "path": "/quahog-assets/P010/commercial_glass_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/concrete_cast_slab_diffuse.png",
+      "bytes": 9437,
+      "sha256": "fa392bd37ebbf9b0247e2c4d2eec058a3f9b150f977f4426dc4c3687f75b92e5"
+    },
+    {
+      "path": "/quahog-assets/P010/concrete_cast_slab_metallic_roughness.png",
+      "bytes": 28106,
+      "sha256": "c6ed7ba10756f6aa1095d5610ea110d0e6a4891cdc06834093a574ee94bfa2fb"
+    },
+    {
+      "path": "/quahog-assets/P010/concrete_cast_slab_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/crossing_marking_paint_diffuse.png",
+      "bytes": 1847,
+      "sha256": "b33d7e3729b26124dddfc44c71945c1fac4091f8040369d9a435a76f86dc5794"
+    },
+    {
+      "path": "/quahog-assets/P010/crossing_marking_paint_metallic_roughness.png",
+      "bytes": 1863,
+      "sha256": "111efc455d77faa28491151c1baff20b2532dc5bb97195f4d28a8642d986fa03"
+    },
+    {
+      "path": "/quahog-assets/P010/crossing_marking_paint_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/dock_moss_algae_diffuse.png",
+      "bytes": 30149,
+      "sha256": "9166bd825f49a56a96cca7e7b75120854dce3330b0c2be5776ebe85883f7d1bd"
+    },
+    {
+      "path": "/quahog-assets/P010/dock_moss_algae_metallic_roughness.png",
+      "bytes": 35559,
+      "sha256": "a550fea15a2f54151c7a8dda50f5dad833bfec2307e89d028a0124409683b8b0"
+    },
+    {
+      "path": "/quahog-assets/P010/dock_moss_algae_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/fieldstone_foundation_diffuse.png",
+      "bytes": 27065,
+      "sha256": "12711e62579fcbcdfbfcd5715f32320678e4485ca8c7eb2d1491badc0a2632a0"
+    },
+    {
+      "path": "/quahog-assets/P010/fieldstone_foundation_metallic_roughness.png",
+      "bytes": 32743,
+      "sha256": "54aacdaf37e68095c060fa20e7b07b594c9ed996cc5adbd2a89b38c59d3dedfb"
+    },
+    {
+      "path": "/quahog-assets/P010/fieldstone_foundation_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/frosted_window_diffuse.png",
+      "bytes": 16877,
+      "sha256": "df656352970cad784a13fc11bfd2c8f7a54fbc94217fedc2c5876e038f7c85b1"
+    },
+    {
+      "path": "/quahog-assets/P010/frosted_window_metallic_roughness.png",
+      "bytes": 30666,
+      "sha256": "2e96552ce06c2f006d8ddb396837bd6a926937863d08070ed9b5ece1c7285f80"
+    },
+    {
+      "path": "/quahog-assets/P010/frosted_window_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/galvanized_steel_diffuse.png",
+      "bytes": 17868,
+      "sha256": "46f11da8514ba1996ba7917fc4d375e31cd32d3a265d7a2c35e605408b676059"
+    },
+    {
+      "path": "/quahog-assets/P010/galvanized_steel_metallic_roughness.png",
+      "bytes": 32763,
+      "sha256": "c1827784cbbf85d1e134cf40cb74a74558d704c0d2f93f4e1ea3eb23ec8c2976"
+    },
+    {
+      "path": "/quahog-assets/P010/galvanized_steel_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/graffiti_weathered_diffuse.png",
+      "bytes": 29266,
+      "sha256": "4600344b5ccef5737b9a4ed7437a3e33db7dd07f09cadd115c9f1813f6ac90b0"
+    },
+    {
+      "path": "/quahog-assets/P010/graffiti_weathered_metallic_roughness.png",
+      "bytes": 34272,
+      "sha256": "6011fe241110629f8473e8d9a7d16e2ea201f2beb314cb04e16decdf1e444805"
+    },
+    {
+      "path": "/quahog-assets/P010/graffiti_weathered_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/granite_ashlar_diffuse.png",
+      "bytes": 11598,
+      "sha256": "0d5c22eb328abd92f50098268200ae52594fb483454104f373b981b944db47d4"
+    },
+    {
+      "path": "/quahog-assets/P010/granite_ashlar_metallic_roughness.png",
+      "bytes": 30666,
+      "sha256": "2e96552ce06c2f006d8ddb396837bd6a926937863d08070ed9b5ece1c7285f80"
+    },
+    {
+      "path": "/quahog-assets/P010/granite_ashlar_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/granite_curb_diffuse.png",
+      "bytes": 9391,
+      "sha256": "17493ca5ef82745414b982006e3d42d4489945aea492ce99ac8b5127431016ba"
+    },
+    {
+      "path": "/quahog-assets/P010/granite_curb_metallic_roughness.png",
+      "bytes": 28106,
+      "sha256": "c6ed7ba10756f6aa1095d5610ea110d0e6a4891cdc06834093a574ee94bfa2fb"
+    },
+    {
+      "path": "/quahog-assets/P010/granite_curb_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/grille_headlamp_atlas_diffuse.png",
+      "bytes": 20628,
+      "sha256": "4cae42d502cb26d5be9e1dbf46c512a19bceaadf9b0e86294d5f7f3b86fe8caf"
+    },
+    {
+      "path": "/quahog-assets/P010/grille_headlamp_atlas_metallic_roughness.png",
+      "bytes": 32762,
+      "sha256": "3061731c7bd4e07cd2c816dd2be354fc906d9832b8f42c46a3cc03da5ca76db6"
+    },
+    {
+      "path": "/quahog-assets/P010/grille_headlamp_atlas_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/historic_white_clapboard_diffuse.png",
+      "bytes": 33199,
+      "sha256": "f2e5b4b06b0117f446b3531510626f2196be55a699ed5f3d849f3e18623c8990"
+    },
+    {
+      "path": "/quahog-assets/P010/historic_white_clapboard_metallic_roughness.png",
+      "bytes": 1819,
+      "sha256": "3794a07c70e95e0e7e8a0332c2d11b26f5b1651b1589e230c06471c25e200ffb"
+    },
+    {
+      "path": "/quahog-assets/P010/historic_white_clapboard_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/ice_roughness_diffuse.png",
+      "bytes": 18816,
+      "sha256": "5a51c6097f060314c15c9f20220b596425de5a7103acd5442db6ddf0dbe4876a"
+    },
+    {
+      "path": "/quahog-assets/P010/ice_roughness_metallic_roughness.png",
+      "bytes": 30666,
+      "sha256": "2e96552ce06c2f006d8ddb396837bd6a926937863d08070ed9b5ece1c7285f80"
+    },
+    {
+      "path": "/quahog-assets/P010/ice_roughness_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/leaf_litter_ground_diffuse.png",
+      "bytes": 31240,
+      "sha256": "2f8dbc8cab696c8375b89d3124f4322298ca7679b88464a53847612ce74428d1"
+    },
+    {
+      "path": "/quahog-assets/P010/leaf_litter_ground_metallic_roughness.png",
+      "bytes": 36580,
+      "sha256": "c1bc17f9fb185c60259b6579ae170a807be92e21a8b254a5222179869f11576f"
+    },
+    {
+      "path": "/quahog-assets/P010/leaf_litter_ground_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/limestone_trim_diffuse.png",
+      "bytes": 16506,
+      "sha256": "bcf93708350e36eeb50018637cbea884bd489761efaa4cc03a28e735a2077350"
+    },
+    {
+      "path": "/quahog-assets/P010/limestone_trim_metallic_roughness.png",
+      "bytes": 28106,
+      "sha256": "c6ed7ba10756f6aa1095d5610ea110d0e6a4891cdc06834093a574ee94bfa2fb"
+    },
+    {
+      "path": "/quahog-assets/P010/limestone_trim_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/marine_painted_steel_diffuse.png",
+      "bytes": 18163,
+      "sha256": "a858aa3d924fd17b1bffef2f8ac1d51c829d623751cb3b0c2edf6ec98f5c487c"
+    },
+    {
+      "path": "/quahog-assets/P010/marine_painted_steel_metallic_roughness.png",
+      "bytes": 30683,
+      "sha256": "4fd930164b0945fefb93aeb453ebdcb51b153b5efb7f10e0ee82dffa0ce49ff8"
+    },
+    {
+      "path": "/quahog-assets/P010/marine_painted_steel_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/mortar_joint_atlas_diffuse.png",
+      "bytes": 34268,
+      "sha256": "862e9963671ec2089d84bda6dccfd1df104d34017b95e73e66c1d951f67f6171"
+    },
+    {
+      "path": "/quahog-assets/P010/mortar_joint_atlas_metallic_roughness.png",
+      "bytes": 1914,
+      "sha256": "0927ac4b6ff54cfa930b21ffbc33e70bc759b43e9bfac8f49894cf9c19191bae"
+    },
+    {
+      "path": "/quahog-assets/P010/mortar_joint_atlas_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/night_window_lit_diffuse.png",
+      "bytes": 34348,
+      "sha256": "87f93a0070d4eac1947d2e95d05b5d72537f7b576f349c21710905a304818d83"
+    },
+    {
+      "path": "/quahog-assets/P010/night_window_lit_metallic_roughness.png",
+      "bytes": 1863,
+      "sha256": "84c1d56ed6a3607db7574a335f0186a3497d939cd6cccd568073e4670dfdb7b7"
+    },
+    {
+      "path": "/quahog-assets/P010/night_window_lit_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/painted_old_brick_diffuse.png",
+      "bytes": 39158,
+      "sha256": "bbaea5dedd33736b6e3cccc3416266077dd6569f53cffa9b6113a63034492aae"
+    },
+    {
+      "path": "/quahog-assets/P010/painted_old_brick_metallic_roughness.png",
+      "bytes": 1830,
+      "sha256": "c5d0fddb88b613d8e87499d7233c356d840e5aca5fbbb2f3b93f5f713edc309d"
+    },
+    {
+      "path": "/quahog-assets/P010/painted_old_brick_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/parking_lot_concrete_diffuse.png",
+      "bytes": 14870,
+      "sha256": "62104cfcac357f257ea9962c69783a682c4e5b33c4c671147bd894ef59383069"
+    },
+    {
+      "path": "/quahog-assets/P010/parking_lot_concrete_metallic_roughness.png",
+      "bytes": 34272,
+      "sha256": "6011fe241110629f8473e8d9a7d16e2ea201f2beb314cb04e16decdf1e444805"
+    },
+    {
+      "path": "/quahog-assets/P010/parking_lot_concrete_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/posters_weathering_diffuse.png",
+      "bytes": 30527,
+      "sha256": "e2904d90ab9c8a9dc1d266f0694764a134a110594a9378f54ba3a8ed602a62b4"
+    },
+    {
+      "path": "/quahog-assets/P010/posters_weathering_metallic_roughness.png",
+      "bytes": 32743,
+      "sha256": "54aacdaf37e68095c060fa20e7b07b594c9ed996cc5adbd2a89b38c59d3dedfb"
+    },
+    {
+      "path": "/quahog-assets/P010/posters_weathering_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/prop_trim_sheet_diffuse.png",
+      "bytes": 27391,
+      "sha256": "e0ff73af21cd548ee05be145996d648725ffce4759a7a1028c7fef40b7aec606"
+    },
+    {
+      "path": "/quahog-assets/P010/prop_trim_sheet_metallic_roughness.png",
+      "bytes": 32761,
+      "sha256": "8db9868df36446e5c7cf50d878117ea0e0de0825a8abf982f7b212f77622baf9"
+    },
+    {
+      "path": "/quahog-assets/P010/prop_trim_sheet_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/puddled_asphalt_mask_diffuse.png",
+      "bytes": 35819,
+      "sha256": "d0f130a332c031c1cab5bf2b2af0635ad762e59d35da8b6ea972f6932cd9aaca"
+    },
+    {
+      "path": "/quahog-assets/P010/puddled_asphalt_mask_metallic_roughness.png",
+      "bytes": 34272,
+      "sha256": "6011fe241110629f8473e8d9a7d16e2ea201f2beb314cb04e16decdf1e444805"
+    },
+    {
+      "path": "/quahog-assets/P010/puddled_asphalt_mask_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/road_salt_residue_diffuse.png",
+      "bytes": 22808,
+      "sha256": "36a22306c366dbec32f9e9dbb5976d7810bbfae896d5190c93aafa28f9ae841a"
+    },
+    {
+      "path": "/quahog-assets/P010/road_salt_residue_metallic_roughness.png",
+      "bytes": 35559,
+      "sha256": "a550fea15a2f54151c7a8dda50f5dad833bfec2307e89d028a0124409683b8b0"
+    },
+    {
+      "path": "/quahog-assets/P010/road_salt_residue_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/road_slush_diffuse.png",
+      "bytes": 31236,
+      "sha256": "80e6e4c16cf1535938b327c645a0c03f0618746b5925388eac021936c6a71ec8"
+    },
+    {
+      "path": "/quahog-assets/P010/road_slush_metallic_roughness.png",
+      "bytes": 34272,
+      "sha256": "6011fe241110629f8473e8d9a7d16e2ea201f2beb314cb04e16decdf1e444805"
+    },
+    {
+      "path": "/quahog-assets/P010/road_slush_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/rubber_fender_diffuse.png",
+      "bytes": 16993,
+      "sha256": "b80c7ea5fd26cca5f707e0b82b3a3c964b43088d6d433492b646d3d58bb1d765"
+    },
+    {
+      "path": "/quahog-assets/P010/rubber_fender_metallic_roughness.png",
+      "bytes": 32743,
+      "sha256": "54aacdaf37e68095c060fa20e7b07b594c9ed996cc5adbd2a89b38c59d3dedfb"
+    },
+    {
+      "path": "/quahog-assets/P010/rubber_fender_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/rust_grime_decal_diffuse.png",
+      "bytes": 31137,
+      "sha256": "66b85dc7a67b45927672b05e9c94eb7c956ae45682e449b72716786f07f8dad4"
+    },
+    {
+      "path": "/quahog-assets/P010/rust_grime_decal_metallic_roughness.png",
+      "bytes": 35577,
+      "sha256": "d1d55f03dbed809dccd653236c11a312d63017e0e36e51ca5a31c4d392009055"
+    },
+    {
+      "path": "/quahog-assets/P010/rust_grime_decal_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/rusty_corrugated_metal_diffuse.png",
+      "bytes": 25716,
+      "sha256": "b910c8f91518cc049b10a4d429767ba13db97369ac6638b787dcc0d76d921b81"
+    },
+    {
+      "path": "/quahog-assets/P010/rusty_corrugated_metal_metallic_roughness.png",
+      "bytes": 34288,
+      "sha256": "6034134a297e66a884d8d075acb94749593369eeae89e53cd06b650ccbccc15a"
+    },
+    {
+      "path": "/quahog-assets/P010/rusty_corrugated_metal_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/salt_stained_wood_siding_diffuse.png",
+      "bytes": 30538,
+      "sha256": "3ab7588998e634e012bd09132f8eb25975cdaf840dd5d14f48b0674e66f833ce"
+    },
+    {
+      "path": "/quahog-assets/P010/salt_stained_wood_siding_metallic_roughness.png",
+      "bytes": 32743,
+      "sha256": "54aacdaf37e68095c060fa20e7b07b594c9ed996cc5adbd2a89b38c59d3dedfb"
+    },
+    {
+      "path": "/quahog-assets/P010/salt_stained_wood_siding_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/snow_compacted_diffuse.png",
+      "bytes": 17081,
+      "sha256": "5a09fdfbbc7e9af4507b82c51080eb5e1cecdfdb633fbed61cebad9ccd9ef7b6"
+    },
+    {
+      "path": "/quahog-assets/P010/snow_compacted_metallic_roughness.png",
+      "bytes": 30666,
+      "sha256": "2e96552ce06c2f006d8ddb396837bd6a926937863d08070ed9b5ece1c7285f80"
+    },
+    {
+      "path": "/quahog-assets/P010/snow_compacted_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/snow_powder_diffuse.png",
+      "bytes": 12301,
+      "sha256": "3bbee3b951743a66888fbf02465756950c5c44c79e9dbed35c7665ad41596e3c"
+    },
+    {
+      "path": "/quahog-assets/P010/snow_powder_metallic_roughness.png",
+      "bytes": 34272,
+      "sha256": "6011fe241110629f8473e8d9a7d16e2ea201f2beb314cb04e16decdf1e444805"
+    },
+    {
+      "path": "/quahog-assets/P010/snow_powder_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/soot_stained_brick_diffuse.png",
+      "bytes": 49783,
+      "sha256": "e34a412cff65f8ecf9d96474e2d9ae87041aed94cb8955cf63aecca0b6926613"
+    },
+    {
+      "path": "/quahog-assets/P010/soot_stained_brick_metallic_roughness.png",
+      "bytes": 1914,
+      "sha256": "0927ac4b6ff54cfa930b21ffbc33e70bc759b43e9bfac8f49894cf9c19191bae"
+    },
+    {
+      "path": "/quahog-assets/P010/soot_stained_brick_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/tire_skid_wear_diffuse.png",
+      "bytes": 21159,
+      "sha256": "c756e26c3249620aee7fa5003f9efbe865190776f6cd55c6c5042831867ab5e0"
+    },
+    {
+      "path": "/quahog-assets/P010/tire_skid_wear_metallic_roughness.png",
+      "bytes": 35559,
+      "sha256": "a550fea15a2f54151c7a8dda50f5dad833bfec2307e89d028a0124409683b8b0"
+    },
+    {
+      "path": "/quahog-assets/P010/tire_skid_wear_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/treated_timber_pier_diffuse.png",
+      "bytes": 23126,
+      "sha256": "9454b1ebeb823e45c7dc3d93eceb1e00f849dbd8a7f6ff5a3a28753cc5e68707"
+    },
+    {
+      "path": "/quahog-assets/P010/treated_timber_pier_metallic_roughness.png",
+      "bytes": 32743,
+      "sha256": "54aacdaf37e68095c060fa20e7b07b594c9ed996cc5adbd2a89b38c59d3dedfb"
+    },
+    {
+      "path": "/quahog-assets/P010/treated_timber_pier_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/unpainted_red_brick_diffuse.png",
+      "bytes": 49618,
+      "sha256": "a05b0646628fc043a57e0667334f23a31eb7ac0342eb1b756c44625796f95a41"
+    },
+    {
+      "path": "/quahog-assets/P010/unpainted_red_brick_metallic_roughness.png",
+      "bytes": 1914,
+      "sha256": "0927ac4b6ff54cfa930b21ffbc33e70bc759b43e9bfac8f49894cf9c19191bae"
+    },
+    {
+      "path": "/quahog-assets/P010/unpainted_red_brick_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/water_streak_grime_diffuse.png",
+      "bytes": 28529,
+      "sha256": "29c5f0a7fbeb1ca3116b9f91962569d6b5f76384535e732d5dbff317e0c01910"
+    },
+    {
+      "path": "/quahog-assets/P010/water_streak_grime_metallic_roughness.png",
+      "bytes": 34272,
+      "sha256": "6011fe241110629f8473e8d9a7d16e2ea201f2beb314cb04e16decdf1e444805"
+    },
+    {
+      "path": "/quahog-assets/P010/water_streak_grime_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/weathered_gray_clapboard_diffuse.png",
+      "bytes": 36756,
+      "sha256": "5f689f119aec621f343a7a17129ceae88d478e2ce62a1591a910c971a945baa4"
+    },
+    {
+      "path": "/quahog-assets/P010/weathered_gray_clapboard_metallic_roughness.png",
+      "bytes": 1830,
+      "sha256": "c5d0fddb88b613d8e87499d7233c356d840e5aca5fbbb2f3b93f5f713edc309d"
+    },
+    {
+      "path": "/quahog-assets/P010/weathered_gray_clapboard_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/wet_hardwood_dock_diffuse.png",
+      "bytes": 27423,
+      "sha256": "d2defc23f3ecdd6c388bd7fd9d77dfa153972af3ae2a468159c66c33b8edc0fe"
+    },
+    {
+      "path": "/quahog-assets/P010/wet_hardwood_dock_metallic_roughness.png",
+      "bytes": 32743,
+      "sha256": "54aacdaf37e68095c060fa20e7b07b594c9ed996cc5adbd2a89b38c59d3dedfb"
+    },
+    {
+      "path": "/quahog-assets/P010/wet_hardwood_dock_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/wet_tire_rubber_diffuse.png",
+      "bytes": 18573,
+      "sha256": "fd059079d01ee6489859ca995510adad0d2faad59f3ba11bacdfd060e0c8f569"
+    },
+    {
+      "path": "/quahog-assets/P010/wet_tire_rubber_metallic_roughness.png",
+      "bytes": 34272,
+      "sha256": "6011fe241110629f8473e8d9a7d16e2ea201f2beb314cb04e16decdf1e444805"
+    },
+    {
+      "path": "/quahog-assets/P010/wet_tire_rubber_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/window_door_trim_diffuse.png",
+      "bytes": 1842,
+      "sha256": "0b0edd2237223320f7cc72feec836de1da853e0483b0b7ec598cdf0f0dc84e36"
+    },
+    {
+      "path": "/quahog-assets/P010/window_door_trim_metallic_roughness.png",
+      "bytes": 1863,
+      "sha256": "111efc455d77faa28491151c1baff20b2532dc5bb97195f4d28a8642d986fa03"
+    },
+    {
+      "path": "/quahog-assets/P010/window_door_trim_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    },
+    {
+      "path": "/quahog-assets/P010/yellow_industrial_brick_diffuse.png",
+      "bytes": 46450,
+      "sha256": "deb74167d8e57b585b1219966249640740d11f3e5dd06a6d149b696ea0c8f2c3"
+    },
+    {
+      "path": "/quahog-assets/P010/yellow_industrial_brick_metallic_roughness.png",
+      "bytes": 1914,
+      "sha256": "0927ac4b6ff54cfa930b21ffbc33e70bc759b43e9bfac8f49894cf9c19191bae"
+    },
+    {
+      "path": "/quahog-assets/P010/yellow_industrial_brick_normal.png",
+      "bytes": 1500,
+      "sha256": "44da437029c7d4f5d146ca74521d3494a7244d9031b18a7d0205f846f7fcdf7e"
+    }
+  ]
+}

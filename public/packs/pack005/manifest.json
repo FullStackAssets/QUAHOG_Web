@@ -1,0 +1,2014 @@
+{
+  "pack": "Pack 005: Characters, Wardrobe & Static Poses (staging only, built on Nic's 2026-11-02 override)",
+  "blender": "5.2.3 LTS",
+  "compression": "Meshopt only",
+  "baseline": "2026-11-01 merged game (NOT 2026-10-19 GitHub main)",
+  "integration": "none \u2014 sandbox/staging only, no production changes, no gameplay changes",
+  "caveat": "NO RIGGING, NO ANIMATION: bodies/wardrobe are static shells; the 52 loop templates are SINGLE STATIC POSES flagged static_pose=true, NOT animation loops, and must never be called animation. No sculpted likeness, no real person.",
+  "textures": "flat Principled colours; no baked texture atlas in this pack",
+  "templates": 104,
+  "variant_note": "one V01 build per template; variant slots are future work, not claimed",
+  "assets": [
+    {
+      "name": "player_base_a",
+      "file": "player_base_a.glb",
+      "bytes": 15248,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.74,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A204"
+    },
+    {
+      "name": "player_base_b",
+      "file": "player_base_b.glb",
+      "bytes": 15272,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.66,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A205"
+    },
+    {
+      "name": "pedestrian_a",
+      "file": "pedestrian_a.glb",
+      "bytes": 15252,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A206"
+    },
+    {
+      "name": "pedestrian_b",
+      "file": "pedestrian_b.glb",
+      "bytes": 15260,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.64,
+        0.27
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A207"
+    },
+    {
+      "name": "older_adult",
+      "file": "older_adult.glb",
+      "bytes": 21612,
+      "triangles": 222,
+      "meshes": 7,
+      "dimensions_m": [
+        0.7,
+        1.67,
+        0.3
+      ],
+      "materials": [
+        "arm",
+        "hair",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A208"
+    },
+    {
+      "name": "varied_stature",
+      "file": "varied_stature.glb",
+      "bytes": 15196,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.51,
+        0.27
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A209"
+    },
+    {
+      "name": "dockworker",
+      "file": "dockworker.glb",
+      "bytes": 21676,
+      "triangles": 222,
+      "meshes": 7,
+      "dimensions_m": [
+        0.7,
+        1.77,
+        0.3
+      ],
+      "materials": [
+        "arm",
+        "hardhat",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A210"
+    },
+    {
+      "name": "vessel_crew",
+      "file": "vessel_crew.glb",
+      "bytes": 18484,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.73,
+        0.38
+      ],
+      "materials": [
+        "arm",
+        "cap",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A211"
+    },
+    {
+      "name": "restaurant_worker",
+      "file": "restaurant_worker.glb",
+      "bytes": 15256,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.68,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A212"
+    },
+    {
+      "name": "warehouse_employee",
+      "file": "warehouse_employee.glb",
+      "bytes": 18488,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.75,
+        0.38
+      ],
+      "materials": [
+        "arm",
+        "cap",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A213"
+    },
+    {
+      "name": "retail_cashier",
+      "file": "retail_cashier.glb",
+      "bytes": 15268,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.66,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A214"
+    },
+    {
+      "name": "traffic_police",
+      "file": "traffic_police.glb",
+      "bytes": 18484,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.75,
+        0.38
+      ],
+      "materials": [
+        "arm",
+        "cap",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A215"
+    },
+    {
+      "name": "patrol_officer",
+      "file": "patrol_officer.glb",
+      "bytes": 18476,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.77,
+        0.38
+      ],
+      "materials": [
+        "arm",
+        "cap",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A216"
+    },
+    {
+      "name": "paramedic",
+      "file": "paramedic.glb",
+      "bytes": 15252,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.72,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A217"
+    },
+    {
+      "name": "firefighter",
+      "file": "firefighter.glb",
+      "bytes": 21664,
+      "triangles": 222,
+      "meshes": 7,
+      "dimensions_m": [
+        0.7,
+        1.79,
+        0.3
+      ],
+      "materials": [
+        "arm",
+        "hardhat",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A218"
+    },
+    {
+      "name": "snow_operator",
+      "file": "snow_operator.glb",
+      "bytes": 21676,
+      "triangles": 222,
+      "meshes": 7,
+      "dimensions_m": [
+        0.7,
+        1.77,
+        0.29
+      ],
+      "materials": [
+        "arm",
+        "beanie",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A219"
+    },
+    {
+      "name": "museum_attendant",
+      "file": "museum_attendant.glb",
+      "bytes": 15260,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.68,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A220"
+    },
+    {
+      "name": "mission_contact",
+      "file": "mission_contact.glb",
+      "bytes": 16968,
+      "triangles": 132,
+      "meshes": 7,
+      "dimensions_m": [
+        0.7,
+        1.76,
+        0.32
+      ],
+      "materials": [
+        "arm",
+        "hair",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A221"
+    },
+    {
+      "name": "crowd_lowdetail",
+      "file": "crowd_lowdetail.glb",
+      "bytes": 29088,
+      "triangles": 252,
+      "meshes": 12,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A222"
+    },
+    {
+      "name": "seagull_body",
+      "file": "seagull_body.glb",
+      "bytes": 11808,
+      "triangles": 114,
+      "meshes": 4,
+      "dimensions_m": [
+        1.4,
+        0.25,
+        0.6
+      ],
+      "materials": [
+        "bird",
+        "wing"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A223"
+    },
+    {
+      "name": "pigeon_body",
+      "file": "pigeon_body.glb",
+      "bytes": 11808,
+      "triangles": 114,
+      "meshes": 4,
+      "dimensions_m": [
+        1.4,
+        0.25,
+        0.6
+      ],
+      "materials": [
+        "bird",
+        "wing"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A224"
+    },
+    {
+      "name": "dog_companion",
+      "file": "dog_companion.glb",
+      "bytes": 14684,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.3,
+        0.56,
+        0.71
+      ],
+      "materials": [
+        "dog"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A225"
+    },
+    {
+      "name": "hoodie",
+      "file": "hoodie.glb",
+      "bytes": 6960,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        0.7,
+        0.9,
+        0.34
+      ],
+      "materials": [
+        "garment"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A226"
+    },
+    {
+      "name": "streetwear_jacket",
+      "file": "streetwear_jacket.glb",
+      "bytes": 5440,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        0.28
+      ],
+      "materials": [
+        "garment"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A227"
+    },
+    {
+      "name": "insulated_parka",
+      "file": "insulated_parka.glb",
+      "bytes": 5440,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        0.28
+      ],
+      "materials": [
+        "garment"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A228"
+    },
+    {
+      "name": "puffer_jacket",
+      "file": "puffer_jacket.glb",
+      "bytes": 10196,
+      "triangles": 36,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        0.31
+      ],
+      "materials": [
+        "garment",
+        "ridge"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A229"
+    },
+    {
+      "name": "rain_shell",
+      "file": "rain_shell.glb",
+      "bytes": 5452,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        0.28
+      ],
+      "materials": [
+        "garment"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A230"
+    },
+    {
+      "name": "bib_overalls",
+      "file": "bib_overalls.glb",
+      "bytes": 8692,
+      "triangles": 30,
+      "meshes": 5,
+      "dimensions_m": [
+        0.7,
+        0.95,
+        0.28
+      ],
+      "materials": [
+        "garment",
+        "trousers"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A231"
+    },
+    {
+      "name": "hi_vis_vest",
+      "file": "hi_vis_vest.glb",
+      "bytes": 8668,
+      "triangles": 30,
+      "meshes": 5,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        0.31
+      ],
+      "materials": [
+        "garment",
+        "stripe"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A232"
+    },
+    {
+      "name": "utility_coveralls",
+      "file": "utility_coveralls.glb",
+      "bytes": 8696,
+      "triangles": 30,
+      "meshes": 5,
+      "dimensions_m": [
+        0.7,
+        0.95,
+        0.28
+      ],
+      "materials": [
+        "garment",
+        "trousers"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A233"
+    },
+    {
+      "name": "office_blazer",
+      "file": "office_blazer.glb",
+      "bytes": 5440,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        0.28
+      ],
+      "materials": [
+        "garment"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A234"
+    },
+    {
+      "name": "restaurant_apron",
+      "file": "restaurant_apron.glb",
+      "bytes": 7164,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        0.31
+      ],
+      "materials": [
+        "apron",
+        "garment"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A235"
+    },
+    {
+      "name": "graphic_tee",
+      "file": "graphic_tee.glb",
+      "bytes": 5452,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        0.28
+      ],
+      "materials": [
+        "garment"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A236"
+    },
+    {
+      "name": "trousers_jeans",
+      "file": "trousers_jeans.glb",
+      "bytes": 3948,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.42,
+        0.8,
+        0.18
+      ],
+      "materials": [
+        "trousers"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A237"
+    },
+    {
+      "name": "cargo_pants",
+      "file": "cargo_pants.glb",
+      "bytes": 3948,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.42,
+        0.8,
+        0.18
+      ],
+      "materials": [
+        "trousers"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A238"
+    },
+    {
+      "name": "beanie_hat",
+      "file": "beanie_hat.glb",
+      "bytes": 6680,
+      "triangles": 96,
+      "meshes": 1,
+      "dimensions_m": [
+        0.5,
+        0.3,
+        0.5
+      ],
+      "materials": [
+        "beanie"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A239"
+    },
+    {
+      "name": "harbor_cap",
+      "file": "harbor_cap.glb",
+      "bytes": 3828,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.5,
+        0.16,
+        0.57
+      ],
+      "materials": [
+        "cap"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A240"
+    },
+    {
+      "name": "police_uniform",
+      "file": "police_uniform.glb",
+      "bytes": 8696,
+      "triangles": 30,
+      "meshes": 5,
+      "dimensions_m": [
+        0.7,
+        0.95,
+        0.28
+      ],
+      "materials": [
+        "garment",
+        "trousers"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A241"
+    },
+    {
+      "name": "ems_uniform",
+      "file": "ems_uniform.glb",
+      "bytes": 8696,
+      "triangles": 30,
+      "meshes": 5,
+      "dimensions_m": [
+        0.7,
+        0.95,
+        0.28
+      ],
+      "materials": [
+        "garment",
+        "trousers"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A242"
+    },
+    {
+      "name": "firefighter_turnout",
+      "file": "firefighter_turnout.glb",
+      "bytes": 8692,
+      "triangles": 30,
+      "meshes": 5,
+      "dimensions_m": [
+        0.7,
+        0.95,
+        0.28
+      ],
+      "materials": [
+        "garment",
+        "trousers"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A243"
+    },
+    {
+      "name": "winter_gloves",
+      "file": "winter_gloves.glb",
+      "bytes": 3924,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.56,
+        0.24,
+        0.16
+      ],
+      "materials": [
+        "glove"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A244"
+    },
+    {
+      "name": "work_gloves",
+      "file": "work_gloves.glb",
+      "bytes": 3928,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.56,
+        0.24,
+        0.16
+      ],
+      "materials": [
+        "glove"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A245"
+    },
+    {
+      "name": "backpack_bag",
+      "file": "backpack_bag.glb",
+      "bytes": 3836,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.5,
+        0.7,
+        0.3
+      ],
+      "materials": [
+        "pack"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A246"
+    },
+    {
+      "name": "toolbelt_gear",
+      "file": "toolbelt_gear.glb",
+      "bytes": 4124,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.6,
+        0.33,
+        0.21
+      ],
+      "materials": [
+        "belt",
+        "pouch"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A247"
+    },
+    {
+      "name": "footwear_set",
+      "file": "footwear_set.glb",
+      "bytes": 5704,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.49,
+        0.3,
+        0.74
+      ],
+      "materials": [
+        "boot",
+        "shoe"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A248"
+    },
+    {
+      "name": "hardhat",
+      "file": "hardhat.glb",
+      "bytes": 6772,
+      "triangles": 96,
+      "meshes": 1,
+      "dimensions_m": [
+        0.56,
+        0.3,
+        0.56
+      ],
+      "materials": [
+        "hardhat"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A249"
+    },
+    {
+      "name": "scarf_gaiter",
+      "file": "scarf_gaiter.glb",
+      "bytes": 3912,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.6,
+        0.47,
+        0.6
+      ],
+      "materials": [
+        "scarf"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A250"
+    },
+    {
+      "name": "eyewear",
+      "file": "eyewear.glb",
+      "bytes": 5472,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        0.4,
+        0.12,
+        0.04
+      ],
+      "materials": [
+        "frame"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A251"
+    },
+    {
+      "name": "hair_short",
+      "file": "hair_short.glb",
+      "bytes": 13228,
+      "triangles": 192,
+      "meshes": 2,
+      "dimensions_m": [
+        0.32,
+        0.33,
+        0.32
+      ],
+      "materials": [
+        "hair",
+        "skin"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A252"
+    },
+    {
+      "name": "hair_long",
+      "file": "hair_long.glb",
+      "bytes": 8808,
+      "triangles": 102,
+      "meshes": 2,
+      "dimensions_m": [
+        0.32,
+        0.6,
+        0.33
+      ],
+      "materials": [
+        "hair",
+        "skin"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A253"
+    },
+    {
+      "name": "beard_library",
+      "file": "beard_library.glb",
+      "bytes": 8820,
+      "triangles": 102,
+      "meshes": 2,
+      "dimensions_m": [
+        0.3,
+        0.33,
+        0.32
+      ],
+      "materials": [
+        "beard",
+        "skin"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A254"
+    },
+    {
+      "name": "face_detail_placeholder",
+      "file": "face_detail_placeholder.glb",
+      "bytes": 10344,
+      "triangles": 108,
+      "meshes": 3,
+      "dimensions_m": [
+        0.3,
+        0.3,
+        0.31
+      ],
+      "materials": [
+        "line",
+        "skin"
+      ],
+      "static_pose": false,
+      "asset_id": "QH-A255"
+    },
+    {
+      "name": "idle_relaxed",
+      "file": "idle_relaxed.glb",
+      "bytes": 15248,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A256"
+    },
+    {
+      "name": "idle_vigilant",
+      "file": "idle_vigilant.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        1.04,
+        1.71,
+        0.32
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A257"
+    },
+    {
+      "name": "idle_shiver",
+      "file": "idle_shiver.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        1.04,
+        1.71,
+        0.32
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A258"
+    },
+    {
+      "name": "walk_forward",
+      "file": "walk_forward.glb",
+      "bytes": 15480,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.98
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A259"
+    },
+    {
+      "name": "walk_backwards",
+      "file": "walk_backwards.glb",
+      "bytes": 15480,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.98
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A260"
+    },
+    {
+      "name": "jog_forward",
+      "file": "jog_forward.glb",
+      "bytes": 15536,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.98
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A261"
+    },
+    {
+      "name": "sprint_forward",
+      "file": "sprint_forward.glb",
+      "bytes": 15536,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.98
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A262"
+    },
+    {
+      "name": "strafe_left",
+      "file": "strafe_left.glb",
+      "bytes": 15480,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.98
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A263"
+    },
+    {
+      "name": "strafe_right",
+      "file": "strafe_right.glb",
+      "bytes": 15480,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.98
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A264"
+    },
+    {
+      "name": "start_walk",
+      "file": "start_walk.glb",
+      "bytes": 15396,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.72
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A265"
+    },
+    {
+      "name": "stop_walk",
+      "file": "stop_walk.glb",
+      "bytes": 15248,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A266"
+    },
+    {
+      "name": "start_run",
+      "file": "start_run.glb",
+      "bytes": 15536,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.98
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A267"
+    },
+    {
+      "name": "stop_run",
+      "file": "stop_run.glb",
+      "bytes": 15248,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A268"
+    },
+    {
+      "name": "pivot_90_left",
+      "file": "pivot_90_left.glb",
+      "bytes": 15248,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A269"
+    },
+    {
+      "name": "pivot_90_right",
+      "file": "pivot_90_right.glb",
+      "bytes": 15248,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A270"
+    },
+    {
+      "name": "pivot_180",
+      "file": "pivot_180.glb",
+      "bytes": 15248,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A271"
+    },
+    {
+      "name": "jump_takeoff",
+      "file": "jump_takeoff.glb",
+      "bytes": 15348,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.61,
+        0.49
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A272"
+    },
+    {
+      "name": "fall_loop",
+      "file": "fall_loop.glb",
+      "bytes": 15348,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.61,
+        0.49
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A273"
+    },
+    {
+      "name": "landing_soft",
+      "file": "landing_soft.glb",
+      "bytes": 15348,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.61,
+        0.49
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A274"
+    },
+    {
+      "name": "landing_hard",
+      "file": "landing_hard.glb",
+      "bytes": 15400,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.31,
+        0.41
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A275"
+    },
+    {
+      "name": "stair_ascent",
+      "file": "stair_ascent.glb",
+      "bytes": 15396,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.72
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A276"
+    },
+    {
+      "name": "stair_descent",
+      "file": "stair_descent.glb",
+      "bytes": 15396,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.72
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A277"
+    },
+    {
+      "name": "obstacle_mantle",
+      "file": "obstacle_mantle.glb",
+      "bytes": 15508,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.77
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A278"
+    },
+    {
+      "name": "ladder_climb",
+      "file": "ladder_climb.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.54
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A279"
+    },
+    {
+      "name": "vehicle_approach",
+      "file": "vehicle_approach.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.54
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A280"
+    },
+    {
+      "name": "enter_sedan",
+      "file": "enter_sedan.glb",
+      "bytes": 18392,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.46,
+        0.53
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A281"
+    },
+    {
+      "name": "exit_sedan",
+      "file": "exit_sedan.glb",
+      "bytes": 18392,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.46,
+        0.53
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A282"
+    },
+    {
+      "name": "enter_suv",
+      "file": "enter_suv.glb",
+      "bytes": 18392,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.46,
+        0.53
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A283"
+    },
+    {
+      "name": "exit_suv",
+      "file": "exit_suv.glb",
+      "bytes": 18392,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.46,
+        0.53
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A284"
+    },
+    {
+      "name": "driver_idle",
+      "file": "driver_idle.glb",
+      "bytes": 18392,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.46,
+        0.53
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A285"
+    },
+    {
+      "name": "driver_steering",
+      "file": "driver_steering.glb",
+      "bytes": 18392,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.46,
+        0.53
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A286"
+    },
+    {
+      "name": "pickup_object",
+      "file": "pickup_object.glb",
+      "bytes": 15304,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.4
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A287"
+    },
+    {
+      "name": "open_swing_door",
+      "file": "open_swing_door.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.54
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A288"
+    },
+    {
+      "name": "open_sliding_door",
+      "file": "open_sliding_door.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.54
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A289"
+    },
+    {
+      "name": "talk_one_hand",
+      "file": "talk_one_hand.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.54
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A290"
+    },
+    {
+      "name": "talk_two_hand",
+      "file": "talk_two_hand.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.54
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A291"
+    },
+    {
+      "name": "listen_nod",
+      "file": "listen_nod.glb",
+      "bytes": 15248,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A292"
+    },
+    {
+      "name": "look_shoulder",
+      "file": "look_shoulder.glb",
+      "bytes": 15248,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.28
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A293"
+    },
+    {
+      "name": "sit_down",
+      "file": "sit_down.glb",
+      "bytes": 18392,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.46,
+        0.53
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A294"
+    },
+    {
+      "name": "sit_idle_bench",
+      "file": "sit_idle_bench.glb",
+      "bytes": 18392,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.46,
+        0.53
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A295"
+    },
+    {
+      "name": "stand_from_sitting",
+      "file": "stand_from_sitting.glb",
+      "bytes": 18392,
+      "triangles": 138,
+      "meshes": 8,
+      "dimensions_m": [
+        0.7,
+        1.46,
+        0.53
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A296"
+    },
+    {
+      "name": "phone_use",
+      "file": "phone_use.glb",
+      "bytes": 17032,
+      "triangles": 132,
+      "meshes": 7,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.4
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "phone",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A297"
+    },
+    {
+      "name": "carry_crate",
+      "file": "carry_crate.glb",
+      "bytes": 17072,
+      "triangles": 132,
+      "meshes": 7,
+      "dimensions_m": [
+        1.08,
+        1.71,
+        0.63
+      ],
+      "materials": [
+        "arm",
+        "crate",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A298"
+    },
+    {
+      "name": "operate_winch",
+      "file": "operate_winch.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.54
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A299"
+    },
+    {
+      "name": "throw_rope",
+      "file": "throw_rope.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.54
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A300"
+    },
+    {
+      "name": "shovel_snow",
+      "file": "shovel_snow.glb",
+      "bytes": 15304,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.4
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A301"
+    },
+    {
+      "name": "deep_snow_walk",
+      "file": "deep_snow_walk.glb",
+      "bytes": 15368,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.98
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A302"
+    },
+    {
+      "name": "slip_recover",
+      "file": "slip_recover.glb",
+      "bytes": 15304,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.7,
+        1.71,
+        0.35
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A303"
+    },
+    {
+      "name": "hood_against_wind",
+      "file": "hood_against_wind.glb",
+      "bytes": 15360,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        1.04,
+        1.71,
+        0.32
+      ],
+      "materials": [
+        "arm",
+        "legs",
+        "skin",
+        "torso"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A304"
+    },
+    {
+      "name": "seagull_flap_pose",
+      "file": "seagull_flap_pose.glb",
+      "bytes": 11956,
+      "triangles": 114,
+      "meshes": 4,
+      "dimensions_m": [
+        1.13,
+        0.46,
+        0.6
+      ],
+      "materials": [
+        "bird",
+        "wing"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A305"
+    },
+    {
+      "name": "seagull_glide_pose",
+      "file": "seagull_glide_pose.glb",
+      "bytes": 11808,
+      "triangles": 114,
+      "meshes": 4,
+      "dimensions_m": [
+        1.4,
+        0.25,
+        0.6
+      ],
+      "materials": [
+        "bird",
+        "wing"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A306"
+    },
+    {
+      "name": "dog_walk_pose",
+      "file": "dog_walk_pose.glb",
+      "bytes": 14684,
+      "triangles": 126,
+      "meshes": 6,
+      "dimensions_m": [
+        0.3,
+        0.56,
+        0.71
+      ],
+      "materials": [
+        "dog"
+      ],
+      "static_pose": true,
+      "asset_id": "QH-A307"
+    }
+  ]
+}

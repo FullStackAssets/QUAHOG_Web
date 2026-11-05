@@ -1,0 +1,1362 @@
+{
+  "pack": "Pack 011: Street Infrastructure & Vegetation (staging only)",
+  "blender": "5.2.3 LTS",
+  "compression": "Meshopt only",
+  "baseline": "2026-11-01 merged game (NOT 2026-10-19 GitHub main)",
+  "integration": "none \u2014 sandbox/staging only, no production changes, no collider/GIS placement changes",
+  "textures": "flat Principled colours; no baked texture atlas in this pack",
+  "templates": 81,
+  "variant_note": "one V01 build per template; variant slots are future work, not claimed",
+  "assets": [
+    {
+      "name": "traffic_signal_pole",
+      "file": "traffic_signal_pole.glb",
+      "bytes": 6328,
+      "triangles": 22,
+      "meshes": 3,
+      "dimensions_m": [
+        2.57,
+        0.3,
+        5.6
+      ],
+      "materials": [
+        "signal",
+        "steel"
+      ],
+      "asset_id": "QH-A523"
+    },
+    {
+      "name": "traffic_light_head",
+      "file": "traffic_light_head.glb",
+      "bytes": 10048,
+      "triangles": 34,
+      "meshes": 5,
+      "dimensions_m": [
+        0.6,
+        0.4,
+        4.5
+      ],
+      "materials": [
+        "grn",
+        "red",
+        "signal",
+        "steel",
+        "yel"
+      ],
+      "asset_id": "QH-A524"
+    },
+    {
+      "name": "ped_crossing_signal",
+      "file": "ped_crossing_signal.glb",
+      "bytes": 6504,
+      "triangles": 22,
+      "meshes": 3,
+      "dimensions_m": [
+        0.7,
+        0.3,
+        3.7
+      ],
+      "materials": [
+        "signal",
+        "steel",
+        "walk"
+      ],
+      "asset_id": "QH-A525"
+    },
+    {
+      "name": "stop_sign",
+      "file": "stop_sign.glb",
+      "bytes": 5108,
+      "triangles": 20,
+      "meshes": 2,
+      "dimensions_m": [
+        0.7,
+        0.12,
+        3.05
+      ],
+      "materials": [
+        "sign",
+        "steel"
+      ],
+      "asset_id": "QH-A526"
+    },
+    {
+      "name": "yield_sign",
+      "file": "yield_sign.glb",
+      "bytes": 4840,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.7,
+        0.12,
+        3.05
+      ],
+      "materials": [
+        "sign",
+        "steel"
+      ],
+      "asset_id": "QH-A527"
+    },
+    {
+      "name": "speed_limit_sign",
+      "file": "speed_limit_sign.glb",
+      "bytes": 4852,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.6,
+        0.12,
+        3.05
+      ],
+      "materials": [
+        "sign",
+        "steel"
+      ],
+      "asset_id": "QH-A528"
+    },
+    {
+      "name": "street_name_brackets",
+      "file": "street_name_brackets.glb",
+      "bytes": 6420,
+      "triangles": 22,
+      "meshes": 3,
+      "dimensions_m": [
+        1.4,
+        0.14,
+        3.4
+      ],
+      "materials": [
+        "sign",
+        "steel"
+      ],
+      "asset_id": "QH-A529"
+    },
+    {
+      "name": "one_way_sign",
+      "file": "one_way_sign.glb",
+      "bytes": 4856,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.8,
+        0.12,
+        3.0
+      ],
+      "materials": [
+        "sign",
+        "steel"
+      ],
+      "asset_id": "QH-A530"
+    },
+    {
+      "name": "no_parking_sign",
+      "file": "no_parking_sign.glb",
+      "bytes": 4808,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.5,
+        0.12,
+        3.05
+      ],
+      "materials": [
+        "sign",
+        "steel"
+      ],
+      "asset_id": "QH-A531"
+    },
+    {
+      "name": "detour_sign",
+      "file": "detour_sign.glb",
+      "bytes": 4812,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.7,
+        0.12,
+        3.0
+      ],
+      "materials": [
+        "sign",
+        "steel"
+      ],
+      "asset_id": "QH-A532"
+    },
+    {
+      "name": "bollard_removable",
+      "file": "bollard_removable.glb",
+      "bytes": 3072,
+      "triangles": 12,
+      "meshes": 1,
+      "dimensions_m": [
+        0.23,
+        0.24,
+        1.0
+      ],
+      "materials": [
+        "steel"
+      ],
+      "asset_id": "QH-A533"
+    },
+    {
+      "name": "jersey_barrier",
+      "file": "jersey_barrier.glb",
+      "bytes": 1972,
+      "triangles": 5,
+      "meshes": 1,
+      "dimensions_m": [
+        3.0,
+        0.6,
+        0.9
+      ],
+      "materials": [
+        "concrete"
+      ],
+      "asset_id": "QH-A534"
+    },
+    {
+      "name": "guardrail_segment",
+      "file": "guardrail_segment.glb",
+      "bytes": 6760,
+      "triangles": 26,
+      "meshes": 3,
+      "dimensions_m": [
+        3.6,
+        0.14,
+        1.0
+      ],
+      "materials": [
+        "steel"
+      ],
+      "asset_id": "QH-A535"
+    },
+    {
+      "name": "bus_shelter",
+      "file": "bus_shelter.glb",
+      "bytes": 5784,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        3.2,
+        1.6,
+        2.48
+      ],
+      "materials": [
+        "glass",
+        "roof",
+        "wood"
+      ],
+      "asset_id": "QH-A536"
+    },
+    {
+      "name": "bus_stop_sign",
+      "file": "bus_stop_sign.glb",
+      "bytes": 4856,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.4,
+        0.12,
+        3.0
+      ],
+      "materials": [
+        "sign",
+        "steel"
+      ],
+      "asset_id": "QH-A537"
+    },
+    {
+      "name": "bike_rack",
+      "file": "bike_rack.glb",
+      "bytes": 4960,
+      "triangles": 20,
+      "meshes": 2,
+      "dimensions_m": [
+        1.6,
+        0.1,
+        0.8
+      ],
+      "materials": [
+        "steel"
+      ],
+      "asset_id": "QH-A538"
+    },
+    {
+      "name": "parking_meter",
+      "file": "parking_meter.glb",
+      "bytes": 4880,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.36,
+        0.24,
+        1.5
+      ],
+      "materials": [
+        "meter",
+        "steel"
+      ],
+      "asset_id": "QH-A539"
+    },
+    {
+      "name": "ev_charger_shell",
+      "file": "ev_charger_shell.glb",
+      "bytes": 4092,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.8,
+        0.6,
+        1.4
+      ],
+      "materials": [
+        "charger",
+        "screen"
+      ],
+      "asset_id": "QH-A540"
+    },
+    {
+      "name": "trash_receptacle",
+      "file": "trash_receptacle.glb",
+      "bytes": 3336,
+      "triangles": 14,
+      "meshes": 1,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        1.0
+      ],
+      "materials": [
+        "bin"
+      ],
+      "asset_id": "QH-A541"
+    },
+    {
+      "name": "recycling_receptacle",
+      "file": "recycling_receptacle.glb",
+      "bytes": 3336,
+      "triangles": 14,
+      "meshes": 1,
+      "dimensions_m": [
+        0.7,
+        0.7,
+        1.0
+      ],
+      "materials": [
+        "bin"
+      ],
+      "asset_id": "QH-A542"
+    },
+    {
+      "name": "postal_letterbox",
+      "file": "postal_letterbox.glb",
+      "bytes": 4068,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.0,
+        0.8,
+        1.8
+      ],
+      "materials": [
+        "mail",
+        "slot"
+      ],
+      "asset_id": "QH-A543"
+    },
+    {
+      "name": "bench_metal_wood",
+      "file": "bench_metal_wood.glb",
+      "bytes": 6972,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        2.0,
+        0.63,
+        1.15
+      ],
+      "materials": [
+        "steel",
+        "wood"
+      ],
+      "asset_id": "QH-A544"
+    },
+    {
+      "name": "wayfinding_kiosk",
+      "file": "wayfinding_kiosk.glb",
+      "bytes": 4076,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        1.6,
+        0.2,
+        2.2
+      ],
+      "materials": [
+        "frame",
+        "panel"
+      ],
+      "asset_id": "QH-A545"
+    },
+    {
+      "name": "fire_hydrant",
+      "file": "fire_hydrant.glb",
+      "bytes": 9404,
+      "triangles": 108,
+      "meshes": 2,
+      "dimensions_m": [
+        0.36,
+        0.36,
+        1.07
+      ],
+      "materials": [
+        "hydrant"
+      ],
+      "asset_id": "QH-A546"
+    },
+    {
+      "name": "fire_dept_connection",
+      "file": "fire_dept_connection.glb",
+      "bytes": 4776,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        1.0,
+        0.26,
+        1.0
+      ],
+      "materials": [
+        "brass"
+      ],
+      "asset_id": "QH-A547"
+    },
+    {
+      "name": "transformer_cabinet",
+      "file": "transformer_cabinet.glb",
+      "bytes": 2388,
+      "triangles": 6,
+      "meshes": 1,
+      "dimensions_m": [
+        1.6,
+        1.0,
+        1.6
+      ],
+      "materials": [
+        "cabinet"
+      ],
+      "asset_id": "QH-A548"
+    },
+    {
+      "name": "utility_control_cabinet",
+      "file": "utility_control_cabinet.glb",
+      "bytes": 2428,
+      "triangles": 6,
+      "meshes": 1,
+      "dimensions_m": [
+        1.2,
+        0.8,
+        1.4
+      ],
+      "materials": [
+        "cabinet"
+      ],
+      "asset_id": "QH-A549"
+    },
+    {
+      "name": "water_valve_cover",
+      "file": "water_valve_cover.glb",
+      "bytes": 3484,
+      "triangles": 14,
+      "meshes": 1,
+      "dimensions_m": [
+        0.6,
+        0.6,
+        0.1
+      ],
+      "materials": [
+        "iron"
+      ],
+      "asset_id": "QH-A550"
+    },
+    {
+      "name": "telecom_cabinet",
+      "file": "telecom_cabinet.glb",
+      "bytes": 2412,
+      "triangles": 6,
+      "meshes": 1,
+      "dimensions_m": [
+        1.4,
+        0.9,
+        1.8
+      ],
+      "materials": [
+        "cabinet"
+      ],
+      "asset_id": "QH-A551"
+    },
+    {
+      "name": "utility_pole_crossarm",
+      "file": "utility_pole_crossarm.glb",
+      "bytes": 4648,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        2.4,
+        0.24,
+        8.0
+      ],
+      "materials": [
+        "wood"
+      ],
+      "asset_id": "QH-A552"
+    },
+    {
+      "name": "overhead_cable_bundle",
+      "file": "overhead_cable_bundle.glb",
+      "bytes": 4544,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        3.41,
+        0.06,
+        7.66
+      ],
+      "materials": [
+        "cable"
+      ],
+      "asset_id": "QH-A553"
+    },
+    {
+      "name": "streetlight_cobrahead",
+      "file": "streetlight_cobrahead.glb",
+      "bytes": 6384,
+      "triangles": 22,
+      "meshes": 3,
+      "dimensions_m": [
+        2.09,
+        0.4,
+        8.0
+      ],
+      "materials": [
+        "head",
+        "steel"
+      ],
+      "asset_id": "QH-A554"
+    },
+    {
+      "name": "historic_pedestrian_lamp",
+      "file": "historic_pedestrian_lamp.glb",
+      "bytes": 9080,
+      "triangles": 106,
+      "meshes": 2,
+      "dimensions_m": [
+        0.5,
+        0.5,
+        3.45
+      ],
+      "materials": [
+        "globe",
+        "iron"
+      ],
+      "asset_id": "QH-A555"
+    },
+    {
+      "name": "warehouse_floodlight",
+      "file": "warehouse_floodlight.glb",
+      "bytes": 4036,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.8,
+        0.5,
+        1.1
+      ],
+      "materials": [
+        "flood",
+        "steel"
+      ],
+      "asset_id": "QH-A556"
+    },
+    {
+      "name": "alley_security_light",
+      "file": "alley_security_light.glb",
+      "bytes": 4880,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        0.6,
+        0.4,
+        3.75
+      ],
+      "materials": [
+        "head",
+        "steel"
+      ],
+      "asset_id": "QH-A557"
+    },
+    {
+      "name": "bike_lane_separator",
+      "file": "bike_lane_separator.glb",
+      "bytes": 4936,
+      "triangles": 16,
+      "meshes": 2,
+      "dimensions_m": [
+        1.0,
+        0.6,
+        1.05
+      ],
+      "materials": [
+        "concrete",
+        "post"
+      ],
+      "asset_id": "QH-A558"
+    },
+    {
+      "name": "storm_drain_inlet",
+      "file": "storm_drain_inlet.glb",
+      "bytes": 4084,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        0.6,
+        0.6
+      ],
+      "materials": [
+        "concrete",
+        "iron"
+      ],
+      "asset_id": "QH-A559"
+    },
+    {
+      "name": "gully_grate",
+      "file": "gully_grate.glb",
+      "bytes": 5420,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.2,
+        0.8,
+        0.13
+      ],
+      "materials": [
+        "iron"
+      ],
+      "asset_id": "QH-A560"
+    },
+    {
+      "name": "sidewalk_drain_channel",
+      "file": "sidewalk_drain_channel.glb",
+      "bytes": 4064,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        3.0,
+        0.6,
+        0.17
+      ],
+      "materials": [
+        "concrete",
+        "iron"
+      ],
+      "asset_id": "QH-A561"
+    },
+    {
+      "name": "salt_storage_bin",
+      "file": "salt_storage_bin.glb",
+      "bytes": 3992,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        2.1,
+        1.5,
+        1.33
+      ],
+      "materials": [
+        "bin",
+        "lid"
+      ],
+      "asset_id": "QH-A562"
+    },
+    {
+      "name": "sidewalk_bollard_low",
+      "file": "sidewalk_bollard_low.glb",
+      "bytes": 3212,
+      "triangles": 12,
+      "meshes": 1,
+      "dimensions_m": [
+        0.19,
+        0.2,
+        0.7
+      ],
+      "materials": [
+        "steel"
+      ],
+      "asset_id": "QH-A563"
+    },
+    {
+      "name": "retaining_fence",
+      "file": "retaining_fence.glb",
+      "bytes": 3952,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        6.0,
+        0.6,
+        1.15
+      ],
+      "materials": [
+        "concrete",
+        "steel"
+      ],
+      "asset_id": "QH-A564"
+    },
+    {
+      "name": "chain_link_fence",
+      "file": "chain_link_fence.glb",
+      "bytes": 6868,
+      "triangles": 26,
+      "meshes": 3,
+      "dimensions_m": [
+        3.1,
+        0.1,
+        1.8
+      ],
+      "materials": [
+        "fence",
+        "steel"
+      ],
+      "asset_id": "QH-A565"
+    },
+    {
+      "name": "wrought_iron_fence",
+      "file": "wrought_iron_fence.glb",
+      "bytes": 10012,
+      "triangles": 38,
+      "meshes": 5,
+      "dimensions_m": [
+        3.2,
+        0.08,
+        1.6
+      ],
+      "materials": [
+        "iron"
+      ],
+      "asset_id": "QH-A566"
+    },
+    {
+      "name": "timber_yard_fence",
+      "file": "timber_yard_fence.glb",
+      "bytes": 6904,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        4.0,
+        0.1,
+        1.4
+      ],
+      "materials": [
+        "wood"
+      ],
+      "asset_id": "QH-A567"
+    },
+    {
+      "name": "vinyl_panel_fence",
+      "file": "vinyl_panel_fence.glb",
+      "bytes": 2372,
+      "triangles": 6,
+      "meshes": 1,
+      "dimensions_m": [
+        3.0,
+        0.1,
+        1.8
+      ],
+      "materials": [
+        "vinyl"
+      ],
+      "asset_id": "QH-A568"
+    },
+    {
+      "name": "dumpster_enclosure",
+      "file": "dumpster_enclosure.glb",
+      "bytes": 7076,
+      "triangles": 24,
+      "meshes": 4,
+      "dimensions_m": [
+        2.6,
+        3.0,
+        1.8
+      ],
+      "materials": [
+        "dumpster",
+        "wood"
+      ],
+      "asset_id": "QH-A569"
+    },
+    {
+      "name": "mural_panel",
+      "file": "mural_panel.glb",
+      "bytes": 4040,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        3.2,
+        0.2,
+        2.4
+      ],
+      "materials": [
+        "frame",
+        "mural"
+      ],
+      "asset_id": "QH-A570"
+    },
+    {
+      "name": "notice_board",
+      "file": "notice_board.glb",
+      "bytes": 6708,
+      "triangles": 26,
+      "meshes": 3,
+      "dimensions_m": [
+        2.0,
+        0.16,
+        1.8
+      ],
+      "materials": [
+        "board",
+        "steel"
+      ],
+      "asset_id": "QH-A571"
+    },
+    {
+      "name": "construction_fencing",
+      "file": "construction_fencing.glb",
+      "bytes": 3960,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        3.0,
+        0.6,
+        2.0
+      ],
+      "materials": [
+        "concrete",
+        "temp"
+      ],
+      "asset_id": "QH-A572"
+    },
+    {
+      "name": "arrow_board",
+      "file": "arrow_board.glb",
+      "bytes": 5716,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        2.4,
+        1.0,
+        2.0
+      ],
+      "materials": [
+        "arrow",
+        "board",
+        "trailer"
+      ],
+      "asset_id": "QH-A573"
+    },
+    {
+      "name": "aframe_sign",
+      "file": "aframe_sign.glb",
+      "bytes": 3820,
+      "triangles": 12,
+      "meshes": 2,
+      "dimensions_m": [
+        0.99,
+        0.26,
+        1.0
+      ],
+      "materials": [
+        "sign"
+      ],
+      "asset_id": "QH-A574"
+    },
+    {
+      "name": "restaurant_barrier",
+      "file": "restaurant_barrier.glb",
+      "bytes": 8660,
+      "triangles": 32,
+      "meshes": 4,
+      "dimensions_m": [
+        3.0,
+        0.6,
+        0.85
+      ],
+      "materials": [
+        "planter",
+        "rail",
+        "steel"
+      ],
+      "asset_id": "QH-A575"
+    },
+    {
+      "name": "curb_ramp",
+      "file": "curb_ramp.glb",
+      "bytes": 1916,
+      "triangles": 5,
+      "meshes": 1,
+      "dimensions_m": [
+        1.5,
+        1.5,
+        0.15
+      ],
+      "materials": [
+        "concrete"
+      ],
+      "asset_id": "QH-A576"
+    },
+    {
+      "name": "sidewalk_planter",
+      "file": "sidewalk_planter.glb",
+      "bytes": 8644,
+      "triangles": 102,
+      "meshes": 2,
+      "dimensions_m": [
+        2.0,
+        1.0,
+        1.0
+      ],
+      "materials": [
+        "leaf",
+        "planter"
+      ],
+      "asset_id": "QH-A577"
+    },
+    {
+      "name": "service_pedestal",
+      "file": "service_pedestal.glb",
+      "bytes": 2376,
+      "triangles": 6,
+      "meshes": 1,
+      "dimensions_m": [
+        0.8,
+        0.6,
+        1.0
+      ],
+      "materials": [
+        "pedestal"
+      ],
+      "asset_id": "QH-A578"
+    },
+    {
+      "name": "sugar_maple",
+      "file": "sugar_maple.glb",
+      "bytes": 20596,
+      "triangles": 298,
+      "meshes": 4,
+      "dimensions_m": [
+        4.1,
+        3.6,
+        6.1
+      ],
+      "materials": [
+        "bark",
+        "leaf"
+      ],
+      "asset_id": "QH-A579"
+    },
+    {
+      "name": "red_oak",
+      "file": "red_oak.glb",
+      "bytes": 20572,
+      "triangles": 298,
+      "meshes": 4,
+      "dimensions_m": [
+        4.1,
+        3.6,
+        6.6
+      ],
+      "materials": [
+        "bark",
+        "leaf"
+      ],
+      "asset_id": "QH-A580"
+    },
+    {
+      "name": "linden_street",
+      "file": "linden_street.glb",
+      "bytes": 19596,
+      "triangles": 298,
+      "meshes": 4,
+      "dimensions_m": [
+        4.1,
+        3.6,
+        5.6
+      ],
+      "materials": [
+        "bark",
+        "leaf"
+      ],
+      "asset_id": "QH-A581"
+    },
+    {
+      "name": "coastal_pine",
+      "file": "coastal_pine.glb",
+      "bytes": 9900,
+      "triangles": 46,
+      "meshes": 4,
+      "dimensions_m": [
+        2.66,
+        2.8,
+        7.1
+      ],
+      "materials": [
+        "bark",
+        "leaf"
+      ],
+      "asset_id": "QH-A582"
+    },
+    {
+      "name": "spruce",
+      "file": "spruce.glb",
+      "bytes": 9912,
+      "triangles": 46,
+      "meshes": 4,
+      "dimensions_m": [
+        2.66,
+        2.8,
+        7.6
+      ],
+      "materials": [
+        "bark",
+        "leaf"
+      ],
+      "asset_id": "QH-A583"
+    },
+    {
+      "name": "bare_maple",
+      "file": "bare_maple.glb",
+      "bytes": 8864,
+      "triangles": 34,
+      "meshes": 4,
+      "dimensions_m": [
+        0.53,
+        0.36,
+        3.7
+      ],
+      "materials": [
+        "bark"
+      ],
+      "asset_id": "QH-A584"
+    },
+    {
+      "name": "bare_oak",
+      "file": "bare_oak.glb",
+      "bytes": 8856,
+      "triangles": 34,
+      "meshes": 4,
+      "dimensions_m": [
+        0.53,
+        0.36,
+        4.1
+      ],
+      "materials": [
+        "bark"
+      ],
+      "asset_id": "QH-A585"
+    },
+    {
+      "name": "sapling_cage",
+      "file": "sapling_cage.glb",
+      "bytes": 24812,
+      "triangles": 314,
+      "meshes": 6,
+      "dimensions_m": [
+        4.1,
+        3.6,
+        4.1
+      ],
+      "materials": [
+        "bark",
+        "leaf",
+        "steel"
+      ],
+      "asset_id": "QH-A586"
+    },
+    {
+      "name": "suburban_deciduous",
+      "file": "suburban_deciduous.glb",
+      "bytes": 19692,
+      "triangles": 298,
+      "meshes": 4,
+      "dimensions_m": [
+        4.1,
+        3.6,
+        5.8
+      ],
+      "materials": [
+        "bark",
+        "leaf"
+      ],
+      "asset_id": "QH-A587"
+    },
+    {
+      "name": "windswept_scrub",
+      "file": "windswept_scrub.glb",
+      "bytes": 8968,
+      "triangles": 106,
+      "meshes": 2,
+      "dimensions_m": [
+        2.4,
+        1.8,
+        3.2
+      ],
+      "materials": [
+        "bark",
+        "leaf"
+      ],
+      "asset_id": "QH-A588"
+    },
+    {
+      "name": "hedge_wall",
+      "file": "hedge_wall.glb",
+      "bytes": 2300,
+      "triangles": 6,
+      "meshes": 1,
+      "dimensions_m": [
+        4.0,
+        1.0,
+        1.4
+      ],
+      "materials": [
+        "leaf"
+      ],
+      "asset_id": "QH-A589"
+    },
+    {
+      "name": "hydrangea_bush",
+      "file": "hydrangea_bush.glb",
+      "bytes": 19020,
+      "triangles": 288,
+      "meshes": 3,
+      "dimensions_m": [
+        1.2,
+        1.0,
+        1.08
+      ],
+      "materials": [
+        "bloom",
+        "leaf"
+      ],
+      "asset_id": "QH-A590"
+    },
+    {
+      "name": "boxwood_hedge",
+      "file": "boxwood_hedge.glb",
+      "bytes": 2316,
+      "triangles": 6,
+      "meshes": 1,
+      "dimensions_m": [
+        3.0,
+        0.8,
+        1.0
+      ],
+      "materials": [
+        "leaf"
+      ],
+      "asset_id": "QH-A591"
+    },
+    {
+      "name": "vacant_lot_shrubs",
+      "file": "vacant_lot_shrubs.glb",
+      "bytes": 12748,
+      "triangles": 192,
+      "meshes": 2,
+      "dimensions_m": [
+        2.15,
+        0.95,
+        0.8
+      ],
+      "materials": [
+        "leaf"
+      ],
+      "asset_id": "QH-A592"
+    },
+    {
+      "name": "dune_grass",
+      "file": "dune_grass.glb",
+      "bytes": 6236,
+      "triangles": 21,
+      "meshes": 3,
+      "dimensions_m": [
+        0.54,
+        0.24,
+        1.2
+      ],
+      "materials": [
+        "grass"
+      ],
+      "asset_id": "QH-A593"
+    },
+    {
+      "name": "verge_grass",
+      "file": "verge_grass.glb",
+      "bytes": 8676,
+      "triangles": 103,
+      "meshes": 2,
+      "dimensions_m": [
+        1.0,
+        0.8,
+        1.0
+      ],
+      "materials": [
+        "grass"
+      ],
+      "asset_id": "QH-A594"
+    },
+    {
+      "name": "weed_tufts",
+      "file": "weed_tufts.glb",
+      "bytes": 4428,
+      "triangles": 14,
+      "meshes": 2,
+      "dimensions_m": [
+        0.54,
+        0.14,
+        0.6
+      ],
+      "materials": [
+        "grass"
+      ],
+      "asset_id": "QH-A595"
+    },
+    {
+      "name": "harbor_reeds",
+      "file": "harbor_reeds.glb",
+      "bytes": 6440,
+      "triangles": 24,
+      "meshes": 3,
+      "dimensions_m": [
+        0.65,
+        0.36,
+        1.8
+      ],
+      "materials": [
+        "reed"
+      ],
+      "asset_id": "QH-A596"
+    },
+    {
+      "name": "ivy_patch",
+      "file": "ivy_patch.glb",
+      "bytes": 14684,
+      "triangles": 198,
+      "meshes": 3,
+      "dimensions_m": [
+        2.4,
+        0.26,
+        2.0
+      ],
+      "materials": [
+        "leaf",
+        "wall"
+      ],
+      "asset_id": "QH-A597"
+    },
+    {
+      "name": "planted_flowers",
+      "file": "planted_flowers.glb",
+      "bytes": 20036,
+      "triangles": 294,
+      "meshes": 4,
+      "dimensions_m": [
+        2.4,
+        1.2,
+        0.42
+      ],
+      "materials": [
+        "flower",
+        "soil"
+      ],
+      "asset_id": "QH-A598"
+    },
+    {
+      "name": "leaf_pile",
+      "file": "leaf_pile.glb",
+      "bytes": 6620,
+      "triangles": 96,
+      "meshes": 1,
+      "dimensions_m": [
+        1.2,
+        1.0,
+        0.4
+      ],
+      "materials": [
+        "leafpile"
+      ],
+      "asset_id": "QH-A599"
+    },
+    {
+      "name": "twig_scatter",
+      "file": "twig_scatter.glb",
+      "bytes": 4628,
+      "triangles": 14,
+      "meshes": 2,
+      "dimensions_m": [
+        0.87,
+        0.61,
+        0.04
+      ],
+      "materials": [
+        "twig"
+      ],
+      "asset_id": "QH-A600"
+    },
+    {
+      "name": "snow_shrub",
+      "file": "snow_shrub.glb",
+      "bytes": 12820,
+      "triangles": 192,
+      "meshes": 2,
+      "dimensions_m": [
+        1.2,
+        1.0,
+        1.1
+      ],
+      "materials": [
+        "leaf",
+        "snow"
+      ],
+      "asset_id": "QH-A601"
+    },
+    {
+      "name": "stump_cluster",
+      "file": "stump_cluster.glb",
+      "bytes": 5572,
+      "triangles": 22,
+      "meshes": 2,
+      "dimensions_m": [
+        1.39,
+        0.6,
+        0.6
+      ],
+      "materials": [
+        "wood"
+      ],
+      "asset_id": "QH-A602"
+    },
+    {
+      "name": "rock_cluster",
+      "file": "rock_cluster.glb",
+      "bytes": 5344,
+      "triangles": 18,
+      "meshes": 3,
+      "dimensions_m": [
+        1.45,
+        0.75,
+        0.5
+      ],
+      "materials": [
+        "rock"
+      ],
+      "asset_id": "QH-A603"
+    }
+  ]
+}
