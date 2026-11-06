@@ -1,0 +1,25 @@
+{
+  "kind": "main-game-models",
+  "source": "repo-public-models",
+  "integrationDoc": null,
+  "handoffArchiveAttached": false,
+  "notes": [
+    "Counted from public/models. This is the main-game model manifest.",
+    "PRODUCTION-344-ASSET-INTEGRATION.md is not in this repo.",
+    "No external GLB archive was attached. This file does not record a 344-model set.",
+    "CesiumMan.glb was probed from the bytes in public/models: no EXT_meshopt_compression."
+  ],
+  "entries": [
+    {
+      "id": "cesium-man",
+      "file": "CesiumMan.glb",
+      "bytes": 438044,
+      "meshopt": false,
+      "meshoptRequired": false,
+      "extensionsUsed": [],
+      "extensionsRequired": [],
+      "role": "character",
+      "generator": "COLLADA2GLTF"
+    }
+  ]
+}
