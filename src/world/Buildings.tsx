@@ -5,13 +5,18 @@ import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js
 import { RigidBody } from "@react-three/rapier";
 import { shared } from "../shared";
 import type { Building } from "../slice";
-
-const WINDOW_GLOW = new THREE.Color("#ffcf8a");
+import { FacadeMaterial } from "./FacadeMaterial";
+import { facadeBlockoutGlow, paintFacadeAttributes } from "./facadeSurface";
 
 // Auto-extruded OSM footprints. Buildings within COLLIDER_RADIUS of the playable
 // core get individual hull colliders; the rest are merged per spatial CELL so
 // the renderer can frustum-cull off-screen chunks and distance-cull far ones —
 // essential now the slice carries 10k+ footprints (NB + Fairhaven).
+//
+// Façade colour and UVs are vertex attributes only. Positions are unchanged, so
+// the hull colliders stay on the same solid. Seamen's Bethel stays the
+// hand-authored mesh in SeamensBethel.tsx; the gold name tint below is only the
+// extruded stand-in and is not a replacement model.
 
 const COLLIDER_RADIUS = 230; // metres from `center` — gets real colliders
 const CELL = 160;            // far-building chunk size (metres)
@@ -22,14 +27,19 @@ const HERO = new Set([
 ]);
 const PALETTE = ["#8a5a48", "#b8b0a0", "#7c7e88", "#a8987e", "#6e4a3e", "#9aa0a6", "#c2bcae"];
 const HERO_COLOR = "#caa24a";
+const ROOF_COLOR = "#37322c";
 
-function footprintGeometry(b: Building): THREE.BufferGeometry {
+function footprintGeometry(b: Building, wall: THREE.Color, roof: THREE.Color): THREE.BufferGeometry {
   const shape = new THREE.Shape();
   b.footprint.forEach(([e, n], i) => (i === 0 ? shape.moveTo(e, n) : shape.lineTo(e, n)));
   const g = new THREE.ExtrudeGeometry(shape, { depth: b.height, bevelEnabled: false });
   g.rotateX(-Math.PI / 2); // extrude up: x=east, y=up, z=-north
-  g.deleteAttribute("uv");
   g.computeVertexNormals();
+  const pos = g.attributes.position;
+  const nor = g.attributes.normal;
+  const painted = paintFacadeAttributes(pos, nor, wall, roof);
+  g.setAttribute("color", new THREE.BufferAttribute(painted.color, 3));
+  g.setAttribute("uv", new THREE.BufferAttribute(painted.uv, 2));
   return g;
 }
 
@@ -57,20 +67,16 @@ export function Buildings({
   colliderRadius?: number;
 }) {
   const { near, chunks } = useMemo(() => {
-    const near: { geom: THREE.BufferGeometry; color: string }[] = [];
+    const near: THREE.BufferGeometry[] = [];
     const cells = new Map<string, THREE.BufferGeometry[]>();
+    const roof = new THREE.Color(ROOF_COLOR);
     buildings.forEach((b, i) => {
       const [cx, cy] = centroid(b);
       const d = Math.hypot(cx - center[0], cy - center[1]);
-      const geom = footprintGeometry(b);
+      const geom = footprintGeometry(b, new THREE.Color(colorFor(b, i)), roof);
       if (d <= colliderRadius) {
-        near.push({ geom, color: colorFor(b, i) });
+        near.push(geom);
       } else {
-        const col = new THREE.Color(colorFor(b, i));
-        const n = geom.attributes.position.count;
-        const colors = new Float32Array(n * 3);
-        for (let k = 0; k < n; k++) colors.set([col.r, col.g, col.b], k * 3);
-        geom.setAttribute("color", new THREE.BufferAttribute(colors, 3));
         const key = `${Math.floor(cx / CELL)},${Math.floor(cy / CELL)}`;
         (cells.get(key) ?? cells.set(key, []).get(key)!).push(geom);
       }
@@ -92,11 +98,11 @@ export function Buildings({
   const chunkRefs = useRef<(THREE.Mesh | null)[]>([]);
   const camera = useThree((s) => s.camera);
   useFrame(() => {
-    const night = 1 - THREE.MathUtils.smoothstep(shared.dayT, 0, 0.3); // dusk-gated: dark by day
+    const night = facadeBlockoutGlow(shared.dayT); // dusk-gated: panes dark by day
     const g = root.current;
     if (g) g.traverse((o) => {
       const m = (o as THREE.Mesh).material as THREE.MeshStandardMaterial | undefined;
-      if (m && m.isMeshStandardMaterial) m.emissiveIntensity = night * 0.4;
+      if (m && m.isMeshStandardMaterial) m.emissiveIntensity = night;
     });
     const cp = camera.position;
     chunks.forEach((c, i) => {
@@ -107,17 +113,18 @@ export function Buildings({
 
   return (
     <group ref={root}>
-      {near.map(({ geom, color }, i) => (
+      {near.map((geom, i) => (
         <RigidBody key={i} type="fixed" colliders="hull">
           <mesh geometry={geom} castShadow receiveShadow>
-            <meshStandardMaterial color={color} emissive={WINDOW_GLOW} emissiveIntensity={0} roughness={0.85} flatShading />
+            <FacadeMaterial />
           </mesh>
         </RigidBody>
       ))}
-      {/* far buildings: per-cell merged meshes, no shadow casting (cheap) */}
+      {/* far buildings: per-cell merged meshes, no shadow casting (cheap).
+          No relief normal — a tangent buffer on a merged cell is unbudgeted. */}
       {chunks.map((c, i) => (
         <mesh key={i} ref={(el) => (chunkRefs.current[i] = el)} geometry={c.geom} receiveShadow>
-          <meshStandardMaterial vertexColors emissive={WINDOW_GLOW} emissiveIntensity={0} roughness={0.85} flatShading />
+          <FacadeMaterial relief={false} flatShading />
         </mesh>
       ))}
     </group>

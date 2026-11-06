@@ -1,4 +1,15 @@
 import * as THREE from "three";
+import {
+  FACADE_ANISOTROPY,
+  FACADE_CELL,
+  FACADE_FRAME_PX,
+  FACADE_MARGIN_X,
+  FACADE_MARGIN_Y,
+  FACADE_MEETING_RAIL_PX,
+  FACADE_MULLION_PX,
+  facadeReliefImage,
+  facadeRoughnessImage,
+} from "./facadeSurface";
 
 // Small procedural canvas textures (no asset files needed, works offline).
 
@@ -74,23 +85,48 @@ export function makeZebra(): THREE.Texture {
   _zebra = asColor(new THREE.Texture(c)); return _zebra;
 }
 
-// Façade maps (§ Phase 1): one tileable cell ≈ one floor (~3.2 m). `albedo` is
-// white wall + dark glass window (multiplies the per-building base colour);
-// `emissive` is black wall + warm lit window (glows at night). Shared singletons.
-let _facade: { albedo: THREE.Texture; emissive: THREE.Texture } | null = null;
+// Linear data map (roughness / tangent normal). Not sRGB. Anisotropy stays at
+// FACADE_ANISOTROPY — lower than the road maps — because these repeat on every
+// streamed wall and that fill cost has not been measured on device.
+function asLinearData(data: Uint8Array, size: number): THREE.DataTexture {
+  const t = new THREE.DataTexture(data, size, size, THREE.RGBAFormat);
+  t.colorSpace = THREE.NoColorSpace;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.flipY = true; // row 0 is v = 1, same convention as the canvas albedo
+  t.magFilter = THREE.LinearFilter;
+  t.minFilter = THREE.LinearMipmapLinearFilter;
+  t.generateMipmaps = true;
+  t.anisotropy = FACADE_ANISOTROPY;
+  t.needsUpdate = true;
+  return t;
+}
+
+// Façade maps: one tileable cell ≈ one floor (FACADE_FLOOR_M). `albedo` is
+// white wall + dark glass (multiplies the per-building base colour). `emissive`
+// is black wall + warm lit window. `roughness` splits masonry from glass.
+// `relief` is the window recess and faint courses. No photo pixels, no text.
+// Shared singletons.
+let _facade: {
+  albedo: THREE.Texture;
+  emissive: THREE.Texture;
+  roughness: THREE.Texture;
+  relief: THREE.Texture;
+} | null = null;
 export function makeFacadeMaps() {
   if (_facade) return _facade;
-  const S = 128;
+  const S = FACADE_CELL;
   const [ca, a] = canvas(S);   // albedo
   const [ce, e] = canvas(S);   // emissive
   // wall
   a.fillStyle = "#ffffff"; a.fillRect(0, 0, S, S);          // white → keep base colour
   e.fillStyle = "#000000"; e.fillRect(0, 0, S, S);          // black → wall doesn't glow
   // window opening, centred, taller than wide (typical sash window)
-  const mx = 30, my = 20, w = S - mx * 2, h = S - my * 2;
+  const mx = FACADE_MARGIN_X, my = FACADE_MARGIN_Y, w = S - mx * 2, h = S - my * 2;
+  const frame = FACADE_FRAME_PX;
+  const mullion = FACADE_MULLION_PX;
   // --- albedo ---
   // light frame/casing around the opening
-  a.fillStyle = "#d7d4cc"; a.fillRect(mx - 4, my - 4, w + 8, h + 8);
+  a.fillStyle = "#d7d4cc"; a.fillRect(mx - frame, my - frame, w + frame * 2, h + frame * 2);
   // glass with a vertical sky-reflection gradient (dark at top → lighter low)
   const gg = a.createLinearGradient(0, my, 0, my + h);
   gg.addColorStop(0, "#1c252f"); gg.addColorStop(0.55, "#2c3947"); gg.addColorStop(1, "#3a4856");
@@ -102,19 +138,22 @@ export function makeFacadeMaps() {
   a.restore();
   // muntins: 2 vertical × 3 horizontal panes, plus the meeting rail a touch thicker
   a.fillStyle = "#cfccc4";
-  a.fillRect(mx + w / 2 - 1.5, my, 3, h);                     // vertical mullion
-  for (const fy of [my + h / 3, my + (2 * h) / 3]) a.fillRect(mx, fy - 1.5, w, 3);
-  a.fillStyle = "#bfbcb4"; a.fillRect(mx, my + h / 2 - 2, w, 4); // meeting rail
+  a.fillRect(mx + w / 2 - mullion / 2, my, mullion, h);       // vertical mullion
+  for (const fy of [my + h / 3, my + (2 * h) / 3]) a.fillRect(mx, fy - mullion / 2, w, mullion);
+  a.fillStyle = "#bfbcb4";
+  a.fillRect(mx, my + h / 2 - FACADE_MEETING_RAIL_PX / 2, w, FACADE_MEETING_RAIL_PX); // meeting rail
   // sill shadow under the opening
-  a.fillStyle = "rgba(0,0,0,0.18)"; a.fillRect(mx - 4, my + h + 4, w + 8, 4);
+  a.fillStyle = "rgba(0,0,0,0.18)"; a.fillRect(mx - frame, my + h + frame, w + frame * 2, frame);
   // --- emissive (lit at night) ---
   e.fillStyle = "#ffcf8a"; e.fillRect(mx, my, w, h);
   e.fillStyle = "#000000";
-  e.fillRect(mx + w / 2 - 1.5, my, 3, h);
-  for (const fy of [my + h / 3, my + h / 2, my + (2 * h) / 3]) e.fillRect(mx, fy - 1.5, w, 3);
+  e.fillRect(mx + w / 2 - mullion / 2, my, mullion, h);
+  for (const fy of [my + h / 3, my + h / 2, my + (2 * h) / 3]) e.fillRect(mx, fy - mullion / 2, w, mullion);
   const albedo = asColor(new THREE.Texture(ca)); albedo.wrapS = albedo.wrapT = THREE.RepeatWrapping; albedo.needsUpdate = true;
   const emissive = asColor(new THREE.Texture(ce)); emissive.wrapS = emissive.wrapT = THREE.RepeatWrapping; emissive.needsUpdate = true;
-  _facade = { albedo, emissive };
+  const roughness = asLinearData(facadeRoughnessImage(S), S);
+  const relief = asLinearData(facadeReliefImage(S), S);
+  _facade = { albedo, emissive, roughness, relief };
   return _facade;
 }
 

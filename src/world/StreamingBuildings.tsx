@@ -6,7 +6,8 @@ import { RigidBody } from "@react-three/rapier";
 import { shared } from "../shared";
 import { Buildings } from "./Buildings";
 import { ensureGisReplacements, withoutReplaced } from "./gisDistrict";
-import { makeFacadeMaps, makeNoiseNormal } from "./textures";
+import { FacadeMaterial } from "./FacadeMaterial";
+import { PLAIN_FACADE_UV, facadeStreamGlow, paintFacadeAttributes } from "./facadeSurface";
 import type { Building } from "../slice";
 
 // Multi-tile building streamer (Step 19). Loads building tiles (public/tiles/
@@ -17,7 +18,6 @@ import type { Building } from "../slice";
 
 const VIEW_R = 3;     // tiles loaded around the player (each TILE metres)
 const COLLIDE_R = 1;  // tiles that get physics colliders
-const WINDOW_GLOW = new THREE.Color("#ffcf8a");
 // New Bedford palette: brick reds, painted clapboard, weathered wood (short
 // residential/commercial) vs granite + concrete (tall downtown).
 const WARM = ["#7e463a", "#8a5a48", "#9c6347", "#a8514a", "#6e4a3e", "#b0a48c", "#c2bcae", "#5e6b66", "#8a9488", "#b8b0a0"];
@@ -25,7 +25,6 @@ const GREY = ["#7c7e88", "#9aa0a6", "#8f8c86", "#6f7178", "#a7a59c", "#86837c"];
 const ROOF = ["#2c2a28", "#37322c", "#31343a", "#2a2e30", "#3a352f"]; // tar / gravel roofs
 const HERO_COLOR = "#caa24a";
 const HERO = new Set(["Seamen's Bethel", "New Bedford Whaling Museum", "Mariner's Home", "Double Bank Building", "Rodman Candleworks"]);
-const FLOOR = 3.2; // metres per window row
 
 interface Manifest { tile: number; keys: string[] }
 
@@ -40,7 +39,7 @@ function hipRoof(b: Building, roofH: number, col: THREE.Color): THREE.BufferGeom
   cx /= fp.length; cn /= fp.length;
   const apex: [number, number, number] = [cx, b.height + roofH, -cn];
   const pos: number[] = [], colr: number[] = [], uv: number[] = [];
-  const push = (x: number, y: number, z: number) => { pos.push(x, y, z); colr.push(col.r, col.g, col.b); uv.push(0.04, 0.04); };
+  const push = (x: number, y: number, z: number) => { pos.push(x, y, z); colr.push(col.r, col.g, col.b); uv.push(PLAIN_FACADE_UV, PLAIN_FACADE_UV); };
   for (let i = 0; i < fp.length; i++) {
     const [e0, n0] = fp[i], [e1, n1] = fp[(i + 1) % fp.length];
     const a: [number, number, number] = [e0, b.height, -n0];
@@ -73,7 +72,7 @@ function parapet(b: Building, h: number, col: THREE.Color): THREE.BufferGeometry
   const cz = -cn; // centroid in world z
   const y0 = b.height, y1 = b.height + h;
   const pos: number[] = [], colr: number[] = [], uv: number[] = [];
-  const push = (x: number, y: number, z: number) => { pos.push(x, y, z); colr.push(col.r, col.g, col.b); uv.push(0.04, 0.04); };
+  const push = (x: number, y: number, z: number) => { pos.push(x, y, z); colr.push(col.r, col.g, col.b); uv.push(PLAIN_FACADE_UV, PLAIN_FACADE_UV); };
   for (let i = 0; i < fp.length; i++) {
     const [e0, n0] = fp[i], [e1, n1] = fp[(i + 1) % fp.length];
     const ax = e0, az = -n0, bx = e1, bz = -n1;
@@ -112,23 +111,10 @@ function tileGeometry(buildings: Building[]): THREE.BufferGeometry | null {
     if (!isHero) wall.multiplyScalar(0.82 + ((i * 0.6180339887) % 1) * 0.34);
     const roof = new THREE.Color(ROOF[i % ROOF.length]);
     const pos = g.attributes.position, nor = g.attributes.normal;
-    const count = pos.count;
-    const colors = new Float32Array(count * 3);
-    const uv = new Float32Array(count * 2);
-    for (let v = 0; v < count; v++) {
-      const x = pos.getX(v), y = pos.getY(v), z = pos.getZ(v);
-      const ny = nor.getY(v);
-      if (Math.abs(ny) > 0.5) { // roof / underside: roof tone, sample plain wall (no windows)
-        colors.set([roof.r, roof.g, roof.b], v * 3);
-        uv[v * 2] = 0.04; uv[v * 2 + 1] = 0.04;
-      } else { // wall: window grid by floor
-        colors.set([wall.r, wall.g, wall.b], v * 3);
-        const horiz = Math.abs(nor.getX(v)) > Math.abs(nor.getZ(v)) ? z : x;
-        uv[v * 2] = horiz / FLOOR; uv[v * 2 + 1] = y / FLOOR;
-      }
-    }
-    g.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-    g.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+    // Roofs sample the plain wall texel (no windows). Walls tile one cell per floor.
+    const painted = paintFacadeAttributes(pos, nor, wall, roof);
+    g.setAttribute("color", new THREE.BufferAttribute(painted.color, 3));
+    g.setAttribute("uv", new THREE.BufferAttribute(painted.uv, 2));
     geoms.push(g);
     // short residential buildings get a pitched hip roof so they don't read as
     // flat-topped boxes; taller commercial/downtown blocks get a parapet coping
@@ -148,11 +134,8 @@ function tileGeometry(buildings: Building[]): THREE.BufferGeometry | null {
 
 function Tile({ buildings, colliders }: { buildings: Building[]; colliders: boolean }) {
   const geom = useMemo(() => tileGeometry(buildings), [buildings]);
-  const maps = useMemo(() => makeFacadeMaps(), []);
-  const nrm = useMemo(() => makeNoiseNormal(), []);
-  const nrmScale = useMemo(() => new THREE.Vector2(0.35, 0.35), []);
   const mat = useRef<THREE.MeshStandardMaterial>(null);
-  useFrame(() => { if (mat.current) mat.current.emissiveIntensity = (1 - shared.dayT) * 1.0; });
+  useFrame(() => { if (mat.current) mat.current.emissiveIntensity = facadeStreamGlow(shared.dayT); });
 
   // rooftop clutter (water tanks / AC units) on mid-rise buildings for skyline depth
   const roofs = useMemo(() => {
@@ -178,11 +161,7 @@ function Tile({ buildings, colliders }: { buildings: Building[]; colliders: bool
   if (!geom) return null;
   const mesh = (
     <mesh geometry={geom} castShadow={colliders} receiveShadow>
-      <meshStandardMaterial
-        ref={mat} vertexColors map={maps.albedo} emissiveMap={maps.emissive}
-        normalMap={nrm} normalScale={nrmScale}
-        emissive={WINDOW_GLOW} emissiveIntensity={0} roughness={0.82} metalness={0.04}
-      />
+      <FacadeMaterial ref={mat} />
     </mesh>
   );
   return (
