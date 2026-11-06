@@ -27,6 +27,14 @@ describe("useEconomy", () => {
     expect(eco().incomePerSec(60)).toBeCloseTo((220 + 320) / 60, 6);
   });
 
+  it("incomePerSec stays at 0 for a zero, negative, or non-finite day length", () => {
+    eco().buy(BUSINESSES[0]);
+    expect(eco().incomePerSec(0)).toBe(0);
+    expect(eco().incomePerSec(-5)).toBe(0);
+    expect(eco().incomePerSec(Number.NaN)).toBe(0);
+    expect(eco().incomePerSec(Number.POSITIVE_INFINITY)).toBe(0);
+  });
+
   it("rollRevenueEvent returns null when nothing is owned", () => {
     expect(rollRevenueEvent(() => 0.1)).toBeNull();
   });
@@ -55,5 +63,23 @@ describe("useEconomy", () => {
     expect(ownedBusinesses()).toHaveLength(0);
     eco().load();
     expect(ownedBusinesses().map((b) => b.id)).toContain(BUSINESSES[2].id);
+  });
+
+  it("load drops unknown ids and ignores a non-object payload", () => {
+    localStorage.setItem(
+      "mounthope.economy.v1",
+      JSON.stringify({ anvil: true, nope: true, quohog: 0 }),
+    );
+    eco().load();
+    expect(ownedBusinesses().map((b) => b.id)).toEqual(["anvil"]);
+
+    useEconomy.setState({ owned: { anvil: true } });
+    localStorage.setItem("mounthope.economy.v1", "[]");
+    eco().load();
+    expect(ownedBusinesses().map((b) => b.id)).toEqual(["anvil"]);
+
+    localStorage.setItem("mounthope.economy.v1", "{");
+    eco().load();
+    expect(ownedBusinesses().map((b) => b.id)).toEqual(["anvil"]);
   });
 });

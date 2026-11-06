@@ -27,4 +27,9 @@ describe("quality presets", () => {
     expect(tileImpostor(q, 3, 3)).toBe(true);  // ring >= viewR
     expect(tileImpostor(q, 2, 3)).toBe(false); // ring < viewR
   });
+
+  it("tileImpostor: low quality uses the shorter view ring", () => {
+    expect(tileImpostor(0, viewRadius(0), viewRadius(0))).toBe(true);
+    expect(tileImpostor(0, viewRadius(0) - 1, viewRadius(0))).toBe(false);
+  });
 });

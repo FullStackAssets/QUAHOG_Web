@@ -66,4 +66,51 @@ describe("useStats", () => {
     expect(stats().police).toBe(3);
     expect(stats().faction).toBe(2);
   });
+
+  it("load is a no-op when nothing has been saved", () => {
+    stats().addCash(10);
+    localStorage.removeItem("mounthope.save.v1");
+    stats().load();
+    expect(stats().cash).toBe(260);
+    expect(stats().health).toBe(100);
+  });
+
+  it("load coerces a corrupt save instead of poisoning the wallet or heat", () => {
+    localStorage.setItem(
+      "mounthope.save.v1",
+      '{"cash":"Infinity","health":1e309,"police":"3","faction":false}',
+    );
+    stats().load();
+    expect(stats().cash).toBe(250);
+    expect(stats().health).toBe(100);
+    expect(stats().police).toBe(3);
+    expect(stats().faction).toBe(0);
+
+    localStorage.setItem(
+      "mounthope.save.v1",
+      '{"cash":-20,"health":140,"police":2.5,"faction":1}',
+    );
+    stats().load();
+    expect(stats().cash).toBe(0);
+    expect(stats().health).toBe(100);
+    expect(stats().police).toBe(2.5);
+    expect(stats().faction).toBe(1);
+  });
+
+  it("load ignores a malformed payload and keeps the current stats", () => {
+    stats().addCash(150);
+    localStorage.setItem("mounthope.save.v1", "{");
+    stats().load();
+    expect(stats().cash).toBe(400);
+    expect(stats().health).toBe(100);
+  });
+
+  it("load fills missing fields from the opening values", () => {
+    localStorage.setItem("mounthope.save.v1", '{"cash":10}');
+    stats().load();
+    expect(stats().cash).toBe(10);
+    expect(stats().health).toBe(100);
+    expect(stats().police).toBe(0);
+    expect(stats().faction).toBe(0);
+  });
 });

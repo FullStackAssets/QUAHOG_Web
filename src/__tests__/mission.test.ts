@@ -44,4 +44,27 @@ describe("useMission", () => {
     expect(m().step).toBe(0);
     expect(m().done).toBe(false);
   });
+
+  it("every step target is a finite world point, and advance stops at the end", () => {
+    let guard = 0;
+    let sawSecondMission = false;
+    while (!m().done) {
+      expect(guard).toBeLessThan(500);
+      guard += 1;
+      if (m().mi > 0) sawSecondMission = true;
+      const step = m().steps[m().step];
+      expect(step.text.length).toBeGreaterThan(0);
+      if (step.target) {
+        expect(step.target).toHaveLength(3);
+        expect(step.target.every((n) => Number.isFinite(n))).toBe(true);
+        expect(step.radius).toBeGreaterThan(0);
+      }
+      m().advance();
+    }
+    expect(sawSecondMission).toBe(true);
+    expect(m().objective).toBe("Campaign complete — the Narrows is yours.");
+    m().advance();
+    expect(m().done).toBe(true);
+    expect(m().objective).toBe("Campaign complete — the Narrows is yours.");
+  });
 });

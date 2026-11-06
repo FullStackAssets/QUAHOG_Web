@@ -6,7 +6,9 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
     environment: "node",
-    include: ["src/**/*.test.ts"],
+    // The .mjs file lives outside src so it can spawn the CLI and walk the
+    // tree with Node's own fs. tsc does not typecheck it (no @types/node).
+    include: ["src/**/*.test.ts", "scripts/testing/**/*.test.mjs"],
     setupFiles: ["src/__tests__/setup.ts"],
   },
 });
