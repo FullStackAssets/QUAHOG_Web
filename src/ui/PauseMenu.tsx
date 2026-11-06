@@ -131,7 +131,9 @@ export function PauseMenu() {
           style={{ ...btn, borderColor: "#8e3a3a", color: "#ffb0b0" }}
           onClick={() => {
             useStats.getState().reset();
+            useStats.getState().save();
             useMission.getState().reset();
+            useMission.getState().save();
             useGame.getState().setPaused(false);
           }}
         >

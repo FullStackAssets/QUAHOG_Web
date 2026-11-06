@@ -2,7 +2,8 @@ import { useFrame } from "@react-three/fiber";
 import { shared } from "../shared";
 import { useGame, useToasts } from "../store";
 import { useStats } from "../game";
-import { useMission } from "../mission";
+import { missionStepMet, useMission } from "../mission";
+import { activePlanarPosition } from "../presence";
 import { sfx } from "../audio/sfx";
 
 // Drives the active mission (§16): checks the current step's completion each frame
@@ -17,22 +18,19 @@ export function MissionRunner() {
     const cur = ms.steps[ms.step];
     if (!cur) return;
     const mode = useGame.getState().mode;
-    const body = mode === "car" ? shared.car : shared.player;
-
-    let complete = true;
-    if (cur.needCar && mode !== "car") complete = false;
-    if (cur.noHeat && useStats.getState().police >= 1) complete = false; // shake the cops first
-    if (cur.target && body) {
-      const p = body.translation();
-      const d = Math.hypot(p.x - cur.target[0], p.z - cur.target[2]);
-      if (d > (cur.radius ?? 10)) complete = false;
-    } else if (cur.target && !body) {
-      complete = false;
-    }
+    const position = activePlanarPosition(mode, {
+      foot: shared.player?.translation(),
+      car: shared.car?.translation(),
+      boat: shared.boat?.translation(),
+    });
+    const complete = missionStepMet(cur, { mode, police: useStats.getState().police, position });
 
     if (complete) {
       if (cur.reward) { useStats.getState().addCash(cur.reward); sfx.cash(); useToasts.getState().push(`+$${cur.reward}`, "#7CFC00"); }
       else sfx.ui();
+      // Pair the wallet write with the step write so Continue cannot restore a
+      // later objective without the cash that step already paid.
+      useStats.getState().save();
       ms.advance();
       const ns = useMission.getState();
       useToasts.getState().push(ns.done ? "Mission complete" : ns.objective, "#ffcf4a");

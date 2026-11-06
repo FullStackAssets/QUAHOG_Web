@@ -4,6 +4,8 @@ import { useStats } from "../game";
 import { useGame } from "../store";
 import type { Weather } from "../store";
 import { useEconomy, rollRevenueEvent } from "../economy";
+import { useMission } from "../mission";
+import { activePlanarPosition } from "../presence";
 import { useToasts } from "../store";
 import { consumeTap } from "../input";
 import { shared } from "../shared";
@@ -86,6 +88,7 @@ export function GameSystems() {
   useEffect(() => {
     useStats.getState().load();
     useEconomy.getState().load();
+    useMission.getState().load();
     sfx.startAmbience();
     // restore settings (§26)
     {
@@ -99,7 +102,12 @@ export function GameSystems() {
       if (s.weather) useGame.setState({ weather: s.weather as Weather });
     }
     // persist position on tab-hide / close so a quick exit still resumes
-    const onHide = () => { if (useGame.getState().started) savePos(); };
+    const onHide = () => {
+      if (!useGame.getState().started) return;
+      savePos();
+      useStats.getState().save();
+      useMission.getState().save();
+    };
     window.addEventListener("pagehide", onHide);
     document.addEventListener("visibilitychange", onHide);
     return () => { window.removeEventListener("pagehide", onHide); document.removeEventListener("visibilitychange", onHide); };
@@ -132,7 +140,12 @@ export function GameSystems() {
     // arrive at a player-placed waypoint → clear it (§21)
     const wp = useGame.getState().waypoint;
     if (wp) {
-      const b = (useGame.getState().mode === "car" ? shared.car : shared.player)?.translation();
+      const mode = useGame.getState().mode;
+      const b = activePlanarPosition(mode, {
+        foot: shared.player?.translation(),
+        car: shared.car?.translation(),
+        boat: shared.boat?.translation(),
+      });
       if (b && Math.hypot(b.x - wp.x, b.z - wp.z) < 9) {
         useGame.getState().setWaypoint(null);
         useToasts.getState().push("Waypoint reached", "#ff7ad9"); sfx.ui();
@@ -176,6 +189,7 @@ export function GameSystems() {
     if (acc.current > 20) {
       acc.current = 0;
       st.save();
+      useMission.getState().save();
       if (useGame.getState().started) savePos();
       const g = useGame.getState();
       saveJSON("mounthope.settings.v1", { fxOn: g.fxOn, shadows: g.shadows, fov: g.fov, reduceShake: g.reduceShake, weather: g.weather, quality: g.quality });

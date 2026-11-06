@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGame } from "../store";
 import { useStats } from "../game";
-import { useMission } from "../mission";
+import { MISSION_SAVE_KEY, useMission } from "../mission";
 import { useEconomy } from "../economy";
 import { sfx } from "../audio/sfx";
 import { getItem, removeItem } from "../storage";
@@ -30,7 +30,7 @@ export function StartMenu({ sliceName, progress = 0 }: { sliceName: string; prog
 
   const play = () => { sfx.setVolume(0.5); useGame.getState().setStarted(true); };
   const newGame = () => {
-    removeItem("mounthope.save.v1", "mounthope.economy.v1", "mounthope.scrimshaw.v1", "mounthope.pos.v1");
+    removeItem("mounthope.save.v1", "mounthope.economy.v1", "mounthope.scrimshaw.v1", "mounthope.pos.v1", MISSION_SAVE_KEY);
     useStats.getState().reset();
     useMission.getState().reset();
     useEconomy.setState({ owned: {} });

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useGame } from "../store";
 import { useMission } from "../mission";
+import { activeHeading, activePlanarPosition } from "../presence";
 import { shared } from "../shared";
 import { sfx } from "../audio/sfx";
 import { CIVIC, FAST_TRAVEL } from "../places";
@@ -33,7 +34,12 @@ export function BigMap() {
 
     // center on the player the first time the map opens
     if (!inited.current) {
-      const t = (useGame.getState().mode === "car" ? shared.car : shared.player)?.translation();
+      const mode = useGame.getState().mode;
+      const t = activePlanarPosition(mode, {
+        foot: shared.player?.translation(),
+        car: shared.car?.translation(),
+        boat: shared.boat?.translation(),
+      });
       cam.current.x = t?.x ?? 0;
       cam.current.z = t?.z ?? 0;
       inited.current = true;
@@ -147,10 +153,15 @@ export function BigMap() {
         ctx.fill();
       }
 
-      // player
-      const t = (useGame.getState().mode === "car" ? shared.car : shared.player)?.translation();
+      // player — boat mode follows the hull, not the body left at the dock
+      const mode = useGame.getState().mode;
+      const t = activePlanarPosition(mode, {
+        foot: shared.player?.translation(),
+        car: shared.car?.translation(),
+        boat: shared.boat?.translation(),
+      });
       if (t) {
-        const heading = useGame.getState().mode === "car" ? shared.carYaw : shared.heading;
+        const heading = activeHeading(mode, { foot: shared.heading, car: shared.carYaw, boat: shared.boatYaw });
         ctx.save();
         ctx.translate(sx(t.x), sy(t.z));
         ctx.rotate(-heading);
@@ -223,7 +234,12 @@ export function BigMap() {
         <button style={mapBtn} onClick={() => zoom(1.25)}>＋</button>
         <button style={mapBtn} onClick={() => zoom(1 / 1.25)}>－</button>
         <button style={mapBtn} onClick={() => {
-          const t = (useGame.getState().mode === "car" ? shared.car : shared.player)?.translation();
+          const mode = useGame.getState().mode;
+          const t = activePlanarPosition(mode, {
+            foot: shared.player?.translation(),
+            car: shared.car?.translation(),
+            boat: shared.boat?.translation(),
+          });
           if (t) { cam.current.x = t.x; cam.current.z = t.z; }
         }} title="Recenter on player">◎</button>
         {waypoint && (

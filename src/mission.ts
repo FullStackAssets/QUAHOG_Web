@@ -1,8 +1,19 @@
 import { create } from "zustand";
+import { loadJSON, saveJSON } from "./storage";
 
 // Mission engine (§16). Missions are ordered lists of steps; each step completes
 // on reaching a world target and/or being in a car, and may pay a reward.
 // Missions chain: finishing one starts the next.
+//
+// Progress is persisted separately from the wallet. Continue restores cash,
+// businesses, and position; without this blob the campaign restarted at
+// "Off the Boat" and MissionRunner could pay the opener rewards again.
+
+export const MISSION_SAVE_KEY = "mounthope.mission.v1";
+export const CAMPAIGN_COMPLETE = "Campaign complete — the Narrows is yours.";
+
+export interface PlanarPoint { x: number; z: number }
+export type ActorMode = "foot" | "car" | "boat";
 
 export interface MissionStep {
   text: string;
@@ -112,27 +123,92 @@ interface MissionState {
   objective: string;
   advance: () => void;
   reset: () => void;
+  save: () => void;
+  load: () => void;
 }
 
-export const useMission = create<MissionState>((set, get) => ({
+interface SavedMission { mi: number; step: number; done: boolean }
+
+const isInt = (v: unknown): v is number => typeof v === "number" && Number.isInteger(v);
+
+/**
+ * Pure completion rule used by MissionRunner.
+ * `position` must already be the active actor (foot, car, or boat).
+ * A step with no target, no vehicle requirement, and no heat gate is met immediately.
+ */
+export function missionStepMet(
+  step: MissionStep,
+  ctx: { mode: ActorMode; police: number; position: PlanarPoint | null },
+): boolean {
+  if (step.needCar && ctx.mode !== "car") return false;
+  if (step.noHeat && ctx.police >= 1) return false;
+  if (step.target) {
+    if (!ctx.position) return false;
+    const radius = step.radius ?? 10;
+    const dx = ctx.position.x - step.target[0];
+    const dz = ctx.position.z - step.target[2];
+    if (Math.hypot(dx, dz) > radius) return false;
+  }
+  return true;
+}
+
+const opening = (): Pick<MissionState, "mi" | "steps" | "step" | "done" | "title" | "objective"> => ({
   mi: 0,
   steps: MISSIONS[0].steps,
   step: 0,
   done: false,
   title: MISSIONS[0].title,
   objective: MISSIONS[0].steps[0].text,
+});
+
+const finished = (): Pick<MissionState, "mi" | "steps" | "step" | "done" | "title" | "objective"> => {
+  const last = MISSIONS[MISSIONS.length - 1];
+  return {
+    mi: MISSIONS.length - 1,
+    steps: last.steps,
+    step: last.steps.length,
+    done: true,
+    title: last.title,
+    objective: CAMPAIGN_COMPLETE,
+  };
+};
+
+export const useMission = create<MissionState>((set, get) => ({
+  ...opening(),
   advance: () => {
     const { mi, step, steps, done } = get();
     if (done) return; // campaign already finished — don't run past the end
     const next = step + 1;
-    if (next < steps.length) { set({ step: next, objective: steps[next].text }); return; }
-    // mission finished — chain to the next, or end the campaign
-    const nm = mi + 1;
-    if (nm < MISSIONS.length) {
+    if (next < steps.length) set({ step: next, objective: steps[next].text });
+    else if (mi + 1 < MISSIONS.length) {
+      const nm = mi + 1;
       set({ mi: nm, steps: MISSIONS[nm].steps, step: 0, title: MISSIONS[nm].title, objective: MISSIONS[nm].steps[0].text });
     } else {
-      set({ step: next, done: true, objective: "Campaign complete — the Narrows is yours." });
+      set(finished());
     }
+    get().save();
   },
-  reset: () => set({ mi: 0, steps: MISSIONS[0].steps, step: 0, done: false, title: MISSIONS[0].title, objective: MISSIONS[0].steps[0].text }),
+  // Memory only. New Game deletes the key; Pause "Reset progress" calls save()
+  // afterwards so a refresh cannot reload the cleared campaign.
+  reset: () => set(opening()),
+  save: () => {
+    const { mi, step, done } = get();
+    saveJSON(MISSION_SAVE_KEY, { mi, step, done } satisfies SavedMission);
+  },
+  load: () => {
+    const parsed = loadJSON<Partial<SavedMission> | null>(MISSION_SAVE_KEY, null);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return;
+    if (parsed.done === true) { set(finished()); return; }
+    if (!isInt(parsed.mi) || parsed.mi < 0 || parsed.mi >= MISSIONS.length) return;
+    const mission = MISSIONS[parsed.mi];
+    if (!isInt(parsed.step) || parsed.step < 0 || parsed.step >= mission.steps.length) return;
+    set({
+      mi: parsed.mi,
+      steps: mission.steps,
+      step: parsed.step,
+      done: false,
+      title: mission.title,
+      objective: mission.steps[parsed.step].text,
+    });
+  },
 }));
