@@ -85,20 +85,16 @@ Most likely causes, in order of probability:
 ## 4. Feature roadmap (next steps)
 
 **Phase A — make it solid & legible**
-- Stability pass above is in code and unit-tested. Device confirmation is open.
-- Rigged-human `SCALE` / `FACE` / `Y_OFF` are named constants and were **not**
-  nudged: there is no device preview in this pass. Idle / walk / run states are
-  in. The photoreal view keeps the rigid humanoid; CesiumMan skinning breaks at
-  earth-centered coordinates, so it stays on the stylized world.
-- Play HUD: heading-up OSM minimap (New Bedford only), compass, health, and
-  enter / punch / hurt prompts. Health drops once per traffic overlap.
+- Stability pass above is in the photoreal code and unit-tested. A live tile
+  session is still required before calling it done.
+- Tune the human model (`SCALE` / `FACE` / `Y_OFF` in `ModelCharacter.tsx`) once
+  visible; add idle vs walk vs run animation states.
+- HUD pass: minimap/compass, health, interaction prompts.
 
 **Phase B — real actors & vehicles**
-- NPC traffic uses the existing low-poly vehicle meshes (five silhouettes),
-  with headlight intensity forced on in rain and brake lamps when slowing.
-  No new scanned or CC0 car GLBs were added.
-- Pedestrians differ by shirt, hair, scale, build, and a simple hat. They are
-  variants of one rigid mesh, not separate people.
+- Swap car silhouettes for CC0 GLB car models (generic sedan/SUV/sports skinned
+  to our 5 names); shadows + headlight glow at night.
+- A few distinct pedestrian models (not all the same person).
 
 **Phase C — gameplay systems**
 - Mission framework (objective markers, triggers, states, rewards) — see the

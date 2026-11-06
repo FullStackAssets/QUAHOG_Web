@@ -7,20 +7,20 @@ import { TilesRendererContext } from "3d-tiles-renderer/r3f";
 // float32, so the skinned model explodes into shards. Rigid meshes render
 // camera-relative and stay crisp (same reason the car looks fine).
 import { Character } from "../world/Character";
-import { gaitFor } from "../actors/gait";
 import { consumeTap, isDown, moveAxis } from "../input";
 import { DRIVABLE, awayInto, firstPerson, followCam, forwardHit, frameUp, groundY, lerpAngle, placeOverviewCamera, sampleRoute } from "./follow";
 import { playState, resetBodies, type Body } from "./playState";
 import { Vehicle } from "./Vehicles";
-import { trafficLook } from "./vehicleTypes";
-import { pedLook } from "./pedLook";
 import { NPC_GROUND_INTERVAL_S, tileCollision } from "./raycastBudget";
-import { applyContactDamage, contactLatch } from "./health";
-import type { Weather } from "./Ambient";
 import type { Slice } from "../slice";
 
 export type View = "third" | "first";
 export interface Spawn { x: number; z: number; heading: number }
+
+const PED_COLORS = ["#c0563f", "#3f6cc0", "#4a8c52", "#b8a23a", "#7a4a8c"];
+const PANTS = ["#2c2f3a", "#3a3326", "#23344f", "#4a4a4a"];
+const SKINS = ["#caa07a", "#e0b48c", "#a87a52", "#8a5a36"];
+const CAR_COLORS = ["#9c3a3a", "#2f6f7a", "#caa24a", "#3a5a9c", "#5a5a5a"];
 
 const planar = (a: THREE.Vector3, b: THREE.Vector3) => Math.hypot(a.x - b.x, a.z - b.z);
 
@@ -34,21 +34,10 @@ const _to = new THREE.Vector3();
 const _point = new THREE.Vector3();
 const _routeDir = new THREE.Vector3();
 
-function pedAhead(pos: THREE.Vector3, heading: number): boolean {
-  _fwd.set(Math.sin(heading), 0, Math.cos(heading));
-  for (const ped of playState.peds) {
-    const dx = ped.pos.x - pos.x;
-    const dz = ped.pos.z - pos.z;
-    const d = Math.hypot(dx, dz) || 1;
-    if (d < 2 && (dx * _fwd.x + dz * _fwd.z) / d > 0.25) return true;
-  }
-  return false;
-}
-
 // ---------------------------------------------------------------------------
 // Player: on foot + drivable car, wall-collided, with 1st/3rd-person views.
 
-export function PlayerRig({ spawn, view, weather = "clear", onReady }: { spawn: Spawn; view: View; weather?: Weather; onReady?: () => void }) {
+export function PlayerRig({ spawn, view, onReady }: { spawn: Spawn; view: View; onReady?: () => void }) {
   const camera = useThree((s) => s.camera);
   const tiles = useContext(TilesRendererContext);
   const player = useRef<THREE.Group>(null);
@@ -58,10 +47,6 @@ export function PlayerRig({ spawn, view, weather = "clear", onReady }: { spawn: 
     ready: false,
     wait: 0,
     carSpeed: 0,
-    speed: 0,
-    health: 100,
-    bumpLatch: false,
-    overlapping: false,
     pos: new THREE.Vector3(spawn.x, 0, spawn.z),
     heading: spawn.heading,
     camYaw: spawn.heading,
@@ -70,13 +55,7 @@ export function PlayerRig({ spawn, view, weather = "clear", onReady }: { spawn: 
     carYaw: spawn.heading,
   });
 
-  useEffect(() => {
-    playState.player.health = 100;
-    playState.player.driving = false;
-    playState.player.nearCar = false;
-    playState.player.pedInReach = false;
-    return () => tileCollision.clear();
-  }, []);
+  useEffect(() => () => tileCollision.clear(), []);
 
   useFrame((state, dt) => {
     const parent = player.current?.parent;
@@ -106,7 +85,6 @@ export function PlayerRig({ spawn, view, weather = "clear", onReady }: { spawn: 
     }
     if (car.current) car.current.visible = true;
 
-    st.overlapping = false;
     const ax = moveAxis();
     _fwd.set(Math.sin(st.camYaw), 0, Math.cos(st.camYaw));
     _right.set(_fwd.z, 0, -_fwd.x);
@@ -128,21 +106,14 @@ export function PlayerRig({ spawn, view, weather = "clear", onReady }: { spawn: 
         st.pos.addScaledVector(_dir, allowed);
         st.heading = Math.atan2(_dir.x, _dir.z);
         st.moving = allowed > 0.001;
-        st.speed = st.moving ? speed : 0;
-      } else {
-        st.moving = false;
-        st.speed = 0;
-      }
+      } else st.moving = false;
 
       const gy = tileCollision.sampleGround("player-ground", now, () => groundY(parent, group, ray, st.pos.x, st.pos.z, up), { priority: true });
       if (gy !== null) st.pos.y = gy;
 
       for (const c of playState.cars) {
         const d = planar(st.pos, c.pos);
-        if (d > 1e-3 && d < 1.6) {
-          st.overlapping = true;
-          st.pos.addScaledVector(awayInto(_away, st.pos, c.pos), 1.6 - d);
-        }
+        if (d > 1e-3 && d < 1.6) st.pos.addScaledVector(awayInto(_away, st.pos, c.pos), 1.6 - d);
       }
       knockPeds(st.pos, 0.9);
 
@@ -169,7 +140,6 @@ export function PlayerRig({ spawn, view, weather = "clear", onReady }: { spawn: 
       else firstPerson(camera, parent, up, st.pos, st.heading, 1.7);
     } else {
       if (player.current) player.current.visible = false;
-      st.moving = false;
       st.carSpeed = THREE.MathUtils.lerp(st.carSpeed, ax.y * 22, 1 - Math.exp(-step * 2.5));
       if (Math.abs(st.carSpeed) > 0.5) st.carYaw -= ax.x * 1.3 * step * Math.sign(st.carSpeed);
       _fwd.set(Math.sin(st.carYaw), 0, Math.cos(st.carYaw));
@@ -192,7 +162,6 @@ export function PlayerRig({ spawn, view, weather = "clear", onReady }: { spawn: 
       for (const c of playState.cars) {
         const d = planar(st.carPos, c.pos);
         if (d > 1e-3 && d < 3.4) {
-          st.overlapping = true;
           awayInto(_away, c.pos, st.carPos);
           c.push.addScaledVector(_away, 3.4 - d);
           st.carPos.addScaledVector(_away, -(3.4 - d) * 0.5);
@@ -217,41 +186,19 @@ export function PlayerRig({ spawn, view, weather = "clear", onReady }: { spawn: 
         _seat.copy(st.carPos).addScaledVector(_fwd, 0.2);
         firstPerson(camera, parent, up, _seat, st.carYaw, 1.6);
       }
-      st.speed = Math.abs(st.carSpeed);
     }
 
-    const origin = st.mode === "car" ? st.carPos : st.pos;
-    const latch = contactLatch(st.bumpLatch, st.overlapping);
-    st.bumpLatch = latch.latched;
-    if (latch.hit) st.health = applyContactDamage(st.health, 1);
-    if (playState.bump && !latch.latched) playState.bump = 0;
-
     playState.player.driving = st.mode === "car";
-    playState.player.heading = st.mode === "car" ? st.carYaw : st.heading;
-    playState.player.health = st.health;
-    playState.player.nearCar = st.mode === "foot" && planar(st.pos, st.carPos) < 5.5;
-    playState.player.pedInReach = st.mode === "foot" && pedAhead(st.pos, st.heading);
-    playState.player.pos.copy(origin);
+    playState.player.pos.copy(st.mode === "car" ? st.carPos : st.pos);
   });
 
-  const lights = weather === "rain";
   return (
     <>
       <group ref={player}>
-        <Character
-          moving={() => s.current.moving}
-          pace={() => gaitFor(s.current.speed, s.current.moving)}
-          shirt="#2f5fae"
-          pants="#23262e"
-        />
+        <Character moving={() => s.current.moving} shirt="#2f5fae" pants="#23262e" />
       </group>
       <group ref={car}>
-        <Vehicle
-          type="mustang"
-          color="#b81d24"
-          lights={lights}
-          brake={() => s.current.mode === "car" && (isDown("KeyS") || isDown("ArrowDown") || isDown("Space"))}
-        />
+        <Vehicle type="mustang" color="#b81d24" />
       </group>
     </>
   );
@@ -269,7 +216,7 @@ function knockPeds(center: THREE.Vector3, r: number) {
 
 interface Route { pts: THREE.Vector3[]; total: number }
 
-export function TileNpcs({ slice, center, weather = "clear" }: { slice: Slice; center: [number, number]; weather?: Weather }) {
+export function TileNpcs({ slice, center }: { slice: Slice; center: [number, number] }) {
   const tiles = useContext(TilesRendererContext);
 
   const routes = useMemo<Route[]>(() => {
@@ -287,26 +234,20 @@ export function TileNpcs({ slice, center, weather = "clear" }: { slice: Slice; c
   const pedRefs = useRef<(THREE.Group | null)[]>([]);
   const carRefs = useRef<(THREE.Group | null)[]>([]);
   const peds = useRef(
-    Array.from({ length: 6 }, (_, i) => {
-      const look = pedLook(i);
-      return {
-        ...look,
-        pos: rand(center, 30), goal: rand(center, 30), heading: 0, y: 0,
-        down: 0, dead: false,
-        body: { pos: new THREE.Vector3(), push: new THREE.Vector3(), hit: 0 } as Body,
-      };
-    }),
+    Array.from({ length: 6 }, () => ({
+      pos: rand(center, 30), goal: rand(center, 30), heading: 0, y: 0,
+      down: 0, dead: false,
+      shirt: pick(PED_COLORS), pants: pick(PANTS), skin: pick(SKINS),
+      body: { pos: new THREE.Vector3(), push: new THREE.Vector3(), hit: 0 } as Body,
+    })),
   );
   const cars = useRef(
-    Array.from({ length: 3 }, (_, i) => {
-      const look = trafficLook(i);
-      return {
-        route: routes.length ? i % routes.length : 0,
-        fwd: i % 2 === 0, dist: 0, y: 0, heading: 0,
-        offset: new THREE.Vector3(), color: look.color, vtype: look.type,
-        body: { pos: new THREE.Vector3(), push: new THREE.Vector3(), hit: 0 } as Body,
-      };
-    }),
+    Array.from({ length: 3 }, () => ({
+      route: routes.length ? Math.floor(Math.random() * routes.length) : 0,
+      fwd: Math.random() < 0.5, dist: 0, y: 0, heading: 0,
+      offset: new THREE.Vector3(), color: pick(CAR_COLORS),
+      body: { pos: new THREE.Vector3(), push: new THREE.Vector3(), hit: 0 } as Body,
+    })),
   );
 
   useEffect(() => {
@@ -366,7 +307,7 @@ export function TileNpcs({ slice, center, weather = "clear" }: { slice: Slice; c
         if (!g) return;
         const route = routes[c.route % routes.length];
         c.dist += 9 * step;
-        if (c.dist >= route.total) { c.fwd = !c.fwd; c.dist = 0; c.route = (c.route + 1) % routes.length; }
+        if (c.dist >= route.total) { c.fwd = !c.fwd; c.dist = 0; c.route = Math.floor(Math.random() * routes.length); }
         const along = c.fwd ? c.dist : route.total - c.dist;
         sampleRoute(route.pts, route.total, along, _point, _routeDir);
         if (c.body.push.lengthSq() > 0) { c.offset.add(c.body.push); c.body.push.set(0, 0, 0); }
@@ -387,25 +328,38 @@ export function TileNpcs({ slice, center, weather = "clear" }: { slice: Slice; c
     }
   });
 
-  const lights = weather === "rain";
   return (
     <group>
       {peds.current.map((p, i) => (
-        <group key={`p${i}`} ref={(el) => (pedRefs.current[i] = el)} scale={[p.build, p.scale, p.build]}>
-          <Character
-            shirt={p.shirt}
-            pants={p.pants}
-            skin={p.skin}
-            hair={p.hair}
-            hat={p.hat}
-            pace={() => (p.dead || p.down > 0 ? "idle" : "walk")}
-          />
+        <group key={`p${i}`} ref={(el) => (pedRefs.current[i] = el)}>
+          <Character shirt={p.shirt} pants={p.pants} skin={p.skin} moving={() => !p.dead && p.down <= 0} />
         </group>
       ))}
       {cars.current.map((c, i) => (
         <group key={`c${i}`} ref={(el) => (carRefs.current[i] = el)}>
-          <Vehicle type={c.vtype} color={c.color} lights={lights} />
+          <CarMesh color={c.color} />
         </group>
+      ))}
+    </group>
+  );
+}
+
+function CarMesh({ color }: { color: string }) {
+  return (
+    <group>
+      <mesh position={[0, 0.7, 0]} castShadow>
+        <boxGeometry args={[2.0, 0.9, 4.2]} />
+        <meshStandardMaterial color={color} metalness={0.3} roughness={0.45} />
+      </mesh>
+      <mesh position={[0, 1.4, -0.2]} castShadow>
+        <boxGeometry args={[1.8, 0.7, 2.0]} />
+        <meshStandardMaterial color="#0e3b4a" roughness={0.5} />
+      </mesh>
+      {[[-1, 0.3, 1.4], [1, 0.3, 1.4], [-1, 0.3, -1.4], [1, 0.3, -1.4]].map((p, i) => (
+        <mesh key={i} position={p as [number, number, number]} rotation-z={Math.PI / 2}>
+          <cylinderGeometry args={[0.45, 0.45, 0.3, 12]} />
+          <meshStandardMaterial color="#111" roughness={0.9} />
+        </mesh>
       ))}
     </group>
   );
@@ -414,3 +368,4 @@ export function TileNpcs({ slice, center, weather = "clear" }: { slice: Slice; c
 function rand(center: [number, number], r: number) {
   return new THREE.Vector3(center[0] + (Math.random() * 2 - 1) * r, 0, center[1] + (Math.random() * 2 - 1) * r);
 }
+const pick = <T,>(a: T[]) => a[Math.floor(Math.random() * a.length)];

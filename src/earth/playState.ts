@@ -12,17 +12,10 @@ export interface Body {
 }
 
 export const playState = {
-  player: {
-    pos: new THREE.Vector3(),
-    driving: false,
-    heading: 0,
-    health: 100,
-    nearCar: false,
-    pedInReach: false,
-  },
+  player: { pos: new THREE.Vector3(), driving: false },
   peds: [] as Body[],
   cars: [] as Body[],
-  bump: 0, // set when the player's car hits an NPC car (kept for contact reads)
+  bump: 0, // set when the player's car hits an NPC car (PlayerRig reads + clears)
 };
 
 export function resetBodies() {

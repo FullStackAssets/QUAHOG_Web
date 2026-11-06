@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { inputIsActive } from "../input";
+import { isDown, moveAxis } from "../input";
 import { advanceIdle, tileActivityFor, type TileActivity } from "./frameLoop";
+
+function playInputHeld(): boolean {
+  const axis = moveAxis();
+  if (axis.x !== 0 || axis.y !== 0) return true;
+  return isDown("ShiftLeft") || isDown("ShiftRight") || isDown("Space") || isDown("KeyE") || isDown("KeyF");
+}
 
 const ALWAYS: TileActivity = { loop: "always", tilesEnabled: true };
 
@@ -38,7 +44,7 @@ export function useTileActivity(pauseWhenIdle: boolean): TileActivity {
       const dt = now - last;
       last = now;
       const hidden = document.hidden;
-      idle = hidden ? 0 : advanceIdle(idle, dt, inputIsActive());
+      idle = hidden ? 0 : advanceIdle(idle, dt, playInputHeld());
       publish(hidden);
     }, 200);
     publish(document.hidden);

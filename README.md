@@ -40,7 +40,8 @@ The chase camera eases behind whichever actor is active.
   (Seamen's Bethel, Whaling Museum, Mariner's Home, Double Bank Building, Rodman
   Candleworks) are gold with neon marker beams, ready for hand-detailing.
 - **Street life** — ambient kinematic pedestrians wandering the district plus
-  decorative traffic that drives the real road network.
+  decorative traffic that drives the real road network (ported from the legacy
+  Unity `StreetLife.cs`).
 - **Coastal Neon** starter look — dusk key light + harbor fog.
 
 ## Data

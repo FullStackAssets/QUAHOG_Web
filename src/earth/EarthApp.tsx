@@ -19,10 +19,8 @@ import { Ambient, type Weather } from "./Ambient";
 import { TilesBVH } from "./bvh";
 import { GoogleTilesAuth } from "./GoogleTilesAuth";
 import { Radio } from "../audio/Radio";
-import { PlayReadout } from "./EarthHud";
 import { useTileActivity } from "./useTileActivity";
 import { TILE_MEMORY } from "./tileCaps";
-import { playState } from "./playState";
 import { tileCollision } from "./raycastBudget";
 import {
   classifyTileEvent,
@@ -96,7 +94,6 @@ export function EarthApp() {
     setReady(false);
     setFault(null);
     setTileCount(0);
-    playState.player.health = 100;
     tileCollision.clear();
   }, [spotIdx, mode]); // re-gate on teleport
   useEffect(() => {
@@ -162,8 +159,8 @@ export function EarthApp() {
             (slice || !spot.nb) && (
               <EastNorthUpFrame key={spot.name} lat={anchor.lat} lon={anchor.lon} height={0}>
                 <group rotation={[Math.PI / 2, 0, 0]}>
-                  <PlayerRig key={spot.name} spawn={spawn} view={view} weather={weather} onReady={() => setReady(true)} />
-                  {spot.nb && slice && <TileNpcs slice={slice} center={PED_CENTER} weather={weather} />}
+                  <PlayerRig key={spot.name} spawn={spawn} view={view} onReady={() => setReady(true)} />
+                  {spot.nb && slice && <TileNpcs slice={slice} center={PED_CENTER} />}
                   <Ambient weather={weather} />
                 </group>
               </EastNorthUpFrame>
@@ -181,7 +178,6 @@ export function EarthApp() {
         spotIdx={spotIdx} setSpotIdx={setSpotIdx}
         weather={weather}
       />
-      {mode === "play" && <PlayReadout roads={spot.nb && slice ? slice.roads : null} />}
       <Radio />
       {mode === "play" && !ready && !(fault && faultBlocksView(fault, tileCount)) && (slow ? <SlowTiles /> : <Loading />)}
       {fault && faultBlocksView(fault, tileCount) && <TilesFault fault={fault} />}

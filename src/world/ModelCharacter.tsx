@@ -3,24 +3,25 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { clone as skeletonClone } from "three/examples/jsm/utils/SkeletonUtils.js";
-import { clipTimeScale, pickClip, type Gait } from "../actors/gait";
-import { MODEL_FACE, MODEL_SCALE, MODEL_Y_OFF } from "./modelTune";
 
-// Rigged human (CesiumMan, © Cesium, CC-BY 4.0) for the stylized world. Cloned
-// per instance so the player and every pedestrian get their own skeleton.
-// The photoreal tiles view does not use this: skinning breaks at earth-centered
-// coordinates. SCALE / FACE / Y_OFF live in modelTune.ts and were not changed
-// without a device look.
+// A real rigged, animated human (CesiumMan, © Cesium, CC-BY 4.0) replacing the
+// primitive humanoid in the photoreal world. Cloned per instance so the player
+// and every pedestrian get their own skeleton + animation mixer.
+//
+// TUNE these if the figure is the wrong size / facing the wrong way once you see
+// it on the tiles — I can't preview WebGL here.
 const URL = "/models/CesiumMan.glb";
+const SCALE = 0.92; // model is ~2 units tall -> ~1.85 m
+const FACE = 0; // yaw offset (radians) so it faces travel direction
+const Y_OFF = 0; // lift/drop so feet sit on the ground
 
 useGLTF.preload(URL);
 
-export function ModelCharacter({ moving, pace, tint }: { moving?: () => boolean; pace?: () => Gait; tint?: string }) {
+export function ModelCharacter({ moving, tint }: { moving?: () => boolean; tint?: string }) {
   const gltf = useGLTF(URL);
   const scene = useMemo(() => skeletonClone(gltf.scene), [gltf.scene]);
   const { actions, names } = useAnimations(gltf.animations, scene);
   const action = useRef<THREE.AnimationAction | null>(null);
-  const clipName = useRef<string | null>(null);
 
   useEffect(() => {
     scene.traverse((o) => {
@@ -46,27 +47,16 @@ export function ModelCharacter({ moving, pace, tint }: { moving?: () => boolean;
       if (m.emissive) { m.emissive.setRGB(0, 0, 0); m.emissiveIntensity = 0; }
       m.envMapIntensity = 0.5;
     });
-  }, [scene, tint]);
+    const a = names.length ? actions[names[0]] : null;
+    if (a) { a.reset().play(); action.current = a; }
+  }, [actions, names, scene, tint]);
 
   useFrame(() => {
-    const gait: Gait = pace ? pace() : moving?.() ? "walk" : "idle";
-    const name = pickClip(names, gait);
-    if (!name) return;
-    const next = actions[name];
-    if (!next) return;
-    if (clipName.current !== name) {
-      action.current?.fadeOut(0.2);
-      next.reset().fadeIn(0.2).play();
-      action.current = next;
-      clipName.current = name;
-    }
-    const scale = clipTimeScale(gait);
-    next.paused = scale === 0;
-    if (scale > 0) next.timeScale = scale;
+    if (action.current) action.current.paused = moving ? !moving() : false;
   });
 
   return (
-    <group rotation-y={MODEL_FACE} position={[0, MODEL_Y_OFF, 0]} scale={MODEL_SCALE}>
+    <group rotation-y={FACE} position={[0, Y_OFF, 0]} scale={SCALE}>
       <primitive object={scene} />
     </group>
   );

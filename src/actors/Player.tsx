@@ -3,7 +3,6 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { CapsuleCollider, RigidBody, type RapierRigidBody } from "@react-three/rapier";
 import { ModelCharacter } from "../world/ModelCharacter";
-import { gaitFor } from "./gait";
 import { consumeTap, isDown, moveAxis } from "../input";
 import { shared, addShake, raiseAlarm, addImpact, type TrafficCar, type Body, type Cop } from "../shared";
 import { useGame, useToasts } from "../store";
@@ -243,10 +242,9 @@ export function Player() {
         <group position={[0, -0.9, 0]}>
           <ModelCharacter
             tint={playerTint}
-            pace={() => {
+            moving={() => {
               const v = body.current?.linvel();
-              const speed = v ? Math.hypot(v.x, v.z) : 0;
-              return gaitFor(speed, speed > 0.6);
+              return !!v && Math.hypot(v.x, v.z) > 0.6;
             }}
           />
           {/* pistol in hand when armed */}
