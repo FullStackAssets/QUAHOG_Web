@@ -1,0 +1,385 @@
+{
+  "ok": false,
+  "channel": "production",
+  "subjectCommit": "73450d2d7eed651f03db5d2fc1fa44c1425063bd",
+  "branch": "cursor/production-reconciliation-7090",
+  "checks": [
+    {
+      "id": "build.config",
+      "ok": true,
+      "summary": "Vercel and npm build config is production-shaped.",
+      "evidence": {
+        "failures": []
+      }
+    },
+    {
+      "id": "build.official",
+      "ok": false,
+      "summary": "build rewrote manifests: public/music/anvil/manifest.json, public/music/anvil/vo/manifest.json, public/music/mare/manifest.json, public/music/mare/vo/manifest.json, public/music/rage/jingles/manifest.json, public/music/rage/manifest.json, public/music/rage/vo/manifest.json, public/music/whale/manifest.json",
+      "evidence": {
+        "failures": [
+          "build rewrote manifests: public/music/anvil/manifest.json, public/music/anvil/vo/manifest.json, public/music/mare/manifest.json, public/music/mare/vo/manifest.json, public/music/rage/jingles/manifest.json, public/music/rage/manifest.json, public/music/rage/vo/manifest.json, public/music/whale/manifest.json"
+        ],
+        "manifestMutationPredicted": true,
+        "observation": {
+          "head": "73450d2d7eed651f03db5d2fc1fa44c1425063bd",
+          "exitCode": 0,
+          "mutatedPaths": [
+            "public/music/anvil/manifest.json",
+            "public/music/anvil/vo/manifest.json",
+            "public/music/mare/manifest.json",
+            "public/music/mare/vo/manifest.json",
+            "public/music/rage/jingles/manifest.json",
+            "public/music/rage/manifest.json",
+            "public/music/rage/vo/manifest.json",
+            "public/music/whale/manifest.json"
+          ],
+          "artifactFingerprint": "365316ef95f68b2c4ecdd9ae8fbf7fb692c0f84ea56d8ce71f6ffe330ea91db5",
+          "artifactFiles": 1005,
+          "artifactBytes": 57700202,
+          "primaryTreeDirty": false,
+          "stampMatchesHead": true,
+          "worktreeCleanup": "removed",
+          "createdBranch": false,
+          "createdStaging": false
+        }
+      }
+    },
+    {
+      "id": "asset.music-manifests",
+      "ok": true,
+      "summary": "public/music manifests match the files beside them.",
+      "evidence": {
+        "failures": [],
+        "observedPins": [
+          {
+            "path": "public/music/anvil/manifest.json",
+            "sha256": "aa67889b6d1fd5e7b82cf9f9e33724665fa41c73ac54383cd9bcdf93548c4113"
+          },
+          {
+            "path": "public/music/anvil/vo/manifest.json",
+            "sha256": "5fee2346a73347e658fcb0018d75638b2f6d41b207eb89987c652fb2f20f3b25"
+          },
+          {
+            "path": "public/music/mare/Carta pra Mãe2.mp3",
+            "sha256": "d4f088afc66dfa5a98b01426ec247b0116e4de4958cad264a175a31bf4dec0d5"
+          },
+          {
+            "path": "public/music/mare/Festa na Avenida1.mp3",
+            "sha256": "666650ec6a079ebdab903276162789cdbb71edb08cd49430cf6e3f009a0df465"
+          },
+          {
+            "path": "public/music/mare/manifest.json",
+            "sha256": "2932ee0565feb275cf74b856c3e1f26cff52ff3e23154778ebfc72a54bc3c690"
+          },
+          {
+            "path": "public/music/mare/Maré Alta2.mp3",
+            "sha256": "3c867d6f1ba7c0626cc07af39fc90cfc66e85b47ac08668a98b950924630643f"
+          },
+          {
+            "path": "public/music/mare/vo/manifest.json",
+            "sha256": "d1c3de7bc86c87bd8a35c792f44cf1a34b0194fb658ee90a80ea225366710a31"
+          },
+          {
+            "path": "public/music/mare/vo/Tia Sonia.mp3",
+            "sha256": "b199aac93ccf5716d871c5c7ed3dedde550170131dc6c3e2df8efd4e1a48bd9e"
+          },
+          {
+            "path": "public/music/rage/jingles/Buddy Mello AM Radio Bumper.mp3",
+            "sha256": "b07293fec293c7a529dfc8bffcedfeef7155a86873710c3b2a776bca6b270228"
+          },
+          {
+            "path": "public/music/rage/jingles/Buddy Mello Radio Jingle 2.mp3",
+            "sha256": "617cf2df6b0aa2a0586920008560b72a8564e4b69800efbe32fd2a7055fe7db2"
+          },
+          {
+            "path": "public/music/rage/jingles/Buddy Mello Radio Jingle.mp3",
+            "sha256": "33ea18d5c8d17cd531a4b101e0b93760c1c0c03bddb404f5236cc7c51d890181"
+          },
+          {
+            "path": "public/music/rage/jingles/manifest.json",
+            "sha256": "01e9662438d4a2bc4d1dc26c1389cbf023184130f717a241cebd4b26c83bf33f"
+          },
+          {
+            "path": "public/music/rage/jingles/Rage Radio Bumper.mp3",
+            "sha256": "b18bd1fd4949e48b33f42a0361f3dd7604e52dc7156b931f8f4c12f6e3ef7491"
+          },
+          {
+            "path": "public/music/rage/jingles/The Rage 1480 AM Jingle.mp3",
+            "sha256": "3e07dc90ce077fdf47225c53f1ce04ebeb2b191c0b7a7092ca08e0fc6a39db22"
+          },
+          {
+            "path": "public/music/rage/jingles/The Rage Radio Bumper.mp3",
+            "sha256": "483a431bf58d0ae9642ec6e6f199d8d70089145ecb7e0de6030f9532f6b23e58"
+          },
+          {
+            "path": "public/music/rage/manifest.json",
+            "sha256": "edd60674fd8c69eb8967cff30474d886bb1f87335483479d48b6bddd605224a3"
+          },
+          {
+            "path": "public/music/rage/vo/Buddy.mp3",
+            "sha256": "658a8c02f7b6ca696eb7dc992b2a677cba2f6f50376c5391da318829e7d19fe6"
+          },
+          {
+            "path": "public/music/rage/vo/manifest.json",
+            "sha256": "8865a1d256f37d29534c848d135d7e029d4a3e3103abe28d6c79973e955c6a15"
+          },
+          {
+            "path": "public/music/whale/Buzzards Bay1.mp3",
+            "sha256": "032d14a3cd273a0b0672803d37e1b576384f284c5f2d12d9dc68119692f81f05"
+          },
+          {
+            "path": "public/music/whale/Buzzards Bay2.mp3",
+            "sha256": "6955a3c16dbd7ef25b94b7e8c1f468abba120ceeefd9d66e653d5d3db65c8394"
+          },
+          {
+            "path": "public/music/whale/manifest.json",
+            "sha256": "2a1797548d5cef744036bda71fee9b578454a053c2a5a0fbe7e0223f558d5c96"
+          },
+          {
+            "path": "public/music/whale/Mill Town Heart.mp3",
+            "sha256": "5521954e49043a02ded9ea1fd8e61470c8f5598c8d24169862d9944a1c245760"
+          },
+          {
+            "path": "public/music/whale/Neon Asphalt Boogie.mp3",
+            "sha256": "7d9bbfe93090b26c5cecb5c460e89b048349b384b604f2c683dfa17d8f778452"
+          },
+          {
+            "path": "public/music/whale/Quahog Republic Saturday Night1.mp3",
+            "sha256": "c3bb89a43404cb898b4f9d866a36b4fd496873114f2966e17b3bb5fbb25b4700"
+          }
+        ]
+      }
+    },
+    {
+      "id": "asset.unscoped",
+      "ok": false,
+      "summary": "Buddy Mello AM Radio Bumper.mp3 duplicates public/music/rage/jingles/Buddy Mello AM Radio Bumper.mp3 and is outside public/music; Buddy Mello Radio Jingle 2.mp3 duplicates public/music/rage/jingles/Buddy Mello Radio Jingle 2.mp3 and is outside public/music; Buddy Mello Radio Jingle.mp3 duplicates public/music/rage/jingles/Buddy Mello Radio Jingle.mp3 and is outside public/music; Buzzards Bay1.mp3 duplicates public/music/whale/Buzzards Bay1.mp3 and is outside public/music; Buzzards Bay2.mp3 duplicates public/music/whale/Buzzards Bay2.mp3 and is outside public/music; Carta pra Mãe2.mp3 duplicates public/music/mare/Carta pra Mãe2.mp3 and is outside public/music; Festa na Avenida1.mp3 duplicates public/music/mare/Festa na Avenida1.mp3 and is outside public/music; Maré Alta2.mp3 duplicates public/music/mare/Maré Alta2.mp3 and is outside public/music; Mill Town Heart.mp3 duplicates public/music/whale/Mill Town Heart.mp3 and is outside public/music; Neon Asphalt Boogie.mp3 duplicates public/music/whale/Neon Asphalt Boogie.mp3 and is outside public/music; Quahog Republic Saturday Night1.mp3 duplicates public/music/whale/Quahog Republic Saturday Night1.mp3 and is outside public/music; Rage Radio Bumper.mp3 duplicates public/music/rage/jingles/Rage Radio Bumper.mp3 and is outside public/music; The Rage 1480 AM Jingle.mp3 duplicates public/music/rage/jingles/The Rage 1480 AM Jingle.mp3 and is outside public/music; The Rage Radio Bumper.mp3 duplicates public/music/rage/jingles/The Rage Radio Bumper.mp3 and is outside public/music; manifest.json is not a public/music manifest; manifest.json: audio file is not listed: Buzzards Bay1.mp3; manifest.json: audio file is not listed: Buzzards Bay2.mp3; manifest.json: audio file is not listed: Carta pra Mãe2.mp3; manifest.json: audio file is not listed: Festa na Avenida1.mp3; manifest.json: audio file is not listed: Maré Alta2.mp3; manifest.json: audio file is not listed: Mill Town Heart.mp3; manifest.json: audio file is not listed: Neon Asphalt Boogie.mp3; manifest.json: audio file is not listed: Quahog Republic Saturday Night1.mp3; public/tiles/manifest.json is not a public/music manifest; public/tiles/manifest.json: tracks must be an array",
+      "evidence": {
+        "failures": [
+          "Buddy Mello AM Radio Bumper.mp3 duplicates public/music/rage/jingles/Buddy Mello AM Radio Bumper.mp3 and is outside public/music",
+          "Buddy Mello Radio Jingle 2.mp3 duplicates public/music/rage/jingles/Buddy Mello Radio Jingle 2.mp3 and is outside public/music",
+          "Buddy Mello Radio Jingle.mp3 duplicates public/music/rage/jingles/Buddy Mello Radio Jingle.mp3 and is outside public/music",
+          "Buzzards Bay1.mp3 duplicates public/music/whale/Buzzards Bay1.mp3 and is outside public/music",
+          "Buzzards Bay2.mp3 duplicates public/music/whale/Buzzards Bay2.mp3 and is outside public/music",
+          "Carta pra Mãe2.mp3 duplicates public/music/mare/Carta pra Mãe2.mp3 and is outside public/music",
+          "Festa na Avenida1.mp3 duplicates public/music/mare/Festa na Avenida1.mp3 and is outside public/music",
+          "Maré Alta2.mp3 duplicates public/music/mare/Maré Alta2.mp3 and is outside public/music",
+          "Mill Town Heart.mp3 duplicates public/music/whale/Mill Town Heart.mp3 and is outside public/music",
+          "Neon Asphalt Boogie.mp3 duplicates public/music/whale/Neon Asphalt Boogie.mp3 and is outside public/music",
+          "Quahog Republic Saturday Night1.mp3 duplicates public/music/whale/Quahog Republic Saturday Night1.mp3 and is outside public/music",
+          "Rage Radio Bumper.mp3 duplicates public/music/rage/jingles/Rage Radio Bumper.mp3 and is outside public/music",
+          "The Rage 1480 AM Jingle.mp3 duplicates public/music/rage/jingles/The Rage 1480 AM Jingle.mp3 and is outside public/music",
+          "The Rage Radio Bumper.mp3 duplicates public/music/rage/jingles/The Rage Radio Bumper.mp3 and is outside public/music",
+          "manifest.json is not a public/music manifest",
+          "manifest.json: audio file is not listed: Buzzards Bay1.mp3",
+          "manifest.json: audio file is not listed: Buzzards Bay2.mp3",
+          "manifest.json: audio file is not listed: Carta pra Mãe2.mp3",
+          "manifest.json: audio file is not listed: Festa na Avenida1.mp3",
+          "manifest.json: audio file is not listed: Maré Alta2.mp3",
+          "manifest.json: audio file is not listed: Mill Town Heart.mp3",
+          "manifest.json: audio file is not listed: Neon Asphalt Boogie.mp3",
+          "manifest.json: audio file is not listed: Quahog Republic Saturday Night1.mp3",
+          "public/tiles/manifest.json is not a public/music manifest",
+          "public/tiles/manifest.json: tracks must be an array"
+        ]
+      }
+    },
+    {
+      "id": "asset.public-tree",
+      "ok": false,
+      "summary": "no attested public-tree fingerprint; the observed fingerprint is not a reconciliation",
+      "evidence": {
+        "failures": [
+          "no attested public-tree fingerprint; the observed fingerprint is not a reconciliation"
+        ],
+        "observedFingerprint": "50d083e10b5d946b33840ea080b5a0f58eca441cedebdd18610b8e7a5f2da8fa",
+        "fileCount": 995,
+        "totalBytes": 53636712,
+        "doNotAttest": true
+      }
+    },
+    {
+      "id": "commit.ancestry",
+      "ok": false,
+      "summary": "documented commit object missing: 9295b91, 62f6d1e, bfa20b1",
+      "evidence": {
+        "failures": [
+          "documented commit object missing: 9295b91, 62f6d1e, bfa20b1"
+        ],
+        "unresolved": [
+          {
+            "sha": "9295b91",
+            "source": "docs/audit/BUILD002-REPORT.md",
+            "role": "baseline"
+          },
+          {
+            "sha": "62f6d1e",
+            "source": "docs/audit/BUILD002-REPORT.md",
+            "role": "build"
+          },
+          {
+            "sha": "bfa20b1",
+            "source": "docs/audit/BUILD002-REPORT.md",
+            "role": "docs"
+          }
+        ],
+        "notAncestor": [],
+        "resolved": []
+      }
+    },
+    {
+      "id": "commit.external",
+      "ok": false,
+      "summary": "external archive was not read and is not attested; attested external commits do not match the audit documents; external archive sha256 is not attested; no single attached archive matches an attested archive hash",
+      "evidence": {
+        "failures": [
+          "external archive was not read and is not attested",
+          "attested external commits do not match the audit documents",
+          "external archive sha256 is not attested",
+          "no single attached archive matches an attested archive hash"
+        ],
+        "archives": [
+          {
+            "path": "quahog-web-preview 2.zip",
+            "bytes": 6517927,
+            "accepted": false,
+            "reason": "filename marks a preview artifact, not the documented waterfront archive"
+          }
+        ]
+      }
+    },
+    {
+      "id": "commit.descends-from-main",
+      "ok": true,
+      "summary": "Subject contains main as an ancestor.",
+      "evidence": {
+        "failures": [],
+        "branch": "cursor/production-reconciliation-7090",
+        "main": "73450d2d7eed651f03db5d2fc1fa44c1425063bd"
+      }
+    },
+    {
+      "id": "commit.production-tip",
+      "ok": false,
+      "summary": "checked out branch cursor/production-reconciliation-7090 is not main",
+      "evidence": {
+        "failures": [
+          "checked out branch cursor/production-reconciliation-7090 is not main"
+        ],
+        "branch": "cursor/production-reconciliation-7090",
+        "subjectSha": "73450d2d7eed651f03db5d2fc1fa44c1425063bd"
+      }
+    },
+    {
+      "id": "release.record",
+      "ok": false,
+      "summary": "production release is not attested",
+      "evidence": {
+        "failures": [
+          "production release is not attested"
+        ],
+        "attested": false,
+        "wroteRecord": false
+      }
+    },
+    {
+      "id": "release.rollback",
+      "ok": false,
+      "summary": "rollback target is not attested; previousProductionCommit is missing; previousArtifactSha256 is missing",
+      "evidence": {
+        "failures": [
+          "rollback target is not attested",
+          "previousProductionCommit is missing",
+          "previousArtifactSha256 is missing"
+        ]
+      }
+    },
+    {
+      "id": "release.immutable",
+      "ok": true,
+      "summary": "Release record bytes were not modified.",
+      "evidence": {}
+    },
+    {
+      "id": "deploy.entrypoint",
+      "ok": false,
+      "summary": "scripts/deploy-preview.py publishes the preview branch and GitHub Pages; it is not a production path and was not run; no attested production host",
+      "evidence": {
+        "failures": [
+          "scripts/deploy-preview.py publishes the preview branch and GitHub Pages; it is not a production path and was not run",
+          "no attested production host"
+        ],
+        "previewScriptExecuted": false
+      }
+    },
+    {
+      "id": "live.production",
+      "ok": false,
+      "summary": "Supplied evidence is not a fetched production response and is not reconciled as production.",
+      "evidence": {
+        "kind": "github-metadata",
+        "environment": "github-pages",
+        "fetchedProductionBody": false,
+        "pagesBranch": "Preview",
+        "pagesUrl": "https://fullstackassets.github.io/QUAHOG_Web/",
+        "deploymentEnvironment": "github-pages",
+        "deploymentSha": "1586854c1c583abf13c4bfb7631652c068b7725a",
+        "deploymentRef": "Preview",
+        "productionEnvironmentFlag": false
+      }
+    },
+    {
+      "id": "policy.channel",
+      "ok": true,
+      "summary": "Record channel is production.",
+      "evidence": {
+        "channel": "production",
+        "stagingCreated": false
+      }
+    }
+  ],
+  "blockers": [
+    {
+      "id": "build.official",
+      "summary": "build rewrote manifests: public/music/anvil/manifest.json, public/music/anvil/vo/manifest.json, public/music/mare/manifest.json, public/music/mare/vo/manifest.json, public/music/rage/jingles/manifest.json, public/music/rage/manifest.json, public/music/rage/vo/manifest.json, public/music/whale/manifest.json"
+    },
+    {
+      "id": "asset.unscoped",
+      "summary": "Buddy Mello AM Radio Bumper.mp3 duplicates public/music/rage/jingles/Buddy Mello AM Radio Bumper.mp3 and is outside public/music; Buddy Mello Radio Jingle 2.mp3 duplicates public/music/rage/jingles/Buddy Mello Radio Jingle 2.mp3 and is outside public/music; Buddy Mello Radio Jingle.mp3 duplicates public/music/rage/jingles/Buddy Mello Radio Jingle.mp3 and is outside public/music; Buzzards Bay1.mp3 duplicates public/music/whale/Buzzards Bay1.mp3 and is outside public/music; Buzzards Bay2.mp3 duplicates public/music/whale/Buzzards Bay2.mp3 and is outside public/music; Carta pra Mãe2.mp3 duplicates public/music/mare/Carta pra Mãe2.mp3 and is outside public/music; Festa na Avenida1.mp3 duplicates public/music/mare/Festa na Avenida1.mp3 and is outside public/music; Maré Alta2.mp3 duplicates public/music/mare/Maré Alta2.mp3 and is outside public/music; Mill Town Heart.mp3 duplicates public/music/whale/Mill Town Heart.mp3 and is outside public/music; Neon Asphalt Boogie.mp3 duplicates public/music/whale/Neon Asphalt Boogie.mp3 and is outside public/music; Quahog Republic Saturday Night1.mp3 duplicates public/music/whale/Quahog Republic Saturday Night1.mp3 and is outside public/music; Rage Radio Bumper.mp3 duplicates public/music/rage/jingles/Rage Radio Bumper.mp3 and is outside public/music; The Rage 1480 AM Jingle.mp3 duplicates public/music/rage/jingles/The Rage 1480 AM Jingle.mp3 and is outside public/music; The Rage Radio Bumper.mp3 duplicates public/music/rage/jingles/The Rage Radio Bumper.mp3 and is outside public/music; manifest.json is not a public/music manifest; manifest.json: audio file is not listed: Buzzards Bay1.mp3; manifest.json: audio file is not listed: Buzzards Bay2.mp3; manifest.json: audio file is not listed: Carta pra Mãe2.mp3; manifest.json: audio file is not listed: Festa na Avenida1.mp3; manifest.json: audio file is not listed: Maré Alta2.mp3; manifest.json: audio file is not listed: Mill Town Heart.mp3; manifest.json: audio file is not listed: Neon Asphalt Boogie.mp3; manifest.json: audio file is not listed: Quahog Republic Saturday Night1.mp3; public/tiles/manifest.json is not a public/music manifest; public/tiles/manifest.json: tracks must be an array"
+    },
+    {
+      "id": "asset.public-tree",
+      "summary": "no attested public-tree fingerprint; the observed fingerprint is not a reconciliation"
+    },
+    {
+      "id": "commit.ancestry",
+      "summary": "documented commit object missing: 9295b91, 62f6d1e, bfa20b1"
+    },
+    {
+      "id": "commit.external",
+      "summary": "external archive was not read and is not attested; attested external commits do not match the audit documents; external archive sha256 is not attested; no single attached archive matches an attested archive hash"
+    },
+    {
+      "id": "commit.production-tip",
+      "summary": "checked out branch cursor/production-reconciliation-7090 is not main"
+    },
+    {
+      "id": "release.record",
+      "summary": "production release is not attested"
+    },
+    {
+      "id": "release.rollback",
+      "summary": "rollback target is not attested; previousProductionCommit is missing; previousArtifactSha256 is missing"
+    },
+    {
+      "id": "deploy.entrypoint",
+      "summary": "scripts/deploy-preview.py publishes the preview branch and GitHub Pages; it is not a production path and was not run; no attested production host"
+    },
+    {
+      "id": "live.production",
+      "summary": "Supplied evidence is not a fetched production response and is not reconciled as production."
+    }
+  ],
+  "doNotAttestObservedHashes": true
+}

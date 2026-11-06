@@ -1,0 +1,35 @@
+{
+  "kind": "github-metadata",
+  "environment": "github-pages",
+  "retrievedAt": "2026-11-06T02:31:19Z",
+  "source": "gh api repos/FullStackAssets/QUAHOG_Web/pages and gh api repos/FullStackAssets/QUAHOG_Web/deployments",
+  "fetchedProductionBody": false,
+  "note": "Metadata only. The Pages site body was not fetched. This is not a production HTTP reconciliation.",
+  "pages": {
+    "status": "built",
+    "html_url": "https://fullstackassets.github.io/QUAHOG_Web/",
+    "build_type": "legacy",
+    "public": true,
+    "https_enforced": true,
+    "cname": null,
+    "source": {
+      "branch": "Preview",
+      "path": "/"
+    }
+  },
+  "deployments": [
+    {
+      "id": 7166602492,
+      "environment": "github-pages",
+      "sha": "1586854c1c583abf13c4bfb7631652c068b7725a",
+      "ref": "Preview",
+      "task": "deploy",
+      "description": null,
+      "created_at": "2026-10-19T05:42:11Z",
+      "updated_at": "2026-10-19T05:42:24Z",
+      "original_environment": "github-pages",
+      "production_environment": false,
+      "transient_environment": false
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "officialCommandExecuted": true,
+  "command": "npm run build",
+  "primaryTree": false,
+  "head": "73450d2d7eed651f03db5d2fc1fa44c1425063bd",
+  "shortHead": "73450d2",
+  "exitCode": 0,
+  "distIndex": true,
+  "distEarth": true,
+  "mutatedPaths": [
+    "public/music/anvil/manifest.json",
+    "public/music/anvil/vo/manifest.json",
+    "public/music/mare/manifest.json",
+    "public/music/mare/vo/manifest.json",
+    "public/music/rage/jingles/manifest.json",
+    "public/music/rage/manifest.json",
+    "public/music/rage/vo/manifest.json",
+    "public/music/whale/manifest.json"
+  ],
+  "primaryTreeDirty": false,
+  "stampMatchesHead": true,
+  "createdStaging": false,
+  "createdBranch": false,
+  "newBranches": [],
+  "artifactFingerprint": "365316ef95f68b2c4ecdd9ae8fbf7fb692c0f84ea56d8ce71f6ffe330ea91db5",
+  "artifactFiles": 1005,
+  "artifactBytes": 57700202,
+  "stdoutTail": "\n> quahog-web@0.0.0 prebuild\n> node scripts/gen_manifests.mjs\n\n  [anvil] 0 track(s) → manifest.json\n  [anvil/vo] 0 track(s) → manifest.json\n  [mare] 3 track(s) → manifest.json\n  [mare/vo] 1 track(s) → manifest.json\n  [rage] 0 track(s) → manifest.json\n  [rage/jingles] 6 track(s) → manifest.json\n  [rage/vo] 1 track(s) → manifest.json\n  [whale] 5 track(s) → manifest.json\n✓ 16 clip(s) across 4 station(s).\n\n> quahog-web@0.0.0 build\n> tsc && vite build\n\nvite v5.4.10 building for production...\ntransforming...\n✓ 832 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/earth.html                            0.91 kB │ gzip:   0.45 kB\ndist/index.html                            1.38 kB │ gzip:   0.68 kB\ndist/assets/earth-BGICh-Kv.js             23.28 kB │ gzip:   8.40 kB\ndist/assets/Radio-CbNfPtcg.js             53.61 kB │ gzip:  22.13 kB\ndist/assets/vendor-r3f-Ain4Ja4C.js       179.38 kB │ gzip:  92.89 kB\ndist/assets/main-CygJWJhv.js             187.98 kB │ gzip:  56.89 kB\ndist/assets/vendor-react-DAV1SRVr.js     237.58 kB │ gzip:  74.75 kB\ndist/assets/vendor-DMlQapJS.js           439.18 kB │ gzip: 165.30 kB\ndist/assets/vendor-three-BLSLupSH.js     858.17 kB │ gzip: 228.82 kB\ndist/assets/vendor-rapier-CmflnCWb.js  2,081.50 kB │ gzip: 768.99 kB\n✓ built in 6.25s\n",
+  "stderrTail": "Circular chunk: vendor -> vendor-r3f -> vendor. Please adjust the manual chunk logic for these chunks.\n\n(!) Some chunks are larger than 1500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n",
+  "signal": null,
+  "timedOut": false,
+  "worktreeCleanup": "removed"
+}

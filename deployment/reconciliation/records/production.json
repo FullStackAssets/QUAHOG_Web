@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "channel": "production",
+  "attested": false,
+  "approver": null,
+  "approvedAt": null,
+  "subjectCommit": null,
+  "productionHost": null,
+  "previousProductionCommit": null,
+  "previousArtifactSha256": null,
+  "assetPins": [],
+  "publicTreeFingerprint": null,
+  "externalCommitShas": [],
+  "externalArchiveSha256": null,
+  "notes": [
+    "Unattested placeholder. Reconciliation fails closed until a named human attests this record.",
+    "Do not copy observed hashes from a reconciliation report into this file.",
+    "The waterfront/R3 archive described in the audit is not attached. Do not invent its hash.",
+    "noRollbackTarget is not a field this checker accepts."
+  ]
+}
