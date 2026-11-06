@@ -69,6 +69,14 @@ export const virtualTap = (code: string) => taps.add(code);
 /** Set the touch joystick vector (x = right, y = forward), each -1..1. */
 export const setVirtualMove = (x: number, y: number) => { virtual.x = x; virtual.y = y; };
 
+/** True while a key, touch control, or gamepad is asking the sim to keep moving. */
+export function inputIsActive(): boolean {
+  if (pressed.size > 0 || vheld.size > 0 || taps.size > 0) return true;
+  if (Math.abs(virtual.x) > 0.05 || Math.abs(virtual.y) > 0.05) return true;
+  if (Math.abs(gamepadMove.x) > 0.05 || Math.abs(gamepadMove.y) > 0.05) return true;
+  return false;
+}
+
 const clamp1 = (n: number) => Math.max(-1, Math.min(1, n));
 
 /** Read a WASD/arrow + touch movement vector. x = right, y = forward. */

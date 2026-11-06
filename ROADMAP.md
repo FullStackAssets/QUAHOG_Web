@@ -38,47 +38,67 @@ Most likely causes, in order of probability:
 
 ## 3. Stability fixes
 
-### ✅ Applied now (this commit)
-- **`errorTarget={16}`** on the tiles renderer — coarser tiles = dramatically less
-  geometry/VRAM (the single biggest crash lever). Tune down toward 8 for more
-  detail once stable, up toward 24 if still crashing.
+### In the tree (unit-tested; not a device measurement)
+- **`errorTarget={32}`** — coarser than the library default of 16, left at 32
+  because street-level cameras were going blank below that. The Google auth
+  plugin's recommended settings (which would overwrite this to 20) are turned
+  off. This is the checked-in value, not a profiled sweet spot.
 - **`dpr={[1, 1.5]}`** — cap device-pixel-ratio so we don't render at 2–3× on
-  hi-DPI screens (huge fill-rate/VRAM saving).
+  hi-DPI screens.
 - **WebGL context-loss guard** — `preventDefault()` on `webglcontextlost` so the
-  browser can *restore* instead of dying, with logging.
-- **Fewer NPCs** (6 peds / 3 cars) — fewer per-frame tile raycasts + skinned clones.
+  browser can restore the context, with logging.
+- **Fewer NPCs** (6 peds / 3 cars).
+- **Shared raycaster + sample clock.** Player ground height is sampled at 10 Hz
+  and eased between hits. Wall probes are sampled at 20 Hz. NPC ground samples
+  are 2 Hz and share a per-frame cap. One `Raycaster` lives on `tileCollision`.
+- **Scratch vectors** in `follow.ts` / `PlayWorld.tsx` for the camera, probes,
+  and route samples.
+- **LRU window and `maxDepth`.** Bytes 180–280 MB, 2500–3500 entries (the count
+  floor has to sit under the ceiling or the cache never evicts by count),
+  `maxDepth` 24. In this library that stops refinement when
+  `tile.depth + 1 >= 24`. Download/parse queues are capped at 6 and 3.
+- **BVH on `load-model`** via `three-mesh-bvh` (`firstHitOnly`, dispose on
+  `dispose-model`). `TileCompressionPlugin` is not enabled: it quantizes
+  positions, which is a visual change, and it does not build the raycast tree.
+- **Hidden tab** sets `frameloop="demand"` and disables tile updates. **Idle
+  play** (8 s with no key, pointer, or virtual stick) drops to on-demand frames
+  but leaves tile updates enabled so an in-flight load can still invalidate
+  once.
+- **Google faults.** 401/403 and 429 get a specific overlay. Other failures get
+  a neutral message and do not mention billing unless Google's own body did.
+  Request URLs are not copied into the overlay. Repeated tile console errors
+  are collapsed and key-like strings are stripped. Auth-plugin `dispose()` is
+  a no-op until init and ignores a throw.
 
-### ▶️ Next stability pass (recommended, not yet done)
-- **Throttle + cache collision raycasts**: ground-follow at ~10 Hz with height
-  interpolation instead of every frame; reuse one shared `Raycaster`.
-- **Reuse scratch vectors** in `follow.ts` / `PlayWorld.tsx` hot paths (kill
-  per-frame allocations).
-- **Cap the tiles LRU cache** (`lruCache.maxBytesSize`) and **`maxDepth`** to hard-
-  bound memory.
-- **Add a BVH** (`three-mesh-bvh` + the tiles `TileCompressionPlugin` /
-  `MeshBVH`) so raycasts are O(log n) instead of scanning every triangle.
-- **Pause rendering when the tab is hidden** and after the player is idle
-  (on-demand `invalidate()` / `frameloop="demand"`).
-- **Graceful key/quota errors**: surface Google 401/429 (bad key / over quota) as
-  a friendly overlay instead of a console explosion.
+### Still a device gate (not claimed fixed)
+- A real iPhone / desktop session against live Google tiles: context loss, heat,
+  and whether `maxDepth` 24 or `errorTarget` 32 is too coarse or still too heavy.
+- A live 401 and 429 from this key's project. The classifier is tested against
+  fake responses only.
+- No frame-time, memory, or crash-rate number is reported from this pass.
 
-> If it still crashes after the applied fixes, raise `errorTarget` to 24 first —
-> that's the fastest knob.
+> If a device run still loses the WebGL context, raise `errorTarget` (in
+> `TILE_MEMORY`) before adding geometry. That knob is coarser as it goes up.
 
 ---
 
 ## 4. Feature roadmap (next steps)
 
 **Phase A — make it solid & legible**
-- Finish the stability pass above.
-- Tune the human model (`SCALE` / `FACE` / `Y_OFF` in `ModelCharacter.tsx`) once
-  visible; add idle vs walk vs run animation states.
-- HUD pass: minimap/compass, health, interaction prompts.
+- Stability pass above is in code and unit-tested. Device confirmation is open.
+- Rigged-human `SCALE` / `FACE` / `Y_OFF` are named constants and were **not**
+  nudged: there is no device preview in this pass. Idle / walk / run states are
+  in. The photoreal view keeps the rigid humanoid; CesiumMan skinning breaks at
+  earth-centered coordinates, so it stays on the stylized world.
+- Play HUD: heading-up OSM minimap (New Bedford only), compass, health, and
+  enter / punch / hurt prompts. Health drops once per traffic overlap.
 
 **Phase B — real actors & vehicles**
-- Swap car silhouettes for CC0 GLB car models (generic sedan/SUV/sports skinned
-  to our 5 names); shadows + headlight glow at night.
-- A few distinct pedestrian models (not all the same person).
+- NPC traffic uses the existing low-poly vehicle meshes (five silhouettes),
+  with headlight intensity forced on in rain and brake lamps when slowing.
+  No new scanned or CC0 car GLBs were added.
+- Pedestrians differ by shirt, hair, scale, build, and a simple hat. They are
+  variants of one rigid mesh, not separate people.
 
 **Phase C — gameplay systems**
 - Mission framework (objective markers, triggers, states, rewards) — see the

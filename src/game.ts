@@ -24,7 +24,7 @@ const clamp5 = (n: number) => Math.max(0, Math.min(5, n));
 
 // Coerce an unknown persisted value into a finite number within [min,max],
 // falling back when the stored value is missing, NaN, Infinity, or the wrong
-// type. Guards against corrupt/tampered/legacy localStorage payloads that would
+// type. Guards against corrupt or tampered localStorage payloads that would
 // otherwise poison the store with NaN cash or an out-of-range wanted level.
 const num = (v: unknown, fallback: number, min: number, max: number): number => {
   const n = typeof v === "number" ? v : Number(v);
@@ -60,7 +60,7 @@ export const useStats = create<Stats>((set, get) => ({
       const parsed = JSON.parse(raw) as Partial<SavedStats> | null;
       if (!parsed || typeof parsed !== "object") return;
       // Coerce + clamp every field instead of blindly spreading the parsed
-      // object into the store. A corrupt/legacy save could otherwise inject
+      // object into the store. A corrupt or older save could otherwise inject
       // NaN health, negative cash, an out-of-range wanted level, or stray keys.
       set({
         cash: num(parsed.cash, 250, 0, Number.MAX_SAFE_INTEGER),

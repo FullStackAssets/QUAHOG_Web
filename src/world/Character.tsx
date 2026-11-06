@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
+import { gaitPose, gaitStep, type Gait } from "../actors/gait";
 
 // A simple low-poly humanoid (head, torso, swinging arms + legs) built from
 // primitives. Feet rest at local y=0; faces +z. Shared by the player and
@@ -11,7 +12,9 @@ export interface CharacterProps {
   shirt?: string;
   pants?: string;
   hair?: string;
+  hat?: boolean;
   moving?: () => boolean;
+  pace?: () => Gait;
 }
 
 export function Character({
@@ -19,7 +22,9 @@ export function Character({
   shirt = "#3f6cc0",
   pants = "#2c2f3a",
   hair = "#2a2018",
+  hat = false,
   moving = () => true,
+  pace,
 }: CharacterProps) {
   const legL = useRef<THREE.Group>(null);
   const legR = useRef<THREE.Group>(null);
@@ -31,15 +36,17 @@ export function Character({
 
   useFrame((_, dt) => {
     const step = Math.min(dt, 0.05);
-    const want = moving() ? 1 : 0;
-    gait.current += (want - gait.current) * Math.min(1, step * 8);
-    phase.current += step * 9 * gait.current;
-    const s = Math.sin(phase.current) * 0.6 * gait.current;
-    if (legL.current) legL.current.rotation.x = s;
-    if (legR.current) legR.current.rotation.x = -s;
-    if (armL.current) armL.current.rotation.x = -s * 0.8;
-    if (armR.current) armR.current.rotation.x = s * 0.8;
-    if (bob.current) bob.current.position.y = Math.abs(Math.sin(phase.current)) * 0.05 * gait.current;
+    const gaitName = pace ? pace() : (moving() ? "walk" : "idle");
+    phase.current = gaitStep(phase.current, gaitName, step);
+    const goal = gaitName === "idle" ? 0 : 1;
+    gait.current += (goal - gait.current) * Math.min(1, step * 8);
+    const pose = gaitPose(phase.current, gaitName);
+    const blend = gait.current;
+    if (legL.current) legL.current.rotation.x = pose.legL * blend;
+    if (legR.current) legR.current.rotation.x = pose.legR * blend;
+    if (armL.current) armL.current.rotation.x = pose.armL * blend;
+    if (armR.current) armR.current.rotation.x = pose.armR * blend;
+    if (bob.current) bob.current.position.y = pose.bob * blend;
   });
 
   return (
@@ -100,6 +107,12 @@ export function Character({
         <sphereGeometry args={[0.155, 12, 12, 0, Math.PI * 2, 0, Math.PI * 0.55]} />
         <meshStandardMaterial color={hair} roughness={0.85} />
       </mesh>
+      {hat && (
+        <mesh position={[0, 1.98, 0]} castShadow>
+          <cylinderGeometry args={[0.2, 0.2, 0.06, 12]} />
+          <meshStandardMaterial color="#1c1c1c" roughness={0.7} />
+        </mesh>
+      )}
     </group>
   );
 }

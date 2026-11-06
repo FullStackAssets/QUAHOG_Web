@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { EarthApp } from "./earth/EarthApp";
+import { redactSecrets } from "./earth/tileFault";
 
 // Catch render-time crashes so the page shows a message instead of a white screen.
 class ErrorBoundary extends React.Component<
@@ -16,11 +17,12 @@ class ErrorBoundary extends React.Component<
         <div style={{ position: "fixed", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "#05070d", color: "#e7e0ff", font: "14px/1.6 'Courier New', monospace", padding: 24, textAlign: "center" }}>
           <div style={{ maxWidth: 520 }}>
             <h2 style={{ color: "#ff7a7a" }}>Something tripped up</h2>
-            <p>The photoreal view hit an error. This is usually a bad/over-quota Google key or the GPU running low.</p>
-            <p style={{ opacity: 0.8 }}>Try reloading. If it persists, check the API key (Map Tiles API enabled, billing on) or lower detail.</p>
+            <p>The photoreal view hit an error and stopped rendering.</p>
+            <p style={{ opacity: 0.8 }}>Reload to try again. The message below is the exception text, with any key-like strings removed.</p>
             <pre style={{ textAlign: "left", background: "#0c0f1a", padding: 12, borderRadius: 8, overflow: "auto", fontSize: 11 }}>
-              {String(this.state.error?.message || this.state.error)}
+              {redactSecrets(String(this.state.error?.message || this.state.error))}
             </pre>
+            <p style={{ marginTop: 12 }}><a href="./index.html" style={{ color: "#7ad9ff" }}>Waterfront study</a></p>
             <button onClick={() => location.reload()} style={{ cursor: "pointer", border: "1px solid #2c3a5e", background: "#7ad9ff", color: "#04121a", fontWeight: 700, padding: "8px 16px", borderRadius: 6 }}>
               RELOAD
             </button>

@@ -3,14 +3,16 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { RoundedBox } from "@react-three/drei";
 import { shared } from "../shared";
+import { lampIntensity } from "./lamps";
+import { VEHICLE_TYPES, type VehicleType } from "./vehicleTypes";
+
+export { VEHICLE_TYPES };
+export type { VehicleType };
 
 // Recognizable low-poly road cars built from primitives. Silhouettes are tuned
 // per model (ride height, hood/cabin proportions) so a Bronco reads boxy/tall, a
 // Mustang long-hood/low, the Z a wedge, etc. Bodies are rounded (not raw boxes)
 // and paint is reflective (metalness + IBL) for a more realistic read.
-
-export type VehicleType = "bronco" | "mustang" | "infiniti" | "nissanz" | "rav4";
-export const VEHICLE_TYPES: VehicleType[] = ["bronco", "mustang", "infiniti", "nissanz", "rav4"];
 
 interface Spec {
   L: number; W: number; H: number; y: number; // body box + center height
@@ -29,7 +31,7 @@ const SPECS: Record<VehicleType, Spec> = {
   rav4:     { L: 4.4, W: 1.9, H: 1.15, y: 1.0, cabL: 2.2, cabH: 0.82, cabZ: -0.15, ride: 0.48, wheelR: 0.48, glass: "#212a30" },
 };
 
-export function Vehicle({ type, color, brake }: { type: VehicleType; color: string; brake?: () => boolean }) {
+export function Vehicle({ type, color, brake, lights = false }: { type: VehicleType; color: string; brake?: () => boolean; lights?: boolean }) {
   const s = SPECS[type];
   const halfL = s.L / 2;
   const wheelZ = halfL - 0.95;
@@ -44,9 +46,9 @@ export function Vehicle({ type, color, brake }: { type: VehicleType; color: stri
   // headlights/taillights come up at dusk; taillights flare under braking; and
   // wheels roll by self-measured world speed (works for any vehicle).
   useFrame(() => {
-    const night = 1 - shared.dayT;
-    if (head.current) head.current.emissiveIntensity = 0.3 + night * 1.6;
-    if (tail.current) tail.current.emissiveIntensity = 0.3 + night * 0.9 + (brake?.() ? 2.2 : 0);
+    const lamp = lampIntensity(shared.dayT, brake?.() ?? false, lights);
+    if (head.current) head.current.emissiveIntensity = lamp.head;
+    if (tail.current) tail.current.emissiveIntensity = lamp.tail;
     if (root.current) {
       root.current.getWorldPosition(_wp);
       if (prev.current) {

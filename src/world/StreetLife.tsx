@@ -2,15 +2,15 @@ import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { ModelCharacter } from "./ModelCharacter";
+import type { Gait } from "../actors/gait";
 import { Vehicle, VEHICLE_TYPES } from "../earth/Vehicles";
 import { shared, raiseAlarm, addPickup, type Body, type TrafficCar } from "../shared";
 import { useStats } from "../game";
 import type { Road } from "../slice";
 
-// Ambient "street life" ported from the legacy Unity StreetLife.cs: wandering
-// pedestrians + decorative patrol cars. Everything is KINEMATIC (plain meshes,
-// no rigid bodies) so it can never shove the player's physics car — exactly the
-// constraint the Unity version held. Cars here follow the REAL OSM road network.
+// Ambient street life: wandering pedestrians and decorative patrol cars.
+// Kinematic meshes (no rigid bodies) so they never shove the player's physics car.
+// Cars follow the OSM road network.
 
 const PED_COUNT = 32;
 const PED_SPEED = 1.5; // m/s
@@ -40,6 +40,7 @@ interface Route {
 const TMP = new THREE.Vector3();
 const TMP2 = new THREE.Vector3();
 const _dir = new THREE.Vector3();
+const _goal = new THREE.Vector3();
 
 // ---------------------------------------------------------------------------
 
@@ -80,7 +81,7 @@ function Pedestrians({ center }: { center: [number, number] }) {
     Array.from({ length: PED_COUNT }, () => {
       const pos = randInBox(center);
       return {
-        pos, goal: randInBox(center), heading: 0, color: pick(PED_COLORS),
+        pos, goal: randInBox(center), heading: 0, color: pick(PED_COLORS), pace: "walk" as Gait,
         scale: 0.9 + Math.random() * 0.28, // overall size variety (origin at feet, so they stay planted) — not 32 clones
         down: 0, dead: false,
         vel: new THREE.Vector3(), y: 0, tumble: 0, // ragdoll launch state
@@ -168,8 +169,10 @@ function Pedestrians({ center }: { center: [number, number] }) {
         away.normalize();
         p.pos.addScaledVector(away, PED_SPEED * 2.2 * step); // run
         p.heading = Math.atan2(away.x, away.z);
+        p.pace = "run";
       } else {
-        const to = new THREE.Vector3().subVectors(p.goal, p.pos);
+        p.pace = "walk";
+        const to = _goal.subVectors(p.goal, p.pos);
         to.y = 0;
         if (to.length() < 0.6) {
           p.goal = randInBox(center);
@@ -191,7 +194,7 @@ function Pedestrians({ center }: { center: [number, number] }) {
         <group key={i} ref={(el) => (refs.current[i] = el)} position={p.pos} scale={p.scale}>
           {/* tint per ped (the colour was computed but never used) so the crowd
               reads as different people, not 32 identical white models */}
-          <ModelCharacter tint={p.color} moving={() => !p.dead && p.down <= 0} />
+          <ModelCharacter tint={p.color} pace={() => (p.dead || p.down > 0 ? "idle" : p.pace)} />
         </group>
       ))}
     </group>
@@ -306,7 +309,7 @@ function randInBox(center: [number, number] = [0, 0]) {
     center[1] + (Math.random() * 2 - 1) * PED_WANDER,
   );
 }
-const pick = <T,>(a: T[]) => a[Math.floor(Math.random() * a.length)];
+const pick = <T,>(a: readonly T[]) => a[Math.floor(Math.random() * a.length)];
 
 const STOP_DIST = 8;
 /** True if a red signal stop-line is just ahead of a car heading `heading`. */

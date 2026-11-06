@@ -14,7 +14,7 @@
 
 - **Waterfront study (index.html → `src/realism/main.ts`)**: plain **imperative Three.js 0.169.0** — no React, no R3F, no drei. Vite 5.4.10, TypeScript 5.6.3.
 - **Google tiles viewer (earth.html → `src/earth.tsx`)**: React 18.3.1 + **@react-three/fiber 8.17.10** + **3d-tiles-renderer ^0.4.28** + drei 9.114.3.
-- Also present in deps: @react-three/rapier 1.5.0, three-mesh-bvh, zustand, postprocessing — these serve the legacy game code (see §6).
+- Also present in deps: @react-three/rapier 1.5.0, three-mesh-bvh, zustand, postprocessing — these serve the stylized game code (see §6).
 - Lockfile `package-lock.json` shipped; deps pinned/caret-mixed.
 
 ## 3. What the "waterfront study" is built from — VERIFIED (read `src/realism/main.ts` 202 lines, `geometry.ts` 12 lines)
@@ -32,7 +32,7 @@
 - R3F Canvas + `TilesRenderer` from 3d-tiles-renderer, Google Photorealistic 3D Tiles via `GoogleCloudAuthPlugin` (apiToken passed from React prop). Crash-fix patch in the archive: a local `GoogleTilesPlugin` subclass whose `dispose()` is safe before init and idempotent; plugin args memoized with `useMemo` so parent renders don't restart the tile session; `errorTarget={32}` preserved; error screen links back to the key-free study and does NOT diagnose billing/memory from an exception.
 - **Auth flow (no bundled key — VERIFIED via grep)**: key comes from `?key=` URL param (then persisted to `localStorage` under `mh.googleMapsKey` and **scrubbed from the address bar** via history.replaceState), or `VITE_GOOGLE_MAPS_API_KEY` at build time, or localStorage. Without a key the viewer shows a notice — no tiles fetched, no paid calls possible.
 - 4 spawn spots: New Bedford/Seamen's Bethel (anchored to the local OSM slice), Battleship Cove, Lizzie Borden house, Fall River downtown. Orbit + third-person "play" modes, globe controls, weather cycle (clear/cloudy/rain, 45s interval), `TilesBVH` for collision raycasts, attribution overlay.
-- The old test-title "Mount Hope" is legacy naming; coordinates are New Bedford/Fall River (41.636, -70.9205 etc.) — VERIFIED from SPOTS constant.
+- The old test-title "Mount Hope" is earlier naming; coordinates are New Bedford/Fall River (41.636, -70.9205 etc.) — VERIFIED from SPOTS constant.
 
 ## 5. Tests — VERIFIED (file listing + test-count grep), claims vs reality
 
@@ -53,7 +53,7 @@
 ## 8. Relationship to codebase #1 (QUAHOG_Web at `~/workspace/quahog-web/`) — VERIFIED / INFERRED
 
 - **Fully separate, not a fork.** No shared source files, no `git` history linking, different package identity (`narrows-waterfront-study`), different entry points.
-- Two references only, both in the *dead* legacy game code (see §9): a comment citing `QUAHOG_Web/ROADMAP.md §3 "per-frame garbage"` and a console tag `[quahog]`. INFERRED: ChatGPT read the QUAHOG_Web roadmap doc and borrowed a perf idiom (module-scope scratch vectors), not code.
+- Two references only, both in the *dead* stylized game code (see §9): a comment citing `QUAHOG_Web/ROADMAP.md §3 "per-frame garbage"` and a console tag `[quahog]`. INFERRED: ChatGPT read the QUAHOG_Web roadmap doc and borrowed a perf idiom (module-scope scratch vectors), not code.
 - Art assets were lifted from the `QUAHOG_GODOT1` asset archive (CREDITS.txt, VERIFIED), not from QUAHOG_Web.
 
 ## 9. Important structural gotcha — VERIFIED
