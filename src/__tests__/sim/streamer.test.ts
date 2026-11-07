@@ -81,4 +81,16 @@ describe("WorldStreamer", () => {
     vi.useRealTimers();
     expect(streamer.queued + streamer.readyCount + (streamer.stateOf("x") === "loading" ? 1 : 0)).toBeGreaterThanOrEqual(0);
   });
+
+  it("metrics track ready/resident/evict counts", () => {
+    const streamer = new WorldStreamer({ maxResidentBytes: 1500, now: () => 1 });
+    streamer.debugForceReady("a", 1000);
+    streamer.debugForceReady("b", 1000);
+    streamer.request({ x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 }, ["a"]);
+    streamer.unloadOutsideBudget(1500);
+    const m = streamer.metrics();
+    expect(m.ready).toBe(1);
+    expect(m.residentBytes).toBeLessThanOrEqual(1500);
+    expect(m.evictCount).toBeGreaterThanOrEqual(1);
+  });
 });

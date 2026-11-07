@@ -271,17 +271,22 @@ export function StreamingBuildings({ fallback, center }: { fallback: Building[];
       // corners don't pop on mobile networks.
       let focusX = px;
       let focusN = pn;
+      // Fog/rain shorten the far interest ring (§1.4.13 / §7.5.2).
+      const radiusScale = sim.clock.streamRadiusScale();
+      const effectiveStreamR = sim.preset.streamRadius * radiusScale;
+      sim.streamer.streamRadius = effectiveStreamR;
+
       if (Math.abs(shared.carSpeed) > 4) {
         // world forward = (sin yaw, cos yaw) in XZ; north = -z → Δnorth = -Δz
-        const look = Math.min(Math.abs(shared.carSpeed) * 1.1, sim.preset.streamRadius * 0.5);
+        const look = Math.min(Math.abs(shared.carSpeed) * 1.1, effectiveStreamR * 0.5);
         const sign = shared.carSpeed >= 0 ? 1 : -1;
         focusX += Math.sin(shared.carYaw) * look * sign;
         focusN = pn - Math.cos(shared.carYaw) * look * sign;
       }
 
       const gx = Math.floor(focusX / m.tile), gn = Math.floor(focusN / m.tile);
-      const VIEW_R = viewRadius(quality);
-      const COLLIDE_R = collideRadius(quality);
+      const VIEW_R = Math.max(1, Math.round(viewRadius(quality) * radiusScale));
+      const COLLIDE_R = Math.min(VIEW_R, collideRadius(quality));
 
       const want: { key: string; collide: boolean }[] = [];
       collideByKey.current.clear();

@@ -1,20 +1,23 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { useFrame } from "@react-three/fiber";
 import { CuboidCollider, RigidBody, type RapierRigidBody } from "@react-three/rapier";
 import { consumeTap, moveAxis } from "../input";
 import { shared } from "../shared";
 import { useGame } from "../store";
 import { sfx } from "../audio/sfx";
 import { BOAT_SPAWN } from "../economy";
+import { sim } from "../sim";
 
 // Pilotable harbor boat (§6). Floats on the ground plane that underlies the
 // water (so it rides at ~sea level), exempt from the water barrier. Heavier and
 // looser than a car — momentum, slow turns, a trailing wake. Board with E at the
 // Long Island marina; E again to step off onto the dock.
+// §1.1.18: boat physics advances on the fixed-step GameLoop.
 
 const MAX_SPEED = 17;
 const EXIT: [number, number, number] = [6092, 2, 4485]; // the marina dock
+const _fwd = new THREE.Vector3();
+const _nfwd = new THREE.Vector3();
 
 export function Boat() {
   const body = useRef<RapierRigidBody>(null);
@@ -25,46 +28,52 @@ export function Boat() {
     return () => { shared.boat = null; };
   }, []);
 
-  useFrame((_, dt) => {
-    const rb = body.current;
-    if (!rb) return;
-    const game = useGame.getState();
-    if (game.paused) { sfx.engine(0, false); return; }
-    if (game.mode !== "boat") { sfx.engine(0, false); if (wake.current) wake.current.visible = false; return; }
-
-    const ax = moveAxis();
-    let yaw = shared.boatYaw;
-    const v = rb.linvel();
-    const fwd = new THREE.Vector3(Math.sin(yaw), 0, Math.cos(yaw));
-    const vF = v.x * fwd.x + v.z * fwd.z;
-
-    // slow, momentum-y steering (only bites with way on)
-    const grip = THREE.MathUtils.clamp(Math.abs(vF) / 5, 0, 1);
-    yaw -= ax.x * 1.1 * dt * grip * (vF < -0.1 ? -1 : 1);
-
-    const target = ax.y > 0 ? MAX_SPEED * ax.y : ax.y < 0 ? -6 * -ax.y : 0;
-    const nf = THREE.MathUtils.lerp(vF, target, 1 - Math.exp(-dt * 0.9)); // heavy inertia
-    const nfwd = new THREE.Vector3(Math.sin(yaw), 0, Math.cos(yaw));
-    rb.setLinvel({ x: nfwd.x * nf, y: v.y, z: nfwd.z * nf }, true);
-    rb.setRotation({ x: 0, y: Math.sin(yaw / 2), z: 0, w: Math.cos(yaw / 2) }, true);
-    shared.boatYaw = yaw;
-    sfx.engine(Math.min(1, Math.abs(nf) / MAX_SPEED) * 0.7, true);
-
-    if (wake.current) {
-      wake.current.visible = Math.abs(nf) > 2;
-      (wake.current.material as THREE.MeshBasicMaterial).opacity = Math.min(0.5, Math.abs(nf) / MAX_SPEED);
-    }
-
-    if (consumeTap("KeyE")) {
-      const pl = shared.player;
-      if (pl) {
-        pl.setEnabled(true);
-        pl.setTranslation({ x: EXIT[0], y: EXIT[1], z: EXIT[2] }, true);
-        pl.setLinvel({ x: 0, y: 0, z: 0 }, true);
+  useEffect(() => {
+    return sim.loop.on("step", (dt) => {
+      const rb = body.current;
+      if (!rb) return;
+      const game = useGame.getState();
+      if (game.paused) { sfx.engine(0, false); return; }
+      if (game.mode !== "boat") {
+        sfx.engine(0, false);
+        if (wake.current) wake.current.visible = false;
+        return;
       }
-      game.setMode("foot");
-    }
-  });
+
+      const ax = moveAxis();
+      let yaw = shared.boatYaw;
+      const v = rb.linvel();
+      const fwd = _fwd.set(Math.sin(yaw), 0, Math.cos(yaw));
+      const vF = v.x * fwd.x + v.z * fwd.z;
+
+      // slow, momentum-y steering (only bites with way on)
+      const grip = THREE.MathUtils.clamp(Math.abs(vF) / 5, 0, 1);
+      yaw -= ax.x * 1.1 * dt * grip * (vF < -0.1 ? -1 : 1);
+
+      const target = ax.y > 0 ? MAX_SPEED * ax.y : ax.y < 0 ? -6 * -ax.y : 0;
+      const nf = THREE.MathUtils.lerp(vF, target, 1 - Math.exp(-dt * 0.9)); // heavy inertia
+      const nfwd = _nfwd.set(Math.sin(yaw), 0, Math.cos(yaw));
+      rb.setLinvel({ x: nfwd.x * nf, y: v.y, z: nfwd.z * nf }, true);
+      rb.setRotation({ x: 0, y: Math.sin(yaw / 2), z: 0, w: Math.cos(yaw / 2) }, true);
+      shared.boatYaw = yaw;
+      sfx.engine(Math.min(1, Math.abs(nf) / MAX_SPEED) * 0.7, true);
+
+      if (wake.current) {
+        wake.current.visible = Math.abs(nf) > 2;
+        (wake.current.material as THREE.MeshBasicMaterial).opacity = Math.min(0.5, Math.abs(nf) / MAX_SPEED);
+      }
+
+      if (consumeTap("KeyE")) {
+        const pl = shared.player;
+        if (pl) {
+          pl.setEnabled(true);
+          pl.setTranslation({ x: EXIT[0], y: EXIT[1], z: EXIT[2] }, true);
+          pl.setLinvel({ x: 0, y: 0, z: 0 }, true);
+        }
+        game.setMode("foot");
+      }
+    });
+  }, []);
 
   return (
     <RigidBody

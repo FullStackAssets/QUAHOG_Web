@@ -16,7 +16,7 @@ Gate for M8 / release candidate. Check off only with evidence.
 - [x] Heat tier table + ★5 APB no-decay
 - [x] Ammo inventory spend/reload + persistence
 - [x] `WorldStreamer` evict/unwanted grace
-- [~] All AI on fixed step (peds/traffic/heat/economy done; vehicles/boat TBD)
+- [x] All AI on fixed step (peds/traffic/heat/economy/car/boat)
 
 ## Quality
 

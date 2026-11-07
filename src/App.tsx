@@ -39,6 +39,7 @@ const DPR_BY_QUALITY: ([number, number] | number)[] = [1, [1, 1.25], [1, 1.5]];
 export default function App() {
   const [sliceName, setSliceName] = useState("loading…");
   const [progress, setProgress] = useState(0);
+  const [frameloop, setFrameloop] = useState<"always" | "never">("always");
   const quality = useGame((s) => s.quality);
 
   // stable callbacks so the Experience loader effect doesn't re-run each render
@@ -49,9 +50,17 @@ export default function App() {
     installInput();
   }, []);
 
+  // §12.5: pause the stylized Canvas while the tab is hidden.
+  useEffect(() => {
+    const onVis = () => setFrameloop(document.hidden ? "never" : "always");
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
+
   return (
     <>
       <Canvas
+        frameloop={frameloop}
         shadows="soft"
         camera={{ fov: 60, near: 0.3, far: 1000, position: [0, 10, 24] }}
         dpr={DPR_BY_QUALITY[quality]}

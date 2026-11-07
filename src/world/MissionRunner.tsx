@@ -69,7 +69,8 @@ export function MissionRunner() {
     }
     prevMode.current = mode;
 
-    const body = mode === "car" ? shared.car : shared.player;
+    // Boat-aware target body so marina / harbor steps can complete (§8.6.3).
+    const body = mode === "car" ? shared.car : mode === "boat" ? shared.boat : shared.player;
 
     let complete = true;
     if (cur.needCar) {

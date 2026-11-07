@@ -26,6 +26,8 @@ interface PosRec {
   mode: string; px?: number; py?: number; pz?: number; heading?: number;
   carx?: number; cary?: number; carz?: number; carYaw?: number;
   carType?: string; carColor?: string;
+  boatx?: number; boaty?: number; boatz?: number; boatYaw?: number;
+  carDamage?: number;
   day?: number; hour?: number; // so Continue resumes the same in-game day/time
 }
 
@@ -35,10 +37,13 @@ function savePos() {
   const g = useGame.getState();
   const pl = shared.player?.translation();
   const car = shared.car?.translation();
+  const boat = shared.boat?.translation();
   const rec: PosRec = {
     mode: g.mode, px: pl?.x, py: pl?.y, pz: pl?.z, heading: shared.heading,
     carx: car?.x, cary: car?.y, carz: car?.z, carYaw: shared.carYaw,
     carType: g.playerCarType, carColor: g.playerCarColor,
+    boatx: boat?.x, boaty: boat?.y, boatz: boat?.z, boatYaw: shared.boatYaw,
+    carDamage: shared.carDamage,
     day: shared.day, hour: shared.hour,
   };
   saveJSON(POS_KEY, rec);
@@ -48,11 +53,20 @@ function loadPos(): PosRec | null {
   return loadJSON<PosRec | null>(POS_KEY, null);
 }
 function applyRestore(r: PosRec) {
-  const pl = shared.player, car = shared.car;
+  const pl = shared.player, car = shared.car, boat = shared.boat;
   if (!pl) return;
   const g = useGame.getState();
   if (typeof r.day === "number") shared.day = r.day;
   if (typeof r.hour === "number") shared.hour = r.hour;
+  if (typeof r.carDamage === "number") shared.carDamage = r.carDamage;
+  if (r.boatx != null && boat) {
+    boat.setTranslation({ x: r.boatx, y: r.boaty ?? 1.2, z: r.boatz ?? 0 }, true);
+    boat.setLinvel({ x: 0, y: 0, z: 0 }, true);
+    if (r.boatYaw != null) {
+      boat.setRotation({ x: 0, y: Math.sin(r.boatYaw / 2), z: 0, w: Math.cos(r.boatYaw / 2) }, true);
+      shared.boatYaw = r.boatYaw;
+    }
+  }
   if (r.mode === "car" && r.carx != null && car) {
     car.setTranslation({ x: r.carx, y: r.cary ?? 1.4, z: r.carz ?? 0 }, true);
     car.setLinvel({ x: 0, y: 0, z: 0 }, true);
@@ -61,6 +75,11 @@ function applyRestore(r: PosRec) {
     pl.setEnabled(false);
     if (r.carType && r.carColor) g.setPlayerCar(r.carType, r.carColor);
     g.setMode("car");
+  } else if (r.mode === "boat" && r.boatx != null && boat) {
+    pl.setTranslation({ x: r.boatx, y: 2, z: r.boatz ?? 0 }, true);
+    pl.setEnabled(false);
+    if (r.carx != null && car) car.setTranslation({ x: r.carx, y: r.cary ?? 1.4, z: r.carz ?? 0 }, true);
+    g.setMode("boat");
   } else if (r.px != null) {
     pl.setEnabled(true);
     pl.setTranslation({ x: r.px, y: r.py ?? 3, z: r.pz ?? 0 }, true);
@@ -187,10 +206,12 @@ export function GameSystems() {
     // tire screech on hard cornering (§13/§20), with a cooldown so it doesn't spam
     skidCool.current = Math.max(0, skidCool.current - dt);
     if (shared.skid && skidCool.current <= 0) { sfx.screech(); skidCool.current = 0.55; }
-    // arrive at a player-placed waypoint → clear it (§21)
+    // arrive at a player-placed waypoint → clear it (§21); boat-aware (§8.6.3)
     const wp = useGame.getState().waypoint;
     if (wp) {
-      const b = (useGame.getState().mode === "car" ? shared.car : shared.player)?.translation();
+      const mode = useGame.getState().mode;
+      const body = mode === "car" ? shared.car : mode === "boat" ? shared.boat : shared.player;
+      const b = body?.translation();
       if (b && Math.hypot(b.x - wp.x, b.z - wp.z) < 9) {
         useGame.getState().setWaypoint(null);
         useToasts.getState().push("Waypoint reached", "#ff7ad9"); sfx.ui();
@@ -240,6 +261,7 @@ export function GameSystems() {
         fxOn: g.fxOn, shadows: g.shadows, fov: g.fov, reduceShake: g.reduceShake,
         weather: g.weather, quality: g.quality, weapon: g.weapon, melee: g.melee, armed: g.armed,
       });
+      const boatT = shared.boat?.translation();
       saveUnified({
         weapons: { weapon: g.weapon, melee: g.melee, armed: g.armed },
         waypoint: g.waypoint,
@@ -248,6 +270,10 @@ export function GameSystems() {
           pistol: useInventory.getState().pistol,
           shotgun: useInventory.getState().shotgun,
         },
+        carDamage: shared.carDamage,
+        boat: boatT
+          ? { x: boatT.x, y: boatT.y, z: boatT.z, yaw: shared.boatYaw }
+          : null,
       });
     }
   });

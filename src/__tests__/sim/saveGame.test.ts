@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { canContinue, clearAllSaves, validateSave, SCHEMA_VERSION } from "../../sim/SaveGame";
+import {
+  canContinue,
+  clearAllSaves,
+  collectLegacySave,
+  validateSave,
+  SCHEMA_VERSION,
+} from "../../sim/SaveGame";
 import { saveJSON, removeItem } from "../../storage";
 import { SAVE_KEYS } from "../../registries";
 
@@ -20,5 +26,18 @@ describe("SaveGame", () => {
   it("validateSave rejects bad schema", () => {
     expect(validateSave(null).length).toBeGreaterThan(0);
     expect(validateSave({ schemaVersion: SCHEMA_VERSION, createdAt: 1, build: "t" })).toEqual([]);
+  });
+
+  it("collectLegacySave pulls boat + carDamage from position", () => {
+    clearAllSaves();
+    saveJSON(SAVE_KEYS.pos, {
+      mode: "boat",
+      px: 1, py: 2, pz: 3,
+      boatx: 10, boaty: 1.2, boatz: 20, boatYaw: 0.5,
+      carDamage: 42,
+    });
+    const blob = collectLegacySave();
+    expect(blob.carDamage).toBe(42);
+    expect(blob.boat).toEqual({ x: 10, y: 1.2, z: 20, yaw: 0.5 });
   });
 });
