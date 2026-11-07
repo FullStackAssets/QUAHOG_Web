@@ -68,6 +68,8 @@ import { Player } from "./actors/Player";
 import { Car } from "./actors/Car";
 import { Boat } from "./actors/Boat";
 import { FollowCamera } from "./actors/FollowCamera";
+import { SimBootstrap } from "./sim/SimBootstrap";
+import { carCount, pedCount } from "./quality";
 
 // Post-processing, toggleable from settings (§26).
 function FxGate() {
@@ -98,6 +100,7 @@ const CORE: [number, number] = [-266, -100];
 export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => void; onProgress?: (f: number) => void }) {
   const [slice, setSlice] = useState<Slice | null>(null);
   const gameId = useGame((s) => s.gameId); // remount per-game props (collectibles) on New Game
+  const quality = useGame((s) => s.quality);
 
   useEffect(() => {
     let alive = true;
@@ -128,6 +131,7 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
       <Consequence />
       <Hazards />
 
+      <SimBootstrap />
       <Physics gravity={[0, -9.81, 0]}>
         <AerialGround origin={slice?.origin} />
         <Player />
@@ -151,6 +155,8 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
         )}
         {/* Heroes use RigidBody colliders → must live inside <Physics> */}
         <Heroes />
+        {/* Camera needs Rapier for occlusion probes against world colliders. */}
+        <FollowCamera />
       </Physics>
 
       {/* Area polys sit BELOW the road apron (0.04) so roads/sidewalks always
@@ -196,7 +202,13 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
       {slice && <Dumpsters roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
       </CullByDistance>
       {slice && <HurricaneBarrier paths={slice.barrier} />}
-      {slice && <StreetLife roads={slice.roads} center={[CORE[0], -CORE[1]]} />}
+      {slice && (
+        <StreetLife
+          key={`life-${quality}-${pedCount(quality)}-${carCount(quality)}`}
+          roads={slice.roads}
+          center={[CORE[0], -CORE[1]]}
+        />
+      )}
       <Safehouse />
       <Hospital />
       <Businesses />
@@ -214,7 +226,6 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
       <Rain />
       <Ambient weather="clear" />
 
-      <FollowCamera />
       <FxGate />
       <ShadowGate />
     </>

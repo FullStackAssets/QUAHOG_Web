@@ -10,9 +10,17 @@ import { shared } from "../shared";
 import { sfx } from "../audio/sfx";
 import { radio } from "../audio/radioEngine";
 import { loadJSON, saveJSON } from "../storage";
+import { useMission } from "../mission";
+import { useInventory } from "../inventory";
+import { useRace } from "../race";
+import { SAVE_KEYS } from "../registries";
+import { saveUnified } from "../sim/SaveGame";
+import { sim } from "../sim/SimRuntime";
+import { spatialAudio } from "../audio/SpatialAudio";
+import { rng } from "../sim/Rng";
 
 const DAY_SECONDS = 600; // matches DayNight's cycle length
-const POS_KEY = "mounthope.pos.v1";
+const POS_KEY = SAVE_KEYS.pos;
 
 interface PosRec {
   mode: string; px?: number; py?: number; pz?: number; heading?: number;
@@ -34,6 +42,7 @@ function savePos() {
     day: shared.day, hour: shared.hour,
   };
   saveJSON(POS_KEY, rec);
+  useMission.getState().save();
 }
 function loadPos(): PosRec | null {
   return loadJSON<PosRec | null>(POS_KEY, null);
@@ -86,10 +95,15 @@ export function GameSystems() {
   useEffect(() => {
     useStats.getState().load();
     useEconomy.getState().load();
+    useMission.getState().load();
+    useInventory.getState().load();
+    useRace.getState().load();
     sfx.startAmbience();
+    // Remember last dial id for Continue (panel re-selects on open).
+    shared.lastRadioStation = radio.restoreStationId();
     // restore settings (§26)
     {
-      const s = loadJSON<Record<string, unknown>>("mounthope.settings.v1", {});
+      const s = loadJSON<Record<string, unknown>>(SAVE_KEYS.settings, {});
       const g = useGame.getState();
       if (typeof s.fxOn === "boolean" && s.fxOn !== g.fxOn) g.toggleFx();
       if (typeof s.shadows === "boolean" && s.shadows !== g.shadows) g.toggleShadows();
@@ -97,12 +111,36 @@ export function GameSystems() {
       if (typeof s.reduceShake === "boolean" && s.reduceShake !== g.reduceShake) g.toggleReduceShake();
       if (typeof s.quality === "number") g.setQuality(s.quality as 0 | 1 | 2);
       if (s.weather) useGame.setState({ weather: s.weather as Weather });
+      if (typeof s.weapon === "string") g.setWeapon(s.weapon as "pistol" | "shotgun", false);
+      if (typeof s.melee === "string") g.setMelee(s.melee as "fists" | "bat");
+      if (typeof s.armed === "boolean" && s.armed !== g.armed) g.toggleArmed();
     }
+    // §1.1: heat decay + economy income on fixed step (clock stays with DayNight).
+    const offStep = sim.loop.on("step", (dt) => {
+      if (!useGame.getState().started || useGame.getState().paused) return;
+      const st = useStats.getState();
+      const income = useEconomy.getState().incomePerSec(DAY_SECONDS);
+      if (income > 0) st.addCash(income * dt);
+      st.decay(dt);
+      // Wetness / friction clock tracks shared time without double-advancing the day.
+      sim.clock.syncFromShared(shared.day, shared.hour, useGame.getState().weather);
+      sim.clock.wetness = Math.max(
+        0,
+        Math.min(
+          1,
+          sim.clock.wetness + (useGame.getState().weather === "rain" ? dt * 0.08 : -dt * 0.03),
+        ),
+      );
+    });
     // persist position on tab-hide / close so a quick exit still resumes
     const onHide = () => { if (useGame.getState().started) savePos(); };
     window.addEventListener("pagehide", onHide);
     document.addEventListener("visibilitychange", onHide);
-    return () => { window.removeEventListener("pagehide", onHide); document.removeEventListener("visibilitychange", onHide); };
+    return () => {
+      offStep();
+      window.removeEventListener("pagehide", onHide);
+      document.removeEventListener("visibilitychange", onHide);
+    };
   }, []);
   useFrame((_, dt) => {
     // resume the saved position once the game starts and the bodies exist (§26).
@@ -113,7 +151,11 @@ export function GameSystems() {
       if (r) applyRestore(r);
     }
     // global hotkeys
-    if (consumeTap("KeyR")) { useGame.getState().toggleWeather(); sfx.ui(); }
+    if (consumeTap("KeyR")) {
+      const next = sim.clock.cycleWeather();
+      useGame.setState({ weather: next });
+      sfx.ui();
+    }
     if (consumeTap("KeyP") || consumeTap("Escape")) { useGame.getState().togglePause(); sfx.ui(); }
     if (consumeTap("KeyC")) { useGame.getState().toggleChar(); sfx.ui(); }
     if (consumeTap("KeyM")) { useGame.getState().toggleMap(); sfx.ui(); }
@@ -123,6 +165,22 @@ export function GameSystems() {
     if (consumeTap("Digit2")) useGame.getState().setWeapon("pistol");
     if (consumeTap("Digit3")) useGame.getState().setWeapon("shotgun");
     if (consumeTap("Digit4")) { const g = useGame.getState(); g.setMelee("bat"); if (g.armed) g.toggleArmed(); } // baseball bat
+    // Reload current firearm
+    if (consumeTap("KeyT")) {
+      const g = useGame.getState();
+      if (useInventory.getState().reload(g.weapon)) { sfx.ui(); useToasts.getState().push("Reloaded", "#ffcf4a"); }
+      else useToasts.getState().push("Empty — find ammo", "#ff6a6a");
+    }
+
+    // Spatial listener follows the active body (§9.2).
+    {
+      const mode = useGame.getState().mode;
+      const body = mode === "car" ? shared.car : mode === "boat" ? shared.boat : shared.player;
+      const t = body?.translation();
+      if (t) {
+        spatialAudio.setListener(t.x, t.y + 1.6, t.z, Math.sin(shared.camYaw), Math.cos(shared.camYaw));
+      }
+    }
 
     if (useGame.getState().paused) return; // freeze sim while paused
     if (shared.alarm.t > 0) shared.alarm.t = Math.max(0, shared.alarm.t - dt);
@@ -139,15 +197,12 @@ export function GameSystems() {
       }
     }
     const st = useStats.getState();
-    // passive business revenue (§15 RevenueManager)
-    const income = useEconomy.getState().incomePerSec(DAY_SECONDS);
-    if (income > 0) st.addCash(income * dt);
     // occasional margin-leak / boom event on an owned front (§15 RevenueManager)
     revAcc.current += dt;
     if (revAcc.current > nextRev.current) {
       revAcc.current = 0;
-      nextRev.current = 90 + Math.random() * 120; // next in 90–210s
-      const ev = rollRevenueEvent();
+      nextRev.current = 90 + rng.stream("world").next() * 120; // next in 90–210s
+      const ev = rollRevenueEvent(() => rng.stream("world").next());
       if (ev) {
         st.addCash(ev.amount);
         useToasts.getState().push(ev.text, ev.good ? "#7CFC00" : "#ff6a6a");
@@ -171,14 +226,29 @@ export function GameSystems() {
       maxStars.current = 0;
     }
     prevStars.current = stars;
-    st.decay(dt);
+    // Keep ClockWeather weather in sync with store toggles.
+    const weather = useGame.getState().weather;
+    if (sim.clock.weather !== weather) sim.clock.setWeather(weather, 0);
     acc.current += dt;
     if (acc.current > 20) {
       acc.current = 0;
       st.save();
+      useInventory.getState().save();
       if (useGame.getState().started) savePos();
       const g = useGame.getState();
-      saveJSON("mounthope.settings.v1", { fxOn: g.fxOn, shadows: g.shadows, fov: g.fov, reduceShake: g.reduceShake, weather: g.weather, quality: g.quality });
+      saveJSON(SAVE_KEYS.settings, {
+        fxOn: g.fxOn, shadows: g.shadows, fov: g.fov, reduceShake: g.reduceShake,
+        weather: g.weather, quality: g.quality, weapon: g.weapon, melee: g.melee, armed: g.armed,
+      });
+      saveUnified({
+        weapons: { weapon: g.weapon, melee: g.melee, armed: g.armed },
+        waypoint: g.waypoint,
+        clockWeather: sim.clock.serialize(),
+        inventory: {
+          pistol: useInventory.getState().pistol,
+          shotgun: useInventory.getState().shotgun,
+        },
+      });
     }
   });
   return null;

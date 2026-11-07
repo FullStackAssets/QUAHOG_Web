@@ -102,8 +102,11 @@ export const useGame = create<GameState>((set) => ({
   toggleView: () => set((s) => ({ view: s.view === "third" ? "first" : "third" })),
   setNearCar: (nearCar) => set((s) => (s.nearCar === nearCar ? s : { nearCar })),
   setNearLabel: (nearLabel) => set((s) => (s.nearLabel === nearLabel ? s : { nearLabel })),
-  // Fog removed entirely (open view reads better) — cycle clear ↔ rain only.
-  toggleWeather: () => set((s) => ({ weather: s.weather === "clear" ? "rain" : "clear" })),
+  // §7.5: cycle clear → rain → fog → clear.
+  toggleWeather: () =>
+    set((s) => ({
+      weather: s.weather === "clear" ? "rain" : s.weather === "rain" ? "fog" : "clear",
+    })),
   togglePause: () => set((s) => ({ paused: !s.paused })),
   setPaused: (paused) => set({ paused }),
   setSlice: (slice) => set({ slice }),

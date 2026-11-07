@@ -1,8 +1,12 @@
 import { create } from "zustand";
+import { loadJSON, saveJSON, removeItem } from "./storage";
+import { sim } from "./sim/SimRuntime";
+import { SAVE_KEYS } from "./registries";
+import { emitTelemetry } from "./telemetry/schema";
 
 // Mission engine (§16). Missions are ordered lists of steps; each step completes
 // on reaching a world target and/or being in a car, and may pay a reward.
-// Missions chain: finishing one starts the next.
+// Missions chain: finishing one starts the next. Progress persists across Continue.
 
 export interface MissionStep {
   text: string;
@@ -11,8 +15,12 @@ export interface MissionStep {
   needCar?: boolean; // also requires being in a vehicle
   noHeat?: boolean;  // also requires police heat cleared (lose the cops first)
   reward?: number;   // cash on completing this step
+  /** Optional soft-fail timer (seconds) for the step. */
+  failSec?: number;
 }
 interface Mission { title: string; steps: MissionStep[] }
+
+const MISSION_KEY = SAVE_KEYS.mission;
 
 // World coords: x = east, z = -north (slice-local).
 const MISSIONS: Mission[] = [
@@ -103,6 +111,14 @@ const MISSIONS: Mission[] = [
   },
 ];
 
+interface SavedMission {
+  mi: number;
+  step: number;
+  done: boolean;
+}
+
+export type MissionUiPhase = "active" | "failed" | "complete" | "abandoned";
+
 interface MissionState {
   mi: number;
   steps: MissionStep[];
@@ -110,29 +126,171 @@ interface MissionState {
   done: boolean;
   title: string;
   objective: string;
+  /** True once the player has entered a vehicle during the current step. */
+  enteredCarThisStep: boolean;
+  /** Soft-fail / abandon UI phase (mirrors MissionRuntime). */
+  phase: MissionUiPhase;
+  failReason: string | null;
   advance: () => void;
   reset: () => void;
+  noteCarEnter: () => void;
+  fail: (reason: string) => void;
+  retry: () => void;
+  abandon: () => void;
+  save: () => void;
+  load: () => void;
+  clearSave: () => void;
+}
+
+function missionAt(mi: number, step: number, done: boolean): Omit<
+  MissionState,
+  "advance" | "reset" | "noteCarEnter" | "fail" | "retry" | "abandon" | "save" | "load" | "clearSave"
+> {
+  if (done || mi >= MISSIONS.length) {
+    const last = MISSIONS[MISSIONS.length - 1];
+    return {
+      mi: MISSIONS.length - 1,
+      steps: last.steps,
+      step: last.steps.length,
+      done: true,
+      title: last.title,
+      objective: "Campaign complete — the Narrows is yours.",
+      enteredCarThisStep: false,
+      phase: "complete",
+      failReason: null,
+    };
+  }
+  const m = MISSIONS[Math.max(0, Math.min(mi, MISSIONS.length - 1))];
+  const s = Math.max(0, Math.min(step, m.steps.length - 1));
+  return {
+    mi,
+    steps: m.steps,
+    step: s,
+    done: false,
+    title: m.title,
+    objective: m.steps[s].text,
+    enteredCarThisStep: false,
+    phase: "active",
+    failReason: null,
+  };
+}
+
+function syncRuntimeStart(mi: number, step: number, steps: MissionStep[]): void {
+  const failSec = steps[step]?.failSec ?? null;
+  sim.missions.start(mi, step, failSec);
+  emitTelemetry("mission.start", { mi, step });
 }
 
 export const useMission = create<MissionState>((set, get) => ({
-  mi: 0,
-  steps: MISSIONS[0].steps,
-  step: 0,
-  done: false,
-  title: MISSIONS[0].title,
-  objective: MISSIONS[0].steps[0].text,
+  ...missionAt(0, 0, false),
   advance: () => {
-    const { mi, step, steps, done } = get();
-    if (done) return; // campaign already finished — don't run past the end
+    const { mi, step, steps, done, phase } = get();
+    if (done || phase === "failed" || phase === "abandoned") return;
     const next = step + 1;
-    if (next < steps.length) { set({ step: next, objective: steps[next].text }); return; }
-    // mission finished — chain to the next, or end the campaign
+    if (next < steps.length) {
+      sim.missions.completeStep(next, steps[next].failSec ?? null);
+      emitTelemetry("mission.step", { mi, from: step, to: next });
+      set({
+        step: next,
+        objective: steps[next].text,
+        enteredCarThisStep: false,
+        phase: "active",
+        failReason: null,
+      });
+      get().save();
+      return;
+    }
     const nm = mi + 1;
     if (nm < MISSIONS.length) {
-      set({ mi: nm, steps: MISSIONS[nm].steps, step: 0, title: MISSIONS[nm].title, objective: MISSIONS[nm].steps[0].text });
+      syncRuntimeStart(nm, 0, MISSIONS[nm].steps);
+      set({
+        mi: nm,
+        steps: MISSIONS[nm].steps,
+        step: 0,
+        title: MISSIONS[nm].title,
+        objective: MISSIONS[nm].steps[0].text,
+        enteredCarThisStep: false,
+        phase: "active",
+        failReason: null,
+      });
     } else {
-      set({ step: next, done: true, objective: "Campaign complete — the Narrows is yours." });
+      sim.missions.completeMission();
+      emitTelemetry("mission.complete", { mi });
+      set({
+        step: next,
+        done: true,
+        objective: "Campaign complete — the Narrows is yours.",
+        enteredCarThisStep: false,
+        phase: "complete",
+        failReason: null,
+      });
     }
+    get().save();
   },
-  reset: () => set({ mi: 0, steps: MISSIONS[0].steps, step: 0, done: false, title: MISSIONS[0].title, objective: MISSIONS[0].steps[0].text }),
+  reset: () => {
+    // In-memory only — callers that wipe progress use clearSave().
+    const next = missionAt(0, 0, false);
+    syncRuntimeStart(0, 0, next.steps);
+    set(next);
+  },
+  noteCarEnter: () => set({ enteredCarThisStep: true }),
+  fail: (reason) => {
+    if (get().done || get().phase === "failed") return;
+    if (sim.missions.phase !== "failed") sim.missions.fail(reason);
+    emitTelemetry("mission.fail", { reason });
+    set({
+      phase: "failed",
+      failReason: reason,
+      objective: `Failed — ${reason}`,
+    });
+  },
+  retry: () => {
+    const { mi, step, steps, done } = get();
+    if (done) return;
+    const failSec = steps[step]?.failSec ?? null;
+    sim.missions.retry(step, failSec);
+    emitTelemetry("mission.retry", { mi, step });
+    set({
+      phase: "active",
+      failReason: null,
+      enteredCarThisStep: false,
+      objective: steps[step]?.text ?? get().objective,
+    });
+  },
+  abandon: () => {
+    if (get().done) return;
+    sim.missions.abandon();
+    emitTelemetry("mission.abandon", {});
+    const next = missionAt(0, 0, false);
+    set({
+      ...next,
+      phase: "abandoned",
+      objective: "Mission abandoned",
+      failReason: null,
+    });
+  },
+  save: () => {
+    const { mi, step, done } = get();
+    saveJSON(MISSION_KEY, { mi, step, done } satisfies SavedMission);
+  },
+  load: () => {
+    const raw = loadJSON<SavedMission | null>(MISSION_KEY, null);
+    if (!raw || typeof raw.mi !== "number" || typeof raw.step !== "number") return;
+    const next = missionAt(raw.mi, raw.step, !!raw.done);
+    if (!next.done) syncRuntimeStart(next.mi, next.step, next.steps);
+    else sim.missions.completeMission();
+    set(next);
+  },
+  clearSave: () => {
+    removeItem(MISSION_KEY);
+    const next = missionAt(0, 0, false);
+    syncRuntimeStart(0, 0, next.steps);
+    set(next);
+  },
 }));
+
+// Kick the runtime for the default campaign start so owned-entity APIs work
+// even before the first load/reset.
+syncRuntimeStart(0, 0, MISSIONS[0].steps);
+
+export { MISSION_KEY, MISSIONS };

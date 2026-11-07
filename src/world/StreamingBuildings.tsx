@@ -8,15 +8,16 @@ import { Buildings } from "./Buildings";
 import { ensureGisReplacements, withoutReplaced } from "./gisDistrict";
 import { makeFacadeMaps, makeNoiseNormal } from "./textures";
 import type { Building } from "../slice";
+import { useGame } from "../store";
+import { collideRadius, viewRadius } from "../quality";
+import { sim } from "../sim";
 
 // Multi-tile building streamer (Step 19). Loads building tiles (public/tiles/
-// b_<gx>_<gn>.json) within VIEW_R of the player and drops them when far, so
-// memory/draw stays bounded as the map grows to the whole South Coast. The
-// player's own tile + neighbours (COLLIDE_R) get a static collider. Falls back
-// to the monolithic <Buildings> if the manifest isn't present.
-
-const VIEW_R = 3;     // tiles loaded around the player (each TILE metres)
-const COLLIDE_R = 1;  // tiles that get physics colliders
+// b_<gx>_<gn>.json) within a quality-scaled ring of the player and drops them
+// when far, so memory/draw stays bounded as the map grows to the whole South
+// Coast. The player's own tile + neighbours get a static collider. Falls back
+// to the monolithic <Buildings> if the manifest isn't present. Interest ids are
+// published to the independent WorldStreamer for budgeted load/evict policy.
 const WINDOW_GLOW = new THREE.Color("#ffcf8a");
 // New Bedford palette: brick reds, painted clapboard, weathered wood (short
 // residential/commercial) vs granite + concrete (tall downtown).
@@ -197,14 +198,49 @@ function Tile({ buildings, colliders }: { buildings: Building[]; colliders: bool
 }
 const _rm = new THREE.Matrix4();
 
+/** Rough resident cost so the streamer can budget tile memory. */
+function estimateTileBytes(buildings: Building[]): number {
+  let verts = 0;
+  for (const b of buildings) verts += Math.max(3, b.footprint.length) * 8;
+  // ~24 bytes/vert equivalent + JSON overhead floor.
+  return Math.max(32 * 1024, verts * 24 + buildings.length * 256);
+}
+
 export function StreamingBuildings({ fallback, center }: { fallback: Building[]; center: [number, number] }) {
   const [manifest, setManifest] = useState<Manifest | null>(null);
   const [failed, setFailed] = useState(false);
   const [active, setActive] = useState<{ key: string; collide: boolean }[]>([]);
+  const [, setRev] = useState(0); // bump when streamer load/evict mutates the cache
   const cache = useRef<Map<string, Building[]>>(new Map());
+  const collideByKey = useRef<Map<string, boolean>>(new Map());
+  const wantRef = useRef<{ key: string; collide: boolean }[]>([]);
   const keySet = useRef<Set<string>>(new Set());
   const sig = useRef("");
   const acc = useRef(0);
+  const quality = useGame((s) => s.quality);
+
+  // Own the streamer's load/evict handlers so tile JSON lives in one cache and
+  // actually leaves memory when the budget / grace window says so.
+  useEffect(() => {
+    const tileCache = cache.current;
+    sim.streamer.setHandlers({
+      load: async (id) => {
+        const hit = tileCache.get(id);
+        if (hit) return { bytes: estimateTileBytes(hit) };
+        const r = await fetch(`tiles/b_${id}.json`);
+        if (!r.ok) throw new Error(`tile ${id} HTTP ${r.status}`);
+        const raw = (await r.json()) as Building[];
+        const b = withoutReplaced(id, raw);
+        tileCache.set(id, b);
+        setRev((n) => n + 1);
+        return { bytes: estimateTileBytes(b) };
+      },
+      evict: (id) => {
+        if (!tileCache.delete(id)) return;
+        setRev((n) => n + 1);
+      },
+    });
+  }, []);
 
   useEffect(() => {
     fetch("tiles/manifest.json")
@@ -222,34 +258,68 @@ export function StreamingBuildings({ fallback, center }: { fallback: Building[];
     const m = manifest;
     if (!m) return;
     acc.current += dt;
-    if (acc.current < 0.4) return;
-    acc.current = 0;
+    // Slightly slower interest refresh on Low so iPhone spends less time in tile math.
+    const period = quality === 0 ? 0.55 : 0.4;
+    if (acc.current >= period) {
+      acc.current = 0;
 
-    const body = shared.car && shared.player ? (shared.player.isEnabled() ? shared.player : shared.car) : (shared.player ?? shared.car);
-    const t = body?.translation();
-    const px = t?.x ?? 0, pn = -(t?.z ?? 0); // north = -z
-    const gx = Math.floor(px / m.tile), gn = Math.floor(pn / m.tile);
+      const body = shared.car && shared.player ? (shared.player.isEnabled() ? shared.player : shared.car) : (shared.player ?? shared.car);
+      const t = body?.translation();
+      const px = t?.x ?? 0, pn = -(t?.z ?? 0); // north = -z
 
-    const want: { key: string; collide: boolean }[] = [];
-    for (let dx = -VIEW_R; dx <= VIEW_R; dx++) {
-      for (let dn = -VIEW_R; dn <= VIEW_R; dn++) {
-        const key = `${gx + dx}_${gn + dn}`;
-        if (!keySet.current.has(key)) continue;
-        want.push({ key, collide: Math.abs(dx) <= COLLIDE_R && Math.abs(dn) <= COLLIDE_R });
+      // Predictive focus while driving — request tiles ahead of the car so
+      // corners don't pop on mobile networks.
+      let focusX = px;
+      let focusN = pn;
+      if (Math.abs(shared.carSpeed) > 4) {
+        // world forward = (sin yaw, cos yaw) in XZ; north = -z → Δnorth = -Δz
+        const look = Math.min(Math.abs(shared.carSpeed) * 1.1, sim.preset.streamRadius * 0.5);
+        const sign = shared.carSpeed >= 0 ? 1 : -1;
+        focusX += Math.sin(shared.carYaw) * look * sign;
+        focusN = pn - Math.cos(shared.carYaw) * look * sign;
       }
-    }
-    const s = want.map((w) => w.key + (w.collide ? "*" : "")).sort().join(",");
-    if (s === sig.current) return;
-    sig.current = s;
 
-    // fetch any tiles we don't have yet, then publish the active set
-    const missing = want.filter((w) => !cache.current.has(w.key));
-    if (missing.length === 0) { setActive(want); return; }
-    Promise.all(
-      missing.map((w) =>
-        fetch(`tiles/b_${w.key}.json`).then((r) => r.json()).then((b: Building[]) => cache.current.set(w.key, withoutReplaced(w.key, b))).catch(() => {}),
-      ),
-    ).then(() => setActive(want));
+      const gx = Math.floor(focusX / m.tile), gn = Math.floor(focusN / m.tile);
+      const VIEW_R = viewRadius(quality);
+      const COLLIDE_R = collideRadius(quality);
+
+      const want: { key: string; collide: boolean }[] = [];
+      collideByKey.current.clear();
+      for (let dx = -VIEW_R; dx <= VIEW_R; dx++) {
+        for (let dn = -VIEW_R; dn <= VIEW_R; dn++) {
+          const key = `${gx + dx}_${gn + dn}`;
+          if (!keySet.current.has(key)) continue;
+          const collide = Math.abs(dx) <= COLLIDE_R && Math.abs(dn) <= COLLIDE_R;
+          want.push({ key, collide });
+          collideByKey.current.set(key, collide);
+        }
+      }
+      wantRef.current = want;
+
+      // Publish interest, then advance the budgeted streamer on this same tick.
+      shared.streamIds = want.map((w) => w.key);
+      for (const w of want) {
+        const cached = cache.current.get(w.key);
+        sim.streamer.register(w.key, cached ? estimateTileBytes(cached) : 256 * 1024, w.collide ? 2 : 0);
+      }
+      const vx = Math.abs(shared.carSpeed) > 0.5 ? Math.sin(shared.carYaw) * shared.carSpeed : 0;
+      const vz = Math.abs(shared.carSpeed) > 0.5 ? Math.cos(shared.carYaw) * shared.carSpeed : 0;
+      sim.tickStreamer(
+        { x: px, y: t?.y ?? 0, z: -pn },
+        { x: vx, y: 0, z: vz },
+        shared.streamIds,
+      );
+    }
+
+    // Sync active every frame so async loads/evicts appear without waiting a full period.
+    const want = wantRef.current;
+    if (want.length === 0) return;
+    const next = want.filter((w) => sim.streamer.stateOf(w.key) === "ready" && cache.current.has(w.key));
+    const s = next.map((w) => w.key + (w.collide ? "*" : "")).sort().join(",");
+    if (s !== sig.current) {
+      sig.current = s;
+      setActive(next);
+    }
   });
 
   if (failed) return <Buildings buildings={fallback} center={center} />;

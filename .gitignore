@@ -16,3 +16,10 @@ __MACOSX/
 *.log
 .vscode/
 .idea/
+
+# local reverse-engineering reference (never ship)
+reference/revc/extract/
+reference/revc/*.zip
+reference/revc/cookie.txt
+reference/revc/uploads/
+reference/revc/unified/

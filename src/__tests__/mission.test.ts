@@ -44,4 +44,55 @@ describe("useMission", () => {
     expect(m().step).toBe(0);
     expect(m().done).toBe(false);
   });
+
+  it("save then load restores mission progress", () => {
+    m().advance();
+    m().advance();
+    const mi = m().mi;
+    const step = m().step;
+    m().save();
+    m().reset();
+    expect(m().step).toBe(0);
+    m().load();
+    expect(m().mi).toBe(mi);
+    expect(m().step).toBe(step);
+  });
+
+  it("noteCarEnter latches enteredCarThisStep until advance", () => {
+    expect(m().enteredCarThisStep).toBe(false);
+    m().noteCarEnter();
+    expect(m().enteredCarThisStep).toBe(true);
+    m().advance();
+    expect(m().enteredCarThisStep).toBe(false);
+  });
+
+  it("clearSave wipes persistence and returns to the opener", () => {
+    m().advance();
+    m().save();
+    m().clearSave();
+    expect(m().mi).toBe(0);
+    expect(m().step).toBe(0);
+    m().load();
+    expect(m().mi).toBe(0);
+  });
+
+  it("fail then retry restores the active objective", () => {
+    m().advance();
+    const objective = m().objective;
+    m().fail("busted");
+    expect(m().phase).toBe("failed");
+    expect(m().failReason).toBe("busted");
+    m().retry();
+    expect(m().phase).toBe("active");
+    expect(m().objective).toBe(objective);
+    expect(m().failReason).toBeNull();
+  });
+
+  it("abandon soft-resets the campaign cursor", () => {
+    m().advance();
+    m().abandon();
+    expect(m().phase).toBe("abandoned");
+    expect(m().mi).toBe(0);
+    expect(m().step).toBe(0);
+  });
 });

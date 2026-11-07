@@ -1,0 +1,87 @@
+import { useEffect, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useGame } from "../store";
+import { useMission } from "../mission";
+import { shared } from "../shared";
+import { sim } from "./SimRuntime";
+
+/**
+ * Boots the clean-room simulation layer once the slice is ready and keeps
+ * navigation / streamer / budget in sync with player pose each frame.
+ * §1.1: drives GameLoop so fixed-step migrations can subscribe over time.
+ */
+export function SimBootstrap() {
+  const slice = useGame((s) => s.slice);
+  const quality = useGame((s) => s.quality);
+  const paused = useGame((s) => s.paused);
+  const bound = useRef<string | null>(null);
+  const loopBound = useRef(false);
+
+  useEffect(() => {
+    sim.configureQuality(quality);
+  }, [quality]);
+
+  useEffect(() => {
+    if (!slice) return;
+    if (bound.current === slice.name) return;
+    bound.current = slice.name;
+    sim.bindSlice(slice);
+  }, [slice]);
+
+  useEffect(() => {
+    if (loopBound.current) return;
+    loopBound.current = true;
+    // Render-rate nav refresh uses loop alpha later; for now step is a no-op
+    // hook point for migrated systems (TrafficDirector, etc.).
+    sim.loop.start();
+    return () => {
+      sim.loop.stop();
+      loopBound.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (paused) sim.loop.pause("menu");
+    else sim.loop.resume("menu");
+  }, [paused]);
+
+  useFrame((_, dt) => {
+    const game = useGame.getState();
+    if (!game.started) return;
+
+    // Drive fixed-step accumulator even when paused (input/render still run).
+    sim.loop.tick(dt);
+
+    if (game.paused) return;
+    sim.beginFrame();
+
+    const mode = game.mode;
+    const body = mode === "car" ? shared.car : mode === "boat" ? shared.boat : shared.player;
+    const t = body?.translation();
+    if (!t) return;
+
+    const heading = mode === "car" ? shared.carYaw : mode === "boat" ? shared.boatYaw : shared.heading;
+    const speed = mode === "car" ? shared.carSpeed : 0;
+
+    // Mission target wins; else player waypoint.
+    const ms = useMission.getState();
+    const step = ms.done || ms.phase !== "active" ? null : ms.steps[ms.step];
+    const wp = game.waypoint;
+    if (step?.target) {
+      sim.setNavGoal({ x: step.target[0], z: step.target[2] });
+    } else if (wp) {
+      sim.setNavGoal({ x: wp.x, z: wp.z });
+    } else {
+      sim.setNavGoal(null);
+    }
+
+    const guidance = sim.tickNav(dt, { x: t.x, z: t.z }, heading, speed);
+    shared.navDist = guidance.distanceRemaining;
+    shared.navBearing = guidance.bearing;
+    shared.navWrongWay = guidance.wrongWay;
+    shared.navPath = guidance.path?.points ?? null;
+    // Tile streamer advances inside StreamingBuildings after it publishes interest.
+  });
+
+  return null;
+}
