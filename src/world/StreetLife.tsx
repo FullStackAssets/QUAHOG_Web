@@ -10,13 +10,12 @@ import { sim } from "../sim";
 import { TrafficDirector, type TrafficAgent } from "../sim/TrafficDirector";
 import { PedestrianAI, type PedAgent } from "../sim/PedestrianAI";
 import { RoadGraph } from "../sim/RoadGraph";
+import { carCount, pedCount } from "../quality";
+import { useGame } from "../store";
 
 // Ambient street life: wandering pedestrians (LOD + SpatialIndex) and traffic
 // routed on the independent RoadGraph via TrafficDirector. Meshes stay kinematic
-// so they never shove the player's physics car.
-
-const PED_COUNT = 32;
-const CAR_COUNT = 20;
+// so they never shove the player's physics car. Counts scale with graphics quality.
 
 const PED_COLORS = ["#c0563f", "#3f6cc0", "#4a8c52", "#b8a23a", "#7a4a8c", "#c87a3f",
   "#b03a5a", "#2f8c7a", "#5a5a6a", "#d0863a", "#356a9c", "#8a4a3a", "#6a8a3a", "#a0a0a8"];
@@ -34,13 +33,16 @@ export function StreetLife({
   roads: Road[];
   center?: [number, number];
 }) {
+  const quality = useGame((s) => s.quality);
+  const peds = pedCount(quality);
+  const cars = carCount(quality);
   // Prefer the shared sim graph (built at slice bind); fall back to a local one.
   const graph = useMemo(() => sim.graph ?? RoadGraph.fromRoads(roads), [roads]);
   if (graph.nodeCount < 4) return null;
   return (
     <group>
-      <Pedestrians center={center} />
-      <Traffic graph={graph} center={center} />
+      <Pedestrians center={center} count={peds} />
+      <Traffic graph={graph} center={center} count={cars} />
     </group>
   );
 }
@@ -48,12 +50,12 @@ export function StreetLife({
 // ---------------------------------------------------------------------------
 // Pedestrians — LOD wander + threat flee; SpatialIndex for melee queries.
 
-function Pedestrians({ center }: { center: [number, number] }) {
+function Pedestrians({ center, count }: { center: [number, number]; count: number }) {
   const refs = useRef<(THREE.Group | null)[]>([]);
   const ai = useRef(new PedestrianAI());
   const agents = useRef<PedAgent[]>([]);
   const extras = useRef(
-    Array.from({ length: PED_COUNT }, () => ({
+    Array.from({ length: count }, () => ({
       color: pick(PED_COLORS),
       scale: 0.9 + Math.random() * 0.28,
       vel: new THREE.Vector3(),
@@ -66,7 +68,15 @@ function Pedestrians({ center }: { center: [number, number] }) {
   useEffect(() => {
     const pedAi = ai.current;
     pedAi.setCenter({ x: center[0], z: -center[1] });
-    agents.current = Array.from({ length: PED_COUNT }, (_, id) => {
+    extras.current = Array.from({ length: count }, () => ({
+      color: pick(PED_COLORS),
+      scale: 0.9 + Math.random() * 0.28,
+      vel: new THREE.Vector3(),
+      y: 0,
+      tumble: 0,
+      body: { pos: new THREE.Vector3(), push: new THREE.Vector3(), hit: 0 } as Body,
+    }));
+    agents.current = Array.from({ length: count }, (_, id) => {
       const p = pedAi.randomInWander();
       const g = pedAi.randomInWander();
       return {
@@ -81,12 +91,12 @@ function Pedestrians({ center }: { center: [number, number] }) {
       };
     });
     pedAi.rebuildIndex(agents.current);
-    for (let i = 0; i < PED_COUNT; i++) {
+    for (let i = 0; i < count; i++) {
       extras.current[i].body.pos.set(agents.current[i].x, 0, agents.current[i].z);
     }
     shared.peds = extras.current.map((e) => e.body);
     return () => { shared.peds = []; };
-  }, [center]);
+  }, [center, count]);
 
   useFrame((_, dt) => {
     const step = Math.min(dt, 0.05);
@@ -174,10 +184,10 @@ function Pedestrians({ center }: { center: [number, number] }) {
 
   return (
     <group>
-      {Array.from({ length: PED_COUNT }, (_, i) => (
-        <group key={i} ref={(el) => (refs.current[i] = el)} scale={extras.current[i].scale}>
+      {Array.from({ length: count }, (_, i) => (
+        <group key={i} ref={(el) => (refs.current[i] = el)} scale={extras.current[i]?.scale ?? 1}>
           <ModelCharacter
-            tint={extras.current[i].color}
+            tint={extras.current[i]?.color ?? "#888"}
             moving={() => {
               const a = agents.current[i];
               return !!a && !a.dead && a.down <= 0;
@@ -192,25 +202,30 @@ function Pedestrians({ center }: { center: [number, number] }) {
 // ---------------------------------------------------------------------------
 // Traffic — RoadGraph-routed cars with stolen-slot respawn.
 
-function Traffic({ graph, center }: { graph: RoadGraph; center: [number, number] }) {
+function Traffic({ graph, center, count }: { graph: RoadGraph; center: [number, number]; count: number }) {
   const refs = useRef<(THREE.Group | null)[]>([]);
   const director = useRef(new TrafficDirector(graph));
   const agents = useRef<TrafficAgent[]>([]);
   const meta = useRef(
-    Array.from({ length: CAR_COUNT }, () => ({
+    Array.from({ length: count }, () => ({
       color: pick(CAR_COLORS),
       vtype: pick(VEHICLE_TYPES),
       braking: false,
-      car: { pos: new THREE.Vector3(), yaw: 0, type: "sedan", color: "#888", stop: 0, stolen: false } as TrafficCar,
+      car: { pos: new THREE.Vector3(), yaw: 0, type: VEHICLE_TYPES[0], color: "#888", stop: 0, stolen: false } as TrafficCar,
     })),
   );
 
   useEffect(() => {
     director.current.setGraph(graph);
     const focus = { x: center[0], z: -center[1] };
-    agents.current = director.current.spawnFleet(CAR_COUNT, focus);
-    // Pad if graph was sparse.
-    while (agents.current.length < CAR_COUNT) {
+    meta.current = Array.from({ length: count }, () => ({
+      color: pick(CAR_COLORS),
+      vtype: pick(VEHICLE_TYPES),
+      braking: false,
+      car: { pos: new THREE.Vector3(), yaw: 0, type: VEHICLE_TYPES[0], color: "#888", stop: 0, stolen: false } as TrafficCar,
+    }));
+    agents.current = director.current.spawnFleet(count, focus);
+    while (agents.current.length < count) {
       const extra = director.current.spawnFleet(1, focus);
       if (!extra.length) break;
       extra[0].id = agents.current.length;
@@ -228,7 +243,7 @@ function Traffic({ graph, center }: { graph: RoadGraph; center: [number, number]
     }
     shared.traffic = meta.current.slice(0, agents.current.length).map((m) => m.car);
     return () => { shared.traffic = []; };
-  }, [graph, center]);
+  }, [graph, center, count]);
 
   useFrame((_, dt) => {
     const step = Math.min(dt, 0.05);
@@ -296,9 +311,13 @@ function Traffic({ graph, center }: { graph: RoadGraph; center: [number, number]
 
   return (
     <group>
-      {Array.from({ length: CAR_COUNT }, (_, i) => (
+      {Array.from({ length: count }, (_, i) => (
         <group key={i} ref={(el) => (refs.current[i] = el)}>
-          <Vehicle type={meta.current[i].vtype} color={meta.current[i].color} brake={() => meta.current[i].braking} />
+          <Vehicle
+            type={meta.current[i]?.vtype ?? VEHICLE_TYPES[0]}
+            color={meta.current[i]?.color ?? "#888"}
+            brake={() => meta.current[i]?.braking ?? false}
+          />
         </group>
       ))}
     </group>

@@ -56,17 +56,7 @@ export function SimBootstrap() {
     shared.navBearing = guidance.bearing;
     shared.navWrongWay = guidance.wrongWay;
     shared.navPath = guidance.path?.points ?? null;
-
-    // Predictive streamer interest (ids come from StreamingBuildings via shared hook).
-    if (shared.streamIds) {
-      const vx = mode === "car" ? Math.sin(shared.carYaw) * shared.carSpeed : 0;
-      const vz = mode === "car" ? Math.cos(shared.carYaw) * shared.carSpeed : 0;
-      sim.tickStreamer(
-        { x: t.x, y: t.y, z: t.z },
-        { x: vx, y: 0, z: vz },
-        shared.streamIds,
-      );
-    }
+    // Tile streamer advances inside StreamingBuildings after it publishes interest.
   });
 
   return null;

@@ -4,6 +4,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { Sky, Stars } from "@react-three/drei";
 import { shared } from "../shared";
 import { useGame } from "../store";
+import { shadowMapSize } from "../quality";
 
 // Day/night cycle (§4): drives the sun, sky, ambient/hemisphere, fog, and
 // background through a full day on a loop. Exposes shared.dayT / shared.hour so
@@ -37,6 +38,8 @@ export function DayNight() {
   const hemi = useRef<THREE.HemisphereLight>(null);
   const skyThrottle = useRef(0);
   const [sunPos, setSunPos] = useState<[number, number, number]>([120, 120, 60]);
+  const quality = useGame((s) => s.quality);
+  const mapSize = shadowMapSize(quality);
   const bg = useMemo(() => dayBg.clone(), []);
   const fogC = useMemo(() => dayFog.clone(), []);
   // Atmospheric depth haze (the cinematic "fade into the horizon" look). Colour
@@ -56,6 +59,17 @@ export function DayNight() {
     scene.add(s.target);
     return () => { scene.remove(s.target); };
   }, [scene]);
+
+  // Resize the shadow map when quality changes (dispose the old GPU texture).
+  useEffect(() => {
+    const s = sun.current;
+    if (!s) return;
+    s.shadow.mapSize.set(mapSize, mapSize);
+    s.shadow.map?.dispose();
+    // Force Three to allocate a new map at the updated size on the next render.
+    (s.shadow as { map: THREE.WebGLRenderTarget | null }).map = null;
+    s.shadow.needsUpdate = true;
+  }, [mapSize]);
 
   useFrame((_, dt) => {
     if (useGame.getState().paused) return; // freeze time in the pause menu
@@ -129,7 +143,7 @@ export function DayNight() {
         intensity={2.0}
         color="#fff2dc"
         castShadow
-        shadow-mapSize={[2048, 2048]}
+        shadow-mapSize={[mapSize, mapSize]}
         shadow-camera-near={1}
         shadow-camera-far={600}
         shadow-camera-left={-250}

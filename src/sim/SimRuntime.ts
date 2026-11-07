@@ -20,6 +20,7 @@ class SimRuntime {
   readonly streamer = new WorldStreamer();
   budget = FrameBudget.forQuality(1);
   preset: StreamPreset = streamPreset(1);
+  quality: Quality = 1;
   graph: RoadGraph | null = null;
   private navAcc = 0;
   private lastGuidance: NavGuidance = {
@@ -32,6 +33,7 @@ class SimRuntime {
   private boundSlice: string | null = null;
 
   configureQuality(q: Quality): void {
+    this.quality = q;
     this.preset = streamPreset(q);
     this.budget = FrameBudget.forQuality(q);
     this.streamer.maxResidentBytes = this.preset.maxResidentBytes;
@@ -89,6 +91,7 @@ class SimRuntime {
     const work = Math.min(this.preset.streamWorkMs, this.budget.remainingMs());
     if (work > 0.2) this.streamer.advanceBudget(work);
     this.streamer.unloadOutsideBudget(this.preset.maxResidentBytes);
+    this.streamer.evictUnwanted(this.quality === 0 ? 1500 : 2500);
   }
 
   tickCamera(

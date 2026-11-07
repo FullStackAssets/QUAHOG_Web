@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { collideRadius, QUALITY_LABELS, tileImpostor, viewRadius, type Quality } from "../quality";
+import {
+  carCount,
+  collideRadius,
+  pedCount,
+  QUALITY_LABELS,
+  shadowMapSize,
+  tileImpostor,
+  viewRadius,
+  type Quality,
+} from "../quality";
 
 describe("quality presets", () => {
   it("has a label per level", () => {
@@ -26,5 +35,13 @@ describe("quality presets", () => {
     const q: Quality = 1;
     expect(tileImpostor(q, 3, 3)).toBe(true);  // ring >= viewR
     expect(tileImpostor(q, 2, 3)).toBe(false); // ring < viewR
+  });
+
+  it("NPC caps and shadow maps scale with quality", () => {
+    expect(pedCount(0)).toBeLessThan(pedCount(2));
+    expect(carCount(0)).toBeLessThan(carCount(2));
+    expect(shadowMapSize(0)).toBe(512);
+    expect(shadowMapSize(1)).toBe(1024);
+    expect(shadowMapSize(2)).toBe(2048);
   });
 });

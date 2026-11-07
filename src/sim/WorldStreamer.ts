@@ -47,6 +47,12 @@ export class WorldStreamer {
     this.now = opts.now ?? (() => performance.now());
   }
 
+  /** Wire (or re-wire) async load + cache eviction handlers after construction. */
+  setHandlers(handlers: { load?: LoadHandler; evict?: EvictHandler }): void {
+    if (handlers.load) this.loadFn = handlers.load;
+    if (handlers.evict) this.evictFn = handlers.evict;
+  }
+
   /** Register or refresh an asset descriptor. */
   register(id: string, bytes = 0, priority = 0): void {
     const existing = this.assets.get(id);
@@ -96,13 +102,11 @@ export class WorldStreamer {
     const t = this.now();
     for (const a of this.assets.values()) a.wanted = false;
 
-    // Predictive focus (metres ahead, capped).
-    const spd = Math.hypot(speed.x, speed.z);
-    const look = Math.min(spd * 1.2, this.streamRadius * 0.6);
-    const focusX = position.x + (spd > 0.1 ? (speed.x / spd) * look : 0);
-    const focusZ = position.z + (spd > 0.1 ? (speed.z / spd) * look : 0);
-    void focusX;
-    void focusZ;
+    // Predictive focus is applied by callers when building `idsInRange`
+    // (e.g. StreamingBuildings projects along car velocity). Speed is retained
+    // on the API for future ring expansion heuristics.
+    void speed;
+    void position;
 
     for (const id of idsInRange) {
       let a = this.assets.get(id);
@@ -150,11 +154,13 @@ export class WorldStreamer {
       .then((result) => {
         this.inFlight--;
         if (!this.assets.has(a.id)) return;
-        if (!a.wanted && gen !== this.generation) {
-          // Lost interest during load — drop without retaining.
+        if (!a.wanted) {
+          // Lost interest during load — drop any cache the loader may have filled.
           a.state = "idle";
+          this.evictFn(a.id);
           return;
         }
+        void gen;
         const bytes = result && "bytes" in result && result.bytes != null ? result.bytes : a.bytes;
         a.bytes = bytes;
         a.state = "ready";
@@ -170,6 +176,26 @@ export class WorldStreamer {
   unloadOutsideBudget(maxResidentBytes = this.maxResidentBytes): void {
     this.maxResidentBytes = maxResidentBytes;
     this.evictIfNeeded();
+  }
+
+  /**
+   * Drop ready tiles that left the interest set, after a short grace so brief
+   * camera swings don't thrash. Ensures memory plateaus during long drives.
+   */
+  evictUnwanted(graceMs = 2500): void {
+    const now = this.now();
+    for (const a of this.assets.values()) {
+      if (a.state !== "ready" || a.pinned || a.wanted) continue;
+      if (now - a.lastNeededAt < graceMs) continue;
+      this.evictOne(a);
+    }
+  }
+
+  /** Ids currently in the ready state (for React active-set sync). */
+  readyIds(): string[] {
+    const out: string[] = [];
+    for (const a of this.assets.values()) if (a.state === "ready") out.push(a.id);
+    return out;
   }
 
   private evictIfNeeded(): void {

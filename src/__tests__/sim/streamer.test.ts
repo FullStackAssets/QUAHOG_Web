@@ -48,6 +48,24 @@ describe("WorldStreamer", () => {
     expect(streamer.stateOf("drop")).toBe("idle");
   });
 
+  it("evictUnwanted drops ready tiles after grace and invokes the evict handler", () => {
+    let now = 1000;
+    const evicted: string[] = [];
+    const streamer = new WorldStreamer({
+      maxResidentBytes: 10_000,
+      now: () => now,
+      evict: (id) => { evicted.push(id); },
+    });
+    streamer.debugForceReady("old", 1000);
+    streamer.request({ x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 }, ["keep"]);
+    streamer.debugForceReady("keep", 1000);
+    now = 4000; // past 2.5s grace
+    streamer.evictUnwanted(2500);
+    expect(streamer.stateOf("old")).toBe("idle");
+    expect(streamer.stateOf("keep")).toBe("ready");
+    expect(evicted).toContain("old");
+  });
+
   it("respects advanceBudget time slice", () => {
     vi.useFakeTimers();
     // Smoke: calling with 0 ms should not throw and should leave queue intact
