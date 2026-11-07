@@ -13,7 +13,10 @@ import { RoadGraph } from "./RoadGraph";
 import { PedGraph } from "./PedGraph";
 import { MissionRuntime } from "./MissionRuntime";
 import { WorldStreamer } from "./WorldStreamer";
+import { GameLoop } from "./GameLoop";
+import { rng } from "./Rng";
 import { streamPreset, type StreamPreset } from "./mobilePresets";
+import { emitTelemetry } from "../telemetry/schema";
 import type { CameraMode, NavGuidance, Vec2, Vec3 } from "./types";
 
 class SimRuntime {
@@ -21,6 +24,10 @@ class SimRuntime {
   readonly nav = new ObjectiveNav();
   readonly streamer = new WorldStreamer();
   readonly missions = new MissionRuntime();
+  readonly loop = new GameLoop({
+    onOverrun: () => emitTelemetry("sim.loop.overrun", { acc: this.loop.stats.accHighWater }),
+  });
+  readonly rng = rng;
   budget = FrameBudget.forQuality(1);
   preset: StreamPreset = streamPreset(1);
   quality: Quality = 1;

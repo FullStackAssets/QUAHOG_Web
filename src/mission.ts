@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { loadJSON, saveJSON, removeItem } from "./storage";
 import { sim } from "./sim/SimRuntime";
+import { SAVE_KEYS } from "./registries";
+import { emitTelemetry } from "./telemetry/schema";
 
 // Mission engine (§16). Missions are ordered lists of steps; each step completes
 // on reaching a world target and/or being in a car, and may pay a reward.
@@ -18,7 +20,7 @@ export interface MissionStep {
 }
 interface Mission { title: string; steps: MissionStep[] }
 
-const MISSION_KEY = "mounthope.mission.v1";
+const MISSION_KEY = SAVE_KEYS.mission;
 
 // World coords: x = east, z = -north (slice-local).
 const MISSIONS: Mission[] = [
@@ -176,6 +178,7 @@ function missionAt(mi: number, step: number, done: boolean): Omit<
 function syncRuntimeStart(mi: number, step: number, steps: MissionStep[]): void {
   const failSec = steps[step]?.failSec ?? null;
   sim.missions.start(mi, step, failSec);
+  emitTelemetry("mission.start", { mi, step });
 }
 
 export const useMission = create<MissionState>((set, get) => ({
@@ -186,6 +189,7 @@ export const useMission = create<MissionState>((set, get) => ({
     const next = step + 1;
     if (next < steps.length) {
       sim.missions.completeStep(next, steps[next].failSec ?? null);
+      emitTelemetry("mission.step", { mi, from: step, to: next });
       set({
         step: next,
         objective: steps[next].text,
@@ -211,6 +215,7 @@ export const useMission = create<MissionState>((set, get) => ({
       });
     } else {
       sim.missions.completeMission();
+      emitTelemetry("mission.complete", { mi });
       set({
         step: next,
         done: true,
@@ -232,6 +237,7 @@ export const useMission = create<MissionState>((set, get) => ({
   fail: (reason) => {
     if (get().done || get().phase === "failed") return;
     if (sim.missions.phase !== "failed") sim.missions.fail(reason);
+    emitTelemetry("mission.fail", { reason });
     set({
       phase: "failed",
       failReason: reason,
@@ -243,6 +249,7 @@ export const useMission = create<MissionState>((set, get) => ({
     if (done) return;
     const failSec = steps[step]?.failSec ?? null;
     sim.missions.retry(step, failSec);
+    emitTelemetry("mission.retry", { mi, step });
     set({
       phase: "active",
       failReason: null,
@@ -253,6 +260,7 @@ export const useMission = create<MissionState>((set, get) => ({
   abandon: () => {
     if (get().done) return;
     sim.missions.abandon();
+    emitTelemetry("mission.abandon", {});
     const next = missionAt(0, 0, false);
     set({
       ...next,

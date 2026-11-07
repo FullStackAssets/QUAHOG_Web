@@ -8,11 +8,14 @@ import { sim } from "./SimRuntime";
 /**
  * Boots the clean-room simulation layer once the slice is ready and keeps
  * navigation / streamer / budget in sync with player pose each frame.
+ * §1.1: drives GameLoop so fixed-step migrations can subscribe over time.
  */
 export function SimBootstrap() {
   const slice = useGame((s) => s.slice);
   const quality = useGame((s) => s.quality);
+  const paused = useGame((s) => s.paused);
   const bound = useRef<string | null>(null);
+  const loopBound = useRef(false);
 
   useEffect(() => {
     sim.configureQuality(quality);
@@ -25,10 +28,31 @@ export function SimBootstrap() {
     sim.bindSlice(slice);
   }, [slice]);
 
+  useEffect(() => {
+    if (loopBound.current) return;
+    loopBound.current = true;
+    // Render-rate nav refresh uses loop alpha later; for now step is a no-op
+    // hook point for migrated systems (TrafficDirector, etc.).
+    sim.loop.start();
+    return () => {
+      sim.loop.stop();
+      loopBound.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (paused) sim.loop.pause("menu");
+    else sim.loop.resume("menu");
+  }, [paused]);
+
   useFrame((_, dt) => {
     const game = useGame.getState();
-    if (!game.started || game.paused) return;
+    if (!game.started) return;
 
+    // Drive fixed-step accumulator even when paused (input/render still run).
+    sim.loop.tick(dt);
+
+    if (game.paused) return;
     sim.beginFrame();
 
     const mode = game.mode;
@@ -41,7 +65,7 @@ export function SimBootstrap() {
 
     // Mission target wins; else player waypoint.
     const ms = useMission.getState();
-    const step = ms.done ? null : ms.steps[ms.step];
+    const step = ms.done || ms.phase !== "active" ? null : ms.steps[ms.step];
     const wp = game.waypoint;
     if (step?.target) {
       sim.setNavGoal({ x: step.target[0], z: step.target[2] });
