@@ -9,7 +9,11 @@ import { Experience } from "./Experience";
 class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
-  componentDidCatch(e: unknown) { console.error("[scene] component error:", e); }
+  componentDidCatch(e: unknown) {
+    console.error("[scene] component error:", e);
+    const message = e instanceof Error ? e.message : String(e);
+    reportAssetNotice({ key: "scene", level: "error", message: `Scene stopped rendering: ${message}` });
+  }
   render() { return this.state.failed ? null : this.props.children; }
 }
 import { HUD } from "./HUD";
@@ -20,6 +24,8 @@ import { BigMap } from "./ui/BigMap";
 import { TouchControls } from "./ui/TouchControls";
 import { Toasts } from "./ui/Toasts";
 import { DebugStats } from "./ui/DebugStats";
+import { AssetLoadNotice } from "./assets/AssetLoadNotice";
+import { reportAssetNotice } from "./assets/assetNotices";
 import { PerfProbe } from "./ui/PerfProbe";
 import { StartMenu } from "./ui/StartMenu";
 import { Radio } from "./audio/Radio";
@@ -67,6 +73,7 @@ export default function App() {
       <Toasts />
       <Radio />
       <DebugStats />
+      <AssetLoadNotice />
       <StartMenu sliceName={sliceName} progress={progress} />
     </>
   );

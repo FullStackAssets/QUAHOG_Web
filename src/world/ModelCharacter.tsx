@@ -1,29 +1,47 @@
-import { useEffect, useMemo, useRef } from "react";
+import { Component, useEffect, useMemo, useRef, type ReactNode } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import { useAnimations, useGLTF } from "@react-three/drei";
+import { useAnimations } from "@react-three/drei";
 import { clone as skeletonClone } from "three/examples/jsm/utils/SkeletonUtils.js";
+import { reportAssetNotice, useAssetGeneration } from "../assets/assetNotices";
+import { preloadMainGameModels, useMainGameGltf } from "../assets/mainGameGltf";
+import { CHARACTER_MODEL_URL } from "../assets/modelRegistry";
+import { Character } from "./Character";
 
-// A real rigged, animated human (CesiumMan, © Cesium, CC-BY 4.0) replacing the
-// primitive humanoid in the photoreal world. Cloned per instance so the player
-// and every pedestrian get their own skeleton + animation mixer.
+// Rigged human (CesiumMan, © Cesium, CC-BY 4.0) for the main game player and
+// pedestrians. Cloned per instance so each gets its own skeleton. Geometry stays
+// shared with the cached GLTF — disposing it here would blank every other copy.
 //
 // TUNE these if the figure is the wrong size / facing the wrong way once you see
-// it on the tiles — I can't preview WebGL here.
-const URL = "/models/CesiumMan.glb";
+// it in the world.
+const URL = CHARACTER_MODEL_URL;
 const SCALE = 0.92; // model is ~2 units tall -> ~1.85 m
 const FACE = 0; // yaw offset (radians) so it faces travel direction
 const Y_OFF = 0; // lift/drop so feet sit on the ground
 
-useGLTF.preload(URL);
+preloadMainGameModels();
 
-export function ModelCharacter({ moving, tint }: { moving?: () => boolean; tint?: string }) {
-  const gltf = useGLTF(URL);
+type ModelProps = { moving?: () => boolean; tint?: string };
+
+export function ModelCharacter({ moving, tint }: ModelProps) {
+  const generation = useAssetGeneration();
+  return (
+    <group key={generation} rotation-y={FACE} position={[0, Y_OFF, 0]}>
+      <ModelBoundary url={URL} moving={moving} tint={tint}>
+        <RiggedModel moving={moving} tint={tint} />
+      </ModelBoundary>
+    </group>
+  );
+}
+
+function RiggedModel({ moving, tint }: ModelProps) {
+  const gltf = useMainGameGltf(URL);
   const scene = useMemo(() => skeletonClone(gltf.scene), [gltf.scene]);
   const { actions, names } = useAnimations(gltf.animations, scene);
   const action = useRef<THREE.AnimationAction | null>(null);
 
   useEffect(() => {
+    const owned: THREE.Material[] = [];
     scene.traverse((o) => {
       const mesh = o as THREE.Mesh;
       if (!mesh.isMesh) return;
@@ -34,6 +52,7 @@ export function ModelCharacter({ moving, tint }: { moving?: () => boolean; tint?
       // bleed onto pedestrians sharing the source GLB material.
       if (tint) {
         m = m.clone();
+        owned.push(m);
         // absolute (set→scale, not relative multiply) so repeat effect runs don't
         // compound; 0.72 keeps the light jumpsuit — esp. the default white tint —
         // from clipping to a glowing white blob under the noon sun + bloom.
@@ -49,6 +68,9 @@ export function ModelCharacter({ moving, tint }: { moving?: () => boolean; tint?
     });
     const a = names.length ? actions[names[0]] : null;
     if (a) { a.reset().play(); action.current = a; }
+    return () => {
+      for (const material of owned) material.dispose();
+    };
   }, [actions, names, scene, tint]);
 
   useFrame(() => {
@@ -56,8 +78,31 @@ export function ModelCharacter({ moving, tint }: { moving?: () => boolean; tint?
   });
 
   return (
-    <group rotation-y={FACE} position={[0, Y_OFF, 0]} scale={SCALE}>
+    <group scale={SCALE}>
       <primitive object={scene} />
     </group>
   );
+}
+
+// One model failure used to trip the scene-wide boundary and hide the whole
+// world. The primitive character keeps the player and the crowd in place.
+class ModelBoundary extends Component<ModelProps & { url: string; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch(error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("[assets] model failed:", this.props.url, error);
+    reportAssetNotice({ key: this.props.url, level: "error", message });
+  }
+
+  render() {
+    if (this.state.failed) {
+      return <Character shirt={this.props.tint} moving={this.props.moving} />;
+    }
+    return this.props.children;
+  }
 }

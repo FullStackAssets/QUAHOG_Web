@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { assetDebugLine } from "../assets/assetDebug";
 import { perfStats } from "./perfStats";
 
 // Lightweight, off-by-default debug HUD (§ telemetry stub): FPS, frame time, and
@@ -72,6 +73,7 @@ export function DebugStats() {
       }}
     >
       {fps} fps · {ms} ms · {perfStats.draws} draws · {(perfStats.tris / 1000).toFixed(0)}k tris{load ? ` · load ${load}ms` : ""}
+      <div style={{ color: "#c9d4ea" }}>{assetDebugLine()}</div>
     </div>
   );
 }
