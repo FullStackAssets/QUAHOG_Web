@@ -28,6 +28,7 @@ export interface Station {
   prog: number[]; // chord roots (semitones from root)
   scale: number[]; // arp scale (semitones)
   talkGapMs: number; // pause between spoken lines
+  noSynth?: boolean; // true: no song MP3s yet — silence + log, never the synth bed
 }
 
 const PENT_MAJ = [0, 2, 4, 7, 9, 12];
@@ -281,6 +282,131 @@ export const STATIONS: Station[] = [
       ],
     },
   },
+  // --- nine new stations (2026-11-07, ElevenLabs hosts) ---
+  // Host lines are pre-generated MP3s (public/music/<id>/host/, line index →
+  // file); `lines` below is the DISPLAY text (normal spelling) shown in
+  // subtitles. The spoken audio uses Nic's banked respellings
+  // (WareHam, Pay duh nair um, Daw-chest-uh, Root Six, TAWN-tun, hy-AN-iss,
+  // ALL-stun, Root Seventy-Nine/Twenty-Eight). tempo/root/prog/scale are
+  // placeholders for the synth bed only — noSynth keeps these silent until
+  // their song MP3s exist, so the values never sound.
+  {
+    id: "block", dial: "89.9", name: "The Block", kind: "music", noSynth: true,
+    tempo: 104, root: 110.0, minor: true, prog: [0, -2, 3, -5], scale: PENT_MIN, talkGapMs: 45000,
+    host: {
+      name: "Dee \"Southpaw\" Carter", voice: "dee", prefs: ["Samantha", "Google US English", "Female"], rate: 1.0, pitch: 1.05,
+      lines: [
+        "Brockton, stand up — this is the Block, eighty-nine point nine, and Dee's got the funk on.",
+        "City of Champions, baby — every song tonight fights for Brockton.",
+        "Main Street to the Garden, if you're drivin' — turn it up, this one's for the night shift.",
+        "Two champs, one hometown — and this next record proves it.",
+      ],
+    },
+  },
+  {
+    id: "foundry", dial: "100.9", name: "The Foundry", kind: "music", noSynth: true,
+    tempo: 132, root: 98.0, minor: true, prog: [0, -2, -5, 0], scale: PENT_MIN, talkGapMs: 75000,
+    host: {
+      name: "\"Iron\" Sal Ferreira", voice: "sal", prefs: ["Daniel", "Google US English", "Male"], rate: 0.95, pitch: 0.85,
+      lines: [
+        "Taunton — forged, not made. This is the Foundry, and we don't turn it down.",
+        "Three Mile River, mill smoke, loud guitars — Sal Ferreira, keepin' the iron hot.",
+        "For the third shift, wherever you're listening: Taunton, turn it up.",
+        "Silver City, heavy sound. If your speakers ain't rattlin', you're doin' it wrong.",
+      ],
+    },
+  },
+  {
+    id: "harborlight", dial: "102.1", name: "Harborlight", kind: "music", noSynth: true,
+    tempo: 92, root: 130.81, minor: false, prog: [0, -3, 5, 0], scale: PENT_MAJ, talkGapMs: 60000,
+    host: {
+      name: "Walt Harbor", voice: "walt", prefs: ["Daniel", "Google US English", "Male"], rate: 0.95, pitch: 0.9,
+      lines: [
+        "Fairhaven, this one crossed the harbor just for you — Harborlight, one-oh-two point one.",
+        "For the folks walking the dike at sunset — here's your song, Fairhaven.",
+        "Tide's coming in, the bridge is behaving, and the oldies are playing. Walt Harbor with you.",
+        "From the harbor to your kitchen radio — Harborlight keeps the lights on.",
+      ],
+    },
+  },
+  {
+    id: "padanaram", dial: "103.5", name: "Padanaram Air", kind: "music", noSynth: true,
+    tempo: 100, root: 146.83, minor: false, prog: [0, 5, -3, 0], scale: PENT_MAJ, talkGapMs: 55000,
+    host: {
+      name: "June Calloway", voice: "june", prefs: ["Samantha", "Google US English", "Female"], rate: 1.02, pitch: 1.12,
+      lines: [
+        "From the river to the harbor — Dartmouth, this one is yours. Padanaram Air.",
+        "For everyone driving home past the farmstands — this song stays in Dartmouth.",
+        "Salt air, soft guitars, and the long way home down Elm Street. June Calloway with you.",
+        "Padanaram Harbor at golden hour — if you're not looking, you're missing it.",
+      ],
+    },
+  },
+  {
+    id: "nightcircuit", dial: "106.9", name: "Night Circuit", kind: "music", noSynth: true,
+    tempo: 116, root: 87.31, minor: true, prog: [0, -2, -5, -7], scale: PENT_MIN, talkGapMs: 90000,
+    host: {
+      name: "Vex", voice: "vex", prefs: ["Daniel", "Google US English", "Male"], rate: 0.92, pitch: 0.9,
+      lines: [
+        "Freetown, population: whoever is still awake. This is Night Circuit.",
+        "Empty roads through the forest, one frequency keeping you company. Stay on it.",
+        "It's past midnight somewhere in Freetown. Vex, riding shotgun 'til sunrise.",
+        "For the night drivers on Route Seventy-Nine — the circuit is open, and the night is yours.",
+      ],
+    },
+  },
+  {
+    id: "bog", dial: "100.1", name: "Bog Radio", kind: "music", noSynth: true,
+    tempo: 108, root: 123.47, minor: false, prog: [0, -3, 5, -2], scale: PENT_MAJ, talkGapMs: 50000,
+    host: {
+      name: "Casey Bogart", voice: "casey", prefs: ["Daniel", "Google US English", "Male"], rate: 1.0, pitch: 0.95,
+      lines: [
+        "Wareham — cranberry country, open roads, and a song for every mile. Bog Radio.",
+        "From the bogs to the bay, Casey Bogart's got the kettle on and the record spinning.",
+        "If you're hauling down Route Twenty-Eight with the windows down — this one's yours, Wareham.",
+        "Small town, big sky, loud guitars. Bog Radio, one hundred point one.",
+      ],
+    },
+  },
+  {
+    id: "federalhill", dial: "95.3", name: "Federal Hill Radio", kind: "music", noSynth: true,
+    tempo: 124, root: 130.81, minor: false, prog: [0, -3, 5, 0], scale: PENT_MAJ, talkGapMs: 40000,
+    host: {
+      name: "Nadia Brooks", voice: "nadia", prefs: ["Samantha", "Google US English", "Female"], rate: 1.08, pitch: 1.1,
+      lines: [
+        "Federal Hill to College Hill — Providence, this is your frequency. Nadia Brooks.",
+        "Indie rock, loud and local — if it ain't from a basement in Providence, it ain't on this dial.",
+        "For everyone stuck on Atwells Avenue at dinner rush — turn it up, the Hill's got you.",
+        "Providence, city of artists and loud guitars — this next one's yours.",
+      ],
+    },
+  },
+  {
+    id: "hub", dial: "105.9", name: "Hub Radio", kind: "music", noSynth: true,
+    tempo: 128, root: 98.0, minor: true, prog: [0, -2, 5, 0], scale: PENT_MIN, talkGapMs: 48000,
+    host: {
+      name: "Mick Dorchester", voice: "mick", prefs: ["Daniel", "Google US English", "Male"], rate: 1.0, pitch: 0.9,
+      lines: [
+        "Boston — garage rock, loud and proud. Mick Dorchester, Hub Radio, one-oh-five point nine.",
+        "From Dorchester to the Garden, this city runs on loud guitars and louder opinions.",
+        "If you're stuck on the Pike, might as well turn it up — Hub Radio's got the antidote.",
+        "Boston rock, no apologies. This one's for everyone who ever played a basement in Allston.",
+      ],
+    },
+  },
+  {
+    id: "dune", dial: "97.9", name: "The Dune", kind: "music", noSynth: true,
+    tempo: 112, root: 146.83, minor: false, prog: [0, 5, -3, 0], scale: PENT_MAJ, talkGapMs: 60000,
+    host: {
+      name: "Kit Winslow", voice: "kit", prefs: ["Daniel", "Google US English", "Male"], rate: 1.0, pitch: 1.0,
+      lines: [
+        "Hyannis to P-town, the whole Cape's listening — this is the Dune, ninety-seven point nine.",
+        "Salt air, sand in the speakers, and a song for every mile of Route Six. Kit Winslow with you.",
+        "For the beach traffic on the bridge — sit back, the Dune's got the tide covered.",
+        "Cape Cod — where the summer never really ends if the radio's loud enough.",
+      ],
+    },
+  },
 ];
 
 // --- station-agnostic content (§19 radio depth): ads, idents, news/weather,
@@ -353,6 +479,8 @@ class RadioEngine {
   private musicTracks: string[] = [];
   private jingles: string[] = [];     // station IDs/bumpers for talk dials
   private jingleAudio?: HTMLAudioElement;
+  private hostLines: string[] | null = null; // pre-generated host-line MP3s (music/<id>/host/)
+  private hostAudio?: HTMLAudioElement;
   vol = 0.5;
   muted = false;
   private duck = 1; // adaptive ducking (lowered under police heat)
@@ -402,6 +530,7 @@ class RadioEngine {
     this.seg = 0;
     if (s.kind === "music") this.loadMusic(s);
     this.loadJingles(s);
+    this.loadHostLines(s);
     // talk stations start talking almost immediately; music stations after a bed
     this.scheduleTalk(s.kind === "talk" ? 600 : s.talkGapMs);
   }
@@ -418,11 +547,38 @@ class RadioEngine {
       .catch(() => { /* no jingles */ });
   }
 
+  // Pre-generated host lines (public/music/<id>/host/manifest.json, line index
+  // → MP3). Missing manifest = live voice path in speakNext — never fatal.
+  // Accepts both the design's `lines` format and the `tracks` format that
+  // scripts/gen_manifests.mjs writes into every subdir on prebuild/predev
+  // (it rewrites host/manifest.json on every build — harmless either way).
+  private loadHostLines(s: Station) {
+    this.hostLines = null;
+    fetch(`music/${s.id}/host/manifest.json`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((mf: { lines?: string[]; tracks?: string[] } | null) => {
+        const files = mf?.lines ?? mf?.tracks;
+        if (this.station !== s || !files?.length) return;
+        this.hostLines = files.map((f) => /^(https?:)?\/\//.test(f) ? f : `music/${s.id}/host/${f}`);
+      })
+      .catch(() => { /* no pre-generated host lines */ });
+  }
+
   // Real music when public/music/<id>/manifest.json exists; else procedural synth.
   private startSynth(s: Station) {
     const beatMs = (60 / s.tempo) * 1000;
     this.timer = window.setInterval(() => this.tick(), beatMs);
   }
+  // Stations with no song MP3s yet (noSynth) stay silent + log — never the
+  // synth bed (standing rule). Existing stations keep the synth fallback.
+  private noMusicFallback(s: Station) {
+    if (s.noSynth) {
+      console.warn(`[radio] ${s.id}: no song MP3s yet — silent (no synth bed)`);
+      return;
+    }
+    this.startSynth(s);
+  }
+
   private loadMusic(s: Station) {
     this.musicTracks = [];
     // a track may be a bare filename (public/music/<id>/) or an absolute URL
@@ -445,11 +601,11 @@ class RadioEngine {
           .then((r) => (r.ok ? r.json() : null))
           .then((mf2: { tracks?: string[] } | null) => {
             if (this.station !== s) return;
-            if (!play(mf2?.tracks)) this.startSynth(s);
+            if (!play(mf2?.tracks)) this.noMusicFallback(s);
           })
-          .catch(() => { if (this.station === s) this.startSynth(s); });
+          .catch(() => { if (this.station === s) this.noMusicFallback(s); });
       })
-      .catch(() => { if (this.station === s) this.startSynth(s); });
+      .catch(() => { if (this.station === s) this.noMusicFallback(s); });
   }
   private playTrack() {
     // avoid replaying the same file back-to-back when there's a choice
@@ -473,8 +629,10 @@ class RadioEngine {
     if (this.talkTimer) { clearTimeout(this.talkTimer); this.talkTimer = undefined; }
     if (this.music) { this.music.pause(); this.music.onended = null; }
     if (this.jingleAudio) { this.jingleAudio.pause(); this.jingleAudio.onended = null; }
+    if (this.hostAudio) { this.hostAudio.pause(); this.hostAudio.onended = null; }
     this.musicTracks = [];
     this.jingles = [];
+    this.hostLines = null;
     this.lastUrl = "";
     this.flash = null;
     stopVO();
@@ -561,7 +719,8 @@ class RadioEngine {
       j.play().catch(finish);
       return;
     }
-    const line = this.chooseSegment(s);
+    const seg = this.chooseSegment(s);
+    const line = seg.text;
     // duck the music bed (synth + real track) while the host talks
     if (this.master && this.ctx) this.master.gain.setTargetAtTime(this.muted ? 0 : this.vol * 0.28, this.ctx.currentTime, 0.08);
     if (this.music) this.music.volume = this.muted ? 0 : this.vol * 0.2;
@@ -572,6 +731,10 @@ class RadioEngine {
       this.emitSub(null);
       if (this.station === s) this.scheduleTalk(s.talkGapMs);
     };
+    // Pre-generated host-line MP3 when one exists for this line index; else
+    // the live voice path (vo.ts: /api/tts, then Web Speech fallback).
+    const hostUrl = seg.hostLineIdx >= 0 ? this.hostLines?.[seg.hostLineIdx] : undefined;
+    if (hostUrl) { this.playHostLine(hostUrl, line, s, done); return; }
     // real ElevenLabs voice when configured, else Web Speech (vo.ts handles both)
     speak({
       text: line,
@@ -583,29 +746,76 @@ class RadioEngine {
     });
   }
 
+  // Play one pre-generated host-line MP3. Any failure (missing file, decode
+  // error, stalled playback) falls back to the live voice path for this line
+  // so the talk loop never stalls on a bad clip.
+  private playHostLine(url: string, line: string, s: Station, done: () => void) {
+    if (!this.hostAudio) this.hostAudio = new Audio();
+    const a = this.hostAudio;
+    let finished = false;
+    let watchdog = 0;
+    // same estimate as vo.ts (~13 chars/sec + tail), sized from the line
+    const estMs = Math.max(2500, (line.length / 13) * 1000) / Math.max(0.5, s.host.rate) + 1500;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      if (watchdog) clearTimeout(watchdog);
+      done();
+    };
+    const fallback = () => {
+      if (finished) return;
+      finished = true;
+      if (watchdog) clearTimeout(watchdog);
+      try { a.pause(); } catch { /* ignore */ }
+      if (this.station !== s) { done(); return; }
+      speak({
+        text: line,
+        voice: s.host.voice ?? "narrator",
+        rate: s.host.rate,
+        pitch: s.host.pitch,
+        prefs: s.host.prefs,
+        onend: done,
+      });
+    };
+    a.src = url;
+    a.muted = this.muted;
+    a.volume = this.vol;
+    a.onended = finish;
+    a.onerror = fallback;
+    a.onloadedmetadata = () => {
+      const d = a.duration;
+      const ms = Number.isFinite(d) && d > 0 ? d * 1000 + 3000 : estMs;
+      if (watchdog) clearTimeout(watchdog);
+      watchdog = window.setTimeout(fallback, ms);
+    };
+    watchdog = window.setTimeout(fallback, estMs + 6000);
+    a.play().catch(fallback);
+  }
+
   // Interleave host lines with ads, idents, news, and reactive weather/wanted
   // chatter so the dial feels alive (§19 radio depth).
   /** Queue a one-off reactive line (e.g. a player milestone) read in the host
    *  voice at the next talk slot. No-op styling — just a breaking-news insert. */
   flashNews(text: string) { this.flash = text; }
 
-  private chooseSegment(s: Station): string {
+  private chooseSegment(s: Station): { text: string; hostLineIdx: number } {
     this.seg++;
     // a queued reactive line jumps the rotation (consumed once)
-    if (this.flash) { const f = this.flash; this.flash = null; return f; }
+    if (this.flash) { const f = this.flash; this.flash = null; return { text: f, hostLineIdx: -1 }; }
     try {
       const police = useStats.getState().police;
       const weather = useGame.getState().weather;
-      if (police >= 3 && Math.random() < 0.28) return pick(WANTED);
-      if (weather === "rain" && Math.random() < 0.18) return pick(RAIN);
-      if (weather === "fog" && Math.random() < 0.18) return pick(FOG);
+      if (police >= 3 && Math.random() < 0.28) return { text: pick(WANTED), hostLineIdx: -1 };
+      if (weather === "rain" && Math.random() < 0.18) return { text: pick(RAIN), hostLineIdx: -1 };
+      if (weather === "fog" && Math.random() < 0.18) return { text: pick(FOG), hostLineIdx: -1 };
     } catch { /* stores not ready */ }
-    if (this.seg % 4 === 0) return pick(ADS);
-    if (this.seg % 9 === 0) return `${s.dial}, ${s.name}. ${pick(IDS)}`;
-    if (s.kind === "talk" && this.seg % 6 === 0) return pick(NEWS);
-    const line = s.host.lines[this.lineIdx % s.host.lines.length];
+    if (this.seg % 4 === 0) return { text: pick(ADS), hostLineIdx: -1 };
+    if (this.seg % 9 === 0) return { text: `${s.dial}, ${s.name}. ${pick(IDS)}`, hostLineIdx: -1 };
+    if (s.kind === "talk" && this.seg % 6 === 0) return { text: pick(NEWS), hostLineIdx: -1 };
+    const idx = this.lineIdx % s.host.lines.length;
+    const line = s.host.lines[idx];
     this.lineIdx++;
-    return line;
+    return { text: line, hostLineIdx: idx };
   }
 }
 

@@ -71,23 +71,31 @@ export const MISSIONS: Mission[] = [
   {
     title: "The Undefeated",
     steps: [
-      { text: "Meet Iron Mike at Champion City Gym — Brockton's waiting", target: [-8350, 0, 49620], radius: 38 },
-      { text: "Back the kid in the fixed fight — don't throw it", target: [-8350, 0, 49620], radius: 28, noHeat: true, reward: 1800 },
+      // Expansion (2026-11-07): re-pointed from the fictional [-8350, 49620]
+      // (Brockton mirrored ~50 km south, in Cape territory) to the real
+      // Cappiello Boxing Gym, 162 Main St, Brockton (42.082429, -71.019857).
+      { text: "Meet Iron Mike at Champion City Gym — Brockton's waiting", target: [-8266, 0, -49696], radius: 38 },
+      { text: "Back the kid in the fixed fight — don't throw it", target: [-8266, 0, -49696], radius: 28, noHeat: true, reward: 1800 },
     ],
   },
   // --- Act III — The Cape & the Storm -------------------------------------
   {
     title: "Heritage Marina",
     steps: [
-      { text: "Drive to Chip Worthington's heritage marina on the Cape", target: [-10520, 0, 47420], radius: 40, needCar: true },
-      { text: "Photograph the laundered hull numbers — get out clean", target: [-10520, 0, 47420], radius: 28, noHeat: true, reward: 2500 },
+      // Expansion (2026-11-07): re-pointed from the fictional [-10520, 47420]
+      // to the real Hyannis Marina, 1 Willow St, Hyannis (41.650523, -70.273588).
+      { text: "Drive to Chip Worthington's heritage marina on the Cape", target: [53822, 0, -1617], radius: 40, needCar: true },
+      { text: "Photograph the laundered hull numbers — get out clean", target: [53822, 0, -1617], radius: 28, noHeat: true, reward: 2500 },
     ],
   },
   {
     title: "Compound Interest",
     steps: [
-      { text: "Roll up on the Fake Kennedys' Hyannis compound", target: [-8480, 0, 52100], radius: 32, needCar: true },
-      { text: "Plant the bug in the guest house — ditch the tail", target: [-8480, 0, 52100], radius: 22, noHeat: true, reward: 3000 },
+      // Expansion (2026-11-07): re-pointed from the fictional [-8480, 52100]
+      // to the real Kennedy Compound, 50 Marchant Ave, Hyannis Port
+      // (41.62998, -70.30236).
+      { text: "Roll up on the Fake Kennedys' Hyannis compound", target: [51428, 0, 670], radius: 32, needCar: true },
+      { text: "Plant the bug in the guest house — ditch the tail", target: [51428, 0, 670], radius: 22, noHeat: true, reward: 3000 },
     ],
   },
   {

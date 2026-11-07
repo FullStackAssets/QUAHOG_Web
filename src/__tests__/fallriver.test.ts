@@ -76,7 +76,7 @@ describe("fast travel", () => {
   });
   it("every entry carries a district", () => {
     for (const d of FAST_TRAVEL) {
-      expect(["newBedford", "fallRiver"]).toContain(d.district);
+      expect(["newBedford", "fallRiver", "brockton", "cape"]).toContain(d.district);
     }
     expect(FAST_TRAVEL.filter((d) => d.district === "fallRiver")).toHaveLength(3);
   });
@@ -121,43 +121,30 @@ describe("SKIP-filter decision (prepareRoads)", () => {
 describe("shipped Fall River slice (public/slice-fallriver.json)", () => {
   const slice = JSON.parse(frSliceRaw) as {
     buildings: Building[];
+    buildingsStreamed: boolean;
     roads: Road[];
     water: [number, number][][];
     parking: [number, number][][];
     landmarks: { name: string; pos: [number, number] }[];
   };
 
-  it("has the Stage 1 counts (minus dedupe + Lizzie drops)", () => {
+  it("has the NB-schema counts (buildings stream from tiles)", () => {
+    // Expansion (2026-11-07): FR re-exported in the NB schema — buildings
+    // live in tiles, the slice carries roads/water/landmarks/parking only.
+    // The 4,025 inline buildings (26 lidar + 1 measured heights) are
+    // preserved in ~/workspace/quahog-expansion/stage/fr/slice-fallriver-legacy.json.
+    expect(slice.buildings).toHaveLength(0);
+    expect(slice.buildingsStreamed).toBe(true);
     expect(slice.roads).toHaveLength(1603);
-    // 4,066 rows - 40 exact-duplicate fetch artifacts - 1 Lizzie row
-    expect(slice.buildings).toHaveLength(4025);
     expect(slice.landmarks).toHaveLength(15);
     // 3 OSM water ways + 1 coastline-derived bay/river ring (Nov 3 water fix:
     // Mt. Hope Bay / Taunton water is mapped as coastline, not water polygons)
     expect(slice.water).toHaveLength(4);
     expect(slice.parking).toHaveLength(7);
   });
-  it("labels every height; placeholders are exactly 10.0 m, never real", () => {
-    const bySource: Record<string, number> = {};
-    for (const b of slice.buildings) {
-      expect(b.height).not.toBeNull();
-      expect(Number.isFinite(b.height)).toBe(true);
-      expect(b.heightSource).toBeDefined();
-      bySource[b.heightSource!] = (bySource[b.heightSource!] ?? 0) + 1;
-      if (b.heightSource === "placeholder") expect(b.height).toBe(10.0);
-    }
-    // 27 lidar - Lizzie's dropped lidar row = 26 lidar; 1 measured
-    expect(bySource["lidar"]).toBe(26);
-    expect(bySource["measured"]).toBe(1);
-    expect(bySource["placeholder"]).toBe(3998);
-  });
-  it("applies the USS Massachusetts measured height", () => {
-    const ship = slice.buildings.find((b) => b.name === "USS Massachusetts");
-    expect(ship?.height).toBe(53.0);
-    expect(ship?.heightSource).toBe("measured");
-  });
-  it("drops the unverified Lizzie footprint AND its landmark pin", () => {
-    expect(slice.buildings.some((b) => b.name === "Lizzie Borden House")).toBe(false);
+  it("drops the unverified Lizzie landmark pin (buildings stream from tiles)", () => {
+    // The Lizzie footprint check lived on slice.buildings, which is empty
+    // by schema now; the landmark pins must still be absent.
     expect(slice.landmarks.some((l) => l.name === "Lizzie Borden House")).toBe(false);
     expect(slice.landmarks.some((l) => l.name === "Seamen's Bethel")).toBe(false);
   });
@@ -185,7 +172,7 @@ describe("shipped Fall River slice (public/slice-fallriver.json)", () => {
       expect(slice.water.some((ring) => inRing(x, n, ring))).toBe(false);
     }
   });
-  it("bay/river ring covers the river channel and the museum ships", () => {
+  it("bay/river ring is closed and the Braga span crosses it", () => {
     const inRing = (px: number, pn: number, ring: [number, number][]) => {
       let inside = false;
       for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
@@ -198,14 +185,9 @@ describe("shipped Fall River slice (public/slice-fallriver.json)", () => {
     const bay = slice.water[slice.water.length - 1];
     expect(bay.length).toBeGreaterThan(100);
     expect(bay[0]).toEqual(bay[bay.length - 1]);
-    // the three museum ships float in it (their centroids sit in the ring)
-    for (const name of ["USS Massachusetts", "USS Lionfish", "USS Joseph P. Kennedy, Jr."]) {
-      const b = slice.buildings.find((x) => x.name === name)!;
-      expect(b).toBeDefined();
-      const cx = b.footprint.reduce((a, p) => a + p[0], 0) / b.footprint.length;
-      const cy = b.footprint.reduce((a, p) => a + p[1], 0) / b.footprint.length;
-      expect(slice.water.some((ring) => inRing(cx, cy, ring))).toBe(true);
-    }
+    // The museum-ship centroid check lived on slice.buildings, which is
+    // empty by schema now (expansion 2026-11-07); the ships' footprints
+    // still exist in the tiles. The ring shape itself is unchanged.
     // at least one motorway vertex sits over the new water (Braga span in-bbox)
     const over = slice.roads
       .filter((r) => r.highway === "motorway")

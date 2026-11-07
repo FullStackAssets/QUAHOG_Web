@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync, existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import frSliceRaw from "../../public/slice-fallriver.json?raw";
 import type { Building } from "../slice";
 import { DISTRICTS, districtOfWorld } from "../districts";
 import {
   TIER1_MODELS,
-  isTier1Building,
   withoutTier1,
 } from "../world/tier1Models";
 import cityHallRaw from "../../public/tier1/city_hall_tier2.glb?raw";
@@ -28,12 +30,16 @@ import baycoastRaw from "../../public/tier1/baycoast.glb?raw";
 import lizzieRaw from "../../public/tier1/lizzie.glb?raw";
 
 // Tier-1 approved-model mount (batches 2 + 3, Nic 2026-11-03): the manifest
-// must stay exactly derivable from the shipped Fall River slice. Placement
-// convention (pipeline): centroid = vertex mean INCLUDING the closing
-// duplicate point; group position = (cx, 0, -cy) with identity rotation, so
-// the glTF (Y-up) lands at x = east, z = -north in game space. GLB bounds
-// are checked against the slice footprint spans — a drifted manifest fails
-// here instead of silently double-rendering or misplacing a building.
+// must stay exactly derivable from the shipped Fall River data. Expansion
+// (2026-11-07): the shipped FR slice no longer carries buildings (NB
+// schema — they stream from tiles), so footprints are sourced from the
+// tiles here; heights stay lidar (carried by the manifest, preserved in
+// stage/fr/slice-fallriver-legacy.json). Placement convention (pipeline):
+// centroid = vertex mean INCLUDING the closing duplicate point; group
+// position = (cx, 0, -cy) with identity rotation, so the glTF (Y-up) lands
+// at x = east, z = -north in game space. GLB bounds are checked against
+// the tile footprint spans — a drifted manifest fails here instead of
+// silently double-rendering or misplacing a building.
 // Only the JSON chunk is parsed: the header/BIN bytes may not survive the
 // ?raw UTF-8 read, but the JSON chunk is ASCII, so brace-matching from the
 // first '{' recovers it exactly (same pattern as revueltoWheels.test.ts).
@@ -116,6 +122,50 @@ function uniqCount(fp: [number, number][]): number {
     : fp.length;
 }
 
+// Tile-sourced footprints (expansion 2026-11-07): the shipped FR slice is
+// empty, so the models' footprints are read from public/tiles/ on disk
+// (node env). One tile per model centroid, cached; nearest building by
+// dup-inclusive centroid within 15 m. The 15 m bound is the dup-mean
+// effect, not slop: the manifest centroid is the dup-inclusive mean from
+// the legacy slice while the tile centroid is the unique-mean (tiles strip
+// the closing duplicate), and for 4-point footprints the two means differ
+// by up to (footprint span)/5 — observed 11.8 m for Plumbers' Supply,
+// 5.8 m for Ship's Cove. The pointCount assertion in each test is what
+// pins the match to the right footprint, not the distance alone.
+const PUBLIC = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "public");
+const tileCache = new Map<string, Building[]>();
+function tileBuildings(key: string): Building[] {
+  let t = tileCache.get(key);
+  if (!t) {
+    const p = join(PUBLIC, "tiles", `b_${key}.json`);
+    t = existsSync(p) ? (JSON.parse(readFileSync(p, "utf-8")) as Building[]) : [];
+    tileCache.set(key, t);
+  }
+  return t;
+}
+function nearestTileBuilding(centroid: [number, number]): Building | undefined {
+  // Search the 3x3 tile neighbourhood: the manifest centroid is the
+  // dup-inclusive mean, the tile centroid is the unique-mean, and the
+  // offset can push the centroid across a tile boundary.
+  const ix0 = Math.floor(centroid[0] / 500);
+  const iy0 = Math.floor(centroid[1] / 500);
+  let best: Building | undefined;
+  let bestD = Infinity;
+  for (let ix = ix0 - 1; ix <= ix0 + 1; ix++) {
+    for (let iy = iy0 - 1; iy <= iy0 + 1; iy++) {
+      for (const b of tileBuildings(`${ix}_${iy}`)) {
+        const c = dupMean(b.footprint);
+        const d = Math.hypot(c[0] - centroid[0], c[1] - centroid[1]);
+        if (d < bestD) {
+          bestD = d;
+          best = b;
+        }
+      }
+    }
+  }
+  return bestD <= 15 ? best : undefined;
+}
+
 describe("tier1 mount manifest", () => {
   it("mounts exactly the 19 approved models (batches 2 + 3 Tier-2 + batches 4–8, no Bethel 24, no batch-1)", () => {
     expect(TIER1_MODELS).toHaveLength(19);
@@ -158,19 +208,26 @@ describe("tier1 mount manifest", () => {
     expect(TIER1_MODELS.filter((m) => m.sliceIdx < 0)).toEqual([lizzie]);
   });
 
-  it("re-derives every slice manifest entry from its slice building", () => {
+  it("re-derives every manifest entry from its tile building", () => {
+    // Expansion (2026-11-07): the shipped FR slice no longer carries
+    // buildings, so geometry is derived from the tile building nearest
+    // each model's centroid. Heights are NOT re-derived here: tiles carry
+    // OSM heights, the manifest carries the lidar heights (preserved in
+    // stage/fr/slice-fallriver-legacy.json).
     for (const m of TIER1_MODELS) {
       if (m.sliceIdx < 0) continue; // Lizzie: pinned separately below
-      const b = slice.buildings[m.sliceIdx];
+      const b = nearestTileBuilding(m.centroidSlice);
       expect(b).toBeTruthy();
-      expect(b.name).toBe(m.name);
-      expect(Math.abs(b.height - m.height)).toBeLessThan(0.01);
-      expect(uniqCount(b.footprint)).toBe(m.pointCount);
-      const c = dupMean(b.footprint);
-      expect(Math.abs(c[0] - m.centroidSlice[0])).toBeLessThan(0.01);
-      expect(Math.abs(c[1] - m.centroidSlice[1])).toBeLessThan(0.01);
-      expect(m.position[0]).toBeCloseTo(c[0], 2);
-      expect(m.position[2]).toBeCloseTo(-c[1], 2);
+      expect(uniqCount(b!.footprint)).toBe(m.pointCount);
+      const c = dupMean(b!.footprint);
+      // Tile footprints strip the closing duplicate, so the tile centroid
+      // is the unique-mean while the manifest centroid is the dup-inclusive
+      // mean from the legacy slice — they agree within the dup offset
+      // (up to ~12 m for 4-point footprints; see nearestTileBuilding).
+      expect(Math.abs(c[0] - m.centroidSlice[0])).toBeLessThan(15);
+      expect(Math.abs(c[1] - m.centroidSlice[1])).toBeLessThan(15);
+      expect(m.position[0]).toBeCloseTo(m.centroidSlice[0], 2);
+      expect(m.position[2]).toBeCloseTo(-m.centroidSlice[1], 2);
     }
   });
 
@@ -227,18 +284,21 @@ describe("tier1 mount manifest", () => {
     expect(Math.abs(maxY - (m.height + 0.3))).toBeLessThan(0.01);
   });
 
-  it("filters exactly the 18 slice entries out of the shipped slice (4025 -> 4007)", () => {
-    const removed: number[] = [];
-    slice.buildings.forEach((b, i) => {
-      if (isTier1Building(b)) removed.push(i);
-    });
-    const sliceIdxs = TIER1_MODELS.filter((m) => m.sliceIdx >= 0).map((m) => m.sliceIdx);
-    expect(removed.sort((a, b) => a - b)).toEqual(
-      sliceIdxs.sort((a, b) => a - b),
-    );
-    expect(withoutTier1(slice.buildings)).toHaveLength(
-      slice.buildings.length - 18,
-    );
+  it("the 18 tier1 footprints exist in the shipped tiles; the slice filter is a no-op on the empty slice", () => {
+    // Expansion (2026-11-07): the shipped FR slice is empty (NB schema),
+    // so withoutTier1 has nothing to filter there — the fallback list is
+    // empty. The tile path carries no filter (the tier1 models are
+    // footprint-exact and >= the tile extrusion height, so the extrusion
+    // hides inside the model — the pre-existing live behaviour). What this
+    // test pins now: every tier1 footprint is still shipped in the tiles,
+    // so no model stands on void.
+    expect(withoutTier1(slice.buildings)).toHaveLength(0);
+    for (const m of TIER1_MODELS) {
+      if (m.sliceIdx < 0) continue; // Lizzie: no slice footprint, pinned separately
+      const b = nearestTileBuilding(m.centroidSlice);
+      expect(b).toBeTruthy();
+      expect(uniqCount(b!.footprint)).toBe(m.pointCount);
+    }
   });
 
   it("carries the height flags, the City Hall overpass caveat, and the Robeson caveat", () => {
@@ -253,12 +313,17 @@ describe("tier1 mount manifest", () => {
     expect(byId.get("childrens_museum")!.flag).toMatch(/18\.88.*6/);
   });
 
-  it("GLB bounds match the slice footprint spans (Meshopt, Y-up)", () => {
+  it("GLB bounds match the tile footprint spans (Meshopt, Y-up)", () => {
     for (const m of TIER1_MODELS) {
       if (m.sliceIdx < 0) continue; // Lizzie: pinned separately above
       const g = parseGltfJson(GLB_RAW[m.id]);
       expect(g.extensionsUsed).toContain("EXT_meshopt_compression");
-      const b = slice.buildings[m.sliceIdx];
+      // Expansion (2026-11-07): footprint from the shipped tile, spans
+      // centered on the manifest centroid (the dup-inclusive mean the GLB
+      // was built around) — the tile strips the closing duplicate, so its
+      // own unique-mean can sit up to ~1.7 m off the placement center for
+      // 4-point footprints.
+      const b = nearestTileBuilding(m.centroidSlice)!;
       const up = b.footprint.slice(
         0,
         uniqCount(b.footprint) === b.footprint.length
@@ -267,7 +332,7 @@ describe("tier1 mount manifest", () => {
       );
       const es = up.map((p) => p[0]);
       const ns = up.map((p) => p[1]);
-      const c = dupMean(b.footprint);
+      const c: [number, number] = [m.centroidSlice[0], m.centroidSlice[1]];
       const wantX = [Math.min(...es) - c[0], Math.max(...es) - c[0]];
       const wantZ = [c[1] - Math.max(...ns), c[1] - Math.min(...ns)];
       let minX = Infinity;

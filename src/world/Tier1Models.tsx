@@ -1,4 +1,4 @@
-import { PackGLB } from "../actors/PackGLB";
+import { StreamedTier1 } from "./StreamedTier1";
 import { TIER1_MODELS } from "./tier1Models";
 
 // Tier-1 approved-model mount (batches 2 + 3, Nic 2026-11-03). Visual-only
@@ -10,14 +10,10 @@ import { TIER1_MODELS } from "./tier1Models";
 // are filtered out of the StreamingBuildings fallback list (withoutTier1),
 // so no coincident walls z-fight. Camera sweeps, ped avoidance, and graffiti
 // keep using the full slice list — only the fallback render list changes.
+// DISTANCE STREAMING (2026-11-07, iPhone jetsam fix): StreamedTier1
+// mounts only entries within 150 m of the camera and disposes past
+// 250 m (hard cap 48 mounted) — see tier1Stream.ts for the measured
+// radii. The manifest, positions and counts are untouched.
 export function Tier1Models() {
-  return (
-    <group>
-      {TIER1_MODELS.map((m) => (
-        <group key={m.id} position={m.position}>
-          <PackGLB path={m.file} />
-        </group>
-      ))}
-    </group>
-  );
+  return <StreamedTier1 entries={TIER1_MODELS} />;
 }

@@ -39,6 +39,12 @@ export const FAST_TRAVEL: { name: string; pos: [number, number]; district: Distr
   { name: "Fall River — Battleship Cove", pos: [-19972, -7348], district: "fallRiver" }, // off the Braga deck/ramps (was under it), beside a surface road
   { name: "Lizzie Borden House", pos: [-19599, -7060], district: "fallRiver" },
   { name: "Downtown Fall River — Government Center", pos: [-19492.1, -7191.2], district: "fallRiver" },
+  // Expansion (2026-11-07): Brockton + Cape, fast-travel only. Points sit
+  // on named roads, outside footprints/water (computed from the staged
+  // slices — see ~/workspace/quahog-expansion/stage/compute_spawns.py).
+  { name: "Downtown Brockton", pos: [-8280, -49681], district: "brockton" }, // Main St, 20.7 m from Cappiello Boxing Gym
+  { name: "Hyannis Marina", pos: [53850, -1642], district: "cape" }, // Willow St, 37.6 m from the marina
+  { name: "Hyannis Port — Kennedy Compound", pos: [51425, 686], district: "cape" }, // Marchant Ave, 16.2 m from the compound
 ];
 
 // Hero landmarks (world coords from real lat/lon via the slice origin).

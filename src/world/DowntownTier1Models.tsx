@@ -1,4 +1,4 @@
-import { PackGLB } from "../actors/PackGLB";
+import { StreamedTier1 } from "./StreamedTier1";
 import { DOWNTOWN_TIER1_MODELS } from "./downtownTier1Models";
 
 // Downtown New Bedford regular-building mount (upgrade round 2026-11-03).
@@ -15,14 +15,10 @@ import { DOWNTOWN_TIER1_MODELS } from "./downtownTier1Models";
 // No area gate: every manifest entry renders district-wide (mounted
 // for the whole NB district in Experience), including the 12 new
 // out-of-boundary detail-pass entries, whose flags say so.
+// DISTANCE STREAMING (2026-11-07, iPhone jetsam fix): StreamedTier1
+// mounts only entries within 150 m of the camera and disposes past
+// 250 m (hard cap 48 mounted) — see tier1Stream.ts for the measured
+// radii. The manifest, positions and counts are untouched.
 export function DowntownTier1Models() {
-  return (
-    <group>
-      {DOWNTOWN_TIER1_MODELS.map((m) => (
-        <group key={m.id} position={m.position}>
-          <PackGLB path={m.file} />
-        </group>
-      ))}
-    </group>
-  );
+  return <StreamedTier1 entries={DOWNTOWN_TIER1_MODELS} />;
 }
