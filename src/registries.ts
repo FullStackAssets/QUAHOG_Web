@@ -29,10 +29,14 @@ export const SAVE_KEYS = {
   saveV2: "mounthope.save.v2",
   settings: "mounthope.settings.v1",
   economy: "mounthope.economy.v1",
-  stats: "mounthope.stats.v1",
+  /** Legacy stats blob used by Continue detection. */
+  stats: "mounthope.save.v1",
+  pos: "mounthope.pos.v1",
+  inventory: "mounthope.inventory.v1",
   touchLayout: "mounthope.touch.v1",
   radio: "mounthope.radio.v1",
   raceBests: "mounthope.race.v1",
+  scrimshaw: "mounthope.scrimshaw.v1",
 } as const;
 
 export type SaveKey = (typeof SAVE_KEYS)[keyof typeof SAVE_KEYS];

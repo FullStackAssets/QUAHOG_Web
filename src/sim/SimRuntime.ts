@@ -15,6 +15,8 @@ import { MissionRuntime } from "./MissionRuntime";
 import { WorldStreamer } from "./WorldStreamer";
 import { GameLoop } from "./GameLoop";
 import { rng } from "./Rng";
+import { ClockWeather } from "./ClockWeather";
+import { manifestFromSlice, validateManifest, type WorldManifest } from "./WorldManifest";
 import { streamPreset, type StreamPreset } from "./mobilePresets";
 import { emitTelemetry } from "../telemetry/schema";
 import type { CameraMode, NavGuidance, Vec2, Vec3 } from "./types";
@@ -24,6 +26,7 @@ class SimRuntime {
   readonly nav = new ObjectiveNav();
   readonly streamer = new WorldStreamer();
   readonly missions = new MissionRuntime();
+  readonly clock = new ClockWeather();
   readonly loop = new GameLoop({
     onOverrun: () => emitTelemetry("sim.loop.overrun", { acc: this.loop.stats.accHighWater }),
   });
@@ -33,6 +36,7 @@ class SimRuntime {
   quality: Quality = 1;
   graph: RoadGraph | null = null;
   pedGraph: PedGraph | null = null;
+  manifest: WorldManifest | null = null;
   private navAcc = 0;
   private lastGuidance: NavGuidance = {
     path: null,
@@ -60,6 +64,9 @@ class SimRuntime {
     this.graph = RoadGraph.fromRoads(roads);
     this.pedGraph = PedGraph.fromRoads(roads);
     this.nav.setGraph(this.graph);
+    this.manifest = manifestFromSlice(slice);
+    const v = validateManifest(this.manifest);
+    if (!v.ok) console.warn("[WorldManifest]", v.errors.join("; "));
   }
 
   /** Active road graph (null until the slice binds). */

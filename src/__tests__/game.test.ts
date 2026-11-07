@@ -38,13 +38,19 @@ describe("useStats", () => {
   });
 
   it("decay reduces heat over time but never below 0", () => {
-    stats().heat(5, 5);
+    stats().heat(4, 5); // ★4 still decays; ★5 APB freezes police
     stats().decay(10); // 10s * 0.05 = 0.5 off each axis
-    expect(stats().police).toBeCloseTo(4.5, 5);
+    expect(stats().police).toBeCloseTo(3.5, 5);
     expect(stats().faction).toBeCloseTo(4.5, 5);
     stats().decay(10_000); // large dt must floor at 0, not go negative
     expect(stats().police).toBe(0);
     expect(stats().faction).toBe(0);
+  });
+
+  it("★5 APB freezes police decay", () => {
+    stats().heat(5, 0);
+    stats().decay(10);
+    expect(stats().police).toBe(5);
   });
 
   it("decay is a no-op when there is no heat", () => {

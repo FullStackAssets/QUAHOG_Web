@@ -23,14 +23,15 @@ Status: `[ ]` not started · `[~]` partial · `[x]` done
 ## Priority implementation order (active)
 
 1. [x] Close streamer evict/dispose + quality NPC/shadow caps
-2. [~] **§0 Foundations** — flags, `Rng`, telemetry schema, registries (tooling/assets TBD)
-3. [~] **§1.1 GameLoop** — core loop shipped; migrate systems ← current
-4. [~] §1.2 PedGraph deepen
-5. [~] §1.3 MissionRuntime deepen
-6. [ ] §1.6 WorldManifest + §7.3 Cape/FR content
-7. [ ] §1.5 SaveGame + §11 Continue
-8. [ ] §3.2–§3.4 heat + §5.2 ammo/inventory
-9. [ ] §2.11 earth decision
-10. [ ] Audio / HUD / polish → release matrix
+2. [~] **§0 Foundations** — flags, `Rng`, telemetry, registries (CI/assets TBD)
+3. [~] **§1.1 GameLoop** — core + heat/economy/traffic/peds on fixed step
+4. [~] §1.2 PedGraph baseline (deepen doors/crosswalks later)
+5. [~] §1.3 MissionRuntime baseline
+6. [~] §1.6 WorldManifest scaffold (from slice); Cape/FR content still open
+7. [~] §1.5 SaveGame v2 + Continue gate + inventory domain
+8. [~] §3.2 heat tiers + §5.2 ammo/inventory persistence
+9. [x] §2.11 earth demoted to diagnostic (`docs/EARTH-DECISION.md`)
+10. [~] §1.4 ClockWeather + fog cycle; §9.2 spatial audio stub
+11. [ ] §7.3 Cape/FR content · §15 matrix · release checklist ← remaining to M8
 
 See V3 for full contracts, test matrices, and the dependency DAG.

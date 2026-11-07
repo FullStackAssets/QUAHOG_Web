@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { SAVE_KEYS } from "./registries";
 
 // Property / business empire (§15 AcquisitionEngine + RevenueManager, §17 economy).
 // Buy fronts around the city; owned fronts trickle income into the wallet.
@@ -27,7 +28,7 @@ export const BUSINESSES: Business[] = [
 // Where the pilotable boat is moored (just off the Long Island marina).
 export const BOAT_SPAWN: [number, number, number] = [6130, 0.6, 4520];
 
-const KEY = "mounthope.economy.v1";
+const KEY = SAVE_KEYS.economy;
 
 interface EconomyState {
   owned: Record<string, true>;

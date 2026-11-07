@@ -6,6 +6,8 @@ import { useEconomy, BUSINESSES } from "./economy";
 import { shared } from "./shared";
 import { radio } from "./audio/radioEngine";
 import { SCRIMSHAW_TOTAL } from "./world/Collectibles";
+import { useInventory } from "./inventory";
+import { heatTier } from "./sim/HeatTiers";
 
 const wrap: React.CSSProperties = {
   position: "fixed",
@@ -32,6 +34,10 @@ export function HUD({ sliceName }: { sliceName: string }) {
   const armed = useGame((s) => s.armed);
   const weapon = useGame((s) => s.weapon);
   const melee = useGame((s) => s.melee);
+  const magPistol = useInventory((s) => s.magPistol);
+  const magShotgun = useInventory((s) => s.magShotgun);
+  const reservePistol = useInventory((s) => s.pistol);
+  const reserveShotgun = useInventory((s) => s.shotgun);
   const down = useGame((s) => s.down);
   const nearLabel = useGame((s) => s.nearLabel);
   const photo = useGame((s) => s.photo);
@@ -174,8 +180,15 @@ export function HUD({ sliceName }: { sliceName: string }) {
         <div style={{ marginTop: 4, height: 6, background: "#3a2a3a", borderRadius: 3, overflow: "hidden" }}>
           <div style={{ width: `${health}%`, height: "100%", background: health > 30 ? "#4ad66d" : "#e23b3b" }} />
         </div>
-        {armed ? <div style={{ fontSize: 11, marginTop: 4, color: "#ffcf4a" }}>🔫 {weapon.toUpperCase()}</div>
-          : melee === "bat" && <div style={{ fontSize: 11, marginTop: 4, color: "#ffcf4a" }}>🏏 BAT</div>}
+        {armed ? (
+          <div style={{ fontSize: 11, marginTop: 4, color: "#ffcf4a" }}>
+            🔫 {weapon.toUpperCase()}{" "}
+            {weapon === "pistol" ? `${magPistol}/${reservePistol}` : `${magShotgun}/${reserveShotgun}`}
+            <span style={{ opacity: 0.55, marginLeft: 6 }}>{heatTier(police).label}</span>
+          </div>
+        ) : melee === "bat" ? (
+          <div style={{ fontSize: 11, marginTop: 4, color: "#ffcf4a" }}>🏏 BAT</div>
+        ) : null}
         {stamina < 99.5 && (
           <div style={{ marginTop: 4, height: 4, background: "#2a2a3a", borderRadius: 2, overflow: "hidden" }}>
             <div style={{ width: `${stamina}%`, height: "100%", background: "#5ad0ff" }} />

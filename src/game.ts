@@ -1,10 +1,12 @@
 import { create } from "zustand";
+import { SAVE_KEYS } from "./registries";
+import { heatTier } from "./sim/HeatTiers";
 
 // Core gameplay stats (§15): wallet, health, and the dual-axis Heat system —
 // Axis A = police (0..5 badges), Axis B = faction aggro (0..5). Persisted to
 // localStorage.
 
-const KEY = "mounthope.save.v1";
+const KEY = SAVE_KEYS.stats;
 
 interface Stats {
   cash: number;
@@ -44,11 +46,12 @@ export const useStats = create<Stats>((set, get) => ({
   setHealth: (h) => set({ health: Math.max(0, Math.min(100, h)) }),
   heat: (p, f) => set((s) => ({ police: clamp5(s.police + p), faction: clamp5(s.faction + f) })),
   decay: (dt) =>
-    set((s) =>
-      s.police === 0 && s.faction === 0
-        ? s
-        : { police: clamp5(s.police - dt * 0.05), faction: clamp5(s.faction - dt * 0.05) },
-    ),
+    set((s) => {
+      if (s.police === 0 && s.faction === 0) return s;
+      // ★5 APB freezes police decay (§3.2).
+      const police = heatTier(s.police).noDecay ? s.police : clamp5(s.police - dt * 0.05);
+      return { police, faction: clamp5(s.faction - dt * 0.05) };
+    }),
   save: () => {
     const { cash, health, police, faction } = get();
     try { localStorage.setItem(KEY, JSON.stringify({ cash, health, police, faction })); } catch { /* ignore */ }

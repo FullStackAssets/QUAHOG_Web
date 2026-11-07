@@ -3,17 +3,17 @@ import { useGame } from "../store";
 import { useStats } from "../game";
 import { useMission } from "../mission";
 import { useEconomy } from "../economy";
+import { useInventory } from "../inventory";
 import { sfx } from "../audio/sfx";
-import { getItem, removeItem } from "../storage";
-
-const hasSave = () => !!getItem("mounthope.save.v1");
+import { canContinue, clearAllSaves } from "../sim/SaveGame";
+import { BRAND } from "../registries";
 
 // Title / start screen (§22). Shown over the loading world until the player
 // presses Play; doubles as the first user gesture that unlocks audio.
 
 const TIPS = [
   "WASD to move · Shift to sprint · E to grab a car.",
-  "G draws your pistol — click to fire. F throws hands.",
+  "G draws your pistol — click to fire. F throws hands. R reloads.",
   "Heat climbs when you cause trouble. Lay low at the safehouse.",
   "Ram a car to stop it, then jack it on foot with E.",
   "Press M for the map, C for your character, ⚙ to lay out touch controls.",
@@ -23,17 +23,19 @@ const TIPS = [
 export function StartMenu({ sliceName, progress = 0 }: { sliceName: string; progress?: number }) {
   const started = useGame((s) => s.started);
   const [tip] = useState(() => TIPS[Math.floor(Math.random() * TIPS.length)]);
-  const [save] = useState(hasSave);
+  const [gate] = useState(() => canContinue());
+  const save = gate.ok;
   const loaded = sliceName !== "loading…";
   if (started) return null;
   const pct = Math.round(progress * 100);
 
   const play = () => { sfx.setVolume(0.5); useGame.getState().setStarted(true); };
   const newGame = () => {
-    removeItem("mounthope.save.v1", "mounthope.economy.v1", "mounthope.scrimshaw.v1", "mounthope.pos.v1", "mounthope.mission.v1");
+    clearAllSaves();
     useStats.getState().reset();
     useMission.getState().clearSave();
     useEconomy.setState({ owned: {} });
+    useInventory.getState().reset();
     useGame.getState().resetSession(); // clear bat/photo/waypoint/scrimshaw & remount per-game props
     play();
   };
@@ -47,9 +49,9 @@ export function StartMenu({ sliceName, progress = 0 }: { sliceName: string; prog
     }}>
       <div style={{ fontSize: 13, letterSpacing: 8, color: "#ff7ad9", opacity: 0.9 }}>SOUTH COAST · NOW</div>
       <div style={{ fontSize: 76, fontWeight: 900, letterSpacing: 6, color: "#fff", textShadow: "0 4px 30px rgba(255,80,180,.5)", lineHeight: 1 }}>
-        THE NARROWS
+        {BRAND.name.toUpperCase()}
       </div>
-      <div style={{ fontSize: 14, opacity: 0.7, marginTop: 8 }}>New Bedford · Fall River · the Narrows</div>
+      <div style={{ fontSize: 14, opacity: 0.7, marginTop: 8 }}>{BRAND.tagline}</div>
 
       <div style={{ marginTop: 34, display: "flex", gap: 14 }}>
         {save && (
@@ -59,6 +61,10 @@ export function StartMenu({ sliceName, progress = 0 }: { sliceName: string; prog
           {loaded ? (save ? "✦ NEW GAME" : "▶ NEW GAME") : "LOADING…"}
         </button>
       </div>
+
+      {!save && gate.reason && (
+        <div style={{ marginTop: 10, fontSize: 11, opacity: 0.45 }}>Continue unavailable — {gate.reason}</div>
+      )}
 
       {!loaded && (
         <div style={{ marginTop: 22, width: 280 }}>
@@ -75,7 +81,7 @@ export function StartMenu({ sliceName, progress = 0 }: { sliceName: string; prog
         background: "rgba(20,40,60,.7)", color: "#9fe0ff", fontFamily: "'Courier New', monospace",
         fontSize: 13, fontWeight: 700, letterSpacing: 1,
       }}>
-        🛰 PHOTOREAL MODE (3D TILES)
+        🛰 PHOTOREAL PREVIEW (diagnostic)
       </a>
 
       <div style={{ marginTop: 22, fontSize: 12, opacity: 0.6, maxWidth: 420 }}>TIP: {tip}</div>

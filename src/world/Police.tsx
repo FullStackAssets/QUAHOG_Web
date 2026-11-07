@@ -9,6 +9,8 @@ import { sfx } from "../audio/sfx";
 import { POLICE_STATION } from "../places";
 import { sim } from "../sim";
 import { ChaseController, type ChaseUnit } from "../sim/ChaseController";
+import { desiredCops, heatTier } from "../sim/HeatTiers";
+import { flag } from "../flags";
 
 // Police pursuit (§14): road-snapped chase via ChaseController + RoadGraph.
 // Cops spawn on the road ring, home along Dijkstra routes, and can arrest on foot.
@@ -66,7 +68,10 @@ export function Police() {
       else chase.current.setGraph(sim.graph);
     }
 
-    const desired = police >= 3 ? Math.min(MAX_COPS, Math.floor(police) - 1) : 0;
+    const tier = heatTier(police);
+    const desired = desiredCops(police, MAX_COPS);
+    // Helicopter tier is gated by feature flag until the unit is authored.
+    void (tier.helicopter && flag("helicopter"));
     let activeCount = units.current.filter((u) => u.active && u.hp > 0).length;
     sfx.siren(activeCount > 0);
 

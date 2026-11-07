@@ -28,6 +28,18 @@ export { GameLoop } from "./GameLoop";
 export type { LoopPhase, PauseSource, LoopStats } from "./GameLoop";
 export { Rng, RngService, rng } from "./Rng";
 export type { RngStream } from "./Rng";
+export { ClockWeather } from "./ClockWeather";
+export { HEAT_TIERS, heatTier, desiredCops } from "./HeatTiers";
+export { manifestFromSlice, validateManifest } from "./WorldManifest";
+export type { WorldManifest } from "./WorldManifest";
+export {
+  canContinue,
+  saveUnified,
+  loadUnified,
+  clearAllSaves,
+  validateSave,
+  SCHEMA_VERSION,
+} from "./SaveGame";
 export { ObjectiveNav } from "./ObjectiveNav";
 export { CameraRig } from "./CameraRig";
 export { stepVehicleDynamics, forwardFromYaw, MOBILE_TUNING } from "./VehicleDynamics";

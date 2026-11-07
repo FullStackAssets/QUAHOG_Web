@@ -10,6 +10,7 @@ import { useStats } from "../game";
 import { sfx } from "../audio/sfx";
 import { canEnter, enterCar } from "../sim/VehicleState";
 import { useMission } from "../mission";
+import { useInventory } from "../inventory";
 
 const BARKS = ["Hey! Watch it!", "You crazy?!", "Somebody call the cops!", "Get outta here!", "What's your problem?!", "Easy, pal!"];
 
@@ -173,6 +174,17 @@ export function Player() {
 
     // gunplay: fire when armed (left-click / Space) along the aim yaw
     if (armed && !game.mapOpen && !game.charOpen && (consumeTap("Mouse0") || consumeTap("Space"))) {
+      const inv = useInventory.getState();
+      let chambered = inv.spend(game.weapon);
+      if (!chambered) {
+        // Dry fire — try auto-reload once.
+        chambered = inv.reload(game.weapon) && inv.spend(game.weapon);
+        if (!chambered) {
+          useToasts.getState().push("Click — reload (T)", "#ff6a6a");
+          sfx.ui();
+        }
+      }
+      if (chambered) {
       const p = rb.translation();
       const aim = shared.camYaw;
       const fx = Math.sin(aim), fz = Math.cos(aim);
@@ -233,6 +245,7 @@ export function Player() {
         sfx.gun();
       }
       raiseAlarm(p.x, p.z, 6); // gunfire scatters the crowd
+      } // chambered
     }
   });
 

@@ -103,18 +103,26 @@ function Pedestrians({ center, count }: { center: [number, number]; count: numbe
     return () => { shared.peds = []; };
   }, [center, count]);
 
+  // §1.1: sidewalk AI advances on the fixed-step loop.
+  useEffect(() => {
+    return sim.loop.on("step", (dt) => {
+      if (useGame.getState().paused) return;
+      const pedAi = ai.current;
+      const body = playerFocus();
+      const player = { x: body?.x ?? center[0], z: body?.z ?? -center[1] };
+      let flee: { x: number; z: number } | null = null;
+      if (shared.alarm.t > 0) flee = { x: shared.alarm.pos.x, z: shared.alarm.pos.z };
+      else if (shared.car && Math.abs(shared.carSpeed) > 10) {
+        const c = shared.car.translation();
+        flee = { x: c.x, z: c.z };
+      }
+      const budget = Math.max(0.5, sim.budget.remainingMs() * 0.45);
+      pedAi.update(dt, player, agents.current, budget, flee);
+    });
+  }, [center]);
+
   useFrame((_, dt) => {
     const step = Math.min(dt, 0.05);
-    const pedAi = ai.current;
-    const body = playerFocus();
-    const player = { x: body?.x ?? center[0], z: body?.z ?? -center[1] };
-
-    let flee: { x: number; z: number } | null = null;
-    if (shared.alarm.t > 0) flee = { x: shared.alarm.pos.x, z: shared.alarm.pos.z };
-    else if (shared.car && Math.abs(shared.carSpeed) > 10) {
-      const c = shared.car.translation();
-      flee = { x: c.x, z: c.z };
-    }
 
     // Hit / ragdoll resolution stays every-frame (gameplay critical).
     agents.current.forEach((p, i) => {
@@ -173,10 +181,7 @@ function Pedestrians({ center, count }: { center: [number, number]; count: numbe
       }
     });
 
-    // Discretionary wander under frame budget.
-    const budget = Math.max(0.5, sim.budget.remainingMs() * 0.45);
-    pedAi.update(step, player, agents.current, budget, flee);
-
+    // Mesh sync (render-rate).
     agents.current.forEach((p, i) => {
       const g = refs.current[i];
       const ex = extras.current[i];
@@ -250,22 +255,23 @@ function Traffic({ graph, center, count }: { graph: RoadGraph; center: [number, 
     return () => { shared.traffic = []; };
   }, [graph, center, count]);
 
-  useFrame((_, dt) => {
-    const step = Math.min(dt, 0.05);
-    const focusBody = playerFocus();
-    const player = { x: focusBody?.x ?? center[0], z: focusBody?.z ?? -center[1] };
+  useEffect(() => {
+    return sim.loop.on("step", (dt) => {
+      if (useGame.getState().paused) return;
+      const focusBody = playerFocus();
+      const player = { x: focusBody?.x ?? center[0], z: focusBody?.z ?? -center[1] };
+      for (let i = 0; i < agents.current.length; i++) {
+        const a = agents.current[i];
+        const m = meta.current[i];
+        if (m.car.stolen && !a.stolen) director.current.markStolen(a);
+        if (m.car.stop > a.stop) a.stop = m.car.stop;
+      }
+      const budget = Math.max(0.8, sim.budget.remainingMs() * 0.5);
+      director.current.update(dt, player, budget, agents.current);
+    });
+  }, [center]);
 
-    // Sync stolen / stop from shared handles (Car.tsx / Player.tsx write these).
-    for (let i = 0; i < agents.current.length; i++) {
-      const a = agents.current[i];
-      const m = meta.current[i];
-      if (m.car.stolen && !a.stolen) director.current.markStolen(a);
-      if (m.car.stop > a.stop) a.stop = m.car.stop;
-    }
-
-    const budget = Math.max(0.8, sim.budget.remainingMs() * 0.5);
-    director.current.update(step, player, budget, agents.current);
-
+  useFrame(() => {
     agents.current.forEach((a, i) => {
       const g = refs.current[i];
       const m = meta.current[i];
