@@ -19,6 +19,7 @@ export { lerp, lerpAngle, clamp, expSmooth, dist, normalize2, bearingTo, angleDe
 export { FrameBudget } from "./FrameBudget";
 export { SpatialIndex } from "./SpatialIndex";
 export { WorldStreamer } from "./WorldStreamer";
+export type { StreamerMetrics } from "./WorldStreamer";
 export { dijkstra } from "./Dijkstra";
 export { RoadGraph } from "./RoadGraph";
 export { PedGraph } from "./PedGraph";

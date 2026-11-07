@@ -137,6 +137,9 @@ export const useGame = create<GameState>((set) => ({
   setWaypoint: (waypoint) => set({ waypoint }),
   resetSession: () => {
     shared.day = 1; shared.hour = 9; // fresh clock on New Game
+    shared.carDamage = 0;
+    shared.carSpeed = 0;
+    shared.skid = false;
     set((s) => ({
       mode: "foot", armed: false, weapon: "pistol", melee: "fists", down: null,
       photo: false, weather: "clear", waypoint: null, scrimshaw: 0,

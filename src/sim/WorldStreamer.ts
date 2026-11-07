@@ -25,6 +25,17 @@ interface InternalAsset extends StreamAsset {
   wanted: boolean;
 }
 
+export interface StreamerMetrics {
+  residentBytes: number;
+  queued: number;
+  ready: number;
+  inFlight: number;
+  evictCount: number;
+  loadFailures: number;
+  loadMsP50: number;
+  loadMsP95: number;
+}
+
 export class WorldStreamer {
   maxResidentBytes: number;
   maxConcurrent: number;
@@ -37,6 +48,11 @@ export class WorldStreamer {
   private inFlight = 0;
   private residentBytes = 0;
   private generation = 0;
+  private evictCount = 0;
+  private loadFailures = 0;
+  /** Ring of recent successful load durations (ms) for p50/p95. */
+  private loadMsRing: number[] = [];
+  private static readonly LOAD_MS_CAP = 64;
 
   constructor(opts: WorldStreamerOptions = {}) {
     this.maxResidentBytes = opts.maxResidentBytes ?? 48 * 1024 * 1024;
@@ -92,6 +108,26 @@ export class WorldStreamer {
     let n = 0;
     for (const a of this.assets.values()) if (a.state === "ready") n++;
     return n;
+  }
+
+  /** §1.7.1 / §1.11.3 streamer metrics for the debug HUD and soak runs. */
+  metrics(): StreamerMetrics {
+    const sorted = [...this.loadMsRing].sort((a, b) => a - b);
+    const pct = (p: number) => {
+      if (sorted.length === 0) return 0;
+      const i = Math.min(sorted.length - 1, Math.floor((p / 100) * (sorted.length - 1)));
+      return sorted[i];
+    };
+    return {
+      residentBytes: this.residentBytes,
+      queued: this.queue.length,
+      ready: this.readyCount,
+      inFlight: this.inFlight,
+      evictCount: this.evictCount,
+      loadFailures: this.loadFailures,
+      loadMsP50: pct(50),
+      loadMsP95: pct(95),
+    };
   }
 
   /**
@@ -150,6 +186,7 @@ export class WorldStreamer {
     a.state = "loading";
     this.inFlight++;
     const gen = this.generation;
+    const started = this.now();
     void this.loadFn(a.id)
       .then((result) => {
         this.inFlight--;
@@ -165,12 +202,19 @@ export class WorldStreamer {
         a.bytes = bytes;
         a.state = "ready";
         this.residentBytes += bytes;
+        this.noteLoadMs(this.now() - started);
         this.evictIfNeeded();
       })
       .catch(() => {
         this.inFlight--;
+        this.loadFailures++;
         a.state = "idle";
       });
+  }
+
+  private noteLoadMs(ms: number): void {
+    this.loadMsRing.push(ms);
+    if (this.loadMsRing.length > WorldStreamer.LOAD_MS_CAP) this.loadMsRing.shift();
   }
 
   unloadOutsideBudget(maxResidentBytes = this.maxResidentBytes): void {
@@ -217,6 +261,7 @@ export class WorldStreamer {
     this.evictFn(a.id);
     this.residentBytes = Math.max(0, this.residentBytes - a.bytes);
     a.state = "idle";
+    this.evictCount++;
   }
 
   /** Test helper: force a ready state without async load. */

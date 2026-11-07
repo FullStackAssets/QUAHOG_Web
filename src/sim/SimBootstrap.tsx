@@ -45,6 +45,16 @@ export function SimBootstrap() {
     else sim.loop.resume("menu");
   }, [paused]);
 
+  // §1.1.10 / §12.5: tab hide pauses the fixed-step loop (single catch-up on return).
+  useEffect(() => {
+    const onVis = () => {
+      if (document.hidden) sim.loop.pause("tab");
+      else sim.loop.resume("tab");
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
+
   useFrame((_, dt) => {
     const game = useGame.getState();
     if (!game.started) return;

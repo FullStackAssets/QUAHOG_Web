@@ -99,6 +99,44 @@ export class SpatialIndex<T> {
     return out;
   }
 
+  /**
+   * §1.8.5 corridor / LOS query: items within `halfWidth` of segment (x0,z0)→(x1,z1).
+   * Sector-pruned via the segment AABB expanded by halfWidth.
+   */
+  querySegment(
+    x0: number,
+    z0: number,
+    x1: number,
+    z1: number,
+    halfWidth: number,
+    getPos: (item: T) => Vec2,
+  ): T[] {
+    const minX = Math.min(x0, x1) - halfWidth;
+    const maxX = Math.max(x0, x1) + halfWidth;
+    const minZ = Math.min(z0, z1) - halfWidth;
+    const maxZ = Math.max(z0, z1) + halfWidth;
+    const sx0 = Math.floor(minX / this.sectorSize);
+    const sx1 = Math.floor(maxX / this.sectorSize);
+    const sz0 = Math.floor(minZ / this.sectorSize);
+    const sz1 = Math.floor(maxZ / this.sectorSize);
+    const seen = new Set<T>();
+    const out: T[] = [];
+    const hw2 = halfWidth * halfWidth;
+    for (let sx = sx0; sx <= sx1; sx++) {
+      for (let sz = sz0; sz <= sz1; sz++) {
+        const list = this.buckets.get(this.key(sx, sz));
+        if (!list) continue;
+        for (const item of list) {
+          if (seen.has(item)) continue;
+          seen.add(item);
+          const p = getPos(item);
+          if (dist2ToSegment(p.x, p.z, x0, z0, x1, z1) <= hw2) out.push(item);
+        }
+      }
+    }
+    return out;
+  }
+
   get size(): number {
     return this.itemSector.size;
   }
@@ -106,4 +144,27 @@ export class SpatialIndex<T> {
   get sectorCount(): number {
     return this.buckets.size;
   }
+}
+
+/** Squared distance from point (px,pz) to segment (ax,az)→(bx,bz). */
+function dist2ToSegment(
+  px: number,
+  pz: number,
+  ax: number,
+  az: number,
+  bx: number,
+  bz: number,
+): number {
+  const abx = bx - ax;
+  const abz = bz - az;
+  const apx = px - ax;
+  const apz = pz - az;
+  const ab2 = abx * abx + abz * abz;
+  if (ab2 < 1e-12) return apx * apx + apz * apz;
+  let t = (apx * abx + apz * abz) / ab2;
+  if (t < 0) t = 0;
+  else if (t > 1) t = 1;
+  const cx = ax + abx * t - px;
+  const cz = az + abz * t - pz;
+  return cx * cx + cz * cz;
 }

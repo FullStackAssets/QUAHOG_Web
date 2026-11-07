@@ -44,7 +44,7 @@ export function canContinue(): ContinueGate {
   if (!mission) return { ok: false, reason: "missing mission" };
   try {
     const p = JSON.parse(pos) as Record<string, unknown>;
-    if (typeof p.px !== "number" && typeof p.carx !== "number") {
+    if (typeof p.px !== "number" && typeof p.carx !== "number" && typeof p.boatx !== "number") {
       return { ok: false, reason: "position incomplete" };
     }
     const m = JSON.parse(mission) as Record<string, unknown>;
@@ -73,6 +73,22 @@ export function collectLegacySave(): SaveBlobV2 {
   blob.inventory = loadJSON(SAVE_KEYS.inventory, undefined);
   blob.radio = loadJSON(SAVE_KEYS.radio, undefined);
   blob.raceBests = loadJSON(SAVE_KEYS.raceBests, undefined);
+  // Boat / carDamage piggy-back on the position record when present.
+  const pos = blob.position as
+    | {
+        boatx?: number; boaty?: number; boatz?: number; boatYaw?: number;
+        carDamage?: number;
+      }
+    | undefined;
+  if (pos && typeof pos.boatx === "number") {
+    blob.boat = {
+      x: pos.boatx,
+      y: typeof pos.boaty === "number" ? pos.boaty : 1.2,
+      z: typeof pos.boatz === "number" ? pos.boatz : 0,
+      yaw: typeof pos.boatYaw === "number" ? pos.boatYaw : 0,
+    };
+  }
+  if (pos && typeof pos.carDamage === "number") blob.carDamage = pos.carDamage;
   return blob;
 }
 

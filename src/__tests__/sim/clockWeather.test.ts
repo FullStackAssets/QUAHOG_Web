@@ -18,6 +18,23 @@ describe("ClockWeather", () => {
     c.setWeather("rain", 0);
     expect(c.cycleWeather()).toBe("fog");
   });
+
+  it("streamRadiusScale shortens the far ring in fog/rain", () => {
+    const c = new ClockWeather();
+    expect(c.streamRadiusScale()).toBe(1);
+    c.setWeather("rain", 0);
+    expect(c.streamRadiusScale()).toBe(0.9);
+    c.setWeather("fog", 0);
+    expect(c.streamRadiusScale()).toBe(0.7);
+  });
+
+  it("wet braking friction is ≥20% lower than dry (§1.4.T1)", () => {
+    const c = new ClockWeather();
+    const dry = c.friction("asphalt");
+    c.wetness = 1;
+    const wet = c.friction("asphalt");
+    expect(wet).toBeLessThanOrEqual(dry * 0.8);
+  });
 });
 
 describe("WorldManifest", () => {

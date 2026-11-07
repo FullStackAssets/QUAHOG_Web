@@ -26,4 +26,16 @@ describe("SpatialIndex", () => {
     expect(idx.querySector(1, 1)).toEqual([]);
     expect(idx.querySector(55, 55)).toEqual(["car"]);
   });
+
+  it("querySegment returns items near a corridor (LOS)", () => {
+    const idx = new SpatialIndex<{ id: string; x: number; z: number }>({ sectorSize: 10 });
+    const on = { id: "on", x: 5, z: 0 };
+    const off = { id: "off", x: 5, z: 20 };
+    const end = { id: "end", x: 10, z: 0 };
+    idx.insert(on, on.x, on.z);
+    idx.insert(off, off.x, off.z);
+    idx.insert(end, end.x, end.z);
+    const hit = idx.querySegment(0, 0, 10, 0, 1.5, (i) => ({ x: i.x, z: i.z }));
+    expect(hit.map((i) => i.id).sort()).toEqual(["end", "on"]);
+  });
 });
