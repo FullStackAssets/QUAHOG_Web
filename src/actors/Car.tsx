@@ -8,11 +8,10 @@ import { shared, addShake, addImpact } from "../shared";
 import { useGame, useToasts } from "../store";
 import { useStats } from "../game";
 import { sfx } from "../audio/sfx";
+import { MOBILE_TUNING, stepVehicleDynamics } from "../sim";
 
-// Arcade tuning: brisk top speed with speed-scaled steering authority that eases
-// off at the top end, so the car is fast but planted and easy to place.
-const MAX_SPEED = 44;
-const REVERSE_SPEED = 16;
+// Arcade tuning lives in src/sim/VehicleDynamics (iPhone-leaning defaults).
+const MAX_SPEED = MOBILE_TUNING.maxSpeed;
 
 // Module-scope scratch vectors reused every frame. The car's useFrame runs at
 // 60 Hz; allocating fresh THREE.Vector3s here (fwd/nfwd/right) produced ~180
@@ -46,30 +45,24 @@ export function Car() {
     if (game.mode !== "car") { shared.skid = false; shared.carSpeed = 0; sfx.engine(0, false); return; }
 
     const ax = moveAxis();
-    let yaw = shared.carYaw;
-    const fwd = _fwd.set(Math.sin(yaw), 0, Math.cos(yaw));
+    const yaw0 = shared.carYaw;
+    const fwd = _fwd.set(Math.sin(yaw0), 0, Math.cos(yaw0));
     const v = rb.linvel();
     const vForward = v.x * fwd.x + v.z * fwd.z;
 
     // handbrake (Space): scrubs speed fast and loosens the steering for a drift
     const handbrake = isDown("Space");
-
-    // steering: needs some roll to bite, then eases off near top speed so the
-    // car tracks straight and smooth instead of darting.
-    const speedFrac = THREE.MathUtils.clamp(Math.abs(vForward) / MAX_SPEED, 0, 1);
-    let authority = THREE.MathUtils.clamp(Math.abs(vForward) / 6, 0, 1) * (1 - speedFrac * 0.45);
-    if (handbrake) authority *= 1.8; // sharper rotation while sliding
-    yaw -= ax.x * 2.0 * dt * authority * (vForward < -0.1 ? -1 : 1);
+    const stepped = stepVehicleDynamics(
+      { yaw: yaw0, speed: vForward, skidding: false },
+      { steer: ax.x, throttle: ax.y, handbrake },
+      dt,
+    );
+    const yaw = stepped.yaw;
+    let nf = stepped.speed;
 
     // publish driving signals (§13): speed for camera FOV, skid for tire marks
-    shared.carSpeed = vForward;
-    shared.skid = (handbrake && Math.abs(vForward) > 6) || (Math.abs(ax.x) > 0.6 && Math.abs(vForward) > 18);
-
-    // throttle / brake / coast — smoothed for a gentle, drift-free ramp
-    const target =
-      handbrake ? 0 : ax.y > 0 ? MAX_SPEED * ax.y : ax.y < 0 ? -REVERSE_SPEED * -ax.y : 0;
-    const rate = handbrake ? 4.5 : ax.y !== 0 ? 2.2 : 1.2;
-    let nf = THREE.MathUtils.lerp(vForward, target, 1 - Math.exp(-dt * rate));
+    shared.carSpeed = nf;
+    shared.skid = stepped.skidding;
 
     const nfwd = _nfwd.set(Math.sin(yaw), 0, Math.cos(yaw));
 

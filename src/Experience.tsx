@@ -68,6 +68,7 @@ import { Player } from "./actors/Player";
 import { Car } from "./actors/Car";
 import { Boat } from "./actors/Boat";
 import { FollowCamera } from "./actors/FollowCamera";
+import { SimBootstrap } from "./sim/SimBootstrap";
 
 // Post-processing, toggleable from settings (§26).
 function FxGate() {
@@ -128,6 +129,7 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
       <Consequence />
       <Hazards />
 
+      <SimBootstrap />
       <Physics gravity={[0, -9.81, 0]}>
         <AerialGround origin={slice?.origin} />
         <Player />
@@ -151,6 +153,8 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
         )}
         {/* Heroes use RigidBody colliders → must live inside <Physics> */}
         <Heroes />
+        {/* Camera needs Rapier for occlusion probes against world colliders. */}
+        <FollowCamera />
       </Physics>
 
       {/* Area polys sit BELOW the road apron (0.04) so roads/sidewalks always
@@ -214,7 +218,6 @@ export function Experience({ onReady, onProgress }: { onReady?: (s: Slice) => vo
       <Rain />
       <Ambient weather="clear" />
 
-      <FollowCamera />
       <FxGate />
       <ShadowGate />
     </>

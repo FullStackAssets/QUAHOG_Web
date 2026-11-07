@@ -1,22 +1,25 @@
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
+import { useRapier } from "@react-three/rapier";
+import { useRef } from "react";
 import { consumeTap } from "../input";
 import { shared } from "../shared";
 import { useGame } from "../store";
+import { sim } from "../sim";
+import type { CameraMode, Vec3 } from "../sim";
 
-const _shake = new THREE.Vector3();
-let _photoYaw = 0;
+const _from: Vec3 = { x: 0, y: 0, z: 0 };
+const _to: Vec3 = { x: 0, y: 0, z: 0 };
+const _hit: Vec3 = { x: 0, y: 0, z: 0 };
 
-function lerpAngle(a: number, b: number, t: number) {
-  let d = ((b - a + Math.PI) % (Math.PI * 2)) - Math.PI;
-  if (d < -Math.PI) d += Math.PI * 2;
-  return a + d * t;
-}
-
-// Chase camera (3rd person) / eye camera (1st person), behind whichever actor is
-// active. Press V to toggle the view.
+// Chase camera (3rd person) / eye camera (1st person) via the independent
+// CameraRig. Press V to toggle the view. Occlusion pulls the spring arm in
+// when a world collider sits between the subject and the desired camera.
 export function FollowCamera() {
   const camera = useThree((s) => s.camera);
+  const { world, rapier } = useRapier();
+  const ray = useRef(new rapier.Ray({ x: 0, y: 0, z: 0 }, { x: 0, y: -1, z: 0 }));
+  const seeded = useRef(false);
 
   useFrame((_, dt) => {
     const game = useGame.getState();
@@ -26,60 +29,68 @@ export function FollowCamera() {
     const target = mode === "car" ? shared.car : mode === "boat" ? shared.boat : shared.player;
     if (!target) return;
 
-    // photo mode: slow cinematic orbit around the subject (§24)
-    if (game.photo) {
-      const tp0 = target.translation();
-      _photoYaw += dt * 0.25;
-      camera.position.set(tp0.x + Math.sin(_photoYaw) * 11, tp0.y + 5, tp0.z + Math.cos(_photoYaw) * 11);
-      camera.lookAt(tp0.x, tp0.y + 1.2, tp0.z);
-      return;
+    const tp = target.translation();
+    const heading = mode === "car" ? shared.carYaw : mode === "boat" ? shared.boatYaw : shared.heading;
+
+    let camMode: CameraMode = "foot";
+    if (game.photo) camMode = "photo";
+    else if (game.view === "first") camMode = "first";
+    else if (mode === "car") camMode = "car";
+    else if (mode === "boat") camMode = "boat";
+
+    if (!seeded.current) {
+      sim.camera.snap({ x: tp.x, y: tp.y, z: tp.z }, heading, camMode === "first" || camMode === "photo" ? "foot" : camMode);
+      seeded.current = true;
     }
 
-    // FOV widens with car speed for a sense of velocity (§13)
-    const cam = camera as THREE.PerspectiveCamera;
-    const speedT = mode === "car" ? THREE.MathUtils.clamp(Math.abs(shared.carSpeed) / 22, 0, 1) : 0;
-    const wantFov = game.fov + speedT * 14; // user FOV preference + speed widening
-    if (Math.abs(cam.fov - wantFov) > 0.05) {
-      cam.fov = THREE.MathUtils.lerp(cam.fov, wantFov, 1 - Math.exp(-dt * 4));
-      cam.updateProjectionMatrix();
-    }
-
-    // decaying camera shake (§23): one-shot impulses only (melee, crashes) so
-    // ordinary driving stays perfectly smooth.
     shared.shake = Math.max(0, shared.shake - dt * 2.4);
     const shakeAmt = game.reduceShake ? 0 : shared.shake;
 
-    const tp = target.translation();
-    const heading = mode === "car" ? shared.carYaw : mode === "boat" ? shared.boatYaw : shared.heading;
-    shared.camYaw = lerpAngle(shared.camYaw, heading, 1 - Math.exp(-dt * 3));
+    const raycast = (from: Vec3, to: Vec3): Vec3 | null => {
+      const dx = to.x - from.x;
+      const dy = to.y - from.y;
+      const dz = to.z - from.z;
+      const len = Math.hypot(dx, dy, dz);
+      if (len < 0.5) return null;
+      const r = ray.current;
+      r.origin.x = from.x;
+      r.origin.y = from.y;
+      r.origin.z = from.z;
+      r.dir.x = dx / len;
+      r.dir.y = dy / len;
+      r.dir.z = dz / len;
+      const hit = world.castRay(r, len, true, undefined, undefined, undefined, target);
+      if (!hit || hit.timeOfImpact >= len - 0.05) return null;
+      _hit.x = from.x + r.dir.x * hit.timeOfImpact;
+      _hit.y = from.y + r.dir.y * hit.timeOfImpact;
+      _hit.z = from.z + r.dir.z * hit.timeOfImpact;
+      return _hit;
+    };
 
-    if (game.view === "first") {
-      const eyeH = mode === "car" ? 1.2 : 1.6;
-      const f = new THREE.Vector3(Math.sin(heading), 0, Math.cos(heading));
-      camera.position.set(tp.x + f.x * 0.25, tp.y + eyeH, tp.z + f.z * 0.25);
-      if (shakeAmt > 0.001) {
-        _shake.set((Math.random() - 0.5), (Math.random() - 0.5), (Math.random() - 0.5)).multiplyScalar(shakeAmt * 0.4);
-        camera.position.add(_shake);
-      }
-      camera.lookAt(tp.x + f.x * 12, tp.y + eyeH, tp.z + f.z * 12);
-      return;
-    }
+    // Keep scratch from being unused if tree-shaken oddly in some builds.
+    void _from;
+    void _to;
 
-    const yaw = shared.camYaw;
-    const dist = mode === "car" ? 12 : mode === "boat" ? 16 : 7;
-    const height = mode === "car" ? 5.5 : mode === "boat" ? 7 : 4;
-    const fwd = new THREE.Vector3(Math.sin(yaw), 0, Math.cos(yaw));
-    const want = new THREE.Vector3(
-      tp.x - fwd.x * dist,
-      tp.y + height,
-      tp.z - fwd.z * dist,
+    const pose = sim.tickCamera(
+      dt,
+      { x: tp.x, y: tp.y, z: tp.z },
+      heading,
+      camMode,
+      shared.carSpeed,
+      game.fov,
+      shakeAmt,
+      camMode === "photo" || camMode === "first" ? undefined : raycast,
     );
-    camera.position.lerp(want, 1 - Math.exp(-dt * 6));
-    if (shakeAmt > 0.001) {
-      _shake.set((Math.random() - 0.5), (Math.random() - 0.5), (Math.random() - 0.5)).multiplyScalar(shakeAmt * 0.6);
-      camera.position.add(_shake);
+
+    shared.camYaw = sim.camera.camYaw;
+    camera.position.set(pose.position.x, pose.position.y, pose.position.z);
+    camera.lookAt(pose.lookAt.x, pose.lookAt.y, pose.lookAt.z);
+
+    const cam = camera as THREE.PerspectiveCamera;
+    if (Math.abs(cam.fov - pose.fov) > 0.05) {
+      cam.fov = pose.fov;
+      cam.updateProjectionMatrix();
     }
-    camera.lookAt(tp.x, tp.y + 1.5, tp.z);
   });
 
   return null;

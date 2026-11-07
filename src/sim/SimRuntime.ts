@@ -1,0 +1,105 @@
+/**
+ * Process-wide simulation coordinator for Mount Hope.
+ * Owns road graph, objective nav, camera rig, streamer, and frame budget.
+ * React components read/write through this singleton (no per-frame React state).
+ */
+
+import type { Road, Slice } from "../slice";
+import type { Quality } from "../quality";
+import { FrameBudget } from "./FrameBudget";
+import { CameraRig } from "./CameraRig";
+import { ObjectiveNav } from "./ObjectiveNav";
+import { RoadGraph } from "./RoadGraph";
+import { WorldStreamer } from "./WorldStreamer";
+import { streamPreset, type StreamPreset } from "./mobilePresets";
+import type { CameraMode, NavGuidance, Vec2, Vec3 } from "./types";
+
+class SimRuntime {
+  readonly camera = new CameraRig();
+  readonly nav = new ObjectiveNav();
+  readonly streamer = new WorldStreamer();
+  budget = FrameBudget.forQuality(1);
+  preset: StreamPreset = streamPreset(1);
+  graph: RoadGraph | null = null;
+  private navAcc = 0;
+  private lastGuidance: NavGuidance = {
+    path: null,
+    nextDir: null,
+    distanceRemaining: 0,
+    wrongWay: false,
+    bearing: 0,
+  };
+  private boundSlice: string | null = null;
+
+  configureQuality(q: Quality): void {
+    this.preset = streamPreset(q);
+    this.budget = FrameBudget.forQuality(q);
+    this.streamer.maxResidentBytes = this.preset.maxResidentBytes;
+    this.streamer.maxConcurrent = this.preset.maxConcurrent;
+    this.streamer.streamRadius = this.preset.streamRadius;
+  }
+
+  /** Build / rebuild the road graph when a slice loads. */
+  bindSlice(slice: Slice): void {
+    if (this.boundSlice === slice.name && this.graph) return;
+    this.boundSlice = slice.name;
+    this.graph = RoadGraph.fromRoads(slice.roads as Road[]);
+    this.nav.setGraph(this.graph);
+  }
+
+  setNavGoal(goal: Vec2 | null): void {
+    this.nav.setGoal(goal);
+  }
+
+  get guidance(): NavGuidance {
+    return this.lastGuidance;
+  }
+
+  beginFrame(): void {
+    this.budget.beginFrame();
+  }
+
+  /**
+   * Tick navigation at a budgeted rate; returns latest guidance.
+   */
+  tickNav(dt: number, actor: Vec2, heading: number, speed: number): NavGuidance {
+    this.navAcc += dt;
+    const period = 1 / this.preset.navHz;
+    if (this.navAcc >= period || !this.lastGuidance.path) {
+      this.navAcc = 0;
+      this.lastGuidance = this.nav.update(actor, heading, speed);
+    } else if (this.lastGuidance.nextDir) {
+      // Cheap wrong-way / bearing refresh between full repaths.
+      this.lastGuidance = this.nav.update(actor, heading, speed);
+    }
+    return this.lastGuidance;
+  }
+
+  tickStreamer(
+    position: Vec3,
+    velocity: Vec3,
+    idsInRange: Iterable<string>,
+  ): void {
+    this.streamer.request(position, velocity, idsInRange);
+    const work = Math.min(this.preset.streamWorkMs, this.budget.remainingMs());
+    if (work > 0.2) this.streamer.advanceBudget(work);
+    this.streamer.unloadOutsideBudget(this.preset.maxResidentBytes);
+  }
+
+  tickCamera(
+    dt: number,
+    follow: Vec3,
+    heading: number,
+    mode: CameraMode,
+    speed: number,
+    baseFov: number,
+    shake: number,
+    raycast?: (from: Vec3, to: Vec3) => Vec3 | null,
+  ) {
+    return this.camera.update(dt, follow, heading, mode, speed, baseFov, shake, raycast);
+  }
+}
+
+/** Shared singleton — safe across HMR via globalThis stash. */
+const g = globalThis as unknown as { __mounthopeSim?: SimRuntime };
+export const sim: SimRuntime = g.__mounthopeSim ?? (g.__mounthopeSim = new SimRuntime());

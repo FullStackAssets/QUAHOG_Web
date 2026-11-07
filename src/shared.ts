@@ -105,6 +105,16 @@ export const shared = {
   pickups: [] as Pickup[],
   /** Player car body damage 0 (pristine) .. 100 (wrecked) — smokes when high. */
   carDamage: 0,
+  /** Sim-layer nav: metres remaining along the routed objective. */
+  navDist: 0,
+  /** Sim-layer nav: bearing (atan2) toward the next route vertex. */
+  navBearing: 0,
+  /** Sim-layer nav: actor facing away from the route at speed. */
+  navWrongWay: false,
+  /** Sim-layer nav: polyline points for minimap route (world XZ). */
+  navPath: null as { x: number; z: number }[] | null,
+  /** Tile/asset ids currently in the streamer interest set (published by StreamingBuildings). */
+  streamIds: null as string[] | null,
 };
 
 /** Drop a cash pickup at a world point (capped so it can't grow unbounded). */

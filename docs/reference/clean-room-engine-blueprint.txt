@@ -1,0 +1,106 @@
+GTA: Vice City — Reverse Engineering Blueprint
+
+Target: Grand Theft Auto: Vice City (2002), rather than the Unreal Engine-based Definitive Edition.
+
+Objective: Reconstruct the technical architecture, mechanics, artificial intelligence, physics, urban simulation, mission system, and rendering behavior that make Vice City work.
+
+There is a significant advantage: Vice City has already undergone extensive community reverse engineering. The reVC project reconstructed much of the original game’s C++ implementation, providing a concrete technical reference rather than relying exclusively on gameplay observations.
+
+This creates two distinct opportunities:
+
+* Original-game analysis: Understand and experiment with Vice City’s architecture, including systems reconstructed from its executable.
+* Independent implementation: Apply its engineering principles to a new, legally distinct, modern open-world game, with custom environments, assets, and missions.
+
+The second is particularly relevant to QUAHOG_Web, where many of the required systems—traffic, third-person cameras, pedestrians, mission navigation, and urban streaming—overlap.
+
+1. Verified technical foundation
+
+Component	Original Vice City
+Primary implementation	Native C++
+Graphics middleware	RenderWare
+World architecture	Spatial sectors, streamed assets, entity pools
+Physics	Custom vehicle and entity physics, collision handling
+AI	Pedestrian and traffic controllers, tasks and pathfinding
+Missions	Scripted gameplay and event-driven state changes
+Audio	Positional audio, vehicles, environment, radio
+Platforms	Originally PS2, followed by PC and Xbox releases
+
+The reVC project documents builds with the original RenderWare backend or the independent librw renderer, and audio support through Miles Sound System or OpenAL. Its reconstructed source also exposes world, collision, vehicle, and entity-management logic. GitHub +1
+
+A crucial qualification: reVC has a history of copyright litigation and takedowns. Public source availability does not establish unrestricted commercial reuse rights. An independent implementation should reproduce ideas and observable behavior, not copy Rockstar assets or presume the reconstructed code is commercially cleared. Recompendium +1
+
+2. What the source code reveals
+
+Spatial world architecture
+
+The reconstructed CWorld uses an 80 × 80 sector grid, with each sector measuring 50 × 50 game units. Buildings, vehicles, pedestrians, and objects are organized into separate entity lists. This allows targeted collision and visibility queries without checking the entire city. GitHub +1
+
+Dynamic city streaming
+
+CStreaming::Update requests nearby models and releases distant resources. A source constant sets one streaming request radius to 80 game units. Asset load states and priority flags prevent required resources from being unloaded prematurely. GitHub +1
+
+Vehicle traffic and pathfinding
+
+CPathFind::DoPathSearch uses Dijkstra’s algorithm. The traffic controller manages car generation, navigation, and removal, while the vehicle controllers handle actual driving dynamics. GitHub +2
+
+Performance-aware simulation
+
+CGame::Process coordinates the core systems and conditionally reduces ambient processing under load. For example, pedestrian population updates and random traffic generation are influenced by processing-time checks. GitHub
+
+3. Reconstructed execution architecture
+
+VICE CITY — ENGINE FLOW
+
+Input + Frame Timer
+
+Game Loop / World Scheduler
+
+World Streaming
+
+Physics + Collision
+
+Pedestrian AI
+
+Traffic + Routing
+
+Mission Scripts
+
+Clock + Weather
+
+Camera Controller
+
+Entity Lifecycle
+
+Renderer + HUD + Audio
+
+Conceptual architecture based on inspected reVC components; not an exact execution-order diagram.
+
+4. Applying this to QUAHOG_Web
+
+The strongest implementation opportunity is to adapt Vice City’s engineering principles—not the copyrighted game itself.
+
+Priority	System to implement	Intended improvement
+P0	Objective navigation	3D markers, route guidance, wrong-way detection
+P0	Collision-aware camera	Eliminate building obstruction and awkward vehicle camera positions
+P1	Road graph + traffic AI	Vehicles that navigate intersections and respond to other traffic
+P1	Vehicle dynamics	Consistent acceleration, steering, suspension, braking and collisions
+P1	World streaming	More environmental detail without excessive mobile memory use
+P2	Pedestrian simulation	Walking, reacting, fleeing, vehicle interaction
+P2	Mission scripting	Data-driven objectives, checkpoints, retry and persistence
+P3	Environmental simulation	Weather, time of day, traffic density and ambient activity
+
+This prioritization is a proposed implementation sequence, not a claim that these changes have been integrated or tested.
+
+5. Complete technical dossier
+
+I created a standalone research document containing the source-level findings, system mapping, reference paths, independent TypeScript interfaces, architectural recommendations, implementation milestones, acceptance tests, and copyright boundaries.
+
+GTA Vice City Reverse Engineering Dossier
+
+Markdown · 209 lines · Source links and technical architecture
+
+Download the dossier
+
+The most useful public reference is the reVC reconstructed codebase⁠￼. I inspected individual reconstructed source files, but have not disassembled a retail executable, compiled the game, or modified QUAHOG_Web.
+
+Recommended next technical objective: use the reconstructed engine behavior as a reference to implement a legally independent, iPhone-optimized open-world simulation layer inside QUAHOG_Web, beginning with vehicle navigation, camera behavior, and streaming. This approach preserves the existing project and avoids rebuilding a game engine unnecessarily.

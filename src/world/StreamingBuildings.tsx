@@ -8,15 +8,16 @@ import { Buildings } from "./Buildings";
 import { ensureGisReplacements, withoutReplaced } from "./gisDistrict";
 import { makeFacadeMaps, makeNoiseNormal } from "./textures";
 import type { Building } from "../slice";
+import { useGame } from "../store";
+import { collideRadius, viewRadius } from "../quality";
+import { sim } from "../sim";
 
 // Multi-tile building streamer (Step 19). Loads building tiles (public/tiles/
-// b_<gx>_<gn>.json) within VIEW_R of the player and drops them when far, so
-// memory/draw stays bounded as the map grows to the whole South Coast. The
-// player's own tile + neighbours (COLLIDE_R) get a static collider. Falls back
-// to the monolithic <Buildings> if the manifest isn't present.
-
-const VIEW_R = 3;     // tiles loaded around the player (each TILE metres)
-const COLLIDE_R = 1;  // tiles that get physics colliders
+// b_<gx>_<gn>.json) within a quality-scaled ring of the player and drops them
+// when far, so memory/draw stays bounded as the map grows to the whole South
+// Coast. The player's own tile + neighbours get a static collider. Falls back
+// to the monolithic <Buildings> if the manifest isn't present. Interest ids are
+// published to the independent WorldStreamer for budgeted load/evict policy.
 const WINDOW_GLOW = new THREE.Color("#ffcf8a");
 // New Bedford palette: brick reds, painted clapboard, weathered wood (short
 // residential/commercial) vs granite + concrete (tall downtown).
@@ -205,6 +206,7 @@ export function StreamingBuildings({ fallback, center }: { fallback: Building[];
   const keySet = useRef<Set<string>>(new Set());
   const sig = useRef("");
   const acc = useRef(0);
+  const quality = useGame((s) => s.quality);
 
   useEffect(() => {
     fetch("tiles/manifest.json")
@@ -222,13 +224,30 @@ export function StreamingBuildings({ fallback, center }: { fallback: Building[];
     const m = manifest;
     if (!m) return;
     acc.current += dt;
-    if (acc.current < 0.4) return;
+    // Slightly slower refresh on Low so iPhone spends less time in tile math.
+    const period = quality === 0 ? 0.55 : 0.4;
+    if (acc.current < period) return;
     acc.current = 0;
 
     const body = shared.car && shared.player ? (shared.player.isEnabled() ? shared.player : shared.car) : (shared.player ?? shared.car);
     const t = body?.translation();
     const px = t?.x ?? 0, pn = -(t?.z ?? 0); // north = -z
-    const gx = Math.floor(px / m.tile), gn = Math.floor(pn / m.tile);
+
+    // Predictive focus while driving — request tiles ahead of the car so
+    // corners don't pop on mobile networks.
+    let focusX = px;
+    let focusN = pn;
+    if (Math.abs(shared.carSpeed) > 4) {
+      // world forward = (sin yaw, cos yaw) in XZ; north = -z → Δnorth = -Δz
+      const look = Math.min(Math.abs(shared.carSpeed) * 1.1, sim.preset.streamRadius * 0.5);
+      const sign = shared.carSpeed >= 0 ? 1 : -1;
+      focusX += Math.sin(shared.carYaw) * look * sign;
+      focusN = pn - Math.cos(shared.carYaw) * look * sign;
+    }
+
+    const gx = Math.floor(focusX / m.tile), gn = Math.floor(focusN / m.tile);
+    const VIEW_R = viewRadius(quality);
+    const COLLIDE_R = collideRadius(quality);
 
     const want: { key: string; collide: boolean }[] = [];
     for (let dx = -VIEW_R; dx <= VIEW_R; dx++) {
@@ -238,6 +257,10 @@ export function StreamingBuildings({ fallback, center }: { fallback: Building[];
         want.push({ key, collide: Math.abs(dx) <= COLLIDE_R && Math.abs(dn) <= COLLIDE_R });
       }
     }
+    // Publish interest set for the budgeted WorldStreamer (memory policy).
+    shared.streamIds = want.map((w) => w.key);
+    for (const w of want) sim.streamer.register(w.key, 256 * 1024, w.collide ? 2 : 0);
+
     const s = want.map((w) => w.key + (w.collide ? "*" : "")).sort().join(",");
     if (s === sig.current) return;
     sig.current = s;
@@ -245,11 +268,16 @@ export function StreamingBuildings({ fallback, center }: { fallback: Building[];
     // fetch any tiles we don't have yet, then publish the active set
     const missing = want.filter((w) => !cache.current.has(w.key));
     if (missing.length === 0) { setActive(want); return; }
+    // Honour streamer concurrency — only kick off up to maxConcurrent new fetches.
+    const batch = missing.slice(0, Math.max(1, sim.streamer.maxConcurrent));
     Promise.all(
-      missing.map((w) =>
-        fetch(`tiles/b_${w.key}.json`).then((r) => r.json()).then((b: Building[]) => cache.current.set(w.key, withoutReplaced(w.key, b))).catch(() => {}),
+      batch.map((w) =>
+        fetch(`tiles/b_${w.key}.json`).then((r) => r.json()).then((b: Building[]) => {
+          cache.current.set(w.key, withoutReplaced(w.key, b));
+          sim.streamer.debugForceReady(w.key, 256 * 1024);
+        }).catch(() => {}),
       ),
-    ).then(() => setActive(want));
+    ).then(() => setActive(want.filter((w) => cache.current.has(w.key))));
   });
 
   if (failed) return <Buildings buildings={fallback} center={center} />;

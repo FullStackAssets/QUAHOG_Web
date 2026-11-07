@@ -140,6 +140,21 @@ export function Minimap() {
         ctx.fill();
       }
 
+      // routed objective polyline from the sim layer
+      const nav = shared.navPath;
+      if (nav && nav.length > 1) {
+        ctx.strokeStyle = "rgba(255,207,74,.85)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let i = 0; i < nav.length; i++) {
+          const nx = R + (nav[i].x - px) * PPM;
+          const ny = R + (nav[i].z - pz) * PPM;
+          if (i === 0) ctx.moveTo(nx, ny);
+          else ctx.lineTo(nx, ny);
+        }
+        ctx.stroke();
+      }
+
       // objective marker
       const ms = useMission.getState();
       const step = ms.done ? null : ms.steps[ms.step];

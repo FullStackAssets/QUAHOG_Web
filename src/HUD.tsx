@@ -43,6 +43,7 @@ export function HUD({ sliceName }: { sliceName: string }) {
   const [dist, setDist] = useState<number | null>(null);
   const [bearing, setBearing] = useState(0); // radians, target dir relative to camera
   const [wp, setWp] = useState<{ dist: number; bearing: number } | null>(null);
+  const [wrongWay, setWrongWay] = useState(false);
   const [sub, setSub] = useState<{ name: string; text: string } | null>(null);
   const [mph, setMph] = useState(0);
   const [compass, setCompass] = useState("N");
@@ -54,26 +55,36 @@ export function HUD({ sliceName }: { sliceName: string }) {
       setDay(shared.day);
       setStamina(shared.stamina);
       setMph(Math.round(Math.abs(shared.carSpeed) * 2.237)); // m/s → mph
+      setWrongWay(shared.navWrongWay);
       // compass from the active heading (world north = -z)
       const hd = useGame.getState().mode === "car" ? shared.carYaw : shared.heading;
       const bearing = (Math.atan2(Math.sin(hd), -Math.cos(hd)) * 180 / Math.PI + 360) % 360;
       setCompass(["N", "NE", "E", "SE", "S", "SW", "W", "NW"][Math.round(bearing / 45) % 8]);
       const body = useGame.getState().mode === "car" ? shared.car : shared.player;
       const t = body?.translation();
-      // distance + bearing to the active objective
+      // Prefer routed nav distance/bearing from the sim layer when available.
       const ms = useMission.getState();
       const step = ms.done ? null : ms.steps[ms.step];
       if (step?.target && t) {
-        setDist(Math.round(Math.hypot(t.x - step.target[0], t.z - step.target[2])));
-        setBearing(Math.atan2(step.target[0] - t.x, step.target[2] - t.z) - shared.camYaw);
+        if (shared.navPath && shared.navDist > 0) {
+          setDist(Math.round(shared.navDist));
+          setBearing(shared.navBearing - shared.camYaw);
+        } else {
+          setDist(Math.round(Math.hypot(t.x - step.target[0], t.z - step.target[2])));
+          setBearing(Math.atan2(step.target[0] - t.x, step.target[2] - t.z) - shared.camYaw);
+        }
       } else setDist(null);
       // player-placed waypoint (§21)
       const w = useGame.getState().waypoint;
       if (w && t) {
-        setWp({
-          dist: Math.round(Math.hypot(t.x - w.x, t.z - w.z)),
-          bearing: Math.atan2(w.x - t.x, w.z - t.z) - shared.camYaw,
-        });
+        if (!step?.target && shared.navPath && shared.navDist > 0) {
+          setWp({ dist: Math.round(shared.navDist), bearing: shared.navBearing - shared.camYaw });
+        } else {
+          setWp({
+            dist: Math.round(Math.hypot(t.x - w.x, t.z - w.z)),
+            bearing: Math.atan2(w.x - t.x, w.z - t.z) - shared.camYaw,
+          });
+        }
       } else setWp(null);
     }, 200);
     radio.onSubtitle = setSub;
@@ -210,6 +221,17 @@ export function HUD({ sliceName }: { sliceName: string }) {
         }}>
           <span style={{ display: "inline-block", transform: `rotate(${wp.bearing}rad)`, fontSize: 16, lineHeight: 1 }}>▲</span>
           <span style={{ fontSize: 12, marginLeft: 6 }}>📍 {wp.dist} m</span>
+        </div>
+      )}
+
+      {/* Wrong-way cue from ObjectiveNav — only while driving a routed goal. */}
+      {wrongWay && mode === "car" && (
+        <div style={{
+          position: "absolute", top: wp ? 52 : 14, left: "50%", transform: "translateX(-50%)",
+          background: "rgba(90,10,10,.82)", border: "1px solid #ff5c5c", borderRadius: 8,
+          padding: "4px 12px", color: "#ffc9c9", fontSize: 12, letterSpacing: 1, fontWeight: 700,
+        }}>
+          WRONG WAY
         </div>
       )}
 
