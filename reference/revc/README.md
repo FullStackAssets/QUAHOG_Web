@@ -9,6 +9,7 @@ Local research materials for architectural understanding only:
 | `uploads/Files__5806.zip` | Chat upload | root build/docs files |
 | `uploads/Last_3_f080.zip` | Chat upload | `src/` + `res/` |
 | `uploads/Archive_6b71.zip` | Chat upload | vendor deps (`sdl2/`, `librw/`, `ogg/`, `opus/`, …) |
+| `uploads/openal-soft.zip` | Google Drive `1JHWfpdmA0du2dA12LygFDet9a0S4k2I3` | OpenAL Soft vendor tree |
 
 Rules:
 - Do **not** import, copy, or transpile reconstructed C++ into `src/`.
