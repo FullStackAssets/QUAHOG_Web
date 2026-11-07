@@ -8,6 +8,7 @@ Local research materials for architectural understanding only:
 | `uploads/Top_two_51d5.zip` | Chat upload | android/ + autoconf/ |
 | `uploads/Files__5806.zip` | Chat upload | root build/docs files |
 | `uploads/Last_3_f080.zip` | Chat upload | `src/` + `res/` |
+| `uploads/Archive_6b71.zip` | Chat upload | vendor deps (`sdl2/`, `librw/`, `ogg/`, `opus/`, …) |
 
 Rules:
 - Do **not** import, copy, or transpile reconstructed C++ into `src/`.
