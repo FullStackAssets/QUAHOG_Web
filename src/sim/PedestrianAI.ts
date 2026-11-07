@@ -1,9 +1,11 @@
 /**
  * Budgeted pedestrian LOD: near agents update every frame, mid/far less often.
  * Uses SpatialIndex for radius queries (combat / threats).
+ * When a PedGraph is bound, agents follow sidewalk routes instead of open wander.
  */
 
 import { SpatialIndex } from "./SpatialIndex";
+import type { PedGraph } from "./PedGraph";
 import type { Vec2 } from "./types";
 import { dist } from "./math";
 
@@ -18,6 +20,9 @@ export interface PedAgent {
   heading: number;
   down: number;
   dead: boolean;
+  /** Sidewalk polyline when PedGraph is active. */
+  path?: Vec2[] | null;
+  pathCursor?: number;
 }
 
 export interface PedestrianAIOptions {
@@ -40,6 +45,7 @@ export class PedestrianAI {
   private midAcc = 0;
   private farAcc = 0;
   private center: Vec2 = { x: 0, z: 0 };
+  private graph: PedGraph | null = null;
 
   constructor(opts: PedestrianAIOptions = {}) {
     this.nearR = opts.nearR ?? 40;
@@ -52,6 +58,10 @@ export class PedestrianAI {
 
   setCenter(c: Vec2): void {
     this.center = c;
+  }
+
+  setGraph(g: PedGraph | null): void {
+    this.graph = g;
   }
 
   rebuildIndex(agents: PedAgent[]): void {
@@ -69,7 +79,7 @@ export class PedestrianAI {
   }
 
   /**
-   * Tick wander for agents allowed by LOD + budget.
+   * Tick wander / sidewalk follow for agents allowed by LOD + budget.
    * Returns how many agents were fully simulated this frame.
    */
   update(
@@ -115,6 +125,37 @@ export class PedestrianAI {
       a.x += dx * this.speed * 2.2 * dt;
       a.z += dz * this.speed * 2.2 * dt;
       a.heading = Math.atan2(dx, dz);
+      // Fleeing leaves the sidewalk briefly; repath when calm.
+      a.path = null;
+      a.pathCursor = 0;
+      return;
+    }
+
+    if (this.graph && (!a.path || a.path.length === 0)) {
+      this.assignSidewalkRoute(a);
+    }
+
+    if (a.path && a.path.length > 0) {
+      const cursor = a.pathCursor ?? 0;
+      const wp = a.path[Math.min(cursor, a.path.length - 1)];
+      a.goalX = wp.x;
+      a.goalZ = wp.z;
+      let dx = a.goalX - a.x;
+      let dz = a.goalZ - a.z;
+      const d = Math.hypot(dx, dz);
+      if (d < 0.7) {
+        if (cursor + 1 >= a.path.length) {
+          this.assignSidewalkRoute(a);
+          return;
+        }
+        a.pathCursor = cursor + 1;
+        return;
+      }
+      dx /= d;
+      dz /= d;
+      a.x += dx * this.speed * dt;
+      a.z += dz * this.speed * dt;
+      a.heading = Math.atan2(dx, dz);
       return;
     }
 
@@ -122,8 +163,9 @@ export class PedestrianAI {
     let dz = a.goalZ - a.z;
     const d = Math.hypot(dx, dz);
     if (d < 0.6) {
-      a.goalX = this.center.x + (Math.random() * 2 - 1) * this.wander;
-      a.goalZ = this.center.z + (Math.random() * 2 - 1) * this.wander;
+      const g = this.randomInWander();
+      a.goalX = g.x;
+      a.goalZ = g.z;
       return;
     }
     dx /= d;
@@ -133,11 +175,67 @@ export class PedestrianAI {
     a.heading = Math.atan2(dx, dz);
   }
 
+  private assignSidewalkRoute(a: PedAgent): void {
+    const g = this.graph;
+    if (!g || g.nodeCount < 2) {
+      const p = this.randomInWander();
+      a.goalX = p.x;
+      a.goalZ = p.z;
+      a.path = null;
+      a.pathCursor = 0;
+      return;
+    }
+    const start = g.nearestNode(a.x, a.z) ?? g.randomNodeNear(a.x, a.z, 0, 200);
+    const goal = g.randomNodeNear(a.x, a.z, 18, this.wander * 2.5);
+    if (start == null || goal == null || start === goal) {
+      const n = g.node(goal ?? start ?? 0);
+      if (n) {
+        a.goalX = n.x;
+        a.goalZ = n.z;
+      }
+      a.path = null;
+      a.pathCursor = 0;
+      return;
+    }
+    const path = g.routeNodes(start, goal);
+    if (!path || path.points.length < 2) {
+      const n = g.node(goal);
+      a.goalX = n?.x ?? a.x;
+      a.goalZ = n?.z ?? a.z;
+      a.path = null;
+      a.pathCursor = 0;
+      return;
+    }
+    a.path = path.points;
+    a.pathCursor = 1;
+    a.goalX = path.points[1].x;
+    a.goalZ = path.points[1].z;
+  }
+
+  /** Snap an agent onto the nearest sidewalk node (spawn helper). */
+  snapToGraph(a: PedAgent): void {
+    const g = this.graph;
+    if (!g) return;
+    const id = g.nearestNode(a.x, a.z) ?? g.randomNodeNear(this.center.x, this.center.z, 0, 200);
+    if (id == null) return;
+    const n = g.node(id)!;
+    a.x = n.x;
+    a.z = n.z;
+    this.assignSidewalkRoute(a);
+  }
+
   queryNear(x: number, z: number, radius: number): PedAgent[] {
     return this.index.queryRadius(x, z, radius, (a) => ({ x: a.x, z: a.z }));
   }
 
   randomInWander(): Vec2 {
+    if (this.graph && this.graph.nodeCount > 0) {
+      const id = this.graph.randomNodeNear(this.center.x, this.center.z, 0, this.wander * 2);
+      if (id != null) {
+        const n = this.graph.node(id)!;
+        return { x: n.x, z: n.z };
+      }
+    }
     return {
       x: this.center.x + (Math.random() * 2 - 1) * this.wander,
       z: this.center.z + (Math.random() * 2 - 1) * this.wander,

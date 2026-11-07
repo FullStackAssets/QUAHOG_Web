@@ -10,6 +10,8 @@ import { FrameBudget } from "./FrameBudget";
 import { CameraRig } from "./CameraRig";
 import { ObjectiveNav } from "./ObjectiveNav";
 import { RoadGraph } from "./RoadGraph";
+import { PedGraph } from "./PedGraph";
+import { MissionRuntime } from "./MissionRuntime";
 import { WorldStreamer } from "./WorldStreamer";
 import { streamPreset, type StreamPreset } from "./mobilePresets";
 import type { CameraMode, NavGuidance, Vec2, Vec3 } from "./types";
@@ -18,10 +20,12 @@ class SimRuntime {
   readonly camera = new CameraRig();
   readonly nav = new ObjectiveNav();
   readonly streamer = new WorldStreamer();
+  readonly missions = new MissionRuntime();
   budget = FrameBudget.forQuality(1);
   preset: StreamPreset = streamPreset(1);
   quality: Quality = 1;
   graph: RoadGraph | null = null;
+  pedGraph: PedGraph | null = null;
   private navAcc = 0;
   private lastGuidance: NavGuidance = {
     path: null,
@@ -41,17 +45,24 @@ class SimRuntime {
     this.streamer.streamRadius = this.preset.streamRadius;
   }
 
-  /** Build / rebuild the road graph when a slice loads. */
+  /** Build / rebuild road + sidewalk graphs when a slice loads. */
   bindSlice(slice: Slice): void {
-    if (this.boundSlice === slice.name && this.graph) return;
+    if (this.boundSlice === slice.name && this.graph && this.pedGraph) return;
     this.boundSlice = slice.name;
-    this.graph = RoadGraph.fromRoads(slice.roads as Road[]);
+    const roads = slice.roads as Road[];
+    this.graph = RoadGraph.fromRoads(roads);
+    this.pedGraph = PedGraph.fromRoads(roads);
     this.nav.setGraph(this.graph);
   }
 
   /** Active road graph (null until the slice binds). */
   get roadGraph(): RoadGraph | null {
     return this.graph;
+  }
+
+  /** Sidewalk graph for pedestrian routing. */
+  get sidewalkGraph(): PedGraph | null {
+    return this.pedGraph;
   }
 
   setNavGoal(goal: Vec2 | null): void {

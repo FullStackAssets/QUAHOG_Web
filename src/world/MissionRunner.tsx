@@ -5,16 +5,20 @@ import { useGame, useToasts } from "../store";
 import { useStats } from "../game";
 import { useMission } from "../mission";
 import { sfx } from "../audio/sfx";
+import { sim } from "../sim/SimRuntime";
 
 // Drives the active mission (§16): checks the current step's completion each frame
 // (reach target and/or enter a car this step), advances, and pays rewards.
 // needCar steps require an enter-vehicle edge so "already driving" can't skip them.
+// MissionRuntime owns fail timers + entity cleanup for retry/abandon.
 
 export function MissionRunner() {
-  const step = useMission((s) => (s.done ? null : s.steps[s.step]));
+  const step = useMission((s) => (s.done || s.phase !== "active" ? null : s.steps[s.step]));
   const stepKey = useMission((s) => `${s.mi}:${s.step}`);
+  const phase = useMission((s) => s.phase);
   const prevMode = useRef(useGame.getState().mode);
   const armedForStep = useRef(stepKey);
+  const claimedMarker = useRef(false);
 
   useEffect(() => {
     // New step → reset the "entered car this step" latch unless we just entered.
@@ -24,9 +28,34 @@ export function MissionRunner() {
     }
   }, [stepKey]);
 
-  useFrame(() => {
+  // Claim a marker entity so fail/retry cleans it; React still renders the mesh.
+  useEffect(() => {
+    claimedMarker.current = false;
+    if (!step?.target || phase !== "active") return;
+    const id = `marker:${stepKey}`;
+    sim.missions.claim({
+      id,
+      kind: "marker",
+      step: useMission.getState().step,
+      cleanup: () => { claimedMarker.current = false; },
+    });
+    claimedMarker.current = true;
+    return () => { sim.missions.release(id, false); };
+  }, [stepKey, step?.target, phase]);
+
+  useFrame((_, dt) => {
     const ms = useMission.getState();
     if (ms.done) return;
+
+    // Tick fail timers / event bus even when failed (no-op after fail).
+    if (sim.missions.advance(dt)) {
+      ms.fail(sim.missions.failReason ?? "Mission failed");
+      sfx.ui();
+      useToasts.getState().push(sim.missions.failReason ?? "Mission failed", "#ff6b6b");
+      return;
+    }
+
+    if (ms.phase !== "active") return;
     const cur = ms.steps[ms.step];
     if (!cur) return;
     const mode = useGame.getState().mode;
@@ -75,7 +104,7 @@ export function MissionRunner() {
     }
   });
 
-  if (!step?.target) return null;
+  if (phase !== "active" || !step?.target) return null;
   const [x, , z] = step.target;
   return (
     <group position={[x, 0, z]}>

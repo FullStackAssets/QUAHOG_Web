@@ -28,8 +28,8 @@ Update this file when a checkbox lands. Highest-leverage order is at the bottom.
 ## 1. Core simulation architecture
 
 - [ ] Fixed-step `GameLoop` (accumulator + render interpolation) — `src/sim/GameLoop.ts`
-- [ ] Pedestrian sidewalk graph (`PedGraph`) — `src/sim/PedGraph.ts`
-- [ ] Full `MissionRuntime` (event bus, entity ownership, spawn/cleanup) — `src/sim/MissionRuntime.ts`
+- [x] Pedestrian sidewalk graph (`PedGraph`) — `src/sim/PedGraph.ts`
+- [x] Full `MissionRuntime` (event bus, entity ownership, spawn/cleanup) — `src/sim/MissionRuntime.ts`
 - [ ] Unified `ClockWeather` (time + weather + friction API) — `src/sim/ClockWeather.ts`
 - [ ] Versioned `SaveGame` blob + migrations — `src/sim/SaveGame.ts`
 - [ ] `WorldManifest` for authored env data — `src/sim/WorldManifest.ts`
@@ -126,8 +126,8 @@ Update this file when a checkbox lands. Highest-leverage order is at the bottom.
 - [~] Linear 11-mission chain + markers + step persistence
 - [ ] Dialogues, cutscenes, timed fails, escort/destroy/photo beats
 - [ ] Richer triggers (volumes, damage, inventory flags)
-- [ ] Fail / retry / abandon / replay
-- [ ] Mission-owned entities with cleanup
+- [x] Fail / retry / abandon (replay = retry current step)
+- [x] Mission-owned entities with cleanup
 - [ ] 3D world arrow widget
 - [ ] Authored opening fish-pier set piece
 - [~] Boat mode included in mission target distance checks
@@ -202,8 +202,8 @@ Update this file when a checkbox lands. Highest-leverage order is at the bottom.
 ## Priority implementation order
 
 1. [x] Close streamer evict/dispose + quality NPC/shadow caps
-2. PedGraph + MissionRuntime (fail/retry/ownership) ← next
-3. Cape / Fall River content so mid-campaign isn’t empty
+2. [x] PedGraph + MissionRuntime (fail/retry/ownership)
+3. Cape / Fall River content so mid-campaign isn’t empty ← next
 4. Heat escalation + faction response; weapons ammo/inventory
 5. Unified SaveGame + Continue edge cases
 6. Finish earth stability **or** demote earth

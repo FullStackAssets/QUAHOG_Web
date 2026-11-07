@@ -68,6 +68,7 @@ function Pedestrians({ center, count }: { center: [number, number]; count: numbe
   useEffect(() => {
     const pedAi = ai.current;
     pedAi.setCenter({ x: center[0], z: -center[1] });
+    pedAi.setGraph(sim.pedGraph);
     extras.current = Array.from({ length: count }, () => ({
       color: pick(PED_COLORS),
       scale: 0.9 + Math.random() * 0.28,
@@ -79,7 +80,7 @@ function Pedestrians({ center, count }: { center: [number, number]; count: numbe
     agents.current = Array.from({ length: count }, (_, id) => {
       const p = pedAi.randomInWander();
       const g = pedAi.randomInWander();
-      return {
+      const agent: PedAgent = {
         id,
         x: p.x,
         z: p.z,
@@ -88,7 +89,11 @@ function Pedestrians({ center, count }: { center: [number, number]; count: numbe
         heading: 0,
         down: 0,
         dead: false,
+        path: null,
+        pathCursor: 0,
       };
+      pedAi.snapToGraph(agent);
+      return agent;
     });
     pedAi.rebuildIndex(agents.current);
     for (let i = 0; i < count; i++) {

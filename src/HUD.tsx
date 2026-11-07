@@ -27,6 +27,8 @@ export function HUD({ sliceName }: { sliceName: string }) {
   const objective = useMission((s) => s.objective);
   const missionTitle = useMission((s) => s.title);
   const missionDone = useMission((s) => s.done);
+  const missionPhase = useMission((s) => s.phase);
+  const failReason = useMission((s) => s.failReason);
   const armed = useGame((s) => s.armed);
   const weapon = useGame((s) => s.weapon);
   const melee = useGame((s) => s.melee);
@@ -250,19 +252,51 @@ export function HUD({ sliceName }: { sliceName: string }) {
       <div
         style={{
           position: "absolute", bottom: 16, left: "50%", transform: "translateX(-50%)",
-          background: "rgba(12,15,26,.72)", border: "1px solid #3a2a5e", borderRadius: 8,
+          background: "rgba(12,15,26,.72)",
+          border: `1px solid ${missionPhase === "failed" ? "#7a2030" : "#3a2a5e"}`,
+          borderRadius: 8,
           padding: "8px 16px", textAlign: "center", maxWidth: 520,
         }}
       >
-        <div style={{ fontSize: 10, letterSpacing: 1, color: "#ffcf4a", opacity: 0.9 }}>
-          {missionDone ? "MISSION" : missionTitle.toUpperCase()}
+        <div style={{ fontSize: 10, letterSpacing: 1, color: missionPhase === "failed" ? "#ff8a8a" : "#ffcf4a", opacity: 0.9 }}>
+          {missionDone ? "MISSION" : missionPhase === "failed" ? "FAILED" : missionTitle.toUpperCase()}
         </div>
-        <div style={{ fontSize: 13, marginTop: 2, color: missionDone ? "#7CFC00" : "#e7e0ff" }}>
-          {missionDone ? "✓ " : "► "}{objective}
-          {!missionDone && dist != null && <span style={{ opacity: 0.7 }}> — {dist} m</span>}
+        <div style={{
+          fontSize: 13, marginTop: 2,
+          color: missionDone ? "#7CFC00" : missionPhase === "failed" ? "#ffb4b4" : "#e7e0ff",
+        }}>
+          {missionDone ? "✓ " : missionPhase === "failed" ? "✗ " : "► "}
+          {missionPhase === "failed" && failReason ? failReason : objective}
+          {!missionDone && missionPhase === "active" && dist != null && (
+            <span style={{ opacity: 0.7 }}> — {dist} m</span>
+          )}
         </div>
-        {!missionDone && dist != null && (
+        {!missionDone && missionPhase === "active" && dist != null && (
           <div style={{ marginTop: 4, fontSize: 22, color: "#ffcf4a", transform: `rotate(${bearing}rad)`, lineHeight: 1 }}>▲</div>
+        )}
+        {missionPhase === "failed" && (
+          <div style={{ marginTop: 8, display: "flex", gap: 8, justifyContent: "center", pointerEvents: "auto" }}>
+            <button
+              type="button"
+              onClick={() => useMission.getState().retry()}
+              style={{
+                background: "#2a3a1a", color: "#b8ff7a", border: "1px solid #4a6a2a",
+                borderRadius: 4, padding: "4px 12px", fontSize: 12, cursor: "pointer",
+              }}
+            >
+              Retry
+            </button>
+            <button
+              type="button"
+              onClick={() => useMission.getState().abandon()}
+              style={{
+                background: "#2a1a1a", color: "#ffb4b4", border: "1px solid #6a2a2a",
+                borderRadius: 4, padding: "4px 12px", fontSize: 12, cursor: "pointer",
+              }}
+            >
+              Abandon
+            </button>
+          </div>
         )}
       </div>
 
