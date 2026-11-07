@@ -12,6 +12,7 @@ import { PedestrianAI, type PedAgent } from "../sim/PedestrianAI";
 import { RoadGraph } from "../sim/RoadGraph";
 import { carCount, pedCount } from "../quality";
 import { useGame } from "../store";
+import { CHARACTER_MODELS } from "../assets/modelRegistry";
 
 // Ambient street life: wandering pedestrians (LOD + SpatialIndex) and traffic
 // routed on the independent RoadGraph via TrafficDirector. Meshes stay kinematic
@@ -58,6 +59,7 @@ function Pedestrians({ center, count }: { center: [number, number]; count: numbe
     Array.from({ length: count }, () => ({
       color: pick(PED_COLORS),
       scale: 0.9 + Math.random() * 0.28,
+      modelUrl: pick(CHARACTER_MODELS).url,
       vel: new THREE.Vector3(),
       y: 0,
       tumble: 0,
@@ -72,6 +74,8 @@ function Pedestrians({ center, count }: { center: [number, number]; count: numbe
     extras.current = Array.from({ length: count }, () => ({
       color: pick(PED_COLORS),
       scale: 0.9 + Math.random() * 0.28,
+      // Mix CesiumMan + Borden cast across the crowd.
+      modelUrl: pick(CHARACTER_MODELS).url,
       vel: new THREE.Vector3(),
       y: 0,
       tumble: 0,
@@ -197,6 +201,7 @@ function Pedestrians({ center, count }: { center: [number, number]; count: numbe
       {Array.from({ length: count }, (_, i) => (
         <group key={i} ref={(el) => (refs.current[i] = el)} scale={extras.current[i]?.scale ?? 1}>
           <ModelCharacter
+            url={extras.current[i]?.modelUrl}
             tint={extras.current[i]?.color ?? "#888"}
             moving={() => {
               const a = agents.current[i];

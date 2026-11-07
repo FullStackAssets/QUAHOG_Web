@@ -5,9 +5,8 @@
   "handoffArchiveAttached": false,
   "notes": [
     "Counted from public/models. This is the main-game model manifest.",
-    "PRODUCTION-344-ASSET-INTEGRATION.md is not in this repo.",
-    "No external GLB archive was attached. This file does not record a 344-model set.",
-    "CesiumMan.glb was probed from the bytes in public/models: no EXT_meshopt_compression."
+    "CesiumMan.glb: no EXT_meshopt_compression.",
+    "lizzie.glb + remington_borden.glb: Borden content pack (meshopt required); previews under public/models/previews/."
   ],
   "entries": [
     {
@@ -20,6 +19,28 @@
       "extensionsRequired": [],
       "role": "character",
       "generator": "COLLADA2GLTF"
+    },
+    {
+      "id": "lizzie",
+      "file": "lizzie.glb",
+      "bytes": 4860,
+      "meshopt": true,
+      "meshoptRequired": true,
+      "extensionsUsed": ["EXT_meshopt_compression"],
+      "extensionsRequired": ["EXT_meshopt_compression"],
+      "role": "character",
+      "generator": "Khronos glTF Blender I/O v5.2.41"
+    },
+    {
+      "id": "remington-borden",
+      "file": "remington_borden.glb",
+      "bytes": 5388,
+      "meshopt": true,
+      "meshoptRequired": true,
+      "extensionsUsed": ["EXT_meshopt_compression"],
+      "extensionsRequired": ["EXT_meshopt_compression"],
+      "role": "character",
+      "generator": "Khronos glTF Blender I/O v5.2.41"
     }
   ]
 }

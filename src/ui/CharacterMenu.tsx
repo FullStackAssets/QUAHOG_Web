@@ -1,8 +1,8 @@
 import { useGame } from "../store";
 import { useStats } from "../game";
+import { CHARACTER_MODELS, type CharacterModelId } from "../assets/modelRegistry";
 
-// Character menu (§9/§21): toggleable panel to pick the player's outfit colour
-// and check vitals. Tint is applied to the player's model clone in real time.
+// Character menu (§9/§21): pick outfit tint + Borden/Cesium body, check vitals.
 
 const OUTFITS: { name: string; tint: string }[] = [
   { name: "Dockworker", tint: "#ffffff" },
@@ -22,6 +22,7 @@ const swatch = (active: boolean, color: string): React.CSSProperties => ({
 export function CharacterMenu() {
   const open = useGame((s) => s.charOpen);
   const tint = useGame((s) => s.playerTint);
+  const model = useGame((s) => s.playerModel);
   const cash = useStats((s) => s.cash);
   const health = useStats((s) => s.health);
   if (!open) return null;
@@ -35,7 +36,7 @@ export function CharacterMenu() {
         fontFamily: "'Courier New', monospace",
       }}
     >
-      <div style={{ width: 340, padding: 22, background: "rgba(12,15,26,.96)", border: "1px solid #3a2a5e", borderRadius: 14, color: "#e7e0ff" }}>
+      <div style={{ width: 380, padding: 22, background: "rgba(12,15,26,.96)", border: "1px solid #3a2a5e", borderRadius: 14, color: "#e7e0ff" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <b style={{ color: "#ff7ad9", letterSpacing: 2 }}>🧍 CHARACTER</b>
           <button
@@ -44,7 +45,36 @@ export function CharacterMenu() {
           >✕</button>
         </div>
 
-        <div style={{ fontSize: 12, opacity: 0.85, margin: "12px 0 6px" }}>OUTFIT</div>
+        <div style={{ fontSize: 12, opacity: 0.85, margin: "12px 0 6px" }}>BODY</div>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          {CHARACTER_MODELS.map((m) => {
+            const active = model === m.id;
+            return (
+              <button
+                key={m.id}
+                type="button"
+                title={m.label}
+                onClick={() => useGame.getState().setPlayerModel(m.id as CharacterModelId)}
+                style={{
+                  width: 96, cursor: "pointer", borderRadius: 10, padding: 0, overflow: "hidden",
+                  border: active ? "3px solid #ffcf4a" : "2px solid #3a2a5e",
+                  background: "#1a1528", color: "#e7e0ff",
+                  boxShadow: active ? "0 0 8px rgba(255,207,74,.55)" : "none",
+                  font: "11px 'Courier New', monospace",
+                }}
+              >
+                {m.preview ? (
+                  <img src={m.preview} alt={m.label} style={{ display: "block", width: "100%", height: 72, objectFit: "cover" }} />
+                ) : (
+                  <div style={{ height: 72, display: "grid", placeItems: "center", opacity: 0.7 }}>GLB</div>
+                )}
+                <div style={{ padding: "4px 6px" }}>{m.label}</div>
+              </button>
+            );
+          })}
+        </div>
+
+        <div style={{ fontSize: 12, opacity: 0.85, margin: "16px 0 6px" }}>OUTFIT TINT</div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
           {OUTFITS.map((o) => (
             <div key={o.name} title={o.name} style={swatch(tint === o.tint, o.tint)} onClick={() => useGame.getState().setPlayerTint(o.tint)} />

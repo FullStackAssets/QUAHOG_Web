@@ -5,37 +5,40 @@ import { useAnimations } from "@react-three/drei";
 import { clone as skeletonClone } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { reportAssetNotice, useAssetGeneration } from "../assets/assetNotices";
 import { preloadMainGameModels, useMainGameGltf } from "../assets/mainGameGltf";
-import { CHARACTER_MODEL_URL } from "../assets/modelRegistry";
+import { CHARACTER_MODEL_URL, registryModelByUrl } from "../assets/modelRegistry";
 import { Character } from "./Character";
 
-// Rigged human (CesiumMan, © Cesium, CC-BY 4.0) for the main game player and
-// pedestrians. Cloned per instance so each gets its own skeleton. Geometry stays
-// shared with the cached GLTF — disposing it here would blank every other copy.
-//
-// TUNE these if the figure is the wrong size / facing the wrong way once you see
-// it in the world.
-const URL = CHARACTER_MODEL_URL;
-const SCALE = 0.92; // model is ~2 units tall -> ~1.85 m
+// Rigged / authored humans for the main game player and pedestrians.
+// Cloned per instance so each gets its own skeleton. Geometry stays shared
+// with the cached GLTF — disposing it here would blank every other copy.
+
 const FACE = 0; // yaw offset (radians) so it faces travel direction
 const Y_OFF = 0; // lift/drop so feet sit on the ground
 
 preloadMainGameModels();
 
-type ModelProps = { moving?: () => boolean; tint?: string };
+type ModelProps = {
+  moving?: () => boolean;
+  tint?: string;
+  /** Absolute model URL from the registry (defaults to CesiumMan). */
+  url?: string;
+};
 
-export function ModelCharacter({ moving, tint }: ModelProps) {
+export function ModelCharacter({ moving, tint, url = CHARACTER_MODEL_URL }: ModelProps) {
   const generation = useAssetGeneration();
+  const meta = registryModelByUrl(url);
+  const scale = meta?.scale ?? 0.92;
   return (
-    <group key={generation} rotation-y={FACE} position={[0, Y_OFF, 0]}>
-      <ModelBoundary url={URL} moving={moving} tint={tint}>
-        <RiggedModel moving={moving} tint={tint} />
+    <group key={`${generation}:${url}`} rotation-y={FACE} position={[0, Y_OFF, 0]}>
+      <ModelBoundary url={url} moving={moving} tint={tint}>
+        <RiggedModel moving={moving} tint={tint} url={url} scale={scale} />
       </ModelBoundary>
     </group>
   );
 }
 
-function RiggedModel({ moving, tint }: ModelProps) {
-  const gltf = useMainGameGltf(URL);
+function RiggedModel({ moving, tint, url, scale }: ModelProps & { scale: number }) {
+  const gltf = useMainGameGltf(url ?? CHARACTER_MODEL_URL);
   const scene = useMemo(() => skeletonClone(gltf.scene), [gltf.scene]);
   const { actions, names } = useAnimations(gltf.animations, scene);
   const action = useRef<THREE.AnimationAction | null>(null);
@@ -68,6 +71,7 @@ function RiggedModel({ moving, tint }: ModelProps) {
     });
     const a = names.length ? actions[names[0]] : null;
     if (a) { a.reset().play(); action.current = a; }
+    else action.current = null;
     return () => {
       for (const material of owned) material.dispose();
     };
@@ -78,7 +82,7 @@ function RiggedModel({ moving, tint }: ModelProps) {
   });
 
   return (
-    <group scale={SCALE}>
+    <group scale={scale}>
       <primitive object={scene} />
     </group>
   );

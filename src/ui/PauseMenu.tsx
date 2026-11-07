@@ -215,8 +215,9 @@ export function PauseMenu() {
             © OpenStreetMap contributors, licensed under the Open Database License
             (ODbL). Geometry derived from OSM via Overpass.<br /><br />
 
-            <b style={{ color: "#e7e0ff" }}>3D character</b><br />
-            “CesiumMan” © Cesium — CC-BY 4.0.<br /><br />
+            <b style={{ color: "#e7e0ff" }}>3D characters</b><br />
+            “CesiumMan” © Cesium — CC-BY 4.0.<br />
+            Lizzie &amp; Remington Borden — original Mount Hope content pack.<br /><br />
 
             <b style={{ color: "#e7e0ff" }}>Engine &amp; libraries</b><br />
             Three.js · React Three Fiber · @react-three/rapier · @react-three/drei.<br /><br />
