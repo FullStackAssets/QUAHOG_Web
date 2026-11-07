@@ -215,6 +215,9 @@ export function PauseMenu() {
             © OpenStreetMap contributors, licensed under the Open Database License
             (ODbL). Geometry derived from OSM via Overpass.<br /><br />
 
+            <b style={{ color: "#e7e0ff" }}>Aerial imagery</b><br />
+            Imagery © Esri, Maxar, Earthstar Geographics (World_Imagery XYZ).<br /><br />
+
             <b style={{ color: "#e7e0ff" }}>3D characters</b><br />
             “CesiumMan” © Cesium — CC-BY 4.0.<br />
             Lizzie &amp; Remington Borden — original Mount Hope content pack.<br /><br />
@@ -224,7 +227,8 @@ export function PauseMenu() {
 
             <b style={{ color: "#e7e0ff" }}>Audio</b><br />
             Procedural Web Audio SFX; radio voices via ElevenLabs TTS (with a
-            Web-Speech fallback); music tracks per their own licenses.<br /><br />
+            Web-Speech fallback); station music via ElevenLabs Music (commercial
+            entitlement pending — see docs/ASSET-LICENSE-AUDIT.md).<br /><br />
 
             <b style={{ color: "#e7e0ff" }}>Disclaimer</b><br />
             The Narrows is a work of parody/fiction set in a fictionalized South

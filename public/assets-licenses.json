@@ -1,0 +1,49 @@
+{
+  "kind": "main-game-asset-licenses",
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-07",
+  "entries": [
+    {
+      "id": "cesium-man",
+      "paths": ["models/CesiumMan.glb"],
+      "license": "CC-BY-4.0",
+      "status": "cleared",
+      "attribution": "CesiumMan © Cesium — CC-BY 4.0"
+    },
+    {
+      "id": "lizzie",
+      "paths": ["models/lizzie.glb", "models/previews/lizzie_preview.png"],
+      "license": "Original-Mount-Hope",
+      "status": "original",
+      "attribution": "Lizzie — original Mount Hope / Borden content pack"
+    },
+    {
+      "id": "remington-borden",
+      "paths": ["models/remington_borden.glb", "models/previews/remington_borden_preview.png"],
+      "license": "Original-Mount-Hope",
+      "status": "original",
+      "attribution": "Remington Borden — original Mount Hope / Borden content pack"
+    },
+    {
+      "id": "osm-geodata",
+      "globs": ["slice-*.json", "*-newbedford.json", "massdot-roads-district.json", "gis-district-newbedford.json", "tiles/**"],
+      "license": "ODbL-1.0",
+      "status": "attribution-required",
+      "attribution": "© OpenStreetMap contributors, ODbL"
+    },
+    {
+      "id": "station-music",
+      "globs": ["music/**/*.mp3"],
+      "license": "ElevenLabs-Music-generated",
+      "status": "pending-commercial",
+      "attribution": "Station music via ElevenLabs Music — see MUSIC.md"
+    },
+    {
+      "id": "aerial-esri",
+      "runtime": "Esri World_Imagery XYZ",
+      "license": "Esri-terms",
+      "status": "attribution-required",
+      "attribution": "Imagery © Esri, Maxar, Earthstar Geographics"
+    }
+  ]
+}

@@ -11,3 +11,4 @@ Source archive: `Borden_content_upgrades.zip` (uploaded 2026-11-07).
 
 Registered in `src/assets/modelRegistry.ts` and `public/models/manifest.json`.
 Selectable in the Character menu; ambient pedestrians sample the full cast.
+License rows: `public/assets-licenses.json` + `docs/ASSET-LICENSE-AUDIT.md`.

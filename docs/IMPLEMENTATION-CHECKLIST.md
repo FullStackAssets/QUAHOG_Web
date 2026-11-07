@@ -23,7 +23,7 @@ Status: `[ ]` not started · `[~]` partial · `[x]` done
 ## Priority implementation order (active)
 
 1. [x] Close streamer evict/dispose + quality NPC/shadow caps
-2. [~] **§0 Foundations** — flags, `Rng`, telemetry, registries (CI/assets TBD)
+2. [~] **§0 Foundations** — flags, `Rng`, telemetry, registries; `assets:audit` landed (CI wire-up TBD)
 3. [x] **§1.1 GameLoop** — core + heat/economy/traffic/peds/car/boat on fixed step
 4. [~] §1.2 PedGraph baseline (deepen doors/crosswalks later)
 5. [~] §1.3 MissionRuntime baseline

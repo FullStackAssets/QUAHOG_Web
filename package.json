@@ -10,6 +10,7 @@
     "build": "tsc && vite build",
     "prebuild": "node scripts/gen_manifests.mjs",
     "music:manifest": "node scripts/gen_manifests.mjs",
+    "assets:audit": "node scripts/assets_audit.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
