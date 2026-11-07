@@ -47,6 +47,11 @@ class SimRuntime {
     this.nav.setGraph(this.graph);
   }
 
+  /** Active road graph (null until the slice binds). */
+  get roadGraph(): RoadGraph | null {
+    return this.graph;
+  }
+
   setNavGoal(goal: Vec2 | null): void {
     this.nav.setGoal(goal);
   }

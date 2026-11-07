@@ -9,6 +9,7 @@ import { useGame, useToasts } from "../store";
 import { useStats } from "../game";
 import { sfx } from "../audio/sfx";
 import { MOBILE_TUNING, stepVehicleDynamics } from "../sim";
+import { exitCar } from "../sim/VehicleState";
 
 // Arcade tuning lives in src/sim/VehicleDynamics (iPhone-leaning defaults).
 const MAX_SPEED = MOBILE_TUNING.maxSpeed;
@@ -19,7 +20,6 @@ const MAX_SPEED = MOBILE_TUNING.maxSpeed;
 // load (see QUAHOG_Web/ROADMAP.md §3 "per-frame garbage").
 const _fwd = new THREE.Vector3();
 const _nfwd = new THREE.Vector3();
-const _right = new THREE.Vector3();
 
 export function Car() {
   const body = useRef<RapierRigidBody>(null);
@@ -122,20 +122,16 @@ export function Car() {
       }
     }
 
-    // exit
+    // exit via shared vehicle state machine (clears speed, places on foot)
     if (consumeTap("KeyE")) {
-      const c = rb.translation();
-      const right = _right.set(nfwd.z, 0, -nfwd.x);
-      const pl = shared.player;
-      if (pl) {
-        pl.setEnabled(true);
-        pl.setTranslation(
-          { x: c.x + right.x * 3, y: 2, z: c.z + right.z * 3 },
-          true,
-        );
-        pl.setLinvel({ x: 0, y: 0, z: 0 }, true);
-      }
-      game.setMode("foot");
+      exitCar({
+        handles: { player: shared.player, car: rb },
+        yaw,
+        setMode: (m) => game.setMode(m),
+        setCarSpeed: (n) => { shared.carSpeed = n; },
+      });
+      shared.skid = false;
+      sfx.engine(0, false);
     }
   });
 

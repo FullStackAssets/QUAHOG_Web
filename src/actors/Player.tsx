@@ -8,6 +8,8 @@ import { shared, addShake, raiseAlarm, addImpact, type TrafficCar, type Body, ty
 import { useGame, useToasts } from "../store";
 import { useStats } from "../game";
 import { sfx } from "../audio/sfx";
+import { canEnter, enterCar } from "../sim/VehicleState";
+import { useMission } from "../mission";
 
 const BARKS = ["Hey! Watch it!", "You crazy?!", "Somebody call the cops!", "Get outta here!", "What's your problem?!", "Easy, pal!"];
 
@@ -98,7 +100,7 @@ export function Player() {
       let boatD = Infinity;
       if (boat) { const bp = boat.translation(); boatD = Math.hypot(p.x - bp.x, p.z - bp.z); }
 
-      const near = !!tj || ownD < ENTER_RADIUS || boatD < 6;
+      const near = !!tj || canEnter(ownD, ENTER_RADIUS) || boatD < 6;
       game.setNearCar(near);
       if (near) {
         game.setNearLabel(
@@ -108,27 +110,35 @@ export function Player() {
       }
       if (near && consumeTap("KeyE")) {
         if (boatD < 6 && boatD <= ownD && boatD <= tjD) {
-          rb.setEnabled(false); game.setNearCar(false); game.setMode("boat"); // cast off
+          rb.setEnabled(false); game.setNearCar(false); game.setMode("boat");
+          useMission.getState().noteCarEnter();
         } else {
+          const handles = { player: rb, car };
           if (tj && tjD <= ownD) {
-            // carjack: drag the driver out, take their ride
             useGame.getState().setPlayerCar(tj.type, tj.color);
-            if (car) {
-              car.setTranslation({ x: tj.pos.x, y: 1.4, z: tj.pos.z }, true);
-              car.setLinvel({ x: 0, y: 0, z: 0 }, true);
-              car.setRotation({ x: 0, y: Math.sin(tj.yaw / 2), z: 0, w: Math.cos(tj.yaw / 2) }, true);
-            }
-            shared.carYaw = tj.yaw;
-            shared.carDamage = 0; // a fresh ride
+            shared.carDamage = 0;
             tj.stolen = true;
             addShake(0.4);
-            useStats.getState().heat(0.8, 0.4); // carjacking draws heat
+            useStats.getState().heat(0.8, 0.4);
+            enterCar({
+              handles,
+              yaw: tj.yaw,
+              relocate: { x: tj.pos.x, z: tj.pos.z, y: 1.4 },
+              setCarYaw: (y) => { shared.carYaw = y; },
+              setMode: (m) => game.setMode(m),
+              clearNear: () => game.setNearCar(false),
+            });
           } else {
-            useStats.getState().heat(0.5, 0); // grand theft auto (own ride)
+            useStats.getState().heat(0.5, 0);
+            enterCar({
+              handles,
+              yaw: shared.carYaw,
+              setCarYaw: (y) => { shared.carYaw = y; },
+              setMode: (m) => game.setMode(m),
+              clearNear: () => game.setNearCar(false),
+            });
           }
-          rb.setEnabled(false);
-          game.setNearCar(false);
-          game.setMode("car");
+          useMission.getState().noteCarEnter();
         }
       }
     }

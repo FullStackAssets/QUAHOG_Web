@@ -102,10 +102,46 @@ export class RoadGraph {
     return best >= 0 ? best : null;
   }
 
+  /** Random graph node within [minR, maxR] of (x,z). Falls back to any node. */
+  randomNodeNear(x: number, z: number, minR = 40, maxR = 180): number | null {
+    if (this.nodes.length === 0) return null;
+    const min2 = minR * minR;
+    const max2 = maxR * maxR;
+    const hits: number[] = [];
+    for (const n of this.nodes) {
+      const d = (n.x - x) * (n.x - x) + (n.z - z) * (n.z - z);
+      if (d >= min2 && d <= max2) hits.push(n.id);
+    }
+    if (hits.length === 0) {
+      // Prefer connected nodes with degree > 0.
+      const deg = this.nodes.filter((n) => (this.adjacency.get(n.id)?.length ?? 0) > 0);
+      const pool = deg.length ? deg : this.nodes;
+      return pool[Math.floor(Math.random() * pool.length)].id;
+    }
+    return hits[Math.floor(Math.random() * hits.length)];
+  }
+
+  /** Pick a random node roughly `radius` metres from (x,z) (ring sample). */
+  nodeOnRing(x: number, z: number, radius: number, slack = 35): number | null {
+    return this.randomNodeNear(x, z, Math.max(10, radius - slack), radius + slack);
+  }
+
+  neighbors(id: number): readonly GraphEdge[] {
+    return this.adjacency.get(id) ?? [];
+  }
+
+  node(id: number): RoadNode | undefined {
+    return this.nodes[id];
+  }
+
   route(fromX: number, fromZ: number, toX: number, toZ: number): NavPath | null {
     const start = this.nearestNode(fromX, fromZ);
     const goal = this.nearestNode(toX, toZ);
     if (start == null || goal == null) return null;
+    return this.routeNodes(start, goal);
+  }
+
+  routeNodes(start: number, goal: number): NavPath | null {
     const result = dijkstra(this.adjacency, start, goal);
     if (!result) return null;
     const points: Vec2[] = result.nodes.map((id) => {

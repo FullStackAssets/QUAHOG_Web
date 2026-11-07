@@ -1,8 +1,9 @@
 import { create } from "zustand";
+import { loadJSON, saveJSON, removeItem } from "./storage";
 
 // Mission engine (§16). Missions are ordered lists of steps; each step completes
 // on reaching a world target and/or being in a car, and may pay a reward.
-// Missions chain: finishing one starts the next.
+// Missions chain: finishing one starts the next. Progress persists across Continue.
 
 export interface MissionStep {
   text: string;
@@ -13,6 +14,8 @@ export interface MissionStep {
   reward?: number;   // cash on completing this step
 }
 interface Mission { title: string; steps: MissionStep[] }
+
+const MISSION_KEY = "mounthope.mission.v1";
 
 // World coords: x = east, z = -north (slice-local).
 const MISSIONS: Mission[] = [
@@ -103,6 +106,12 @@ const MISSIONS: Mission[] = [
   },
 ];
 
+interface SavedMission {
+  mi: number;
+  step: number;
+  done: boolean;
+}
+
 interface MissionState {
   mi: number;
   steps: MissionStep[];
@@ -110,29 +119,91 @@ interface MissionState {
   done: boolean;
   title: string;
   objective: string;
+  /** True once the player has entered a vehicle during the current step. */
+  enteredCarThisStep: boolean;
   advance: () => void;
   reset: () => void;
+  noteCarEnter: () => void;
+  save: () => void;
+  load: () => void;
+  clearSave: () => void;
+}
+
+function missionAt(mi: number, step: number, done: boolean): Omit<MissionState, "advance" | "reset" | "noteCarEnter" | "save" | "load" | "clearSave"> {
+  if (done || mi >= MISSIONS.length) {
+    const last = MISSIONS[MISSIONS.length - 1];
+    return {
+      mi: MISSIONS.length - 1,
+      steps: last.steps,
+      step: last.steps.length,
+      done: true,
+      title: last.title,
+      objective: "Campaign complete — the Narrows is yours.",
+      enteredCarThisStep: false,
+    };
+  }
+  const m = MISSIONS[Math.max(0, Math.min(mi, MISSIONS.length - 1))];
+  const s = Math.max(0, Math.min(step, m.steps.length - 1));
+  return {
+    mi,
+    steps: m.steps,
+    step: s,
+    done: false,
+    title: m.title,
+    objective: m.steps[s].text,
+    enteredCarThisStep: false,
+  };
 }
 
 export const useMission = create<MissionState>((set, get) => ({
-  mi: 0,
-  steps: MISSIONS[0].steps,
-  step: 0,
-  done: false,
-  title: MISSIONS[0].title,
-  objective: MISSIONS[0].steps[0].text,
+  ...missionAt(0, 0, false),
   advance: () => {
     const { mi, step, steps, done } = get();
-    if (done) return; // campaign already finished — don't run past the end
+    if (done) return;
     const next = step + 1;
-    if (next < steps.length) { set({ step: next, objective: steps[next].text }); return; }
-    // mission finished — chain to the next, or end the campaign
+    if (next < steps.length) {
+      set({ step: next, objective: steps[next].text, enteredCarThisStep: false });
+      get().save();
+      return;
+    }
     const nm = mi + 1;
     if (nm < MISSIONS.length) {
-      set({ mi: nm, steps: MISSIONS[nm].steps, step: 0, title: MISSIONS[nm].title, objective: MISSIONS[nm].steps[0].text });
+      set({
+        mi: nm,
+        steps: MISSIONS[nm].steps,
+        step: 0,
+        title: MISSIONS[nm].title,
+        objective: MISSIONS[nm].steps[0].text,
+        enteredCarThisStep: false,
+      });
     } else {
-      set({ step: next, done: true, objective: "Campaign complete — the Narrows is yours." });
+      set({
+        step: next,
+        done: true,
+        objective: "Campaign complete — the Narrows is yours.",
+        enteredCarThisStep: false,
+      });
     }
+    get().save();
   },
-  reset: () => set({ mi: 0, steps: MISSIONS[0].steps, step: 0, done: false, title: MISSIONS[0].title, objective: MISSIONS[0].steps[0].text }),
+  reset: () => {
+    // In-memory only — callers that wipe progress use clearSave().
+    set(missionAt(0, 0, false));
+  },
+  noteCarEnter: () => set({ enteredCarThisStep: true }),
+  save: () => {
+    const { mi, step, done } = get();
+    saveJSON(MISSION_KEY, { mi, step, done } satisfies SavedMission);
+  },
+  load: () => {
+    const raw = loadJSON<SavedMission | null>(MISSION_KEY, null);
+    if (!raw || typeof raw.mi !== "number" || typeof raw.step !== "number") return;
+    set(missionAt(raw.mi, raw.step, !!raw.done));
+  },
+  clearSave: () => {
+    removeItem(MISSION_KEY);
+    set(missionAt(0, 0, false));
+  },
 }));
+
+export { MISSION_KEY, MISSIONS };

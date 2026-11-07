@@ -10,6 +10,7 @@ import { shared } from "../shared";
 import { sfx } from "../audio/sfx";
 import { radio } from "../audio/radioEngine";
 import { loadJSON, saveJSON } from "../storage";
+import { useMission } from "../mission";
 
 const DAY_SECONDS = 600; // matches DayNight's cycle length
 const POS_KEY = "mounthope.pos.v1";
@@ -34,6 +35,7 @@ function savePos() {
     day: shared.day, hour: shared.hour,
   };
   saveJSON(POS_KEY, rec);
+  useMission.getState().save();
 }
 function loadPos(): PosRec | null {
   return loadJSON<PosRec | null>(POS_KEY, null);
@@ -86,6 +88,7 @@ export function GameSystems() {
   useEffect(() => {
     useStats.getState().load();
     useEconomy.getState().load();
+    useMission.getState().load();
     sfx.startAmbience();
     // restore settings (§26)
     {

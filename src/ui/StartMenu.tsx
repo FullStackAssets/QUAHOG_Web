@@ -30,9 +30,9 @@ export function StartMenu({ sliceName, progress = 0 }: { sliceName: string; prog
 
   const play = () => { sfx.setVolume(0.5); useGame.getState().setStarted(true); };
   const newGame = () => {
-    removeItem("mounthope.save.v1", "mounthope.economy.v1", "mounthope.scrimshaw.v1", "mounthope.pos.v1");
+    removeItem("mounthope.save.v1", "mounthope.economy.v1", "mounthope.scrimshaw.v1", "mounthope.pos.v1", "mounthope.mission.v1");
     useStats.getState().reset();
-    useMission.getState().reset();
+    useMission.getState().clearSave();
     useEconomy.setState({ owned: {} });
     useGame.getState().resetSession(); // clear bat/photo/waypoint/scrimshaw & remount per-game props
     play();
