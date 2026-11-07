@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { Slice } from "./slice";
 import { shared } from "./shared";
 import type { Quality } from "./quality";
+import type { CharacterModelId } from "./assets/modelRegistry";
 
 export type Mode = "foot" | "car" | "boat";
 export type View = "third" | "first";
@@ -22,6 +23,8 @@ interface GameState {
   charOpen: boolean;
   mapOpen: boolean;
   playerTint: string;
+  /** Active player character GLB id from the model registry. */
+  playerModel: CharacterModelId;
   playerCarType: string;
   playerCarColor: string;
   armed: boolean;
@@ -51,6 +54,7 @@ interface GameState {
   toggleChar: () => void;
   toggleMap: () => void;
   setPlayerTint: (c: string) => void;
+  setPlayerModel: (id: CharacterModelId) => void;
   setPlayerCar: (type: string, color: string) => void;
   toggleArmed: () => void;
   setWeapon: (w: Weapon, drawn?: boolean) => void;
@@ -81,6 +85,7 @@ export const useGame = create<GameState>((set) => ({
   charOpen: false,
   mapOpen: false,
   playerTint: "#ffffff",
+  playerModel: "cesium-man",
   playerCarType: "mustang",
   playerCarColor: "#b81d24",
   armed: false,
@@ -114,6 +119,7 @@ export const useGame = create<GameState>((set) => ({
   toggleChar: () => set((s) => ({ charOpen: !s.charOpen })),
   toggleMap: () => set((s) => ({ mapOpen: !s.mapOpen })),
   setPlayerTint: (playerTint) => set({ playerTint }),
+  setPlayerModel: (playerModel) => set({ playerModel }),
   setPlayerCar: (playerCarType, playerCarColor) => set({ playerCarType, playerCarColor }),
   toggleArmed: () => set((s) => ({ armed: !s.armed })),
   setWeapon: (weapon, drawn = true) => set({ weapon, armed: drawn }),
@@ -133,7 +139,8 @@ export const useGame = create<GameState>((set) => ({
     shared.day = 1; shared.hour = 9; // fresh clock on New Game
     set((s) => ({
       mode: "foot", armed: false, weapon: "pistol", melee: "fists", down: null,
-      photo: false, weather: "clear", waypoint: null, scrimshaw: 0, gameId: s.gameId + 1,
+      photo: false, weather: "clear", waypoint: null, scrimshaw: 0,
+      playerModel: "cesium-man", gameId: s.gameId + 1,
     }));
   },
 }));

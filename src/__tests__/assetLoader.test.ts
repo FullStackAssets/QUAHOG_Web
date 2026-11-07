@@ -323,6 +323,18 @@ describe("repo model manifest", () => {
     expect(cesium?.bytes).toBe(cesiumProbe?.bytes);
     expect(cesiumProbe?.probe.meshCount).toBe(1);
     expect(cesiumProbe?.probe.animationCount).toBe(1);
+
+    const lizzie = parsed.manifest.entries.find((entry) => entry.id === "lizzie");
+    const remington = parsed.manifest.entries.find((entry) => entry.id === "remington-borden");
+    const lizzieProbe = records.find((record) => record.file === "lizzie.glb");
+    const remingtonProbe = records.find((record) => record.file === "remington_borden.glb");
+    expect(lizzie?.meshoptRequired).toBe(true);
+    expect(remington?.meshoptRequired).toBe(true);
+    expect(lizzieProbe?.meshoptRequired).toBe(true);
+    expect(remingtonProbe?.meshoptRequired).toBe(true);
+    expect(MAIN_GAME_MODELS.map((m) => m.id).sort()).toEqual(
+      ["cesium-man", "lizzie", "remington-borden"].sort(),
+    );
   });
 
   it("reports missing files, unlisted files, flag drift, and registry drift", () => {
