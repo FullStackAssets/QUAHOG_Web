@@ -1,15 +1,13 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Sky } from "@react-three/drei";
 import {
   TilesRenderer,
-  TilesPlugin,
   GlobeControls,
   TilesAttributionOverlay,
   EastNorthUpFrame,
 } from "3d-tiles-renderer/r3f";
-import { GoogleCloudAuthPlugin } from "3d-tiles-renderer/plugins";
 import { WGS84_ELLIPSOID } from "3d-tiles-renderer/three";
 import { loadSlice, type Slice } from "../slice";
 import { installInput } from "../input";
@@ -19,7 +17,19 @@ import { TilesRendererContext } from "3d-tiles-renderer/r3f";
 import { PlayerRig, TileNpcs, type View } from "./PlayWorld";
 import { Ambient, type Weather } from "./Ambient";
 import { TilesBVH } from "./bvh";
+import { GoogleTilesAuth } from "./GoogleTilesAuth";
 import { Radio } from "../audio/Radio";
+import { useTileActivity } from "./useTileActivity";
+import { TILE_MEMORY } from "./tileCaps";
+import { tileCollision } from "./raycastBudget";
+import {
+  classifyTileEvent,
+  faultBlocksView,
+  faultCopy,
+  faultsMatch,
+  mergeFault,
+  type TileFault,
+} from "./tileFault";
 
 // Mount Hope on Google Photorealistic 3D Tiles. Browser fetches tiles from
 // tile.googleapis.com. Provide a Google Maps key (Map Tiles API) via
@@ -73,17 +83,30 @@ export function EarthApp() {
   const [spotIdx, setSpotIdx] = useState(0);
   const [weather, setWeather] = useState<Weather>("clear");
   const [ready, setReady] = useState(false);
-  const [tilesProblem, setTilesProblem] = useState(false);
+  const [fault, setFault] = useState<TileFault | null>(null);
+  const [tileCount, setTileCount] = useState(0);
+  const [slow, setSlow] = useState(false);
+  const activity = useTileActivity(mode === "play" && ready);
 
   useEffect(() => installInput(), []);
   useEffect(() => { loadSlice().then(setSlice).catch((e) => console.error(e)); }, []);
-  useEffect(() => { setReady(false); setTilesProblem(false); }, [spotIdx, mode]); // re-gate on teleport
+  useEffect(() => {
+    setReady(false);
+    setFault(null);
+    setTileCount(0);
+    tileCollision.clear();
+  }, [spotIdx, mode]); // re-gate on teleport
   useEffect(() => {
     const order: Weather[] = ["clear", "clear", "cloudy", "rain", "cloudy"];
     let i = 0;
     const id = setInterval(() => { i = (i + 1) % order.length; setWeather(order[i]); }, 45000);
     return () => clearInterval(id);
   }, []);
+  useEffect(() => {
+    setSlow(false);
+    const id = window.setTimeout(() => setSlow(true), 8000);
+    return () => window.clearTimeout(id);
+  }, [spotIdx, mode, apiKey]);
 
   if (!apiKey) return <NoKeyNotice />;
 
@@ -94,7 +117,7 @@ export function EarthApp() {
 
   return (
     <>
-      <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 0, 2e7], near: 0.5, far: 1e8 }}>
+      <Canvas shadows frameloop={activity.loop} dpr={[1, 1.5]} camera={{ position: [0, 0, 2e7], near: 0.5, far: 1e8 }}>
         <ContextGuard />
         <color attach="background" args={[wx.bg]} />
         {mode === "play" && <fog attach="fog" args={[wx.bg, wx.fog[0], wx.fog[1]]} />}
@@ -106,12 +129,26 @@ export function EarthApp() {
         {/* errorTarget: the higher it is, the coarser/faster tiles load. Street-
             level (play) cameras need this raised or the deepest LOD never streams
             in and the ground stays blank. */}
-        <TilesRenderer key={apiKey} errorTarget={32}>
-          <TilesPlugin plugin={GoogleCloudAuthPlugin} args={[{ apiToken: apiKey }]} />
-          {/* BVH-accelerated collision raycasts + bounded tile memory (prevents
-              the street-level hitching and GPU-OOM WebGL context loss). */}
+        <TilesRenderer
+          key={apiKey}
+          enabled={activity.tilesEnabled}
+          errorTarget={TILE_MEMORY.errorTarget}
+          maxDepth={TILE_MEMORY.maxDepth}
+        >
+          <GoogleTilesAuth apiToken={apiKey} onFault={(next) => {
+            setFault((cur) => {
+              const merged = mergeFault(cur, next);
+              return faultsMatch(cur, merged) ? cur : merged;
+            });
+          }} />
+          {/* BVH-accelerated collision raycasts + bounded tile memory. */}
           <TilesBVH />
-          <TilesDiag onMissing={() => setTilesProblem(true)} onOk={() => setTilesProblem(false)} />
+          <TilesDiag onFault={(next) => {
+            setFault((cur) => {
+              const merged = mergeFault(cur, next);
+              return faultsMatch(cur, merged) ? cur : merged;
+            });
+          }} onCount={(n) => setTileCount((cur) => (cur === n ? cur : n))} />
 
           {mode === "orbit" ? (
             <>
@@ -142,36 +179,66 @@ export function EarthApp() {
         weather={weather}
       />
       <Radio />
-      {mode === "play" && !ready && !tilesProblem && <Loading />}
-      {tilesProblem && <TilesProblem />}
+      {mode === "play" && !ready && !(fault && faultBlocksView(fault, tileCount)) && (slow ? <SlowTiles /> : <Loading />)}
+      {fault && faultBlocksView(fault, tileCount) && <TilesFault fault={fault} />}
     </>
   );
 }
 
-// Watches the tile renderer: logs load errors and, if no tiles have appeared
-// after a grace period, flags a likely key/quota/billing problem (vs. our code).
-function TilesDiag({ onMissing, onOk }: { onMissing: () => void; onOk: () => void }) {
+// Watches tile load errors and how many tile nodes have attached. HTTP status
+// is classified by GoogleTilesAuth's fetch observer; this listener covers
+// failures that surface only as a tiles-renderer event. The raw error is not
+// logged here (it can embed the request URL).
+function TilesDiag({ onFault, onCount }: { onFault: (fault: TileFault) => void; onCount: (n: number) => void }) {
   const tiles = useContext(TilesRendererContext);
+  const faultRef = useRef(onFault);
+  const countRef = useRef(onCount);
+  faultRef.current = onFault;
+  countRef.current = onCount;
   useEffect(() => {
     if (!tiles) return;
-    const t = tiles as unknown as { group?: { children?: unknown[] }; addEventListener: (k: string, f: (e: unknown) => void) => void; removeEventListener: (k: string, f: (e: unknown) => void) => void };
-    const onErr = (e: unknown) => console.warn("[tiles] load-error:", (e as { error?: unknown })?.error ?? e);
+    const seen = new Set<string>();
+    const t = tiles as unknown as {
+      group?: { children?: unknown[] };
+      addEventListener: (k: string, f: (e: unknown) => void) => void;
+      removeEventListener: (k: string, f: (e: unknown) => void) => void;
+    };
+    const onErr = (event: unknown) => {
+      const next = classifyTileEvent(event);
+      const key = `${next.kind}:${next.status ?? ""}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        console.warn(`[tiles] ${next.kind}${next.status ? ` ${next.status}` : ""}`);
+      }
+      faultRef.current(next);
+    };
     t.addEventListener("load-error", onErr);
     const id = window.setInterval(() => {
-      const n = t.group?.children?.length ?? 0;
-      if (n > 0) { onOk(); } else { onMissing(); }
-    }, 6000);
+      countRef.current(t.group?.children?.length ?? 0);
+    }, 1000);
     return () => { t.removeEventListener("load-error", onErr); clearInterval(id); };
-  }, [tiles, onMissing, onOk]);
+  }, [tiles]);
   return null;
 }
 
-function TilesProblem() {
+function TilesFault({ fault }: { fault: TileFault }) {
+  const copy = faultCopy(fault);
   return (
-    <div style={{ position: "fixed", left: "50%", bottom: 24, transform: "translateX(-50%)", zIndex: 5, maxWidth: 460, background: "rgba(40,10,10,.9)", border: "1px solid #7a2c2c", borderRadius: 8, padding: "10px 14px", color: "#ffd9d9", font: "12px/1.5 'Courier New', monospace", textAlign: "center" }}>
-      <b>Photoreal tiles aren't loading.</b> The map data isn't coming back from Google —
-      almost always the API key: Map Tiles API not enabled, billing off, or over quota.
-      Check the key in Google Cloud, then reload. (Movement still works; you're just on an empty surface.)
+    <div style={{ position: "fixed", left: "50%", bottom: 24, transform: "translateX(-50%)", zIndex: 5, maxWidth: 480, background: "rgba(40,10,10,.92)", border: "1px solid #7a2c2c", borderRadius: 8, padding: "10px 14px", color: "#ffd9d9", font: "12px/1.5 'Courier New', monospace", textAlign: "center", pointerEvents: "auto" }}>
+      <b>{copy.title}.</b> {copy.body}
+      <div style={{ marginTop: 8 }}>
+        <a href="./index.html" style={{ color: "#7ad9ff" }}>Waterfront study</a>
+      </div>
+    </div>
+  );
+}
+
+function SlowTiles() {
+  return (
+    <div style={{ position: "fixed", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+      <div style={{ background: "rgba(5,7,13,.82)", border: "1px solid #2c3a5e", borderRadius: 10, padding: "16px 22px", color: "#e7e0ff", font: "14px 'Courier New', monospace", maxWidth: 420, textAlign: "center" }}>
+        Still waiting on photoreal tiles. The link may be slow, or the request may be blocked. Movement stays available.
+      </div>
     </div>
   );
 }

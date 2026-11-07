@@ -18,10 +18,15 @@ const _up = new THREE.Vector3();
 const _a = new THREE.Vector3();
 const _b = new THREE.Vector3();
 const _c = new THREE.Vector3();
-// Scratch for followCam so the chase camera doesn't allocate two Vector3s per
-// frame (it runs every frame in the photoreal build's hot loop).
+const _zero = new THREE.Vector3();
+// Scratch for cameras and probes. Callers use the results immediately; nothing
+// here may be stored across a later call into this module.
 const _off = new THREE.Vector3();
 const _look = new THREE.Vector3();
+const _eye = new THREE.Vector3();
+const _ahead = new THREE.Vector3();
+const _ov = new THREE.Vector3();
+const _ov2 = new THREE.Vector3();
 
 /** ENU "up" direction in world space, from the content group's orientation.
  *  Returns a shared scratch vector — use it immediately, don't store across frames. */
@@ -41,10 +46,15 @@ export function groundY(
   up: THREE.Vector3,
 ): number | null {
   if (!group) return null;
+  const prevFar = ray.far;
   parent.localToWorld(_a.set(x, 0, z));
   ray.set(_a.addScaledVector(up, 180), _b.copy(up).negate());
   (ray as RayBVH).firstHitOnly = true;
+  // 180 m above the query, plus margin. A finite far keeps a shared raycaster
+  // from walking the whole tile tree when a BVH is missing.
+  ray.far = 400;
   const hits = ray.intersectObject(group, true);
+  ray.far = prevFar;
   return hits.length ? parent.worldToLocal(_c.copy(hits[0].point)).y : null;
 }
 
@@ -96,6 +106,70 @@ export function followCam(
   camera.position.lerp(camW, t);
   const look = parent.localToWorld(_look.copy(posLocal).add(_a.set(0, 1.4, 0)));
   camera.lookAt(look);
+}
+
+/** First-person camera in content space. Uses scratch vectors; `posLocal` is not mutated. */
+export function firstPerson(
+  camera: THREE.Camera,
+  parent: THREE.Object3D,
+  up: THREE.Vector3,
+  posLocal: THREE.Vector3,
+  heading: number,
+  eye: number,
+) {
+  _ahead.set(Math.sin(heading), 0, Math.cos(heading));
+  camera.up.copy(up);
+  camera.position.copy(parent.localToWorld(_eye.copy(posLocal).setY(posLocal.y + eye)));
+  parent.localToWorld(_look.copy(posLocal).setY(posLocal.y + eye).addScaledVector(_ahead, 12));
+  camera.lookAt(_look);
+}
+
+/** Hold the spawn camera above the street until a ground sample exists. */
+export function placeOverviewCamera(
+  camera: THREE.Camera,
+  parent: THREE.Object3D,
+  up: THREE.Vector3,
+  x: number,
+  z: number,
+) {
+  camera.up.copy(up);
+  camera.position.copy(parent.localToWorld(_ov.set(x, 90, z + 1)));
+  camera.lookAt(parent.localToWorld(_ov2.set(x, 0, z)));
+}
+
+/** Planar separation in the xz content plane, written into `out`. */
+export function awayInto(out: THREE.Vector3, a: THREE.Vector3, b: THREE.Vector3): THREE.Vector3 {
+  out.set(a.x - b.x, 0, a.z - b.z);
+  return out.lengthSq() > 1e-6 ? out.normalize() : out.set(1, 0, 0);
+}
+
+/** Point and forward tangent at distance `d` along a polyline. Writes `point` and `dir`. */
+export function sampleRoute(
+  pts: THREE.Vector3[],
+  total: number,
+  distance: number,
+  point: THREE.Vector3,
+  dir: THREE.Vector3,
+): void {
+  if (pts.length < 2) {
+    point.copy(pts[0] ?? _zero);
+    dir.set(0, 0, 1);
+    return;
+  }
+  let acc = 0;
+  const d = Math.max(0, Math.min(distance, total));
+  for (let i = 0; i < pts.length - 1; i++) {
+    const seg = pts[i].distanceTo(pts[i + 1]);
+    if (acc + seg >= d || i === pts.length - 2) {
+      const t = seg > 1e-4 ? THREE.MathUtils.clamp((d - acc) / seg, 0, 1) : 0;
+      point.lerpVectors(pts[i], pts[i + 1], t);
+      dir.subVectors(pts[i + 1], pts[i]);
+      if (dir.lengthSq() > 1e-8) dir.normalize();
+      else dir.set(0, 0, 1);
+      return;
+    }
+    acc += seg;
+  }
 }
 
 /** A street point near Seamen's Bethel to spawn on, facing the chapel. */
