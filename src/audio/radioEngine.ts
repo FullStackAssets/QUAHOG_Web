@@ -6,6 +6,8 @@
 import { speak, stopVO } from "./vo";
 import { useStats } from "../game";
 import { useGame } from "../store";
+import { loadJSON, saveJSON } from "../storage";
+import { SAVE_KEYS } from "../registries";
 
 export interface Host {
   name: string;
@@ -404,6 +406,14 @@ class RadioEngine {
     this.loadJingles(s);
     // talk stations start talking almost immediately; music stations after a bed
     this.scheduleTalk(s.kind === "talk" ? 600 : s.talkGapMs);
+    // Persist dial choice for Continue (§11.2).
+    try { saveJSON(SAVE_KEYS.radio, { station: s.id }); } catch { /* ignore */ }
+  }
+
+  /** Restore last station id without starting audio (call from GameSystems). */
+  restoreStationId(): string | null {
+    const raw = loadJSON<{ station?: string } | null>(SAVE_KEYS.radio, null);
+    return raw?.station ?? null;
   }
 
   // Station jingles/bumpers (public/music/<id>/jingles/) played between segments.

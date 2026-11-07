@@ -8,7 +8,7 @@ import { shared, addShake, addImpact } from "../shared";
 import { useGame, useToasts } from "../store";
 import { useStats } from "../game";
 import { sfx } from "../audio/sfx";
-import { MOBILE_TUNING, stepVehicleDynamics } from "../sim";
+import { MOBILE_TUNING, stepVehicleDynamics, sim } from "../sim";
 import { exitCar } from "../sim/VehicleState";
 
 // Arcade tuning lives in src/sim/VehicleDynamics (iPhone-leaning defaults).
@@ -56,6 +56,8 @@ export function Car() {
       { yaw: yaw0, speed: vForward, skidding: false },
       { steer: ax.x, throttle: ax.y, handbrake },
       dt,
+      MOBILE_TUNING,
+      sim.clock.friction("asphalt"),
     );
     const yaw = stepped.yaw;
     let nf = stepped.speed;

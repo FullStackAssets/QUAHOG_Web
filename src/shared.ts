@@ -95,6 +95,8 @@ export const shared = {
   shake: 0,
   /** Sprint stamina 0..100 (on foot). */
   stamina: 100,
+  /** Last radio station id for Continue restore. */
+  lastRadioStation: null as string | null,
   /** Threat that scatters nearby pedestrians (gunfire/violence). */
   alarm: { pos: new THREE.Vector3(), t: 0 } as Alarm,
   /** Pending impact bursts (blood/dust) drained by the particle renderer. */

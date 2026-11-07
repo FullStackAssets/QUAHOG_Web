@@ -38,8 +38,11 @@ export {
   loadUnified,
   clearAllSaves,
   validateSave,
+  collectLegacySave,
   SCHEMA_VERSION,
 } from "./SaveGame";
+export { runAllStages, allStagesGreen } from "./AcceptanceHarness";
+export type { StageResult } from "./AcceptanceHarness";
 export { ObjectiveNav } from "./ObjectiveNav";
 export { CameraRig } from "./CameraRig";
 export { stepVehicleDynamics, forwardFromYaw, MOBILE_TUNING } from "./VehicleDynamics";

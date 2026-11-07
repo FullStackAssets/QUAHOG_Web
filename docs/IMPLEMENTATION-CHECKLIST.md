@@ -32,6 +32,7 @@ Status: `[ ]` not started · `[~]` partial · `[x]` done
 8. [~] §3.2 heat tiers + §5.2 ammo/inventory persistence
 9. [x] §2.11 earth demoted to diagnostic (`docs/EARTH-DECISION.md`)
 10. [~] §1.4 ClockWeather + fog cycle; §9.2 spatial audio stub
-11. [ ] §7.3 Cape/FR content · §15 matrix · release checklist ← remaining to M8
+11. [~] §15 AcceptanceHarness stages 0–7 green; §17 release checklist drafted
+12. [ ] §7.3 Cape/FR authored tiles — **blocked** (see `CONTENT-CAPE-FR.md`) ← remaining content gate for full campaign
 
 See V3 for full contracts, test matrices, and the dependency DAG.

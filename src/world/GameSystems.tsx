@@ -12,6 +12,7 @@ import { radio } from "../audio/radioEngine";
 import { loadJSON, saveJSON } from "../storage";
 import { useMission } from "../mission";
 import { useInventory } from "../inventory";
+import { useRace } from "../race";
 import { SAVE_KEYS } from "../registries";
 import { saveUnified } from "../sim/SaveGame";
 import { sim } from "../sim/SimRuntime";
@@ -96,7 +97,10 @@ export function GameSystems() {
     useEconomy.getState().load();
     useMission.getState().load();
     useInventory.getState().load();
+    useRace.getState().load();
     sfx.startAmbience();
+    // Remember last dial id for Continue (panel re-selects on open).
+    shared.lastRadioStation = radio.restoreStationId();
     // restore settings (§26)
     {
       const s = loadJSON<Record<string, unknown>>(SAVE_KEYS.settings, {});
